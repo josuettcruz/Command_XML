@@ -32,11 +32,12 @@ public class Data {
             
         }catch(Exception e){
             
+            this.data = LocalDate.now();
             this.error = e.getMessage();
             
         }
         
-    }
+    }//Data(int a, int m, int d)
     
     public Data(LocalDate data){
         

@@ -13,6 +13,82 @@ import model.*;
  */
 public class init {
     
+    private static String Tem(String text, boolean commit){
+        
+        final var cod = commit ? "'" : "\"";
+        
+        final var t = txt.text(text, true);
+        
+        var tem = "";
+        
+        var val_quot = true;
+        var val_bar = true;
+        var val_line = true;
+        
+        for(int i = 0; i < t.length(); i++){
+            
+            switch(t.charAt(i)){
+                
+                case '"', '\'' -> {
+                    
+                    if(val_quot){
+                        
+                        tem += commit ? "'" : "\"";
+                        val_quot = false;
+                        
+                    }//if(val)
+                    
+                    val_bar = true;
+                    val_line = true;
+                    
+                }//cases
+                
+                case '\\', '/' -> {
+                    
+                    if(val_bar){
+                        
+                        tem += "/";
+                        val_bar = false;
+                        
+                    }//if(val)
+                    
+                    val_quot = true;
+                    val_line = true;
+                    
+                }//case '\\', '/'
+                
+                case '\n' -> {
+                    
+                    if(val_line){
+                        
+                        tem += commit ? " - " : "\n";
+                        val_line = false;
+                        
+                    }//if(val)
+                    
+                    val_quot = true;
+                    val_bar = true;
+                    
+                }//case '\\', '/'
+                
+                default -> {
+                    
+                    tem += t.charAt(i);
+                    
+                    val_quot = true;
+                    val_bar = true;
+                    val_line = true;
+                    
+                }//default
+                
+            }
+            
+        }
+        
+        return tem;
+        
+    }//Tem(String text)
+    
     public static void Print(){
         
         Reg.Print(new Hora(true).TimerGood(true), new Data().DataAbreviada(true));
@@ -72,57 +148,34 @@ public class init {
         
         if(enter){
             
-            Read evt = new Arq(nome).Read();
+            Arq event = new Arq(nome);
+            
+            Read evt = event.Read();
             
             if(evt.Max() > 0){
                 
                 var git = "git commit -m \"";
                 git += new Data().DataAbreviada(true);
                 git += " - ";
+                git += new Hora(false).TimerGood(true);
+                git += " - ";
                 
-                if(evt.Max() == 1){
-                    
-                    git += txt.text(evt.Read(), true).replace("\"", "'");
-                    
-                } else {//if(evt.Max() == 1)
-                    
-                    var sum = 1;
-                    var loop = true;
-                    
-                    do{
-                        
-                        var node = txt.text(evt.Read(sum), true);
-                        
-                        if(!node.isBlank()){
-                            
-                            git += node.replace("\"", "'");
-                            
-                            new Arq(nome).Save(node.replace("\"", "'"));
-                            
-                            loop = false;
-                            
-                        }//if(!node.isBlank())
-                        
-                        sum++;
-                        
-                    }while(sum > 1 && sum <= evt.Max() && loop);
-                    
-                }//if(evt.Max() == 1)
+                git += Tem(evt.Read(),true);
+                event.Save(Tem(evt.Read(),false));
                 
                 git += "\"";
                 
                 Reg.coppy(git);
                 
-                System.out.println(git);
-;                
+                System.out.println(git);   
                 
-            } else {
+            } else {//if(evt.Max() > 0)
                 
                 System.err.print("Arquivo: \"" );
                 System.err.print(nome.replace("..\\", ""));
                 System.err.print("Arquivo: \"" );
                 
-            }
+            }//if(evt.Max() > 0)
             
         } else {//if(enter)
             
