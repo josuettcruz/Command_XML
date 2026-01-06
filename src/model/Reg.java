@@ -25,9 +25,9 @@ public class Reg {
     
     public final static String choose = "Java Application";
     
-    public final static Data create = new Data(LocalDate.of(2025,10,27));
+    public final static Data create = new Data(2025,10,27);
     
-    public final static Data modify = new Data(LocalDate.of(2026,1,6));
+    public final static Data modify = new Data(2026,1,6);
     
     private final static int result = 28;
     
