@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import model.txt;
+
 /**
  *
  * @author josue
@@ -314,11 +316,7 @@ public class Arq {
     
     public Read Read(){
         
-        if(this.valid && this.create){
-            
-            return new Read(this.arq);
-            
-        } else if(this.valid){
+        if(this.valid){
             
             return new Read(this.text, this.arq);
             
@@ -381,5 +379,46 @@ public class Arq {
         return new File(diretory).exists();
         
     }//Exist(String diretory)
+    
+    public static List<String> Folder(String diretory){
+        
+        var ds = new File(diretory).getAbsolutePath();
+        
+        List<String> dir = new ArrayList();
+        
+        var name = "";
+        
+        for(int d = 0;d < ds.length();d++){
+            
+            switch(ds.charAt(d)){
+                
+                case '\\', '/' -> {
+                    
+                    if(!name.isBlank()){
+                        
+                        dir.add(name);
+                        name = "";
+                        
+                    }//if(!txt.isBlank())
+                    
+                }//cases
+                
+                default -> name += ds.charAt(d);
+                
+            }//switch(ds.charAt(d))
+            
+        }//for(int d = 0;d < ds.length();d++)
+        
+        if(!name.isBlank()) dir.add(name);
+        
+        return dir;
+        
+    }//Folder(String diretory)
+    
+    public static String Files(String diretory){
+        
+        return new File(diretory).getAbsolutePath();
+        
+    }//Files(String diretory)
     
 }

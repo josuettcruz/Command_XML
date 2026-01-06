@@ -17,9 +17,17 @@ import java.awt.datatransfer.StringSelection;
  */
 public class Reg {
     
+    public final static String http = "https://github.com/josuettcruz/Command_XML";
+    
+    public final static String ide = "Apache NetBeans IDE 27";
+    
+    public final static String categories = "Java with Ant";
+    
+    public final static String choose = "Java Application";
+    
     public final static Data create = new Data(LocalDate.of(2025,10,27));
     
-    public final static Data modify = new Data(LocalDate.of(2026,1,4));
+    public final static Data modify = new Data(LocalDate.of(2026,1,6));
     
     private final static int result = 28;
     

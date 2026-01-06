@@ -18,16 +18,6 @@ public class Read {
     List<String> text;
     boolean exec;
     
-    public Read(String arq){
-        
-        this.text = new ArrayList();
-        
-        this.text.add(arq);
-        
-        this.exec = false;
-        
-    }//Read(String text)
-    
     public Read(List <String> read, String arq){
         
         if(read.isEmpty()){

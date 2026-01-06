@@ -86,67 +86,6 @@ public class txt {
         
     }//text(String text, boolean remove_char)
     
-    public static List<String> text(String text){
-        
-        List<String> return_txt = new ArrayList();
-        
-        String txt = "";
-        
-        var space = false;
-        var digit = false;
-        
-        for(int i = 0; i < text.length(); i++){
-            
-            switch(text.charAt(i)){
-                
-                case ' ' ->{
-                    
-                    if(digit)
-                    space = true;
-                    
-                }//case ' '
-                
-                case '\n' ->{
-                    
-                    if(digit){
-                        
-                        return_txt.add(txt);
-                        txt = "";
-                        digit = false;
-                        
-                    }
-                    
-                }//case '\n'
-                
-                default -> {
-                    
-                    if(space){
-                        
-                        txt += " ";
-                        
-                    }//if(space)
-                    
-                    txt += text.charAt(i);
-                    
-                    digit = true;
-                    space = false;
-                    
-                }//default
-                
-            }//switch(text.charAt(i))
-            
-        }//for(int i = 0; i < text.length(); i++)
-        
-        if(digit){
-            
-            return_txt.add(txt);
-            
-        }
-        
-        return return_txt;
-        
-    }//text(String text)
-    
     public static List<String> phrase(String text, boolean remove_char){
         
         List<String> tem = new ArrayList();
@@ -599,5 +538,90 @@ public class txt {
         }
         
     }//min(String text,String less_than)
+    
+    public static String Local(String loc){
+        
+        var txt = "";
+        var i = 0;
+        var l = 0;
+        var val = true;
+        var space = false;
+        
+        do{
+            
+            switch(loc.charAt(i)){
+                
+                case ' ' ->{
+                    
+                    if(i > 0 && !txt.isBlank()){
+                        
+                        space = true;
+                        
+                    }//if(i > 0 && !txt.isBlank())
+                    
+                }//case ' '
+                
+                case '\n',
+                     '\f',
+                     '\t',
+                     '\\',
+                     '|',
+                     '/',
+                     ':',
+                     '<',
+                     '>',
+                     '{',
+                     '}',
+                     '[',
+                     ']',
+                     'ª',
+                     'º',
+                     '\'',
+                     '"' -> {
+                    
+                    if(l >= 2){
+                        
+                        val = false;
+                        
+                    } else {//if(txt.length() >= 2)
+                        
+                        txt += "_";
+                        
+                    }//if(txt.length() >= 2)
+                    
+                }//cases
+                
+                default ->{
+                    
+                    l++;
+                    
+                    if(space){
+                        
+                        txt += " ";
+                        space = false;
+                        
+                    }//if(space)
+                    
+                    txt += loc.charAt(i);
+                    
+                }//default
+                
+            }//switch(loc.charAt(i))
+            
+            i++;
+            
+        }while(i > 0 && i < loc.length() && val);
+        
+        if(i >= 2 && i <= 10 && l > 1){
+            
+            return txt;
+            
+        } else {//if(i >= 2)
+            
+            return "run";
+            
+        }//if(i >= 2)
+        
+    }//Local(String loc)
     
 }

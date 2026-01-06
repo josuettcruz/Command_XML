@@ -4,6 +4,7 @@
  */
 package model;
 import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -18,6 +19,22 @@ public class Data {
         
         this.data = LocalDate.now();
         this.error = "";
+        
+    }
+    
+    public Data(int a, int m, int d){
+        
+        try{
+            
+            this.data = LocalDate.of(a, m, d);
+            
+            this.error = "";
+            
+        }catch(Exception e){
+            
+            this.error = e.getMessage();
+            
+        }
         
     }
     
@@ -582,7 +599,7 @@ public class Data {
             
         }else{//if(code)
             
-            return this.CompareDay() <= d.CompareDay();
+            return this.CompareDay() < d.CompareDay();
             
         }//if(code)
         
@@ -610,7 +627,7 @@ public class Data {
             
         }else{//if(code)
             
-            return this.CompareTo() <= d.CompareTo();
+            return this.CompareTo() < d.CompareTo();
             
         }//if(code)
         

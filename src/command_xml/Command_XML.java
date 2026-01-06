@@ -12,7 +12,7 @@ public class Command_XML {
     
     public static void main(String[] args) {
         
-        init.LocalUser();
+        init.Exec();
         
     }//main(String[] args)
     
