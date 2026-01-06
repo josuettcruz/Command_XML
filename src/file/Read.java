@@ -15,8 +15,8 @@ import model.Reg;
  */
 public class Read {
     
-    List<String> text;
-    boolean exec;
+    private List<String> text;
+    private boolean exec;
     
     public Read(List <String> read, String arq){
         
@@ -24,7 +24,6 @@ public class Read {
             
             this.text = new ArrayList();
             this.text.add(arq);
-            
             this.exec = false;
             
         } else {//if(read.isEmpty())
@@ -39,10 +38,8 @@ public class Read {
     public Read(String type, String msg){
         
         this.text = new ArrayList();
-        
         this.text.add(type);
         this.text.add(msg);
-        
         this.exec = false;
         
     }//Read(String type, String msg)
@@ -96,22 +93,14 @@ public class Read {
     
     public int Max(){
         
-        return this.text.isEmpty() ? 0 : this.text.size();
+        return this.text.isEmpty() ? -1 : this.text.size();
         
     }//Max()
     
-    public boolean Val(boolean contains_text){
+    public boolean Val(){
         
-        if(contains_text && this.text.isEmpty()){
-            
-            return false;
-            
-        } else {//if(contains_text && this.text.isEmpty())
-            
-            return this.exec;
-            
-        }//if(contains_text && this.text.isEmpty())
+        return this.exec;
         
-    }//Val(boolean contains_text)
+    }//Val()
     
 }

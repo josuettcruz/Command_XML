@@ -12,8 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-import model.txt;
-
 /**
  *
  * @author josue
@@ -320,11 +318,11 @@ public class Arq {
             
             return new Read(this.text, this.arq);
             
-        } else {
+        } else {//if(this.valid)
             
             return new Read(this.type, this.message);
             
-        }
+        }//if(this.valid)
         
     }//Read()
     

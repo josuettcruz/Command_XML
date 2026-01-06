@@ -15,8 +15,6 @@ public class init {
     
     private static String Tem(String text, boolean commit){
         
-        final var cod = commit ? "'" : "\"";
-        
         final var t = txt.text(text, true);
         
         var tem = "";
@@ -81,11 +79,11 @@ public class init {
                     
                 }//default
                 
-            }
+            }//switch(t.charAt(i))
             
-        }
+        }//for(int i = 0; i < t.length(); i++)
         
-        return tem;
+        return commit ? tem : tem.replace(" - ", "\n");
         
     }//Tem(String text)
     
@@ -99,7 +97,7 @@ public class init {
     
     public static void Exec(){
         
-        if(new Data().CompareTo(new Data(2026,1,6))){
+        if(new Data().CompareTo(Reg.modify)){
             
             Exec_2026_01_06();
             
@@ -113,69 +111,51 @@ public class init {
     
     private static void Exec_2026_01_06(){
         
+        final String[] arqv = {
+            "info",
+            "title",
+            "code"
+        };
+        
         var nome = "";
-        var enter = true;
+        var ss = 0;
         
-        if(Arq.Exist("..\\info.txt")){
+        do{
             
-            nome = "..\\info.txt";
+            var ini = "..\\";
+            ini += arqv[ss];
+            ini += ".txt";
             
-        } else if(Arq.Exist("..\\title.txt")){
+            if(Arq.Exist(ini)) nome = ini;
             
-            nome = "..\\title.txt";
+            var ine = "..\\";
+            ine += ini;
             
-        } else if(Arq.Exist("..\\code.txt")){
+            if(Arq.Exist(ine)) nome = ine;
             
-            nome = "..\\code.txt";
+            ss++;
             
-        } else if(Arq.Exist("..\\..\\info.txt")){
-            
-            nome = "..\\..\\info.txt";
-            
-        } else if(Arq.Exist("..\\..\\title.txt")){
-            
-            nome = "..\\..\\title.txt";
-            
-        } else if(Arq.Exist("..\\..\\code.txt")){
-            
-            nome = "..\\..\\code.txt";
-            
-        } else {
-            
-            enter = false;
-            
-        }
+        }while(ss > 0 && ss < arqv.length && nome.isBlank());
         
-        if(enter){
+        
+        if(!nome.isBlank()){
             
-            Arq event = new Arq(nome);
+            Arq evt = new Arq(nome);
             
-            Read evt = event.Read();
+            var git = "git commit -m \"";
+            git += new Data().DataAbreviada(true);
+            git += " - ";
+            git += new Hora(false).TimerGood(true);
+            git += " - ";
             
-            if(evt.Max() > 0){
-                
-                var git = "git commit -m \"";
-                git += new Data().DataAbreviada(true);
-                git += " - ";
-                git += new Hora(false).TimerGood(true);
-                git += " - ";
-                
-                git += Tem(evt.Read(),true);
-                event.Save(Tem(evt.Read(),false));
-                
-                git += "\"";
-                
-                Reg.coppy(git);
-                
-                System.out.println(git);   
-                
-            } else {//if(evt.Max() > 0)
-                
-                System.err.print("Arquivo: \"" );
-                System.err.print(nome.replace("..\\", ""));
-                System.err.print("Arquivo: \"" );
-                
-            }//if(evt.Max() > 0)
+            git += Tem(evt.Read().Read(),true);
+            evt.Save(Tem(evt.Read().Read(),false));
+            
+            git += "\"";
+            
+            Reg.coppy(git);
+            
+            System.out.println(git);
             
         } else {//if(enter)
             
