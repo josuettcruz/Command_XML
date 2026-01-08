@@ -17,6 +17,34 @@ import java.util.List;
  */
 public class init {
     
+    public static void Exec(){
+        
+        if(new Data().CompareTo(Reg.modify)){
+            
+            gitCommit();
+            
+        } else {//if(new Data().CompareTo(Reg.modify))
+            
+            for(String p : Print()) System.out.println(p);
+            
+        }//if(new Data().CompareTo(Reg.modify))
+        
+    }//Exec()
+    
+    public static List<String> Print(){
+        
+        final var tab = 39;
+        
+        List<String> println = new ArrayList();
+        
+        println.add(Reg.Tab("run: " + new Hora(true).TimerGood(true), new Data().DataAbreviada(true),tab));
+        println.add(Reg.Tab("run: " + Reg.categories, Reg.choose,tab));
+        println.add(Reg.Tab("run: " + Reg.ide, Reg.http,tab));
+        
+        return println;
+        
+    }//Print()
+    
     private static String Tem(String text, boolean commit){
         
         List<String> insert = new ArrayList();
@@ -39,14 +67,14 @@ public class init {
         
         var line = false;
         
-        var end = false;
+        var quot_end_line = false;
         
         for(String t : insert){
             
-            if(end){
+            if(quot_end_line){
                 
-                tem += commit ? " - " : "\n";
-                end = false;
+                tem += commit ? "'" : "\"";
+                quot_end_line = false;
                 
             }//if(end)
             
@@ -54,11 +82,11 @@ public class init {
                 
                 tem += commit ? " - " : "\n";
                 
-            } else {
+            } else {//if(line)
                 
                 line = true;
                 
-            }
+            }//if(line)
             
             var quot = true;
             
@@ -70,18 +98,10 @@ public class init {
                         
                         if(quot){
                             
+                            quot_end_line = !quot_end_line;
+                            
                             tem += commit ? "'" : "\"";
                             quot = false;
-                            
-                            if(end){
-                                
-                                end = false;
-                                
-                            } else {
-                                
-                                end = true;
-                                
-                            }
                             
                         }//if(val)
                         
@@ -107,29 +127,7 @@ public class init {
         
     }//Tem(String text)
     
-    public static void Print(){
-        
-        Reg.Print(new Hora(true).TimerGood(true), new Data().DataAbreviada(true));
-        Reg.Print(Reg.categories, Reg.choose);
-        Reg.Print(Reg.ide, Reg.http);
-        
-    }//Print()
-    
-    public static void Exec(){
-        
-        if(new Data().CompareTo(Reg.modify)){
-            
-            ExecPrimary();
-            
-        } else {
-            
-            Print();
-            
-        }
-        
-    }//Exec()
-    
-    private static void ExecPrimary(){
+    private static void gitCommit(){
         
         final String[] arqv = {
             "info",
@@ -157,8 +155,11 @@ public class init {
             
         }while(ss > 0 && ss < arqv.length && nome.isBlank());
         
-        
-        if(!nome.isBlank()){
+        if(nome.isBlank()){
+            
+            for(String err : Print()) System.err.println(err);
+            
+        } else {//if(nome.isBlank())
             
             Arq evt = new Arq(nome);
             
@@ -175,15 +176,23 @@ public class init {
             
             Reg.coppy(git);
             
+            var page = Tem(evt.Read().Read(),false).split("\n")[0];
+            var page_char = page.charAt(page.length()-1);
+            
+            var page_int = page.length();
+            
+            if(page_char == '"') page_int--;
+            
+            Reg.Print(
+                    new Data().DataAbreviada(true),
+                    new Hora(true).TimerGood(true),
+                    page_int
+            );
+            
             for(String p : Tem(evt.Read().Read(),false).split("\n")) System.out.println(p);
             
-        } else {//if(enter)
-            
-            Print();
-            
-        }//if(enter)
+        }//if(enter)if(nome.isBlank())
         
-    }//Exec_2026_01_06()
-        
+    }//gitCommit()
     
 }
