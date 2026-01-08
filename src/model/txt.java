@@ -99,12 +99,11 @@ public class txt {
             
             switch(text.charAt(i)){
                 
-                case ' ' ->{
+                case ' ', '\t', '\f' ->{
                     
-                    if(digit)
-                    space = true;
+                    if(digit) space = true;
                     
-                }//case ' '
+                }//case ' ', '\t', '\f'
                 
                 case '\n' ->{
                     
@@ -114,7 +113,7 @@ public class txt {
                         txt = "";
                         digit = false;
                         
-                    }
+                    }//if(digit)
                     
                 }//case '\n'
                 
@@ -137,11 +136,7 @@ public class txt {
             
         }//for(int i = 0; i < text.length(); i++)
         
-        if(digit){
-            
-            return_txt.add(txt);
-            
-        }
+        if(digit) return_txt.add(txt); 
         
         return return_txt;
         
@@ -161,7 +156,7 @@ public class txt {
             
             switch(text.charAt(z)){
                 
-                case ' ' ->{
+                case '\n', ' ' ->{
                     
                     if(space){
                         
@@ -171,19 +166,7 @@ public class txt {
                         
                     }//if(space)
                     
-                }//case ' '
-                
-                case '\n' ->{
-                    
-                    if(space){
-                        
-                        tem.add(txt);
-                        txt = "";
-                        space = false;
-                        
-                    }//if(space)
-                    
-                }//case '\n'
+                }//case '\n', ' '
                 
                 case '\t', '\f' ->{
                     
@@ -219,11 +202,7 @@ public class txt {
             
         }while(z > 0 && z < text.length() && loop); 
         
-        if(space){
-            
-            tem.add(txt);
-            
-        }
+        if(space) tem.add(txt);
         
         return tem;
         
@@ -292,13 +271,15 @@ public class txt {
     public static String title(String text, boolean remove_char){
         
         String[] articles = {
-            "ao",
-            "aos",
-            "às",
+            "com",
+            "sem",
+            "se",
             "sim",
             "não",
             "nao",
-            "com",
+            "ao",
+            "aos",
+            "às",
             "no",
             "na",
             "nos",
@@ -466,11 +447,8 @@ public class txt {
                          '}',
                          '(',
                          ')',
-                         '"' -> {
-                        
-                        caracter = true;
-                        
-                    }//cases
+                         '"',
+                         '_' -> caracter = true;
                     
                     default -> {
                         
