@@ -7,6 +7,10 @@ package command_xml;
 import file.*;
 import model.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author josue
@@ -15,75 +19,91 @@ public class init {
     
     private static String Tem(String text, boolean commit){
         
-        final var t = txt.text(text, true);
+        List<String> insert = new ArrayList();
+        
+        for(String ins : txt.text(text)){
+            
+            if(ins.contains(" - ")){
+                
+                insert.addAll(Arrays.asList(ins.split(" - ")));
+                
+            } else {//if(ins.contains(" - "))
+                
+                insert.add(ins);
+                
+            }//if(ins.contains(" - "))
+            
+        }//for(String ins : txt.text(text))
         
         var tem = "";
         
-        var val_quot = true;
-        var val_bar = true;
-        var val_line = true;
+        var line = false;
         
-        for(int i = 0; i < t.length(); i++){
-            
-            switch(t.charAt(i)){
-                
-                case '"', '\'' -> {
-                    
-                    if(val_quot){
-                        
-                        tem += commit ? "'" : "\"";
-                        val_quot = false;
-                        
-                    }//if(val)
-                    
-                    val_bar = true;
-                    val_line = true;
-                    
-                }//cases
-                
-                case '\\', '/' -> {
-                    
-                    if(val_bar){
-                        
-                        tem += "/";
-                        val_bar = false;
-                        
-                    }//if(val)
-                    
-                    val_quot = true;
-                    val_line = true;
-                    
-                }//case '\\', '/'
-                
-                case '\n' -> {
-                    
-                    if(val_line){
-                        
-                        tem += commit ? " - " : "\n";
-                        val_line = false;
-                        
-                    }//if(val)
-                    
-                    val_quot = true;
-                    val_bar = true;
-                    
-                }//case '\\', '/'
-                
-                default -> {
-                    
-                    tem += t.charAt(i);
-                    
-                    val_quot = true;
-                    val_bar = true;
-                    val_line = true;
-                    
-                }//default
-                
-            }//switch(t.charAt(i))
-            
-        }//for(int i = 0; i < t.length(); i++)
+        var end = false;
         
-        return commit ? tem : tem.replace(" - ", "\n");
+        for(String t : insert){
+            
+            if(end){
+                
+                tem += commit ? " - " : "\n";
+                end = false;
+                
+            }//if(end)
+            
+            if(line){
+                
+                tem += commit ? " - " : "\n";
+                
+            } else {
+                
+                line = true;
+                
+            }
+            
+            var quot = true;
+            
+            for(int i = 0; i < t.length(); i++){
+            
+                switch(t.charAt(i)){
+                    
+                    case '"', '\'' -> {
+                        
+                        if(quot){
+                            
+                            tem += commit ? "'" : "\"";
+                            quot = false;
+                            
+                            if(end){
+                                
+                                end = false;
+                                
+                            } else {
+                                
+                                end = true;
+                                
+                            }
+                            
+                        }//if(val)
+                        
+                    }//cases
+                    
+                    case '\\', '/' -> tem += "/";
+                    
+                    default -> {
+                        
+                        tem += t.charAt(i);
+                        
+                        quot = true;
+                        
+                    }//default
+                    
+                }//switch(t.charAt(i))
+                
+            }//for(int i = 0; i < t.length(); i++)
+        
+        }//for(String t : txt.text(text))
+        
+        return tem;
         
     }//Tem(String text)
     
@@ -99,7 +119,7 @@ public class init {
         
         if(new Data().CompareTo(Reg.modify)){
             
-            Exec_2026_01_06();
+            ExecPrimary();
             
         } else {
             
@@ -109,7 +129,7 @@ public class init {
         
     }//Exec()
     
-    private static void Exec_2026_01_06(){
+    private static void ExecPrimary(){
         
         final String[] arqv = {
             "info",
@@ -155,7 +175,7 @@ public class init {
             
             Reg.coppy(git);
             
-            System.out.println(git);
+            for(String p : Tem(evt.Read().Read(),false).split("\n")) System.out.println(p);
             
         } else {//if(enter)
             

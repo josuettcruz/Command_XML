@@ -4,9 +4,6 @@
  */
 package model;
 
-import java.time.LocalDate;
-
-//coppy(String ctrl_c)
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -27,7 +24,7 @@ public class Reg {
     
     public final static Data create = new Data(2025,10,27);
     
-    public final static Data modify = new Data(2026,1,6);
+    public final static Data modify = new Data(2026,1,7);
     
     private final static int result = 28;
     
