@@ -16,8 +16,17 @@ public class Data {
     
     public Data(){
         
-        this.data = LocalDate.now();
-        this.error = "";
+        try{
+            
+            this.data = LocalDate.now();
+            this.error = "";
+            
+        }catch(Exception e){
+            
+            this.data = LocalDate.now();
+            this.error = e.getMessage();
+            
+        }
         
     }
     
@@ -26,7 +35,6 @@ public class Data {
         try{
             
             this.data = LocalDate.of(a, m, d);
-            
             this.error = "";
             
         }catch(Exception e){

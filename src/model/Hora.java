@@ -17,10 +17,35 @@ public class Hora {
     
     public Hora(LocalTime hora){
         
-        this.hora = hora;
-        this.error = "";
+        try{
+            
+            this.hora = hora;
+            this.error = "";
+            
+        }catch(Exception err){
+            
+            this.hora = LocalTime.of(0, 0);
+            this.error = err.getMessage();
+            
+        }
         
     }//Hora(LocalTime hora)
+    
+    public Hora(int h, int m, int s){
+        
+        try{
+            
+            this.hora = LocalTime.of(h, m, s);
+            this.error = "";
+            
+        }catch(Exception err){
+            
+            this.hora = LocalTime.of(0, 0);
+            this.error = err.getMessage();
+            
+        }
+        
+    }//Hora(int h, int m, int s)
     
     public Hora(boolean second){
         

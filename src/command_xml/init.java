@@ -34,12 +34,13 @@ public class init {
     public static List<String> Print(){
         
         final var tab = 39;
+        final var t = "run: ";
         
         List<String> println = new ArrayList();
         
-        println.add(Reg.Tab("run: " + new Hora(true).TimerGood(true), new Data().DataAbreviada(true),tab));
-        println.add(Reg.Tab("run: " + Reg.categories, Reg.choose,tab));
-        println.add(Reg.Tab("run: " + Reg.ide, Reg.http,tab));
+        println.add(Reg.Tab(t + new Hora(true).TimerGood(true), new Data().DataCompleta(true),tab));
+        println.add(Reg.Tab(t + Reg.categories, Reg.choose,tab));
+        println.add(Reg.Tab(t + Reg.ide, Reg.http,tab));
         
         return println;
         
@@ -138,22 +139,148 @@ public class init {
         var nome = "";
         var ss = 0;
         
+        var println = "";
+        
         do{
             
             var ini = "..\\";
             ini += arqv[ss];
             ini += ".txt";
             
-            if(Arq.Exist(ini)) nome = ini;
-            
-            var ine = "..\\";
-            ine += ini;
-            
-            if(Arq.Exist(ine)) nome = ine;
+            if(Arq.Exist(ini)){
+                
+                nome = ini;
+                println = "Arquivo: ";
+                println += arqv[ss].toUpperCase();
+                
+            }//if(Arq.Exist(ini))
             
             ss++;
             
         }while(ss > 0 && ss < arqv.length && nome.isBlank());
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var ini = "..\\..\\";
+                ini += arqv[ss];
+                ini += ".txt";
+            
+                if(Arq.Exist(ini)){
+                    
+                    nome = ini;
+                    println = "Arquivo: ";
+                    println += arqv[ss].toUpperCase();
+                    println += ".TXT";
+                    
+                }//if(Arq.Exist(ini))
+                
+                ss++;
+                
+            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 1 - 5
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var ini = "..\\";
+                ini += arqv[ss];
+                ini += ".ini";
+            
+                if(Arq.Exist(ini)){
+                    
+                    nome = ini;
+                    println = "Arquivo: ";
+                    println += arqv[ss].toUpperCase();
+                    println += ".INI";
+                    
+                }//if(Arq.Exist(ini))
+                
+                ss++;
+                
+            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 2 - 5
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var ini = "..\\..\\";
+                ini += arqv[ss];
+                ini += ".ini";
+            
+                if(Arq.Exist(ini)){
+                    
+                    nome = ini;
+                    println = "Arquivo: ";
+                    println += arqv[ss].toUpperCase();
+                    println += ".INI";
+                    
+                }//if(Arq.Exist(ini))
+                
+                ss++;
+                
+            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 3 - 5
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var ini = arqv[ss];
+                ini += ".ini";
+            
+                if(Arq.Exist(ini)){
+                    
+                    nome = ini;
+                    println = "Arquivo: ";
+                    println += arqv[ss].toUpperCase();
+                    println += ".INI";
+                    
+                }//if(Arq.Exist(ini))
+                
+                ss++;
+                
+            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 4 - 5
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var ini = arqv[ss];
+                ini += ".txt";
+            
+                if(Arq.Exist(ini)){
+                    
+                    nome = ini;
+                    println = "Arquivo: ";
+                    println += arqv[ss].toUpperCase();
+                    println += ".txt";
+                    
+                }//if(Arq.Exist(ini))
+                
+                ss++;
+                
+            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 5 - 5
         
         if(nome.isBlank()){
             
@@ -167,7 +294,7 @@ public class init {
             git += new Data().DataAbreviada(true);
             git += " - ";
             git += new Hora(false).TimerGood(true);
-            git += " - ";
+            git += " - Nesse commit: ";
             
             git += Tem(evt.Read().Read(),true);
             evt.Save(Tem(evt.Read().Read(),false));
@@ -176,20 +303,27 @@ public class init {
             
             Reg.coppy(git);
             
-            var page = Tem(evt.Read().Read(),false).split("\n")[0];
-            var page_char = page.charAt(page.length()-1);
+            var p = Tem(evt.Read().Read(),false).split("\n");
             
-            var page_int = page.length();
-            
-            if(page_char == '"') page_int--;
-            
-            Reg.Print(
-                    new Data().DataAbreviada(true),
-                    new Hora(true).TimerGood(true),
-                    page_int
+            System.out.println(
+                "Hoje é "
+                + new Data().DataCompleta(true)
             );
             
-            for(String p : Tem(evt.Read().Read(),false).split("\n")) System.out.println(p);
+            System.out.println(
+                "Agora são "
+                + new Hora(true).TimerGood(false)
+                + " da "
+                + new Hora(true).Good("manhã", "tarde", "noite")
+                + "!"
+            );
+            
+            System.out.println();
+            
+            System.out.println(println);
+            
+            for(int n = 0; n < p.length; n++)
+                Reg.Print("Linha " + Reg.Numb(n+1, p.length, " de "), p[n]);
             
         }//if(enter)if(nome.isBlank())
         
