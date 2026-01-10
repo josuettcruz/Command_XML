@@ -124,6 +124,8 @@ public class init {
         
         }//for(String t : txt.text(text))
         
+        if(quot_end_line) tem += commit ? "'" : "\"";
+        
         return tem;
         
     }//Tem(String text)
@@ -139,25 +141,17 @@ public class init {
         var nome = "";
         var ss = 0;
         
-        var println = "";
-        
         do{
             
             var ini = "..\\";
             ini += arqv[ss];
-            ini += ".txt";
+            ini += ".ini";
             
-            if(Arq.Exist(ini)){
-                
-                nome = ini;
-                println = "Arquivo: ";
-                println += arqv[ss].toUpperCase();
-                
-            }//if(Arq.Exist(ini))
+            if(Arq.Exist(ini)) nome = ini;
             
             ss++;
             
-        }while(ss > 0 && ss < arqv.length && nome.isBlank());
+        }while(ss > 0 && ss < arqv.length && nome.isBlank());//1 - 5
         
         if(nome.isBlank()){
             
@@ -169,20 +163,13 @@ public class init {
                 ini += arqv[ss];
                 ini += ".txt";
             
-                if(Arq.Exist(ini)){
-                    
-                    nome = ini;
-                    println = "Arquivo: ";
-                    println += arqv[ss].toUpperCase();
-                    println += ".TXT";
-                    
-                }//if(Arq.Exist(ini))
+                if(Arq.Exist(ini)) nome = ini;
                 
                 ss++;
                 
             }while(ss > 0 && ss < arqv.length && nome.isBlank());
             
-        }//if(nome.isBlank()) - 1 - 5
+        }//2 - 5
         
         if(nome.isBlank()){
             
@@ -194,20 +181,13 @@ public class init {
                 ini += arqv[ss];
                 ini += ".ini";
             
-                if(Arq.Exist(ini)){
-                    
-                    nome = ini;
-                    println = "Arquivo: ";
-                    println += arqv[ss].toUpperCase();
-                    println += ".INI";
-                    
-                }//if(Arq.Exist(ini))
+                if(Arq.Exist(ini)) nome = ini;
                 
                 ss++;
                 
             }while(ss > 0 && ss < arqv.length && nome.isBlank());
             
-        }//if(nome.isBlank()) - 2 - 5
+        }//3 - 5
         
         if(nome.isBlank()){
             
@@ -217,71 +197,73 @@ public class init {
                 
                 var ini = "..\\..\\";
                 ini += arqv[ss];
-                ini += ".ini";
+                ini += ".txt";
             
-                if(Arq.Exist(ini)){
-                    
-                    nome = ini;
-                    println = "Arquivo: ";
-                    println += arqv[ss].toUpperCase();
-                    println += ".INI";
-                    
-                }//if(Arq.Exist(ini))
+                if(Arq.Exist(ini)) nome = ini;
                 
                 ss++;
                 
             }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//4 - 5
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var ini = arqv[ss];
+                ini += ".ini";
+            
+                if(Arq.Exist(ini)) nome = ini;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            
+        }//5 - 5
+        
+        if(nome.isBlank()){
+            
+            var ini = new Data().Load();
+            ini += ".ini";
+            
+                if(Arq.Exist(ini)) nome = ini;
+            
+        }//if(nome.isBlank()) - 1 - 5
+        
+        if(nome.isBlank()){
+            
+            var ini = new Data().Load();
+            ini += ".txt";
+            
+                if(Arq.Exist(ini)) nome = ini;
+            
+        }//if(nome.isBlank()) - 2 - 5
+        
+        if(nome.isBlank()){
+            
+            var ini = new Data().Load();
+            ini += ".txt";
+            
+                if(Arq.Exist(ini)) nome = ini;
             
         }//if(nome.isBlank()) - 3 - 5
         
         if(nome.isBlank()){
             
-            ss = 0;
-            
-            do{
-                
-                var ini = arqv[ss];
-                ini += ".ini";
-            
-                if(Arq.Exist(ini)){
-                    
-                    nome = ini;
-                    println = "Arquivo: ";
-                    println += arqv[ss].toUpperCase();
-                    println += ".INI";
-                    
-                }//if(Arq.Exist(ini))
-                
-                ss++;
-                
-            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            if(Arq.Exist("commit.ini")) nome = "commit.ini";
             
         }//if(nome.isBlank()) - 4 - 5
         
         if(nome.isBlank()){
             
-            ss = 0;
-            
-            do{
-                
-                var ini = arqv[ss];
-                ini += ".txt";
-            
-                if(Arq.Exist(ini)){
-                    
-                    nome = ini;
-                    println = "Arquivo: ";
-                    println += arqv[ss].toUpperCase();
-                    println += ".txt";
-                    
-                }//if(Arq.Exist(ini))
-                
-                ss++;
-                
-            }while(ss > 0 && ss < arqv.length && nome.isBlank());
+            if(Arq.Exist("commit.txt")) nome = "commit.txt";
             
         }//if(nome.isBlank()) - 5 - 5
         
+        //Execute
         if(nome.isBlank()){
             
             for(String err : Print()) System.err.println(err);
@@ -319,8 +301,7 @@ public class init {
             );
             
             System.out.println();
-            
-            System.out.println(println);
+            System.out.println(nome);
             
             for(int n = 0; n < p.length; n++)
                 Reg.Print("Linha " + Reg.Numb(n+1, p.length, " de "), p[n]);
