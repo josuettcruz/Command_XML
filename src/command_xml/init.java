@@ -238,7 +238,7 @@ public class init {
             var ini = new Data().Load();
             ini += ".txt";
             
-                if(Arq.Exist(ini)) nome = ini;
+            if(Arq.Exist(ini)) nome = ini;
             
         }//if(nome.isBlank()) - 2 - 5
         
@@ -247,7 +247,7 @@ public class init {
             var ini = new Data().Load();
             ini += ".txt";
             
-                if(Arq.Exist(ini)) nome = ini;
+            if(Arq.Exist(ini)) nome = ini;
             
         }//if(nome.isBlank()) - 3 - 5
         
