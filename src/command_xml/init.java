@@ -99,15 +99,15 @@ public class init {
             
             if(commit && insert.size() > 1){
                 
-                tem += " --\\n-- Linha ";
+                tem += " -- Linha ";
                 tem += Reg.Numb(sum+1, insert.size());
                 tem += " de ";
                 tem += insert.size();
-                tem += " -- ";
+                tem += " --> ";
                 
             } else if(commit){
                 
-                tem += " -- ";
+                tem += " --> ";
                 
             } else {//if(commit && insert.size() > 1)
                 
