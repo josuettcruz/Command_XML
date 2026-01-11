@@ -109,7 +109,7 @@ public class init {
                     tem += "git commit -m \"";
                     tem += new Data().DataAbreviada(true);
                     tem += " -- ";
-                    tem += new Hora(false).TimerGood(true);
+                    tem += new Hora(false).Timer();
                     tem += " -- Nesse COMMIT --> ";
                     
                     if(insert.size() > 1){
@@ -202,18 +202,19 @@ public class init {
         for(String a : arqv){
             
             q.add("..\\" + a + ".txt");
-            q.add("..\\" + a + ".TXT");
-            
-            if(a.length() > tot) tot = a.length();
+            q.add("..\\..\\" + a + ".txt");
+            q.add("..\\..\\..\\" + a + ".txt");
             
         }//for(String a : arqv)
         
+        var dat = new Data().Load();
+        dat += ".txt";
+        
+        q.add(dat);
+        
         for(String b : arqv){
             
-            q.add("..\\..\\" + b + ".txt");
-            q.add("..\\..\\" + b + ".TXT");
-            
-            if(b.length() > tot) tot = b.length();
+            q.add(b + "_" + dat);
             
         }//for(String b : arqv)
         
@@ -242,12 +243,17 @@ public class init {
                     nom += Reg.Numb(m);
                     
                     q.add(nom + ".txt");
-                    q.add(nom + ".TXT");
                     
                     for(String g : arqv){
                         
-                        q.add(g + "_" + nom + ".TXT");
-                        q.add(g + "_" + nom + ".txt");
+                        var dm = g;
+                        dm += "_";
+                        dm += nom;
+                        dm += ".txt";
+                        
+                        q.add(dm);
+                        
+                        if(dm.length() > tot) tot = dm.length();
                         
                     }//for(String g : arqv)
                     
@@ -266,14 +272,17 @@ public class init {
                     nom += Reg.Numb(m);
                     
                     q.add(nom + ".txt");
-                    q.add(nom + ".TXT");
                     
                     for(String g : arqv){
                         
-                        q.add(g + "_" + nom + ".TXT");
-                        q.add(g + "_" + nom + ".txt");
+                        var dm = g;
+                        dm += "_";
+                        dm += nom;
+                        dm += ".txt";
                         
-                        if(nom.length() > tot) tot = nom.length();
+                        q.add(dm);
+                        
+                        if(dm.length() > tot) tot = dm.length();
                         
                     }//for(String g : arqv)
                     
@@ -288,7 +297,12 @@ public class init {
         
         do{
             
-            if(Arq.Exist(q.get(ss))) nome = q.get(ss);
+            if(Arq.Exist(q.get(ss))){
+                
+                nome = q.get(ss);
+                System.out.println(Arq.Files(q.get(ss)));
+                
+            }
             
             ss++;
             
@@ -304,7 +318,7 @@ public class init {
                 pr += q.get(e);
                 pr += "\"";
                 
-                Reg.Print(pr, "--", Reg.Numb(q.size()).length() + tot + 20);
+                Reg.Print(pr, "--", Reg.Numb(q.size()).length() + tot + 10);
                 
             }//for(int e = q.size()-1; e >= 0;e--)
             
@@ -332,8 +346,11 @@ public class init {
             System.out.println();
             System.out.println(nome);
             
-            for(int n = 0; n < p.length; n++)
+            for(int n = 0; n < p.length; n++){
+                
                 Reg.Print("Linha " + Reg.Numb(n+1, p.length, " de "), p[n]);
+                
+            }//for(int n = 0; n < p.length; n++)
             
         }//if(enter)if(nome.isBlank())
         
