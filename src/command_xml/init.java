@@ -8,7 +8,6 @@ import file.*;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -52,48 +51,75 @@ public class init {
         
         for(String ins : txt.text(text)){
             
-            if(ins.contains(" - ")){
+            if(ins.contains(" -- ")){
                 
-                insert.addAll(Arrays.asList(ins.split(" - ")));
+                for(String hif : ins.split(" -- ")){
+                    
+                    if(!hif.isBlank()) insert.add(hif);
+                    
+                }//for(String hif : ins.split(" - "))
                 
-            } else {//if(ins.contains(" - "))
+            } else if(ins.contains(" - ")){//if(ins.contains...
+                
+                for(String hif : ins.split(" - ")){
+                    
+                    if(!hif.isBlank()) insert.add(hif);
+                    
+                }//for(String hif : ins.split(" -- "))
+                
+            } else {//if(ins.contains...
                 
                 insert.add(ins);
                 
-            }//if(ins.contains(" - "))
+            }//if(ins.contains...
             
         }//for(String ins : txt.text(text))
         
         var tem = "";
         
-        var line = false;
+        if(commit){
+            
+            tem += "git commit -m \"-- ";
+            tem += new Data().DataAbreviada(true);
+            tem += " -- ";
+            tem += new Hora(false).TimerGood(true);
+            
+        }//if(commit)
         
         var quot_end_line = false;
         
-        for(String t : insert){
+        for(int sum = 0; sum < insert.size(); sum++){
             
             if(quot_end_line){
                 
                 tem += commit ? "'" : "\"";
                 quot_end_line = false;
                 
-            }//if(end)
+            }//if(quot_end_line)
             
-            if(line){
+            if(commit && insert.size() > 1){
                 
-                tem += commit ? " - " : "\n";
+                tem += " --\\n-- Linha ";
+                tem += Reg.Numb(sum+1, insert.size());
+                tem += " de ";
+                tem += insert.size();
+                tem += " -- ";
                 
-            } else {//if(line)
+            } else if(commit){
                 
-                line = true;
+                tem += " -- ";
                 
-            }//if(line)
+            } else {//if(commit && insert.size() > 1)
+                
+                if(sum > 0) tem += "\n";
+                
+            }//if(commit && insert.size() > 1)
             
             var quot = true;
             
-            for(int i = 0; i < t.length(); i++){
+            for(int i = 0; i < insert.get(sum).length(); i++){
             
-                switch(t.charAt(i)){
+                switch(insert.get(sum).charAt(i)){
                     
                     case '"', '\'' -> {
                         
@@ -108,11 +134,18 @@ public class init {
                         
                     }//cases
                     
-                    case '\\', '/' -> tem += "/";
+                    case '\\', '/' -> {
+                        
+                        tem += "/";
+                        quot = true;
+                        
+                    }//case '\\', '/'
+                    
+                    case ' ' -> tem += " ";
                     
                     default -> {
                         
-                        tem += t.charAt(i);
+                        tem += insert.get(sum).charAt(i);
                         
                         quot = true;
                         
@@ -120,11 +153,13 @@ public class init {
                     
                 }//switch(t.charAt(i))
                 
-            }//for(int i = 0; i < t.length(); i++)
+            }//for(int i = 0; i < insert.get(sum).length(); i++)
         
-        }//for(String t : txt.text(text))
+        }//for(int sum = 0; sum < insert.size(); sum++)
         
         if(quot_end_line) tem += commit ? "'" : "\"";
+        
+        if(commit) tem += " --\"";
         
         return tem;
         
@@ -135,155 +170,90 @@ public class init {
         final String[] arqv = {
             "info",
             "title",
-            "code"
+            "code",
+            "name"
         };
+        
+        List<String> q = new ArrayList();
+        
+        for(String a : arqv){
+            
+            q.add("..\\" + a + ".txt");
+            
+        }//for(String a : arqv)
+        
+        for(String b : arqv){
+            
+            q.add("..\\..\\" + b + ".txt");
+            
+        }//for(String b : arqv)
+        
+        for(String b : arqv){
+            
+            q.add("..\\..\\..\\" + b + ".txt");
+            
+        }//for(String b : arqv)
+        
+        for(int h = 23; h >= 0; h--){
+            
+            for(int m = 59; m >= 0; m--){
+                
+                for(int s = 59; s >= 0; s--){
+                    
+                    var nom = new Data().Load();
+                    nom += "_";
+                    nom += Reg.Numb(h);
+                    nom += "-";
+                    nom += Reg.Numb(m);
+                    nom += "-";
+                    nom += Reg.Numb(s);
+                    nom += ".txt";
+                    
+                    q.add(nom);
+                    
+                }//for(int s = 59; s >= 0; s--)
+                
+                var nom = new Data().Load();
+                nom += "_";
+                nom += Reg.Numb(h);
+                nom += "-";
+                nom += Reg.Numb(m);
+                nom += ".txt";
+                
+                q.add(nom);
+                
+            }//for(int m = 59; m >= 0; m--)
+            
+        }//for(int h = 23; h >= 0; h--)
         
         var nome = "";
         var ss = 0;
         
         do{
             
-            var ini = "..\\";
-            ini += arqv[ss];
-            ini += ".ini";
-            
-            if(Arq.Exist(ini)) nome = ini;
+            if(Arq.Exist(q.get(ss))) nome = q.get(ss);
             
             ss++;
             
-        }while(ss > 0 && ss < arqv.length && nome.isBlank());//1 - 5
+        }while(ss > 0 && ss < q.size() && nome.isBlank());
         
         if(nome.isBlank()){
             
-            ss = 0;
-            
-            do{
+            for(int e = q.size()-1; e >= 0;e--){
                 
-                var ini = "..\\..\\";
-                ini += arqv[ss];
-                ini += ".txt";
-            
-                if(Arq.Exist(ini)) nome = ini;
+                System.err.print("-- ");
+                System.err.print(Reg.Numb(q.size() - e, q.size()));
+                System.err.print(" -- \"");
+                System.err.print(q.get(e));
+                System.err.println("\"");
                 
-                ss++;
-                
-            }while(ss > 0 && ss < arqv.length && nome.isBlank());
-            
-        }//2 - 5
-        
-        if(nome.isBlank()){
-            
-            ss = 0;
-            
-            do{
-                
-                var ini = "..\\";
-                ini += arqv[ss];
-                ini += ".ini";
-            
-                if(Arq.Exist(ini)) nome = ini;
-                
-                ss++;
-                
-            }while(ss > 0 && ss < arqv.length && nome.isBlank());
-            
-        }//3 - 5
-        
-        if(nome.isBlank()){
-            
-            ss = 0;
-            
-            do{
-                
-                var ini = "..\\..\\";
-                ini += arqv[ss];
-                ini += ".txt";
-            
-                if(Arq.Exist(ini)) nome = ini;
-                
-                ss++;
-                
-            }while(ss > 0 && ss < arqv.length && nome.isBlank());
-            
-        }//4 - 5
-        
-        if(nome.isBlank()){
-            
-            ss = 0;
-            
-            do{
-                
-                var ini = arqv[ss];
-                ini += ".ini";
-            
-                if(Arq.Exist(ini)) nome = ini;
-                
-                ss++;
-                
-            }while(ss > 0 && ss < arqv.length && nome.isBlank());
-            
-        }//5 - 5
-        
-        if(nome.isBlank()){
-            
-            var ini = new Data().Load();
-            ini += ".ini";
-            
-                if(Arq.Exist(ini)) nome = ini;
-            
-        }//if(nome.isBlank()) - 1 - 5
-        
-        if(nome.isBlank()){
-            
-            var ini = new Data().Load();
-            ini += ".txt";
-            
-            if(Arq.Exist(ini)) nome = ini;
-            
-        }//if(nome.isBlank()) - 2 - 5
-        
-        if(nome.isBlank()){
-            
-            var ini = new Data().Load();
-            ini += ".txt";
-            
-            if(Arq.Exist(ini)) nome = ini;
-            
-        }//if(nome.isBlank()) - 3 - 5
-        
-        if(nome.isBlank()){
-            
-            if(Arq.Exist("commit.ini")) nome = "commit.ini";
-            
-        }//if(nome.isBlank()) - 4 - 5
-        
-        if(nome.isBlank()){
-            
-            if(Arq.Exist("commit.txt")) nome = "commit.txt";
-            
-        }//if(nome.isBlank()) - 5 - 5
-        
-        //Execute
-        if(nome.isBlank()){
-            
-            for(String err : Print()) System.err.println(err);
+            }//for(int e = q.size()-1; e >= 0;e--)
             
         } else {//if(nome.isBlank())
             
             Arq evt = new Arq(nome);
-            
-            var git = "git commit -m \"";
-            git += new Data().DataAbreviada(true);
-            git += " - ";
-            git += new Hora(false).TimerGood(true);
-            git += " - Nesse commit: ";
-            
-            git += Tem(evt.Read().Read(),true);
             evt.Save(Tem(evt.Read().Read(),false));
-            
-            git += "\"";
-            
-            Reg.coppy(git);
+            Reg.coppy(Tem(evt.Read().Read(),true));
             
             var p = Tem(evt.Read().Read(),false).split("\n");
             
