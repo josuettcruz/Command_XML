@@ -78,7 +78,7 @@ public class init {
         var tem = "";
         
         var quot_end_line = false;
-        final var divide_point = ": ";
+        final var divide_point = " -> ";
         
         for(int sum = 0; sum < insert.size(); sum++){
             
@@ -147,8 +147,6 @@ public class init {
                     }//case '\\', '/'
                     
                     case '.', '!', ':' ->{}
-                    
-                    case ' ' -> tem += " ";
                     
                     default -> {
                         
