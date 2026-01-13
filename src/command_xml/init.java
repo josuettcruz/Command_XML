@@ -162,7 +162,7 @@ public class init {
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot) tem += commit ? "." : "!";
+            if(quot && !quot_end_line) tem += commit ? "." : "!";
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
