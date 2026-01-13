@@ -50,48 +50,35 @@ public class init {
         
         List<String> insert = new ArrayList();
         
-        for(String ins : txt.text(text)){
+        for(String tx : txt.text(text.replace(" -- ", "\n").replace(" - ", "\n"))){
             
-            if(ins.contains(" -- ") && ins.contains(" - ")){
-                
-                for(String hif : ins.split(" -- ")){
-                    
-                    for(String hi : hif.split(" - ")){
-                        
-                        if(hi.isBlank()) insert.add(hi);
-                        
-                    }//for(String hi : hif.split(" - "))
-                    
-                }//for(String hif : ins.split(" -- "))
-                
-            } else if(ins.contains(" -- ")){
-                
-                for(String hif : ins.split(" -- ")){
-                    
-                    if(!hif.isBlank()) insert.add(hif);
-                    
-                }//for(String hif : ins.split(" - "))
-                
-            } else if(ins.contains(" - ")){//if(ins.contains...
-                
-                for(String hif : ins.split(" - ")){
-                    
-                    if(!hif.isBlank()) insert.add(hif);
-                    
-                }//for(String hif : ins.split(" -- "))
-                
-            } else {//if(ins.contains...
-                
-                insert.add(ins);
-                
-            }//if(ins.contains...
+            var inter = true;
+            var inst = "";
             
-        }//for(String ins : txt.text(text))
+            for(String t : txt.phrase(tx, true)){
+                
+                if(inter){
+                    
+                    inst += txt.capitalize(t);
+                    inter = false;
+                    
+                } else {//if(inter)
+                    
+                    inst += " ";
+                    inst += t;
+                    
+                }//if(inter)
+                
+            }//for(String t : txt.phrase(tx, true))
+            
+            insert.add(inst);
+            
+        }//for(String q : txt.text(text.replace(" -- ", "\n").replace(" - ", "\n")))
         
         var tem = "";
         
         var quot_end_line = false;
-        final var divide_point = ". ";
+        final var divide_point = ": ";
         
         for(int sum = 0; sum < insert.size(); sum++){
             
@@ -109,8 +96,8 @@ public class init {
                     tem += "git commit -m \"";
                     tem += new Data().DataAbreviada(true);
                     tem += " -- ";
-                    tem += new Hora(false).Timer();
-                    tem += " -- Nesse COMMIT --> ";
+                    tem += new Hora(false).TimerGood(true);
+                    tem += " --> Nesse COMMIT --> ";
                     
                     if(insert.size() > 1){
                         
@@ -159,13 +146,13 @@ public class init {
                         
                     }//case '\\', '/'
                     
-                    case '.', '!', ';', ':' ->{}
+                    case '.', '!', ':' ->{}
                     
                     case ' ' -> tem += " ";
                     
                     default -> {
                         
-                        tem += insert.get(sum).toUpperCase().charAt(i);
+                        tem += insert.get(sum).charAt(i);
                         
                         quot = true;
                         
@@ -174,6 +161,8 @@ public class init {
                 }//switch(t.charAt(i))
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
+            
+            if(quot) tem += commit ? "." : "!";
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
