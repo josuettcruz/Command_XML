@@ -48,10 +48,19 @@ public class Data {
     
     public Data(LocalDate data){
         
-        this.data = data;
-        this.error = "";
+        try{
+            
+            this.data = data;
+            this.error = "";
+            
+        }catch(Exception e){
+            
+            this.data = LocalDate.now();
+            this.error = e.getMessage();
+            
+        }
         
-    }
+    }//Data(LocalDate data)
     
     public Data(String data){
         
