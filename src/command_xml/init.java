@@ -17,15 +17,33 @@ import java.util.List;
  */
 public class init {
     
-    public static List<String> Print(){
+    public static List<String> Print(String run, int tab, boolean hour){
         
         Data d = new Data();
-        Hora h = new Hora(true);
+        Hora h = new Hora(hour);
         
-        final var tab = 39;
-        final var t = "run: ";
+        if(tab <= 0) tab = 39;
+        
+        var t = "";
+        
+        if(run.length() > 2){
+            
+            var len = run.charAt(run.length()-1);
+            
+            switch(len){
+                
+                case ' ' ->t = run;
+                
+                default -> t = run + " ";
+                
+            }//switch(len)
+            
+        }//if(run.length() > 2)
         
         List<String> println = new ArrayList();
+        
+        println.add(Reg.Tab(t + Reg.ide, Reg.http,tab));
+        println.add(Reg.Tab(t + Reg.categories, Reg.choose,tab));
         
         println.add(
             Reg.Tab(
@@ -43,10 +61,9 @@ public class init {
             )
         );
         
-        println.add(Reg.Tab(t + h.Good(), "Hoje é dia " + d.DataCompleta(false), tab));
+        println.add(Reg.Tab(t + "DATA:", d.DataCompleta(true), tab));
         
-        println.add(Reg.Tab(t + Reg.categories, Reg.choose,tab));
-        println.add(Reg.Tab(t + Reg.ide, Reg.http,tab));
+        println.add(Reg.Tab(t + "HORA:", h.TimerGood(false) + " da " + h.Good("manhã", "tarde", "noite") + "!", tab));
         
         return println;
         
@@ -65,13 +82,31 @@ public class init {
                 
                 if(inter){
                     
-                    inst += txt.capitalize(t);
+                    if(t.contains("\"") || t.contains("'")){
+                        
+                        inst += t.toUpperCase();
+                        
+                    } else {//if(t.contains("\"") || t.contains("'"))
+                        
+                        inst += txt.capitalize(t);
+                        
+                    }//if(t.contains("\"") || t.contains("'"))
+                    
                     inter = false;
                     
                 } else {//if(inter)
                     
                     inst += " ";
-                    inst += t;
+                    
+                    if(t.contains("\"") || t.contains("'")){
+                        
+                        inst += t.toUpperCase();
+                        
+                    } else {//if(t.contains("\"") || t.contains("'"))
+                        
+                        inst += t.toLowerCase();
+                        
+                    }//if(t.contains("\"") || t.contains("'"))
                     
                 }//if(inter)
                 
@@ -84,9 +119,13 @@ public class init {
         var tem = "";
         
         var quot_end_line = false;
-        final var divide_point = " -> ";
         
         for(int sum = 0; sum < insert.size(); sum++){
+            
+            var quot = true;
+            
+            var divide_point = Reg.Numb(sum+1, insert.size(),"-");
+            divide_point += " -> ";
             
             if(quot_end_line){
                 
@@ -107,15 +146,13 @@ public class init {
                     
                     if(insert.size() > 1){
                         
-                        tem += Reg.Numb(sum+1, insert.size(),"-");
                         tem += divide_point;
                         
                     }//if(insert.size() == 1){
                     
                 } else {//if(sum == 0)
                     
-                    tem += " -- ";
-                    tem += Reg.Numb(sum+1, insert.size(),"-");
+                    tem += " ";
                     tem += divide_point;
                     
                 }//if(sum == 0)
@@ -125,8 +162,6 @@ public class init {
                 if(sum > 0) tem += "\n";
                 
             }//if(commit && insert.size() > 1)
-            
-            var quot = true;
             
             for(int i = 0; i < insert.get(sum).length(); i++){
             
@@ -154,6 +189,18 @@ public class init {
                     
                     case '.', '!', ':' ->{}
                     
+                    case ';', ',' -> {
+                        
+                        if(i < insert.get(sum).length()-1){
+                            
+                            tem += insert.get(sum).charAt(i);
+                            
+                        }//if(i < insert.get(sum).length()-1)
+                        
+                        quot = true;
+                        
+                    }//default
+                    
                     default -> {
                         
                         tem += insert.get(sum).charAt(i);
@@ -167,6 +214,8 @@ public class init {
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
             if(quot && !quot_end_line) tem += commit ? "." : "!";
+            
+            if(commit && !quot && sum < insert.size()-1) tem += " --";
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
@@ -359,7 +408,7 @@ public class init {
             
         } else {//if(new Data().CompareTo(Reg.modify))
             
-            for(String p : Print()) System.out.println(p);
+            for(String p : Print("run:",39,false)) System.out.println(p);
             
         }//if(new Data().CompareTo(Reg.modify))
         
