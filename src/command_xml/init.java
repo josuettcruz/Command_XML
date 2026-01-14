@@ -78,19 +78,24 @@ public class init {
             var inter = true;
             var inst = "";
             
+            var amp = false;
+            
             for(String t : txt.phrase(tx, true)){
+                
+                var node = t.contains("\"") || t.contains("'") || amp;
                 
                 if(inter){
                     
-                    if(t.contains("\"") || t.contains("'")){
+                    if(node){
                         
                         inst += t.toUpperCase();
+                        amp = !amp;
                         
-                    } else {//if(t.contains("\"") || t.contains("'"))
+                    } else {//node)
                         
                         inst += txt.capitalize(t);
                         
-                    }//if(t.contains("\"") || t.contains("'"))
+                    }//if(node)
                     
                     inter = false;
                     
@@ -98,15 +103,16 @@ public class init {
                     
                     inst += " ";
                     
-                    if(t.contains("\"") || t.contains("'")){
+                    if(node){
                         
                         inst += t.toUpperCase();
+                        amp = !amp;
                         
-                    } else {//if(t.contains("\"") || t.contains("'"))
+                    } else {//if(node)
                         
                         inst += t.toLowerCase();
                         
-                    }//if(t.contains("\"") || t.contains("'"))
+                    }//if(node)
                     
                 }//if(inter)
                 
@@ -119,6 +125,8 @@ public class init {
         var tem = "";
         
         var quot_end_line = false;
+        
+        var amp = true;
         
         for(int sum = 0; sum < insert.size(); sum++){
             
@@ -178,6 +186,8 @@ public class init {
                             
                         }//if(val)
                         
+                        amp = true;
+                        
                     }//cases
                     
                     case '\\', '/' -> {
@@ -185,17 +195,20 @@ public class init {
                         tem += "/";
                         quot = true;
                         
+                        amp = false;
+                        
                     }//case '\\', '/'
                     
-                    case '.', '!', ':' ->{}
+                    case '.', '!' ->{}
                     
-                    case ';', ',' -> {
+                    case ';', ',', ':' -> {
                         
-                        if(i < insert.get(sum).length()-1){
+                        if(amp && i < insert.get(sum).length()-1 && !quot_end_line){
                             
                             tem += insert.get(sum).charAt(i);
+                            amp = false;
                             
-                        }//if(i < insert.get(sum).length()-1)
+                        }//if(i < insert.get(sum).length()-1 && !quot_end_line)
                         
                         quot = true;
                         
@@ -206,6 +219,8 @@ public class init {
                         tem += insert.get(sum).charAt(i);
                         
                         quot = true;
+                        
+                        amp = true;
                         
                     }//default
                     
