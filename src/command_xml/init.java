@@ -17,28 +17,34 @@ import java.util.List;
  */
 public class init {
     
-    public static void Exec(){
-        
-        if(new Data().CompareTo(Reg.modify)){
-            
-            gitCommit();
-            
-        } else {//if(new Data().CompareTo(Reg.modify))
-            
-            for(String p : Print()) System.out.println(p);
-            
-        }//if(new Data().CompareTo(Reg.modify))
-        
-    }//Exec()
-    
     public static List<String> Print(){
+        
+        Data d = new Data();
+        Hora h = new Hora(true);
         
         final var tab = 39;
         final var t = "run: ";
         
         List<String> println = new ArrayList();
         
-        println.add(Reg.Tab(t + new Hora(true).TimerGood(true), new Data().DataCompleta(true),tab));
+        println.add(
+            Reg.Tab(
+                t + "Criado " + Reg.create.DataLinha(false) + "!",
+                Reg.create.DataCompleta(true),
+                tab
+            )
+        );
+        
+        println.add(
+            Reg.Tab(
+                t + "Atualizado " + Reg.modify.DataLinha(false) + "!",
+                Reg.modify.DataCompleta(true),
+                tab
+            )
+        );
+        
+        println.add(Reg.Tab(t + h.Good(), "Hoje é dia " + d.DataCompleta(false), tab));
+        
         println.add(Reg.Tab(t + Reg.categories, Reg.choose,tab));
         println.add(Reg.Tab(t + Reg.ide, Reg.http,tab));
         
@@ -311,6 +317,14 @@ public class init {
             
         } else {//if(nome.isBlank())
             
+            Hora h = new Hora(true);
+            
+            var view = "Agora são ";
+            view += h.TimerGood(false);
+            view += " da ";
+            view += h.Good("manhã", "tarde", "noite");
+            view += "!";
+            
             Arq evt = new Arq(nome);
             evt.Save(Tem(evt.Read().Read(),false));
             Reg.coppy(Tem(evt.Read().Read(),true));
@@ -322,13 +336,7 @@ public class init {
                 + new Data().DataCompleta(true)
             );
             
-            System.out.println(
-                "Agora são "
-                + new Hora(true).TimerGood(false)
-                + " da "
-                + new Hora(true).Good("manhã", "tarde", "noite")
-                + "!"
-            );
+            System.out.println(view);
             
             System.out.println();
             System.out.println(nome);
@@ -342,5 +350,19 @@ public class init {
         }//if(enter)if(nome.isBlank())
         
     }//gitCommit()
+    
+    public static void Exec(){
+        
+        if(new Data().CompareTo(Reg.modify)){
+            
+            gitCommit();
+            
+        } else {//if(new Data().CompareTo(Reg.modify))
+            
+            for(String p : Print()) System.out.println(p);
+            
+        }//if(new Data().CompareTo(Reg.modify))
+        
+    }//Exec()
     
 }
