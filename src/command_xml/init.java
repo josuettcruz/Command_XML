@@ -17,12 +17,14 @@ import java.util.List;
  */
 public class init {
     
-    public static List<String> Print(String run, int tab, boolean hour){
+    public static List<String> Print(String run, int tab){
         
         Data d = new Data();
-        Hora h = new Hora(hour);
+        Hora h = new Hora(true);
         
-        if(tab <= 0) tab = 39;
+        if(tab < 0) tab = tab - tab*2;
+        
+        if(tab == 0) tab = 39;
         
         var t = "";
         
@@ -39,6 +41,13 @@ public class init {
             }//switch(len)
             
         }//if(run.length() > 2)
+        
+        var addition = 2;
+        addition += Reg.ide.length();
+        addition += run.length();
+        
+        if(tab < addition) tab = addition;
+        
         
         List<String> println = new ArrayList();
         
@@ -61,9 +70,7 @@ public class init {
             )
         );
         
-        println.add(Reg.Tab(t + "DATA:", d.DataCompleta(true), tab));
-        
-        println.add(Reg.Tab(t + "HORA:", h.TimerGood(false) + " da " + h.Good("manhã", "tarde", "noite") + "!", tab));
+        println.add(Reg.Tab(t + h.TimerGood(true), d.DataCompleta(true), tab));
         
         return println;
         
@@ -75,44 +82,21 @@ public class init {
         
         for(String tx : txt.text(text.replace(" -- ", "\n").replace(" - ", "\n"))){
             
-            var inter = true;
             var inst = "";
-            
-            var amp = false;
+            var inter = true;
             
             for(String t : txt.phrase(tx, true)){
                 
-                var node = t.contains("\"") || t.contains("'") || amp;
-                
                 if(inter){
                     
-                    if(node){
-                        
-                        inst += t.toUpperCase();
-                        amp = !amp;
-                        
-                    } else {//node)
-                        
-                        inst += txt.capitalize(t);
-                        
-                    }//if(node)
-                    
+                    inst += txt.capitalize(t);
                     inter = false;
                     
                 } else {//if(inter)
                     
                     inst += " ";
                     
-                    if(node){
-                        
-                        inst += t.toUpperCase();
-                        amp = !amp;
-                        
-                    } else {//if(node)
-                        
-                        inst += t.toLowerCase();
-                        
-                    }//if(node)
+                    inst += t.toLowerCase();
                     
                 }//if(inter)
                 
@@ -216,7 +200,9 @@ public class init {
                     
                     default -> {
                         
-                        tem += insert.get(sum).charAt(i);
+                        tem += quot_end_line
+                            ? insert.get(sum).toUpperCase().charAt(i)
+                            : insert.get(sum).charAt(i);
                         
                         quot = true;
                         
@@ -423,7 +409,7 @@ public class init {
             
         } else {//if(new Data().CompareTo(Reg.modify))
             
-            for(String p : Print("run:",39,false)) System.out.println(p);
+            for(String p : Print("run:",0)) System.out.println(p);
             
         }//if(new Data().CompareTo(Reg.modify))
         
