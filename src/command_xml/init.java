@@ -5,9 +5,9 @@
 package command_xml;
 
 import file.*;
-import java.time.LocalTime;
 import model.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -364,7 +364,7 @@ public class init {
             if(Arq.Exist(q.get(ss))){
                 
                 nome = q.get(ss);
-                System.out.println(Arq.Files(q.get(ss)));
+                //System.out.println(Arq.Files(q.get(ss)));
                 
             }
             
@@ -388,29 +388,13 @@ public class init {
             
         } else {//if(nome.isBlank())
             
-            Hora h = new Hora(true);
-            
-            var view = "Agora são ";
-            view += h.TimerGood(false);
-            view += " da ";
-            view += h.Good("manhã", "tarde", "noite");
-            view += "!";
-            
             Arq evt = new Arq(nome);
             evt.Save(Tem(evt.Read().Read(),false));
             Reg.coppy(Tem(evt.Read().Read(),true));
             
+            Reg.Print(new Hora(true).TimerGood(false), nome);
+            
             var p = Tem(evt.Read().Read(),false).split("\n");
-            
-            System.out.println(
-                "Hoje é "
-                + new Data().DataCompleta(true)
-            );
-            
-            System.out.println(view);
-            
-            System.out.println();
-            System.out.println(nome);
             
             for(int n = 0; n < p.length; n++){
                 

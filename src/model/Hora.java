@@ -109,7 +109,7 @@ public class Hora {
                         
                     } else {//if(cont <= 3)
                         
-                        if(!this.error.isBlank()){this.error += "\n";}
+                        if(!this.error.isBlank()) this.error += "\n";
                         this.error += "Caracter: \'";
                         this.error += ds;
                         this.error += "\' é inválido!";
@@ -120,7 +120,7 @@ public class Hora {
                 
                 default -> {
                     
-                    if(!this.error.isBlank()){this.error += "\n";}
+                    if(!this.error.isBlank()) this.error += "\n";
                     this.error += "Caracter: \'";
                     this.error += ds;
                     this.error += "\' é inválido!";
@@ -181,53 +181,74 @@ public class Hora {
     
     }//getHora()
     
-    public String Good(String morning, String after, String night){
+    public static String Good(String morning, String after, String night){
+        
+        LocalTime t = LocalTime.now(); 
         
         final String[] good = {morning, after, night};
         
         int txt;
         
-        if(this.hora.getHour() == 18 && this.hora.getMinute() > 30){
+        if(t.getHour() == 18 && t.getMinute() > 30){
             
             txt = 2;
             
-        } else if(this.hora.getHour() > 18){//if
+        } else if(t.getHour() > 18){//if
             
             txt = 2;
             
-        } else if(this.hora.getHour() < 12){//if
-            
-            txt = 0;
-            
-        } else {//if
+        } else if(t.getHour() >= 12){//if
             
             txt = 1;
             
+        } else {//if
+            
+            txt = 0;
+            
         }//if
         
-        return this.error.isBlank() ? good[txt] : this.error;
+        return good[txt];
         
     }//Good(String morning, String after, String night)
     
-    public String Good(String morning, String after){
+    public static String Good(Hora h, String morning, String after, String night){
         
-        return this.Good(morning, after, after);
+        LocalTime t = h.getHora();
         
-    }//Good(String morning, String after)
+        final String[] good = {morning, after, night};
+        
+        int txt;
+        
+        if(t.getHour() == 18 && t.getMinute() > 30){
+            
+            txt = 2;
+            
+        } else if(t.getHour() > 18){//if
+            
+            txt = 2;
+            
+        } else if(t.getHour() >= 12){//if
+            
+            txt = 1;
+            
+        } else {//if
+            
+            txt = 0;
+            
+        }//if
+        
+        return good[txt];
+        
+    }//Good(Hora h, String morning, String after, String night)
     
-    public String Good(){
-        
-        return this.Good("Bom Dia", "Boa Tarde", "Boa Noite") + "!";
-        
-    }//Good()
-    
-    private String TimerGood(boolean print, String sep, String space){
+    public String TimerGood(boolean after, String space, String sep){
         
         String txt = "";
         
-        int hs = this.hora.getHour();
-        int m = this.hora.getMinute();
-        int s = this.hora.getSecond();
+        var hs = this.hora.getHour();
+        var m = this.hora.getMinute();
+        var s = this.hora.getSecond();
+        var g = hs < 12 ? "AM" : "PM";
         int h;
         
         if(hs > 12){//hs
@@ -244,6 +265,13 @@ public class Hora {
             
         }//hs
         
+        if(!after){
+            
+            txt += g;
+            txt += space;
+            
+        }//if(!after)
+        
         txt += Reg.Numb(h);
         
         txt += sep;
@@ -258,11 +286,10 @@ public class Hora {
             
         }//if(s > 0)
         
-        if(print){
+        if(after){
             
             txt += space;
-            
-            txt += hs < 12 ? "AM" : "PM";
+            txt += g;
             
         }//if(after)
         
@@ -270,29 +297,17 @@ public class Hora {
         
     }//TimerGood(boolean print, String sep, String space)
     
-    public String TimerGood(String sep, String space){
+    public String TimerGood(boolean after, String space){
         
-        return this.TimerGood(true, sep, space);
+        return this.TimerGood(after, space, ":");
         
-    }//TimerGood(String sep, String space)
+    }//public String TimerGood(boolean after, String sep)
     
-    public String TimerGood(boolean print, String sep){
+    public String TimerGood(boolean after){
         
-        return this.TimerGood(print, sep, " ");
+        return this.TimerGood(after, " ", ":");
         
-    }//TimerGood(String sep, String space)
-    
-    public String TimerGood(boolean print){
-        
-        return this.TimerGood(print, ":", " ");
-        
-    }//TimerGood(boolean print)
-    
-    public String TimerGood(String space){
-        
-        return this.TimerGood(true, ":", space);
-        
-    }//TimerGood(String space)
+    }//public String TimerGood(boolean after)
     
     public String Timer(String sep){
         

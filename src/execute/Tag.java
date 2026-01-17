@@ -30,6 +30,20 @@ public class Tag {
         
     }//Tag(String txt, tg tag)
     
+    public boolean OpenTag(){
+        
+        boolean close = false;
+        
+        if(this.txt.length() > 1){
+            
+            close = this.tag == tag && this.txt.charAt(0) != '/';
+            
+        }//if(this.txt.length() > 1)
+        
+        return close;
+        
+    }//OpenTag()
+    
     public boolean CloseTag(){
         
         boolean close = false;
@@ -60,12 +74,12 @@ public class Tag {
         
         return this.tag.Val(true);
         
-    }//Detals
+    }//Detals()
     
     public boolean Val(){
         
         return this.valid;
         
-    }//Detals
+    }//Val()
     
 }
