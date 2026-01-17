@@ -34,7 +34,7 @@ public class init {
             
             switch(len){
                 
-                case ' ' ->t = run;
+                case ' ' -> t = run;
                 
                 default -> t = run + " ";
                 
@@ -80,25 +80,45 @@ public class init {
         
         List<String> insert = new ArrayList();
         
-        for(String tx : txt.text(text.replace(" -- ", "\n").replace(" - ", "\n"))){
+        for(String tx : txt.text(text,true).split("\n")){
             
             var inst = "";
             var inter = true;
             
             for(String t : txt.phrase(tx, true)){
                 
-                if(inter){
+                var node = true;
+                var c = 0;
+                
+                do{
+                    
+                    node = t.charAt(c) == '-' || t.charAt(c) == '>';
+                    
+                }while(c > 0 && c < t.length() && node);
+                
+                if(node){
+                    
+                    if(!inst.isBlank()){
+                        
+                        insert.add(inst);
+                        inst = "";
+                        
+                    }//if(!inst.isBlank())
+                    
+                    inter = true;
+                    
+                } else if(inter){//if(node)
                     
                     inst += txt.capitalize(t);
                     inter = false;
                     
-                } else {//if(inter)
+                } else {//if(node)
                     
                     inst += " ";
                     
                     inst += t.toLowerCase();
                     
-                }//if(inter)
+                }//if(node)
                 
             }//for(String t : txt.phrase(tx, true))
             
@@ -235,6 +255,7 @@ public class init {
             "title",
             "code",
             "name",
+            "nome",
             "run"
         };
         

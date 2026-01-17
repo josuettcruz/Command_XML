@@ -1,4 +1,4 @@
-# Coommand_xml
+# Command_xml
 
 ## Este é um projeto que permite ler arquivos XML e guardá-los em uma classe correspondente.
 ### Leitura do XML
@@ -7,7 +7,7 @@ Nesse projeto, uma classe fica dentro de uma lista:
 > List<[nome da classe]> = new ArrayList();
 
 Isso permite com que cada __TAG__ de um __arquivo XML__ fique dentro de uma __classe__
-Isso permite com que um arquivo seja lido completamente!
+~~Isso permite com que um arquivo seja lido completamente!~~
 
 ### TAGs do XML
 Ao ler um __arquivo XML__ cada __TAG__ não se resume a texto, podendo ser:

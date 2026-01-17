@@ -16,19 +16,10 @@ public class Data {
     
     public Data(){
         
-        try{
-            
-            this.data = LocalDate.now();
-            this.error = "";
-            
-        }catch(Exception e){
-            
-            this.data = LocalDate.now();
-            this.error = e.getMessage();
-            
-        }
+        this.data = LocalDate.now();
+        this.error = "";
         
-    }
+    }//Data()
     
     public Data(int a, int m, int d){
         
