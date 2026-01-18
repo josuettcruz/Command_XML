@@ -232,6 +232,8 @@ public class txt {
             "uma",
             "uns",
             "umas",
+            "dois",
+            "duas",
             "do",
             "da",
             "dos",
@@ -242,7 +244,11 @@ public class txt {
             "apos",
             "os",
             "as",
-            "em"
+            "em",
+            "ue",
+            "ué",
+            "uè",
+            "uê"
         };
         
         var txt = "";
@@ -270,7 +276,18 @@ public class txt {
                 
                 do{
                     
-                    if(p.toLowerCase().equalsIgnoreCase(articles[t])){
+                    if(
+                        p.toLowerCase()
+                         .replace(":", "")
+                         .replace(";", "")
+                         .replace(",", "")
+                         .replace(".", "")
+                         .replace("!", "")
+                         .equalsIgnoreCase(
+                                articles[t]
+                         )
+                    )
+                    {
                         
                         txt += p.toLowerCase();
                         article = false;

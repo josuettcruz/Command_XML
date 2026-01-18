@@ -93,6 +93,7 @@ public class init {
                 do{
                     
                     node = t.charAt(c) == '-' || t.charAt(c) == '>';
+                    c++;
                     
                 }while(c > 0 && c < t.length() && node);
                 
@@ -154,7 +155,7 @@ public class init {
                     tem += new Data().DataAbreviada(true);
                     tem += " -- ";
                     tem += new Hora(false).TimerGood(true);
-                    tem += " --> Nesse COMMIT --> ";
+                    tem += " -- Nesse COMMIT --> ";
                     
                     if(insert.size() > 1){
                         
@@ -234,7 +235,7 @@ public class init {
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot && !quot_end_line) tem += commit ? "." : "!";
+            if(quot && !quot_end_line) tem += commit ? "!" : ".";
             
             if(commit && !quot && sum < insert.size()-1) tem += " --";
         
