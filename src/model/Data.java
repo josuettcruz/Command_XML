@@ -376,53 +376,29 @@ public class Data {
         
         switch(m){
             
-            case 1 ->{
-                txt += "Janeiro";
-            }
+            case 1 -> txt += "Janeiro";
             
-            case 2 ->{
-                txt += "Fevereiro";
-            }
+            case 2 -> txt += "Fevereiro";
             
-            case 3 ->{
-                txt += "Março";
-            }
+            case 3 -> txt += "Março";
             
-            case 4 ->{
-                txt += "Abril";
-            }
+            case 4 -> txt += "Abril";
             
-            case 5 ->{
-                txt += "Maio";
-            }
+            case 5 -> txt += "Maio";
             
-            case 6 ->{
-                txt += "Junho";
-            }
+            case 6 -> txt += "Junho";
             
-            case 7 ->{
-                txt += "Julho";
-            }
+            case 7 -> txt += "Julho";
             
-            case 8 ->{
-                txt += "Agosto";
-            }
+            case 8 -> txt += "Agosto";
             
-            case 9 ->{
-                txt += "Setembro";
-            }
+            case 9 -> txt += "Setembro";
             
-            case 10 ->{
-                txt += "Outubro";
-            }
+            case 10 -> txt += "Outubro";
             
-            case 11 ->{
-                txt += "Novembro";
-            }
+            case 11 -> txt += "Novembro";
             
-            case 12 ->{
-                txt += "Dezembro";
-            }
+            case 12 -> txt += "Dezembro";
             
         }//switch(m)
         
@@ -456,122 +432,6 @@ public class Data {
         return this.DataCompleta(week, ", dia ", month_year);
         
     }//DataCompleta(boolean week, String month_year)
-    
-    public String DataLinha(boolean ifo){
-        
-        String txt = "";
-        
-        int dg = LocalDate.now().getDayOfYear();
-        int dt = this.data.getDayOfYear();
-        
-        int ag = LocalDate.now().getYear();
-        int at = this.data.getYear();
-        
-        if(ag - at == 1){//if
-            
-            if(ifo){
-                txt += "ANO PASSADO";
-            } else {
-                txt += "no ano passado";
-            }
-            
-        } else if(ag > at){//if
-            
-            int year = ag - at;
-            
-            if(!ifo){
-                txt += "há ";
-            }
-            
-            txt += year;
-            
-            if(ifo){
-                txt += " ANOS ATRÁS";
-            } else {
-                txt += " anos atrás";
-            }
-            
-        } else if(dg == dt && ag >= at){//if
-            
-            if(ifo){
-                txt += "HOJE";
-            } else {
-                txt += "hoje";
-            }
-            
-        } else if(dg - dt == 1 && ag >= at){//if
-            
-            if(ifo){
-                txt += "ONTEM";
-            } else {
-                txt += "ontem";
-            }
-            
-        } else if(dg - dt > 30 && ag >= at){//if
-            
-            int mes = LocalDate.now().getMonthValue() - this.data.getMonthValue();
-            
-            if(mes == 0){
-                
-                if(ifo){
-                    txt += "ESTE MÊS";
-                } else {
-                    txt += "este mês";
-                }
-                
-            } else if(mes == 1){//if(mes == 0)
-                
-                if(ifo){
-                    txt += "MÊS PASSADO";
-                } else {
-                    txt += "no mês passado";
-                }
-                
-            } else {//if(mes == 0)
-                
-                if(!ifo){
-                    txt += "há ";
-                }
-                
-                txt += mes;
-                
-                if(ifo){
-                    txt += " MESES ATRÁS";
-                } else {
-                    txt += " meses atrás";
-                }
-                
-            }//if(mes == 0)
-        
-        } else if(dg > dt && ag >= at){//if
-            
-            int day = dg - dt;
-            
-            if(!ifo){
-                txt += "há ";
-            }
-            
-            txt += day;
-            
-            if(ifo){
-                txt += " DIAS ATRÁS";
-            } else {
-                txt += " dias atrás";
-            }
-        
-        } else if(ifo){//if
-            
-            txt += "NO FUTURO";
-            
-        } else {//if
-            
-            txt += "no futuro";
-            
-        }//if
-        
-        return txt;
-        
-    }//DataLinha(String start, String end)
     
     public String Load(){
         

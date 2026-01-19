@@ -56,7 +56,7 @@ public class init {
         
         println.add(
             Reg.Tab(
-                t + "Criado " + Reg.create.DataLinha(false) + "!",
+                t + "Início do PROJETO",
                 Reg.create.DataCompleta(true),
                 tab
             )
@@ -64,7 +64,7 @@ public class init {
         
         println.add(
             Reg.Tab(
-                t + "Atualizado " + Reg.modify.DataLinha(false) + "!",
+                t + "Última atualização",
                 Reg.modify.DataCompleta(true),
                 tab
             )
@@ -125,7 +125,7 @@ public class init {
             
             insert.add(inst);
             
-        }//for(String q : txt.text(text.replace(" -- ", "\n").replace(" - ", "\n")))
+        }//for(String t : txt.phrase(tx, true))
         
         var tem = "";
         
@@ -155,7 +155,10 @@ public class init {
                     tem += new Data().DataAbreviada(true);
                     tem += " -- ";
                     tem += new Hora(false).TimerGood(true);
-                    tem += " -- Nesse COMMIT --> ";
+                    tem += " --";
+                    tem += insert.size() > 1 ? " " : "> ";
+                    tem += "Nesse COMMIT --";
+                    tem += insert.size() > 1 ? " " : "> ";
                     
                     if(insert.size() > 1){
                         
@@ -266,20 +269,16 @@ public class init {
         
         for(String a : arqv){
             
-            q.add("..\\" + a + ".txt");
-            q.add("..\\..\\" + a + ".txt");
-            q.add("..\\..\\..\\" + a + ".txt");
+            q.add("..\\" + a);
+            q.add("..\\..\\" + a);
             
         }//for(String a : arqv)
         
-        var dat = new Data().Load();
-        dat += ".txt";
-        
-        q.add(dat);
+        q.add(new Data().Load());
         
         for(String b : arqv){
             
-            q.add(b + "_" + dat);
+            q.add(b + "_" + new Data().Load());
             
         }//for(String b : arqv)
         
@@ -291,87 +290,99 @@ public class init {
             h--
         )
         {
+                
+            for(
+                int m = ag ? LocalTime.now().getMinute() : 59;
+                m >= 0;
+                m--
+            )
+            {
+
+                var nom = new Data().Load();
+                nom += "_";
+                nom += Reg.Numb(h);
+                nom += "-";
+                nom += Reg.Numb(m);
+
+                q.add(nom);
+
+                for(String g : arqv){
+
+                    var dm = g;
+                    dm += "_";
+                    dm += nom;
+
+                    q.add(dm);
+
+                    if(dm.length() > tot) tot = dm.length();
+
+                }//for(String g : arqv)
+
+            }//for(int m = ag ? LocalTime.now().getMinute() : 59;m >= 0;m--)
             
-            if(ag){
-                
-                for(
-                    int m = LocalTime.now().getMinute();
-                    m >= 0;
-                    m--
-                )
-                {
-                    
-                    var nom = new Data().Load();
-                    nom += "_";
-                    nom += Reg.Numb(h);
-                    nom += "-";
-                    nom += Reg.Numb(m);
-                    
-                    q.add(nom + ".txt");
-                    
-                    for(String g : arqv){
-                        
-                        var dm = g;
-                        dm += "_";
-                        dm += nom;
-                        dm += ".txt";
-                        
-                        q.add(dm);
-                        
-                        if(dm.length() > tot) tot = dm.length();
-                        
-                    }//for(String g : arqv)
-                    
-                }//for(int m = 59; m >= 0; m--)
-                
-                ag = false;
-                
-            } else {//if(ag)
-                
-                for(int m = 59; m >= 0; m--){
-                    
-                    var nom = new Data().Load();
-                    nom += "_";
-                    nom += Reg.Numb(h);
-                    nom += "-";
-                    nom += Reg.Numb(m);
-                    
-                    q.add(nom + ".txt");
-                    
-                    for(String g : arqv){
-                        
-                        var dm = g;
-                        dm += "_";
-                        dm += nom;
-                        dm += ".txt";
-                        
-                        q.add(dm);
-                        
-                        if(dm.length() > tot) tot = dm.length();
-                        
-                    }//for(String g : arqv)
-                    
-                }//for(int m = 59; m >= 0; m--)
-                
-            }//if(ag)
+            ag = false;
             
-        }//for(int h = 23; h >= 0; h--)
+        }//for(int h = LocalTime.now().getHour();h >= 0;h--)
         
         var nome = "";
         var ss = 0;
         
         do{
             
-            if(Arq.Exist(q.get(ss))){
-                
-                nome = q.get(ss);
-                //System.out.println(Arq.Files(q.get(ss)));
-                
-            }
+            if(Arq.Exist(q.get(ss))) nome = q.get(ss);
             
             ss++;
             
         }while(ss > 0 && ss < q.size() && nome.isBlank());
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = q.get(ss);
+                file += ".ini";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 1 - 3
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = q.get(ss);
+                file += ".txt";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 2 - 3
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = q.get(ss);
+                file += ".TXT";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 3 - 3
         
         if(nome.isBlank()){
             
