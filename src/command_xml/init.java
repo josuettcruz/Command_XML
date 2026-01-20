@@ -6,6 +6,7 @@ package command_xml;
 
 import file.*;
 import model.*;
+import form.window;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -420,15 +421,27 @@ public class init {
     
     public static void Exec(){
         
-        if(new Data().CompareTo(Reg.modify)){
+        Data d = new Data();
+        
+        if(d.CompareTo(Reg.modify)){
             
             gitCommit();
             
-        } else {//if(new Data().CompareTo(Reg.modify))
+        } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
+            
+            var title = "Bo";
+            title += Hora.Good("m Dia", "a Tarde", "a Noite");
+            title += "! Hoje é ";
+            title += new Data().DataCompleta(true);
             
             for(String p : Print("run:",0)) System.out.println(p);
+            new window().Enter(title,100, 200, 600, 200);
             
-        }//if(new Data().CompareTo(Reg.modify))
+        } else {//if(d.CompareTo(Reg.modify))
+            
+            for(String p : Print("run:",0)) System.err.println(p);
+            
+        }//if(d.CompareTo(Reg.modify))
         
     }//Exec()
     

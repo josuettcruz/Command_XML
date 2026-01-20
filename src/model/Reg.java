@@ -24,7 +24,7 @@ public class Reg {
     
     public final static Data create = new Data(2025,10,27);
     
-    public final static Data modify = new Data(2026,1,19);
+    public final static Data modify = new Data(2026,1,20);
     
     private final static int result = 28;
     
