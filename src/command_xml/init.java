@@ -429,13 +429,12 @@ public class init {
             
         } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
             
-            var title = "Bo";
-            title += Hora.Good("m Dia", "a Tarde", "a Noite");
-            title += "! Hoje é ";
+            var title = "Hoje é ";
             title += new Data().DataCompleta(true);
             
             for(String p : Print("run:",0)) System.out.println(p);
-            new window().Enter(title,100, 200, 600, 200);
+            
+            new window().Enter(0, title);
             
         } else {//if(d.CompareTo(Reg.modify))
             

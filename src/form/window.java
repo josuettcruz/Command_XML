@@ -20,13 +20,31 @@ public class window extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void Enter(String title, int r, int l, int w, int h){
+    public void Enter(int init, String title, int r, int l, int w, int h){
         
-        if(r < 0) w = 0;
-        if(l < 0) h = 0;
+        if(r < 0) r = 0;
+        if(l < 0) l = 0;
         
-        if(w < 300) w = 300;
+        if(w < 600) w = 600;
         if(h < 300) h = 300;
+        
+        Exec(init,title,r,l,w,h);
+        
+    }//Enter(String title, int r, int l, int w, int h)
+    
+    public void Enter(int init, String title, int r, int l){
+        
+        Exec(init,title,r ,l,600,300);
+        
+    }//Enter(int init, String title, int r, int l)
+    
+    public void Enter(int init, String title){
+        
+        Exec(init,title,100,300,600,300);
+        
+    }//public void Enter(int init, String title)
+    
+    private void Exec(int init, String title, int r, int l, int w, int h){
         
         setBounds(r, l, w, h);
         
@@ -43,24 +61,54 @@ public class window extends javax.swing.JFrame {
         }//if(t.trim().isBlank())
         
         setVisible(true);
+        setResizable(init > 0);
         
-    }
+        boolean tem[] = new boolean[2];
+        
+        for(int exe = 0; exe < tem.length; exe++) tem[exe] = exe == init;
+        
+        Command(tem[0]);
+        
+    }//Enter(String title, int r, int l, int w, int h)
     
-    public void Enter(int r, int l, int w, int h){
+    private void Command(boolean execute){
         
-        if(r < 0) w = 0;
-        if(l < 0) h = 0;
+        initial.setVisible(execute);
         
-        if(w < 300) w = 300;
-        if(h < 300) h = 300;
+        if(execute){
+            
+            final var node1 = Reg.modify.DataCompleta("#");
+            final var node2 = node1.indexOf("#");
+            final var node = node1.substring(0, node2);
+            
+            ide.setFont(new java.awt.Font("Segoe UI Black", 1, 32));
+            ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            
+            categories.setFont(new java.awt.Font("Tahoma", 0, 26));
+            categories.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            
+            choose.setFont(new java.awt.Font("Tahoma", 0, 26));
+            choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            
+            modify1.setFont(new java.awt.Font("Times New Roman", 3, 22));
+            modify1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            
+            modify2.setFont(new java.awt.Font("Times New Roman", 2, 22));
+            modify2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            
+            modify3.setFont(new java.awt.Font("Times New Roman", 2, 22));
+            modify3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            
+            ide.setText(Reg.ide);
+            categories.setText(Reg.categories);
+            choose.setText(Reg.choose);
+            modify1.setText("Última modificação:");
+            modify2.setText(node);
+            modify3.setText(Reg.modify.DataCompleta(false));
+            
+        }//if(execute)
         
-        setBounds(r, l, w, h);
-        
-        setTitle(new Data().DataAbreviada(true));
-        
-        setVisible(true);
-        
-    }
+    }//Command(boolean execute)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,17 +119,85 @@ public class window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        initial = new javax.swing.JPanel();
+        ide = new javax.swing.JLabel();
+        categories = new javax.swing.JLabel();
+        choose = new javax.swing.JLabel();
+        modify1 = new javax.swing.JLabel();
+        modify2 = new javax.swing.JLabel();
+        modify3 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(600, 600));
+
+        initial.setAlignmentX(0.0F);
+        initial.setAlignmentY(0.0F);
+        initial.setMaximumSize(new java.awt.Dimension(600, 600));
+        initial.setMinimumSize(new java.awt.Dimension(600, 600));
+        initial.setPreferredSize(new java.awt.Dimension(600, 300));
+
+        ide.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        ide.setText("jLabel1");
+
+        categories.setText("jLabel1");
+
+        choose.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        choose.setText("jLabel1");
+
+        modify1.setText("jLabel1");
+
+        modify2.setText("jLabel1");
+
+        modify3.setText("jLabel1");
+
+        javax.swing.GroupLayout initialLayout = new javax.swing.GroupLayout(initial);
+        initial.setLayout(initialLayout);
+        initialLayout.setHorizontalGroup(
+            initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, initialLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(modify1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(initialLayout.createSequentialGroup()
+                        .addComponent(modify2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(modify3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ide, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, initialLayout.createSequentialGroup()
+                        .addComponent(categories, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(40, 40, 40))
+        );
+        initialLayout.setVerticalGroup(
+            initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(initialLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ide, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(categories, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(modify1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(modify2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(modify3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -113,5 +229,12 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel categories;
+    private javax.swing.JLabel choose;
+    private javax.swing.JLabel ide;
+    private javax.swing.JPanel initial;
+    private javax.swing.JLabel modify1;
+    private javax.swing.JLabel modify2;
+    private javax.swing.JLabel modify3;
     // End of variables declaration//GEN-END:variables
 }
