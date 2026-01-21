@@ -18,7 +18,15 @@ import java.util.List;
  */
 public class init {
     
-    public static List<String> Print(String run, int tab){
+    private static void Form(){
+        
+        var title = "Hoje é ";
+        title += new Data().DataCompleta(true);
+        new window().Enter(0, title);
+        
+    }//Form()
+    
+    public static List<String> Print(/*String run, */int tab){
         
         Data d = new Data();
         Hora h = new Hora(true);
@@ -27,7 +35,7 @@ public class init {
         
         if(tab == 0) tab = 39;
         
-        var t = "";
+        /*var t = "";
         
         if(run.length() > 2){
             
@@ -41,11 +49,14 @@ public class init {
                 
             }//switch(len)
             
-        }//if(run.length() > 2)
+        }*/
+        
+        var t = "run: ";
         
         var addition = 2;
         addition += Reg.ide.length();
-        addition += run.length();
+        //addition += run.length();
+        addition += 5;
         
         if(tab < addition) tab = addition;
         
@@ -387,7 +398,7 @@ public class init {
         
         if(nome.isBlank()){
             
-            for(int e = q.size()-1; e >= 0;e--){
+            /*for(int e = q.size()-1; e >= 0;e--){
                 
                 var pr = "-- ";
                 pr += Reg.Numb(q.size() - e, q.size());
@@ -397,7 +408,11 @@ public class init {
                 
                 Reg.Print(pr, "--", Reg.Numb(q.size()).length() + tot + 10);
                 
-            }//for(int e = q.size()-1; e >= 0;e--)
+            }*/
+            
+            for(String p : Print(30)) System.out.println(p);
+            
+            Form();
             
         } else {//if(nome.isBlank())
             
@@ -429,16 +444,11 @@ public class init {
             
         } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
             
-            var title = "Hoje é ";
-            title += new Data().DataCompleta(true);
-            
-            for(String p : Print("run:",0)) System.out.println(p);
-            
-            new window().Enter(0, title);
+            Form();
             
         } else {//if(d.CompareTo(Reg.modify))
             
-            for(String p : Print("run:",0)) System.err.println(p);
+            for(String p : Print(39)) System.err.println(p);
             
         }//if(d.CompareTo(Reg.modify))
         
