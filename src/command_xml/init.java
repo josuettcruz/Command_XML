@@ -11,6 +11,8 @@ import form.window;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Toolkit;
+import java.util.Scanner;
 
 /**
  *
@@ -21,22 +23,37 @@ public class init {
     private static void Form(boolean print){
         
         if(print){
+            
+            Scanner menu = new Scanner(System.in);
+            
+            var title1 = "Bo";
+            title1 += Hora.Good("m Dia", "a Tarde", "a Noite");
+            title1 += "!";
+            
+            var title2 = "Hoje é dia ";
+            title2 += new Data().DataCompleta(false);
+            
+            System.out.println(title1);
+            System.out.println(title2);
+            System.out.println();
+            System.out.println("De Enter para abrir o formulário");
+            System.out.println("ou digite algo para imprimir...");
+            
+            var col = menu.nextLine().length();
+            
+            if(col <= 0){
                 
-            var title = "Bo";
-            title += Hora.Good("m Dia", "a Tarde", "a Noite");
-            title += "! Hoje é dia ";
-            title += new Data().DataCompleta(false);
-            
-            var win = new window();
-            win.Enter(0, title);
-            
-            final var tab = 21;
-            
-            var w = tab - Reg.Numb(win.Width()).length();
-            var h = tab - Reg.Numb(win.Height()).length();
-            
-            Reg.Print("Largura da tela:", Reg.Numb(win.Width()) + " px", w);
-            Reg.Print("Altura da tela:", Reg.Numb(win.Height()) + " px", h);
+                new window().Enter(0, title1 + " " + title2);
+                
+            } else {
+                
+                System.out.print("A plavra digitada têm ");
+                System.out.print(col);
+                System.out.println(" caracteres!");
+                System.out.println();
+                for(String p : Print(col)) System.out.println(p);
+                
+            }
             
         } else {//if(print)
             
@@ -100,6 +117,17 @@ public class init {
             Reg.Tab(
                 t + "Última atualização",
                 Reg.modify.DataCompleta(true),
+                tab
+            )
+        );
+        
+        println.add(
+            Reg.Tab(
+                t + "RESOLUÇÃO DE TELA",
+                Toolkit.getDefaultToolkit().getScreenSize().width
+                + "x"
+                + Toolkit.getDefaultToolkit().getScreenSize().height
+                + "p",
                 tab
             )
         );
@@ -223,7 +251,8 @@ public class init {
                             
                             quot_end_line = !quot_end_line;
                             
-                            tem += commit ? "'" : "\"";
+                            if(!commit) tem += "\"";
+                            //tem += commit ? "" : "\"";
                             quot = false;
                             
                         }//if(val)
@@ -278,7 +307,7 @@ public class init {
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
-        if(quot_end_line) tem += commit ? "'" : "\"";
+        if(quot_end_line) tem += commit ? "" : "\"";
         
         if(commit) tem += "\"";
         

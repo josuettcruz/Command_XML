@@ -38,18 +38,6 @@ public class window extends javax.swing.JFrame {
         
     }//public void Enter(int init, String title)
     
-    public int Width(){
-        
-        return Toolkit.getDefaultToolkit().getScreenSize().width;
-        
-    }//Width()
-    
-    public int Height(){
-        
-        return Toolkit.getDefaultToolkit().getScreenSize().height;
-        
-    }//Height()
-    
     private void Exec(int init, String title, int r, int t, int w, int h){
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
