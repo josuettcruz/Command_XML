@@ -108,33 +108,33 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Java NetBeans IDE 27"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="categories">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Java width Ant"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="choose">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Java Application"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="modify1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="&#xda;ltima modifica&#xe7;&#xe3;o"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="modify2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Dia da SEMANA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="modify3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
+            <Property name="text" type="java.lang.String" value="Dia do M&#xca;S"/>
           </Properties>
         </Component>
       </SubComponents>

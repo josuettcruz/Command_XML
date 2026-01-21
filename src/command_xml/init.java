@@ -11,6 +11,7 @@ import form.window;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -18,11 +19,33 @@ import java.util.List;
  */
 public class init {
     
-    private static void Form(){
+    private static void Form(boolean print){
         
-        var title = "Hoje é ";
-        title += new Data().DataCompleta(true);
-        new window().Enter(0, title);
+        if(print){
+                
+            var title = "Bo";
+            title += Hora.Good("m Dia", "a Tarde", "a Noite");
+            title += "! Hoje é dia ";
+            title += new Data().DataCompleta(false);
+            
+            var win = new window();
+            win.Enter(0, title);
+            
+            final var tab = 21;
+            
+            var w = tab - Reg.Numb(win.Width()).length();
+            var h = tab - Reg.Numb(win.Height()).length();
+            
+            Reg.Print("Largura da tela:", Reg.Numb(win.Width()) + " px", w);
+            Reg.Print("Altura da tela:", Reg.Numb(win.Height()) + " px", h);
+            
+        } else {//if(print)
+            
+            var title = "Hoje é ";
+            title += new Data().DataCompleta(true);
+            new window().Enter(0, title);
+            
+        }//if(print)
         
     }//Form()
     
@@ -264,7 +287,9 @@ public class init {
         
     }//Tem(String text)
     
-    private static void gitCommit(){
+    private static boolean gitCommit(){
+        
+        var logit = false;
         
         final String[] arqv = {
             "info",
@@ -410,9 +435,7 @@ public class init {
                 
             }*/
             
-            for(String p : Print(30)) System.out.println(p);
-            
-            Form();
+            logit = true;
             
         } else {//if(nome.isBlank())
             
@@ -432,6 +455,8 @@ public class init {
             
         }//if(enter)if(nome.isBlank())
         
+        return logit;
+        
     }//gitCommit()
     
     public static void Exec(){
@@ -440,11 +465,11 @@ public class init {
         
         if(d.CompareTo(Reg.modify)){
             
-            gitCommit();
+            if(gitCommit()) Form(true);
             
         } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
             
-            Form();
+            Form(false);
             
         } else {//if(d.CompareTo(Reg.modify))
             

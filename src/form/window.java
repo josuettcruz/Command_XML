@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package form;
+import java.awt.Toolkit;
 import model.*;
 
 /**
@@ -12,7 +13,6 @@ import model.*;
 public class window extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(window.class.getName());
-
     /**
      * Creates new form window
      */
@@ -20,23 +20,17 @@ public class window extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void Enter(int init, String title, int r, int l, int w, int h){
+    public void Enter(int init, String title, int r, int t, int w, int h){
         
-        if(r < 0) r = 0;
-        if(l < 0) l = 0;
+        if(r < 0 || r >= 100) r = 0;
+        if(t < 0 || t >= 300) t = 0;
         
         if(w < 600) w = 600;
         if(h < 300) h = 300;
         
-        Exec(init,title,r,l,w,h);
+        Exec(init,title,r,t,w,h);
         
     }//Enter(String title, int r, int l, int w, int h)
-    
-    public void Enter(int init, String title, int r, int l){
-        
-        Exec(init,title,r ,l,600,300);
-        
-    }//Enter(int init, String title, int r, int l)
     
     public void Enter(int init, String title){
         
@@ -44,19 +38,42 @@ public class window extends javax.swing.JFrame {
         
     }//public void Enter(int init, String title)
     
-    private void Exec(int init, String title, int r, int l, int w, int h){
+    public int Width(){
         
-        setBounds(r, l, w, h);
+        return Toolkit.getDefaultToolkit().getScreenSize().width;
         
-        var t = txt.text(title, true);
+    }//Width()
+    
+    public int Height(){
         
-        if(t.trim().isBlank()){
+        return Toolkit.getDefaultToolkit().getScreenSize().height;
+        
+    }//Height()
+    
+    private void Exec(int init, String title, int r, int t, int w, int h){
+        
+        var tool = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        var width = tool.width - r;
+        var height = tool.height - t;
+        
+        if(width > 120) width -= 100;
+        if(height > 120) height -= 100;
+        
+        if(w > width) w = width;
+        if(h > height) h = height;
+        
+        setBounds(r, t, w, h);
+        
+        var d = txt.text(title, true);
+        
+        if(d.trim().isBlank()){
             
             setTitle(new Data().DataAbreviada(true));
             
         } else {//if(t.trim().isBlank())
             
-            setTitle(t);
+            setTitle(d);
             
         }//if(t.trim().isBlank())
         
@@ -65,7 +82,19 @@ public class window extends javax.swing.JFrame {
         
         boolean tem[] = new boolean[2];
         
-        for(int exe = 0; exe < tem.length; exe++) tem[exe] = exe == init;
+        for(int exe = 0; exe < tem.length; exe++){
+            
+            if(init >= 0 && init < tem.length){
+                
+                tem[exe] = exe == init;
+                
+            } else {//if(init >= 0 && init < tem.length)
+                
+                tem[exe] = exe == 0;
+                
+            }//if(init >= 0 && init < tem.length)
+            
+        }//for(int exe = 0; exe < tem.length; exe++)
         
         Command(tem[0]);
         
@@ -139,18 +168,18 @@ public class window extends javax.swing.JFrame {
         initial.setPreferredSize(new java.awt.Dimension(600, 300));
 
         ide.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        ide.setText("jLabel1");
+        ide.setText("Java NetBeans IDE 27");
 
-        categories.setText("jLabel1");
+        categories.setText("Java width Ant");
 
         choose.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        choose.setText("jLabel1");
+        choose.setText("Java Application");
 
-        modify1.setText("jLabel1");
+        modify1.setText("Última modificação");
 
-        modify2.setText("jLabel1");
+        modify2.setText("Dia da SEMANA");
 
-        modify3.setText("jLabel1");
+        modify3.setText("Dia do MÊS");
 
         javax.swing.GroupLayout initialLayout = new javax.swing.GroupLayout(initial);
         initial.setLayout(initialLayout);
