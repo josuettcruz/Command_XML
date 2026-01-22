@@ -21,51 +21,26 @@ public class init {
     
     private static void Form(){
         
-        var title = "Bo";
-        title += Hora.Good("m dia", "a tarde", "a noite");
-        title += ", hoje é dia ";
-        title += "hoje é ";
-        title += new Data().DataCompleta(false);
+        for(String e : Print(0)) System.out.println(e);
         
-        for(String e : Print(39)) System.out.println(e);
-        
-        System.out.println();
-        System.out.println(title);
-        new window().Enter(0, title, 100,300);
+        new window().Enter(0, 100,100);
         
     }//Form()
     
-    public static List<String> Print(/*String run, */int tab){
+    public static List<String> Print(int tab){
         
         Data d = new Data();
         Hora h = new Hora(true);
         
         if(tab < 0) tab = tab - tab*2;
         
-        if(tab == 0) tab = 39;
-        
-        /*var t = "";
-        
-        if(run.length() > 2){
-            
-            var len = run.charAt(run.length()-1);
-            
-            switch(len){
-                
-                case ' ' -> t = run;
-                
-                default -> t = run + " ";
-                
-            }//switch(len)
-            
-        }*/
+        if(tab == 0 || tab > 40) tab = 40;
         
         var t = "run: ";
         
-        var addition = 2;
+        var addition = 1;
+        addition += t.length();
         addition += Reg.ide.length();
-        //addition += run.length();
-        addition += 5;
         
         if(tab < addition) tab = addition;
         
@@ -85,7 +60,7 @@ public class init {
         
         println.add(
             Reg.Tab(
-                t + "Última atualização",
+                t + "Última ATUALIZAÇÃO",
                 Reg.modify.DataCompleta(true),
                 tab
             )
@@ -101,8 +76,6 @@ public class init {
                 tab
             )
         );
-        
-        println.add(Reg.Tab(t + h.TimerGood(true), d.DataCompleta(true), tab));
         
         return println;
         

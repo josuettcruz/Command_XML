@@ -16,32 +16,45 @@ public class window extends javax.swing.JFrame {
     /**
      * Creates new form window
      */
+    
+    private String title_print;
+    
     public window() {
+        title_print = "";
         initComponents();
     }
     
     public void Enter(int init, String title, int r, int t, int w, int h){
         
-        if(r < 0 || r >= 100) r = 0;
-        if(t < 0 || t >= 300) t = 0;
+        if(r < 0) r = 0;
+        if(t < 0) t = 0;
         
         if(r >= 100) r = 100;
-        if(t >= 300) t = 300;
+        if(t >= 100) t = 100;
         
         if(w < 600) w = 600;
         if(h < 300) h = 300;
         
-        Exec(init,title,r,t,w,h);
+        Exec(init,r,t,w,h);
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void Enter(int init, String title, int r, int t){
+    public void Enter(int init, int r, int t){
         
-        Exec(init,title,r,t,600,300);
+        if(r < 0) r = 0;
+        if(t < 0) t = 0;
+        
+        if(r >= 100) r = 100;
+        if(t >= 300) t = 300;
+        
+        Exec(init,r,t,600,300);
         
     }//public void Enter(int init, String title)
     
-    private void Exec(int init, String title, int r, int t, int w, int h){
+    private void Exec(int init, int r, int t, int w, int h){
+        
+        setVisible(true);
+        setResizable(init > 0);
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -55,21 +68,6 @@ public class window extends javax.swing.JFrame {
         if(h > height) h = height;
         
         setBounds(r, t, w, h);
-        
-        var d = txt.text(title, true);
-        
-        if(d.trim().isBlank()){
-            
-            setTitle(new Data().DataAbreviada(true));
-            
-        } else {//if(t.trim().isBlank())
-            
-            setTitle(d);
-            
-        }//if(t.trim().isBlank())
-        
-        setVisible(true);
-        setResizable(init > 0);
         
         boolean tem[] = new boolean[2];
         
@@ -89,7 +87,28 @@ public class window extends javax.swing.JFrame {
         
         Command(tem[0]);
         
+        Title();
+        
     }//Enter(String title, int r, int l, int w, int h)
+    
+    private void Title(){
+        
+        var title = new Data().DataAbreviada(true);
+        title += " - Bo";
+        title += Hora.Good("m Dia", "a Tarde", "a Noite");
+        title += "!";
+        
+        setTitle(title);
+        
+        var tem = Reg.Tab(title, new Hora(false).TimerGood(true),40);
+        
+        if(!title_print.equalsIgnoreCase(tem)){
+            System.out.println(Reg.Tab(title, new Hora(true).TimerGood(true),40));
+        }
+        
+        title_print = tem;
+        
+    }//Title()
     
     private void Command(boolean execute){
         
@@ -101,17 +120,17 @@ public class window extends javax.swing.JFrame {
             final var node2 = node1.indexOf("#");
             final var node = node1.substring(0, node2);
             
-            ide.setFont(new java.awt.Font("Segoe UI Black", 1, 32));
-            ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
+            ide.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             
-            categories.setFont(new java.awt.Font("Tahoma", 0, 26));
+            categories.setFont(new java.awt.Font("Tahoma", 0, 22));
             categories.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
             
-            choose.setFont(new java.awt.Font("Tahoma", 0, 26));
+            choose.setFont(new java.awt.Font("Tahoma", 0, 22));
             choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             
             modify1.setFont(new java.awt.Font("Times New Roman", 3, 22));
-            modify1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            modify1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             
             modify2.setFont(new java.awt.Font("Times New Roman", 2, 22));
             modify2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -149,14 +168,28 @@ public class window extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(600, 600));
-        setPreferredSize(new java.awt.Dimension(600, 600));
 
         initial.setAlignmentX(0.0F);
         initial.setAlignmentY(0.0F);
         initial.setMaximumSize(new java.awt.Dimension(600, 600));
         initial.setMinimumSize(new java.awt.Dimension(600, 600));
         initial.setPreferredSize(new java.awt.Dimension(600, 300));
+        initial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                initialMouseReleased(evt);
+            }
+        });
+        initial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                initialKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                initialKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                initialKeyTyped(evt);
+            }
+        });
 
         ide.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         ide.setText("Java NetBeans IDE 27");
@@ -222,6 +255,22 @@ public class window extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void initialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_initialKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_initialKeyReleased
+
+    private void initialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_initialKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_initialKeyPressed
+
+    private void initialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_initialKeyTyped
+        System.out.println(evt.getKeyChar());
+    }//GEN-LAST:event_initialKeyTyped
+
+    private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
+        Title();
+    }//GEN-LAST:event_initialMouseReleased
 
     /**
      * @param args the command line arguments
