@@ -45,8 +45,8 @@ public class window extends javax.swing.JFrame {
         if(r >= 100) r = 100;
         if(t >= 100) t = 100;
         
-        if(w < 600) w = 600;
-        if(h < 300) h = 300;
+        if(w < 700) w = 700;
+        if(h < 400) h = 400;
         
         Exec(init,r,t,w,h);
         
@@ -59,10 +59,7 @@ public class window extends javax.swing.JFrame {
         if(r < 0) r = 0;
         if(t < 0) t = 0;
         
-        if(r >= 100) r = 100;
-        if(t >= 300) t = 300;
-        
-        Exec(init,r,t,600,300);
+        Exec(init,r,t,700,400);
         
     }//public void Enter(int init, String title)
     
@@ -70,22 +67,31 @@ public class window extends javax.swing.JFrame {
         
         this.print = print;
         
-        Exec(init,50,50,600,300);
+        Exec(init,50,50,0,0);
         
     }//public void Enter(int init, String title)
     
     private void Exec(int init, int r, int t, int w, int h){
         
+        var tool = Toolkit.getDefaultToolkit().getScreenSize();
+        
         setVisible(true);
         setResizable(init > 0);
         
-        var tool = Toolkit.getDefaultToolkit().getScreenSize();
+        var rw = tool.width - w - 10;
+        var th = tool.height - h - 50;
+        
+        if(rw < 0) rw = 0;
+        if(th < 0) th = 0;
+        
+        if(r < 0) r = 0;
+        if(t < 0) t = 0;
+        
+        if(r > rw) r = rw;
+        if(t > th) t = th;
         
         var width = tool.width - r;
         var height = tool.height - t;
-        
-        if(width > 120) width -= 100;
-        if(height > 120) height -= 100;
         
         if(w > width) w = width;
         if(h > height) h = height;
@@ -120,14 +126,12 @@ public class window extends javax.swing.JFrame {
         title += " - Bo";
         title += Hora.Good("m Dia", "a Tarde", "a Noite");
         title += "!";
-        
-        setTitle(title);
-        
-            if(this.print){
                 
-            var tem = Reg.Tab(title, new Hora(false).TimerGood(true),40);
+        var tem = new Hora(false).Timer();
+        
+        if(!title_print.equalsIgnoreCase(tem)){
             
-            if(!title_print.equalsIgnoreCase(tem)){
+            if(print){
                 
                 System.out.println(
                     Reg.Tab(
@@ -137,11 +141,13 @@ public class window extends javax.swing.JFrame {
                     )
                 );
                 
-            }//if(!title_print.equalsIgnoreCase(tem))
+            }//if(print)
             
-            title_print = tem;
+            setTitle(title);
+            
+        }//if(!title_print.equalsIgnoreCase(tem))
 
-        }
+        title_print = tem;
         
     }//Title()
     
@@ -151,34 +157,18 @@ public class window extends javax.swing.JFrame {
         
         if(execute){
             
-            final var node1 = Reg.modify.DataCompleta("#");
-            final var node2 = node1.indexOf("#");
-            final var node = node1.substring(0, node2);
-            
-            ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
+            ide.setFont(new java.awt.Font("Segoe UI Black", 0, 48));
             ide.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             
-            categories.setFont(new java.awt.Font("Tahoma", 0, 22));
-            categories.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            categories.setFont(new java.awt.Font("Tahoma", 0, 48));
+            categories.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             
-            choose.setFont(new java.awt.Font("Tahoma", 0, 22));
-            choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            
-            modify1.setFont(new java.awt.Font("Times New Roman", 3, 22));
-            modify1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-            
-            modify2.setFont(new java.awt.Font("Times New Roman", 2, 22));
-            modify2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            
-            modify3.setFont(new java.awt.Font("Times New Roman", 2, 22));
-            modify3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            choose.setFont(new java.awt.Font("Tahoma", 0, 48));
+            choose.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             
             ide.setText(Reg.ide);
             categories.setText(Reg.categories);
             choose.setText(Reg.choose);
-            modify1.setText("Última modificação:");
-            modify2.setText(node);
-            modify3.setText(Reg.modify.DataCompleta(false));
             
         }//if(execute)
         
@@ -197,17 +187,16 @@ public class window extends javax.swing.JFrame {
         ide = new javax.swing.JLabel();
         categories = new javax.swing.JLabel();
         choose = new javax.swing.JLabel();
-        modify1 = new javax.swing.JLabel();
-        modify2 = new javax.swing.JLabel();
-        modify3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         initial.setAlignmentX(0.0F);
         initial.setAlignmentY(0.0F);
-        initial.setMaximumSize(new java.awt.Dimension(600, 600));
-        initial.setMinimumSize(new java.awt.Dimension(600, 600));
+        initial.setDoubleBuffered(false);
+        initial.setEnabled(false);
+        initial.setMaximumSize(new java.awt.Dimension(600, 300));
+        initial.setMinimumSize(new java.awt.Dimension(600, 300));
         initial.setPreferredSize(new java.awt.Dimension(600, 300));
         initial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -234,47 +223,28 @@ public class window extends javax.swing.JFrame {
         choose.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         choose.setText("Java Application");
 
-        modify1.setText("Última modificação");
-
-        modify2.setText("Dia da SEMANA");
-
-        modify3.setText("Dia do MÊS");
-
         javax.swing.GroupLayout initialLayout = new javax.swing.GroupLayout(initial);
         initial.setLayout(initialLayout);
         initialLayout.setHorizontalGroup(
             initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, initialLayout.createSequentialGroup()
+            .addGroup(initialLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(modify1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(initialLayout.createSequentialGroup()
-                        .addComponent(modify2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(modify3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(ide, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, initialLayout.createSequentialGroup()
-                        .addComponent(categories, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                        .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(40, 40, 40))
+                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ide, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                    .addComponent(categories, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         initialLayout.setVerticalGroup(
             initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(initialLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ide, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(categories, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(modify1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(modify2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(modify3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ide, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(categories, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,7 +255,9 @@ public class window extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 62, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,7 +272,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialKeyPressed
 
     private void initialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_initialKeyTyped
-        System.out.println(evt.getKeyChar());
+        // TODO add your handling code here:
     }//GEN-LAST:event_initialKeyTyped
 
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
@@ -337,8 +309,5 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel choose;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
-    private javax.swing.JLabel modify1;
-    private javax.swing.JLabel modify2;
-    private javax.swing.JLabel modify3;
     // End of variables declaration//GEN-END:variables
 }

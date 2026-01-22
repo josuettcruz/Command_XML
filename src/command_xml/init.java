@@ -21,16 +21,21 @@ public class init {
     
     private static void Form(boolean print){
         
-        for(String e : Print(0)) System.out.println(e);
+        if(print){
+            
+            for(String e : Print(0)){
+                
+                System.out.println(e);
+                
+            }//for(String e : Print(0))
+            
+        }//if(print)
         
-        new window().Enter(print, 0,100,300);
+        new window().Enter(print, 0,100,100);
         
     }//Form()
     
     public static List<String> Print(int tab){
-        
-        Data d = new Data();
-        Hora h = new Hora(true);
         
         if(tab < 0) tab = tab - tab*2;
         
