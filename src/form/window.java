@@ -18,13 +18,26 @@ public class window extends javax.swing.JFrame {
      */
     
     private String title_print;
+    private boolean print;
     
     public window() {
-        title_print = "";
+        this.title_print = "";
+        this.print = false;
         initComponents();
     }
     
-    public void Enter(int init, String title, int r, int t, int w, int h){
+    public void Enter(
+        boolean print,
+        int init,
+        String title,
+        int r,
+        int t,
+        int w,
+        int h
+    )
+    {
+        
+        this.print = print;
         
         if(r < 0) r = 0;
         if(t < 0) t = 0;
@@ -39,7 +52,9 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void Enter(int init, int r, int t){
+    public void Enter(boolean print, int init, int r, int t){
+        
+        this.print = print;
         
         if(r < 0) r = 0;
         if(t < 0) t = 0;
@@ -48,6 +63,14 @@ public class window extends javax.swing.JFrame {
         if(t >= 300) t = 300;
         
         Exec(init,r,t,600,300);
+        
+    }//public void Enter(int init, String title)
+    
+    public void Enter(boolean print, int init){
+        
+        this.print = print;
+        
+        Exec(init,50,50,600,300);
         
     }//public void Enter(int init, String title)
     
@@ -100,13 +123,25 @@ public class window extends javax.swing.JFrame {
         
         setTitle(title);
         
-        var tem = Reg.Tab(title, new Hora(false).TimerGood(true),40);
-        
-        if(!title_print.equalsIgnoreCase(tem)){
-            System.out.println(Reg.Tab(title, new Hora(true).TimerGood(true),40));
+            if(this.print){
+                
+            var tem = Reg.Tab(title, new Hora(false).TimerGood(true),40);
+            
+            if(!title_print.equalsIgnoreCase(tem)){
+                
+                System.out.println(
+                    Reg.Tab(
+                        title,
+                        new Hora(true).TimerGood(true),
+                        40
+                    )
+                );
+                
+            }//if(!title_print.equalsIgnoreCase(tem))
+            
+            title_print = tem;
+
         }
-        
-        title_print = tem;
         
     }//Title()
     

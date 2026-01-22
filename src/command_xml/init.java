@@ -19,11 +19,11 @@ import java.awt.Toolkit;
  */
 public class init {
     
-    private static void Form(){
+    private static void Form(boolean print){
         
         for(String e : Print(0)) System.out.println(e);
         
-        new window().Enter(0, 100,100);
+        new window().Enter(print, 0,100,300);
         
     }//Form()
     
@@ -158,7 +158,7 @@ public class init {
                     
                     tem += "git commit -m \"";
                     tem += new Data().DataAbreviada(true);
-                    tem += " -- ";
+                    tem += " - ";
                     tem += new Hora(false).TimerGood(true);
                     tem += " --";
                     tem += insert.size() > 1 ? " " : "> ";
@@ -394,18 +394,6 @@ public class init {
         
         if(nome.isBlank()){
             
-            /*for(int e = q.size()-1; e >= 0;e--){
-                
-                var pr = "-- ";
-                pr += Reg.Numb(q.size() - e, q.size());
-                pr += " -- \"";
-                pr += q.get(e);
-                pr += "\"";
-                
-                Reg.Print(pr, "--", Reg.Numb(q.size()).length() + tot + 10);
-                
-            }*/
-            
             logit = true;
             
         } else {//if(nome.isBlank())
@@ -436,11 +424,11 @@ public class init {
         
         if(d.CompareTo(Reg.modify)){
             
-            if(gitCommit()) Form();
+            if(gitCommit()) Form(true);
             
         } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
             
-            Form();
+            Form(false);
             
         } else {//if(d.CompareTo(Reg.modify))
             
