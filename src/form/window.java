@@ -25,6 +25,9 @@ public class window extends javax.swing.JFrame {
         if(r < 0 || r >= 100) r = 0;
         if(t < 0 || t >= 300) t = 0;
         
+        if(r >= 100) r = 100;
+        if(t >= 300) t = 300;
+        
         if(w < 600) w = 600;
         if(h < 300) h = 300;
         
@@ -32,9 +35,9 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void Enter(int init, String title){
+    public void Enter(int init, String title, int r, int t){
         
-        Exec(init,title,100,300,600,300);
+        Exec(init,title,r,t,600,300);
         
     }//public void Enter(int init, String title)
     

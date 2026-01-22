@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Toolkit;
-import java.util.Scanner;
 
 /**
  *
@@ -20,48 +19,19 @@ import java.util.Scanner;
  */
 public class init {
     
-    private static void Form(boolean print){
+    private static void Form(){
         
-        if(print){
-            
-            Scanner menu = new Scanner(System.in);
-            
-            var title1 = "Bo";
-            title1 += Hora.Good("m Dia", "a Tarde", "a Noite");
-            title1 += "!";
-            
-            var title2 = "Hoje é dia ";
-            title2 += new Data().DataCompleta(false);
-            
-            System.out.println(title1);
-            System.out.println(title2);
-            System.out.println();
-            System.out.println("De Enter para abrir o formulário");
-            System.out.println("ou digite algo para imprimir...");
-            
-            var col = menu.nextLine().length();
-            
-            if(col <= 0){
-                
-                new window().Enter(0, title1 + " " + title2);
-                
-            } else {
-                
-                System.out.print("A plavra digitada têm ");
-                System.out.print(col);
-                System.out.println(" caracteres!");
-                System.out.println();
-                for(String p : Print(col)) System.out.println(p);
-                
-            }
-            
-        } else {//if(print)
-            
-            var title = "Hoje é ";
-            title += new Data().DataCompleta(true);
-            new window().Enter(0, title);
-            
-        }//if(print)
+        var title = "Bo";
+        title += Hora.Good("m dia", "a tarde", "a noite");
+        title += ", hoje é dia ";
+        title += "hoje é ";
+        title += new Data().DataCompleta(false);
+        
+        for(String e : Print(39)) System.out.println(e);
+        
+        System.out.println();
+        System.out.println(title);
+        new window().Enter(0, title, 100,300);
         
     }//Form()
     
@@ -493,11 +463,11 @@ public class init {
         
         if(d.CompareTo(Reg.modify)){
             
-            if(gitCommit()) Form(true);
+            if(gitCommit()) Form();
             
         } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
             
-            Form(false);
+            Form();
             
         } else {//if(d.CompareTo(Reg.modify))
             
