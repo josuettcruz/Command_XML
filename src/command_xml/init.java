@@ -6,7 +6,7 @@ package command_xml;
 
 import file.*;
 import model.*;
-import form.window;
+import form.controller;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class init {
             
         }//if(print)
         
-        new window().Enter(print, 0,100,100);
+        controller.init();
         
     }//Form()
     

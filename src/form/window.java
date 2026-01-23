@@ -4,11 +4,11 @@
  */
 package form;
 import java.awt.Toolkit;
-import model.*;
+import model.Reg;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class window extends javax.swing.JFrame {
     
@@ -17,14 +17,17 @@ public class window extends javax.swing.JFrame {
      * Creates new form window
      */
     
-    private String title_print;
-    private boolean print;
+    private String tem_0;
     
     public window() {
-        this.title_print = "";
-        this.print = false;
+        
         initComponents();
-    }
+        setVisible(true);
+        setResizable(true);
+        
+        this.tem_0 = "";
+        
+    }//window()
     
     public void Enter(
         boolean print,
@@ -36,8 +39,6 @@ public class window extends javax.swing.JFrame {
         int h
     )
     {
-        
-        this.print = print;
         
         if(r < 0) r = 0;
         if(t < 0) t = 0;
@@ -52,31 +53,24 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void Enter(boolean print, int init, int r, int t){
-        
-        this.print = print;
+    public void Enter(int init, int r, int t){
         
         if(r < 0) r = 0;
         if(t < 0) t = 0;
         
-        Exec(init,r,t,700,400);
+        Exec(init,r,t,600,600);
         
     }//public void Enter(int init, String title)
     
-    public void Enter(boolean print, int init){
+    public void Enter(int init){
         
-        this.print = print;
-        
-        Exec(init,50,50,0,0);
+        Exec(init,50,50,600,600);
         
     }//public void Enter(int init, String title)
     
     private void Exec(int init, int r, int t, int w, int h){
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
-        
-        setVisible(true);
-        setResizable(init > 0);
         
         var rw = tool.width - w - 10;
         var th = tool.height - h - 50;
@@ -98,6 +92,36 @@ public class window extends javax.swing.JFrame {
         
         setBounds(r, t, w, h);
         
+        Tem(init);
+        
+    }//Enter(String title, int r, int l, int w, int h)
+    
+    public void Title(String title){
+        
+        setTitle(title);
+        
+    }
+    
+    public void Tem_0(String text){
+        
+        var txt = "";
+        
+        for(String t : text.split("\n")){
+            
+            txt += "\n";
+            txt += " ".repeat(5);
+            txt += t;
+            
+        }//for(String t : text.split("\n"))
+        
+        this.tem_0 = txt;
+        
+        Tem(0);
+        
+    }//Tem_0(String text)
+    
+    public void Tem(int init){
+        
         boolean tem[] = new boolean[2];
         
         for(int exe = 0; exe < tem.length; exe++){
@@ -116,40 +140,7 @@ public class window extends javax.swing.JFrame {
         
         Command(tem[0]);
         
-        Title();
-        
-    }//Enter(String title, int r, int l, int w, int h)
-    
-    private void Title(){
-        
-        var title = new Data().DataAbreviada(true);
-        title += " - Bo";
-        title += Hora.Good("m Dia", "a Tarde", "a Noite");
-        title += "!";
-                
-        var tem = new Hora(false).Timer();
-        
-        if(!title_print.equalsIgnoreCase(tem)){
-            
-            if(print){
-                
-                System.out.println(
-                    Reg.Tab(
-                        title,
-                        new Hora(true).TimerGood(true),
-                        40
-                    )
-                );
-                
-            }//if(print)
-            
-            setTitle(title);
-            
-        }//if(!title_print.equalsIgnoreCase(tem))
-
-        title_print = tem;
-        
-    }//Title()
+    }//Tem(int init)
     
     private void Command(boolean execute){
         
@@ -157,18 +148,22 @@ public class window extends javax.swing.JFrame {
         
         if(execute){
             
-            ide.setFont(new java.awt.Font("Segoe UI Black", 0, 48));
-            ide.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-            
-            categories.setFont(new java.awt.Font("Tahoma", 0, 48));
-            categories.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-            
-            choose.setFont(new java.awt.Font("Tahoma", 0, 48));
-            choose.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-            
+            ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
+            ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             ide.setText(Reg.ide);
-            categories.setText(Reg.categories);
-            choose.setText(Reg.choose);
+            
+            categories.setFont(new java.awt.Font("Tahoma", 0, 32));
+            categories.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            categories.setText(" ".repeat(2) + Reg.categories);
+            
+            choose.setFont(new java.awt.Font("Tahoma", 0, 32));
+            choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+            choose.setText(Reg.choose + " ".repeat(2));
+            
+            cont.setEditable(false);
+            cont.setFocusable(false);
+            cont.setFont(new java.awt.Font("Times New Roman", 0, 12));
+            cont.setText(this.tem_0);
             
         }//if(execute)
         
@@ -187,6 +182,8 @@ public class window extends javax.swing.JFrame {
         ide = new javax.swing.JLabel();
         categories = new javax.swing.JLabel();
         choose = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        cont = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -195,9 +192,9 @@ public class window extends javax.swing.JFrame {
         initial.setAlignmentY(0.0F);
         initial.setDoubleBuffered(false);
         initial.setEnabled(false);
-        initial.setMaximumSize(new java.awt.Dimension(600, 300));
-        initial.setMinimumSize(new java.awt.Dimension(600, 300));
-        initial.setPreferredSize(new java.awt.Dimension(600, 300));
+        initial.setMaximumSize(new java.awt.Dimension(600, 600));
+        initial.setMinimumSize(new java.awt.Dimension(600, 600));
+        initial.setPreferredSize(new java.awt.Dimension(600, 600));
         initial.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 initialMouseReleased(evt);
@@ -217,11 +214,20 @@ public class window extends javax.swing.JFrame {
 
         ide.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         ide.setText("Java NetBeans IDE 27");
+        ide.setPreferredSize(new java.awt.Dimension(186, 500));
 
         categories.setText("Java width Ant");
+        categories.setPreferredSize(new java.awt.Dimension(90, 200));
 
         choose.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         choose.setText("Java Application");
+        choose.setPreferredSize(new java.awt.Dimension(90, 200));
+
+        cont.setColumns(20);
+        cont.setRows(5);
+        cont.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        cont.setMaximumSize(new java.awt.Dimension(500, 500));
+        jScrollPane1.setViewportView(cont);
 
         javax.swing.GroupLayout initialLayout = new javax.swing.GroupLayout(initial);
         initial.setLayout(initialLayout);
@@ -230,21 +236,25 @@ public class window extends javax.swing.JFrame {
             .addGroup(initialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ide, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
-                    .addComponent(categories, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(ide, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                    .addGroup(initialLayout.createSequentialGroup()
+                        .addComponent(categories, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addGap(44, 44, 44))
         );
         initialLayout.setVerticalGroup(
             initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(initialLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ide, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(categories, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(choose, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .addComponent(categories, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,7 +267,7 @@ public class window extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 62, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -276,7 +286,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialKeyTyped
 
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
-        Title();
+        // TODO add your handling code here:
     }//GEN-LAST:event_initialMouseReleased
 
     /**
@@ -307,7 +317,9 @@ public class window extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
+    private javax.swing.JTextArea cont;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
