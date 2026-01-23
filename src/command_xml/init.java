@@ -23,7 +23,7 @@ public class init {
         
         if(print){
             
-            for(String e : Print(0)){
+            for(String e : Print(39)){
                 
                 System.out.println(e);
                 

@@ -4,6 +4,7 @@
  */
 package form;
 import model.Data;
+import model.Hora;
 
 /**
  *
@@ -11,7 +12,7 @@ import model.Data;
  */
 public class controller {
     
-    private static window w;
+    private static window w = null;
     
     public static void init(){
         
@@ -19,7 +20,7 @@ public class controller {
         
         w = new window();
         w.Title(d.DataAbreviada(true));
-        w.Tem_0("Hoje é " + d.DataCompleta(",\n") + "!");
+        w.Tem_0("Hoje é " + d.DataCompleta(",\ndia ") + "\nBo" + Hora.Good("m Dia", "a Tarde", "a Noite") + "!");
         
     }//controller()
     
