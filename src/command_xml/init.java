@@ -79,6 +79,27 @@ public class init {
         
         List<String> insert = new ArrayList();
         
+        char[] ex = {
+            '-',
+            '>',
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '!',
+            '?',
+            '.',
+            ':',
+            ';',
+            ','
+        };
+        
         for(String tx : txt.text(text,true).split("\n")){
             
             var inst = "";
@@ -91,7 +112,19 @@ public class init {
                 
                 do{
                     
-                    node = t.charAt(c) == '-' || t.charAt(c) == '>';
+                    var doc = false;
+                    
+                    var d = 0;
+                    
+                    do{
+                        
+                        doc = t.charAt(c) != ex[d];
+                        
+                        d++;
+                        
+                    }while(d > 0 && d < ex.length && doc);
+                    
+                    node = !doc;
                     c++;
                     
                 }while(c > 0 && c < t.length() && node);
@@ -132,11 +165,13 @@ public class init {
         
         var amp = true;
         
+        var quot = true;
+        
         for(int sum = 0; sum < insert.size(); sum++){
             
             var dol = false;
             
-            var quot = true;
+            quot = true;
             
             var divide_point = Reg.Numb(sum+1, insert.size(),"-");
             divide_point += " -> ";
@@ -190,7 +225,7 @@ public class init {
                             
                             quot_end_line = !quot_end_line;
                             
-                            if(!commit) tem += "\"";
+                            tem += commit ? "'" : "\"";
                             quot = false;
                             
                         }//if(val)
@@ -221,7 +256,7 @@ public class init {
                             
                             dol = true;
                             
-                        }//if(i < insert.get(sum).length()-1 && !quot_end_line)
+                        }//if(amp && i < insert.get(sum).length()-1)
                         
                         quot = true;
                         
@@ -236,7 +271,7 @@ public class init {
                             tem += ",";
                             amp = false;
                             
-                        }//if(i < insert.get(sum).length()-1 && !quot_end_line)
+                        }//if(amp && i < insert.get(sum).length()-1 && !quot_end_line)
                         
                         quot = true;
                         
@@ -261,12 +296,12 @@ public class init {
                         'ª',
                         '§' -> {
                         
-                        if(amp && i < insert.get(sum).length()-1 && !quot_end_line){
+                        if(amp){
                             
                             tem += insert.get(sum).charAt(i);
                             amp = false;
                             
-                        }//if(i < insert.get(sum).length()-1 && !quot_end_line)
+                        }//if(amp)
                         
                         quot = true;
                         
@@ -298,7 +333,7 @@ public class init {
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
-        if(quot_end_line && !commit) tem += "\"";
+        if(quot && quot_end_line) tem += commit ? "'" : "\"";
         
         if(commit) tem += "\"";
         
