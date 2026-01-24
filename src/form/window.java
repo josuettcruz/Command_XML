@@ -81,7 +81,7 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
-    public void Tem_0(String text){
+    public boolean Tem_0(String text){
         
         var ini = txt.text(text, true).split("\n");
         
@@ -104,7 +104,17 @@ public class window extends javax.swing.JFrame {
             
         }
         
+        return ini.length <= this.tem_0.length;
+        
     }//Tem_0(String text)
+    
+    public boolean Tem_1(){
+        
+        Tem(1);
+        
+        return false;
+        
+    }//Tem_1()
     
     public void Tem(int init){
         
