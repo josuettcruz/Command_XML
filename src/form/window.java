@@ -17,7 +17,7 @@ public class window extends javax.swing.JFrame {
      * Creates new form window
      */
     
-    private String[] tem_0 = new String[5];
+    private String[] tem_0 = new String[10];
     
     public window() {
         
@@ -29,15 +29,10 @@ public class window extends javax.swing.JFrame {
         
     }//window()
     
-    private void Err(String msg){
+    private void Err(String type, String msg){
         
-        Reg.Print(
-            new Data().DataAbreviada(false)
-            + " - "
-            + new Hora(true).TimerGood(true),
-            msg,
-            39
-        );
+        Reg.Print(new Data().DataAbreviada(true), "\"" + type + "\"");
+        Reg.Print(new Hora(true).TimerGood(false), msg);
         
         System.exit(0);
         
@@ -131,13 +126,13 @@ public class window extends javax.swing.JFrame {
                 
             }while(s > 0 && s < ini.length && s < this.tem_0.length);
             
+            Tem(0);
+            
         }catch(Exception e){
             
-            this.Err(e.getMessage());
+            this.Err("Exception", e.getMessage());
             
         }
-        
-        Tem(0);
         
     }//Tem_0(String text)
     
@@ -160,6 +155,7 @@ public class window extends javax.swing.JFrame {
         }//for(int exe = 0; exe < tem.length; exe++)
         
         Command(tem[0]);
+        Home(tem[1]);
         
     }//Tem(int init)
     
@@ -181,7 +177,7 @@ public class window extends javax.swing.JFrame {
             choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
             choose.setText(Reg.choose + " ".repeat(2));
             
-            java.awt.Font t_font = new java.awt.Font("Times New Roman", 0, 12);
+            java.awt.Font t_font = new java.awt.Font("Times New Roman", 2, 18);
             
             txt_1.setFont(t_font);
             txt_1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -208,9 +204,40 @@ public class window extends javax.swing.JFrame {
             txt_5.setVisible(!this.tem_0[4].isBlank());
             txt_5.setText(this.tem_0[4]);
             
+            txt_6.setFont(t_font);
+            txt_6.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            txt_6.setVisible(!this.tem_0[5].isBlank());
+            txt_6.setText(this.tem_0[5]);
+            
+            txt_7.setFont(t_font);
+            txt_7.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            txt_7.setVisible(!this.tem_0[6].isBlank());
+            txt_7.setText(this.tem_0[6]);
+            
+            txt_8.setFont(t_font);
+            txt_8.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            txt_8.setVisible(!this.tem_0[7].isBlank());
+            txt_8.setText(this.tem_0[7]);
+            
+            txt_9.setFont(t_font);
+            txt_9.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            txt_9.setVisible(!this.tem_0[8].isBlank());
+            txt_9.setText(this.tem_0[8]);
+            
+            txt_10.setFont(t_font);
+            txt_10.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            txt_10.setVisible(!this.tem_0[9].isBlank());
+            txt_10.setText(this.tem_0[9]);
+            
         }//if(execute)
         
     }//Command(boolean execute)
+    
+    private void Home(boolean execute){
+        
+        home.setVisible(execute);
+        
+    }//Home(boolean execute)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -230,6 +257,12 @@ public class window extends javax.swing.JFrame {
         txt_3 = new javax.swing.JLabel();
         txt_4 = new javax.swing.JLabel();
         txt_5 = new javax.swing.JLabel();
+        txt_6 = new javax.swing.JLabel();
+        txt_7 = new javax.swing.JLabel();
+        txt_8 = new javax.swing.JLabel();
+        txt_9 = new javax.swing.JLabel();
+        txt_10 = new javax.swing.JLabel();
+        home = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -279,6 +312,16 @@ public class window extends javax.swing.JFrame {
 
         txt_5.setText("5");
 
+        txt_6.setText("6");
+
+        txt_7.setText("7");
+
+        txt_8.setText("8");
+
+        txt_9.setText("9");
+
+        txt_10.setText("10");
+
         javax.swing.GroupLayout initialLayout = new javax.swing.GroupLayout(initial);
         initial.setLayout(initialLayout);
         initialLayout.setHorizontalGroup(
@@ -300,7 +343,12 @@ public class window extends javax.swing.JFrame {
                             .addComponent(txt_2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_3, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_4, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_5, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_5, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_6, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_7, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_8, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         initialLayout.setVerticalGroup(
@@ -311,7 +359,7 @@ public class window extends javax.swing.JFrame {
                 .addGroup(initialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(choose, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                     .addComponent(categories, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txt_1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,7 +369,28 @@ public class window extends javax.swing.JFrame {
                 .addComponent(txt_4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(308, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
+        home.setLayout(homeLayout);
+        homeLayout.setHorizontalGroup(
+            homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        homeLayout.setVerticalGroup(
+            homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -329,12 +398,18 @@ public class window extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 40, Short.MAX_VALUE))
         );
 
         pack();
@@ -384,12 +459,18 @@ public class window extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
+    private javax.swing.JPanel home;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
     private javax.swing.JLabel txt_1;
+    private javax.swing.JLabel txt_10;
     private javax.swing.JLabel txt_2;
     private javax.swing.JLabel txt_3;
     private javax.swing.JLabel txt_4;
     private javax.swing.JLabel txt_5;
+    private javax.swing.JLabel txt_6;
+    private javax.swing.JLabel txt_7;
+    private javax.swing.JLabel txt_8;
+    private javax.swing.JLabel txt_9;
     // End of variables declaration//GEN-END:variables
 }

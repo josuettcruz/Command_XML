@@ -11,7 +11,6 @@ import form.controller;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.Toolkit;
 
 /**
  *
@@ -19,23 +18,13 @@ import java.awt.Toolkit;
  */
 public class init {
     
-    private static void Form(boolean print){
-        
-        if(print){
-            
-            for(String e : Print(39)){
-                
-                System.out.println(e);
-                
-            }//for(String e : Print(0))
-            
-        }//if(print)
+    private static void Form(){
         
         controller.init();
         
     }//Form()
     
-    public static List<String> Print(int tab){
+    /*public static List<String> Print(int tab){
         
         if(tab < 0) tab = tab - tab*2;
         
@@ -84,7 +73,7 @@ public class init {
         
         return println;
         
-    }//Print()
+    }*/
     
     private static String Tem(String text, boolean commit){
         
@@ -429,15 +418,17 @@ public class init {
         
         if(d.CompareTo(Reg.modify)){
             
-            if(gitCommit()) Form(true);
+            if(gitCommit()) Form();
             
         } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
             
-            Form(false);
+            Form();
             
         } else {//if(d.CompareTo(Reg.modify))
             
-            for(String p : Print(39)) System.err.println(p);
+            Reg.Print("Última modificação", Reg.modify.DataCompleta(true));
+            Reg.Print("HOJE", d.DataCompleta(true));
+            Reg.Print("AGORA", new Hora(true).TimerGood(false));
             
         }//if(d.CompareTo(Reg.modify))
         

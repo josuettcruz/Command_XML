@@ -3,8 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package form;
-import model.Data;
-import model.Hora;
+import model.*;
 
 /**
  *
@@ -18,9 +17,23 @@ public class controller {
         
         Data d = new Data();
         
+        var tema = "\nBo";
+        tema += Hora.Good("m Di", "a Tarde", "a Noite");
+        tema += "!\nHoje é ";
+        tema += d.DataCompleta(",\ndia ");
+        tema += "!";
+        
+        if(Reg.modify.CompareDay(d, false)){
+            
+            tema += "\nA última modificação foi feita\n";
+            tema += Reg.modify.DataCompleta(",\ndia ");
+            tema += "!";
+            
+        }//if(Reg.modify.CompareDay(d, false))
+        
         w = new window();
         w.Title(d.DataAbreviada(true));
-        w.Tem_0("Hoje é " + d.DataCompleta(",\ndia ") + "\nBo" + Hora.Good("m Dia", "a Tarde", "a Noite") + "!");
+        w.Tem_0(tema);
         
     }//controller()
     
