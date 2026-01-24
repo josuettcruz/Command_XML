@@ -134,6 +134,8 @@ public class init {
         
         for(int sum = 0; sum < insert.size(); sum++){
             
+            var dol = false;
+            
             var quot = true;
             
             var divide_point = Reg.Numb(sum+1, insert.size(),"-");
@@ -189,12 +191,13 @@ public class init {
                             quot_end_line = !quot_end_line;
                             
                             if(!commit) tem += "\"";
-                            //tem += commit ? "" : "\"";
                             quot = false;
                             
                         }//if(val)
                         
                         amp = true;
+                        
+                        dol = false;
                         
                     }//cases
                     
@@ -205,26 +208,45 @@ public class init {
                         
                         amp = false;
                         
+                        dol = false;
+                        
                     }//case '\\', '/'
                     
-                    case '.', '!' ->{}
+                    case '.', ':' -> {
+                        
+                        if(amp && i < insert.get(sum).length()-1){
+                            
+                            tem += commit ? "." : ":";
+                            amp = false;
+                            
+                            dol = true;
+                            
+                        }//if(i < insert.get(sum).length()-1 && !quot_end_line)
+                        
+                        quot = true;
+                        
+                    }//case '.', ':'
                     
-                    case ';', ',', ':' -> {
+                    case '!', '?' ->{}
+                    
+                    case ';', ',' -> {
                         
                         if(amp && i < insert.get(sum).length()-1 && !quot_end_line){
                             
-                            tem += insert.get(sum).charAt(i);
+                            tem += ",";
                             amp = false;
                             
                         }//if(i < insert.get(sum).length()-1 && !quot_end_line)
                         
                         quot = true;
                         
-                    }//default
+                        dol = false;
+                        
+                    }//case ';', ','
                     
                     default -> {
                         
-                        tem += quot_end_line
+                        tem += quot_end_line || dol
                             ? insert.get(sum).toUpperCase().charAt(i)
                             : insert.get(sum).charAt(i);
                         
@@ -232,13 +254,15 @@ public class init {
                         
                         amp = true;
                         
+                        dol = false;
+                        
                     }//default
                     
                 }//switch(t.charAt(i))
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot && !quot_end_line) tem += commit ? "!" : ".";
+            if(quot && !quot_end_line) tem += "!";
             
             if(commit && !quot && sum < insert.size()-1) tem += " --";
         

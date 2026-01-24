@@ -37,7 +37,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="initial" min="-2" pref="413" max="-2" attributes="0"/>
+              <Component id="initial" pref="413" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Component id="home" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
@@ -74,21 +74,17 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ide" pref="550" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="categories" pref="250" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                  <Component id="choose" pref="282" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="ide" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
+                          <Component id="categories" min="-2" pref="295" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="choose" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_1" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
+                              <Component id="txt_1" alignment="0" min="-2" pref="585" max="-2" attributes="0"/>
                               <Component id="txt_2" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
                               <Component id="txt_3" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
                               <Component id="txt_4" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
@@ -99,9 +95,10 @@
                               <Component id="txt_9" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
                               <Component id="txt_10" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -110,11 +107,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="ide" min="-2" pref="57" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="choose" pref="56" max="32767" attributes="0"/>
-                      <Component id="categories" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="categories" min="-2" pref="56" max="-2" attributes="0"/>
+                      <Component id="choose" min="-2" pref="58" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txt_1" min="-2" pref="20" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txt_2" min="-2" pref="20" max="-2" attributes="0"/>
@@ -170,7 +167,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="txt_1">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" value="1"/>
+            <Property name="autoscrolls" type="boolean" value="true"/>
+            <Property name="horizontalTextPosition" type="int" value="2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txt_2">
