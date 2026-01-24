@@ -420,15 +420,9 @@ public class init {
             
             if(gitCommit()) Form();
             
-        } else if(d.CompareDay(Reg.modify, true)){//if(d.CompareTo(Reg.modify))
-            
-            Form();
-            
         } else {//if(d.CompareTo(Reg.modify))
             
-            Reg.Print("Última modificação", Reg.modify.DataCompleta(true));
-            Reg.Print("HOJE", d.DataCompleta(true));
-            Reg.Print("AGORA", new Hora(true).TimerGood(false));
+            Form();
             
         }//if(d.CompareTo(Reg.modify))
         

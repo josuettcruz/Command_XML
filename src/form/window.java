@@ -27,7 +27,21 @@ public class window extends javax.swing.JFrame {
         
         for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
         
+        this.Enter(0,0,600,600);
+        
     }//window()
+    
+    public window(int r, int t, int w, int h){
+        
+        initComponents();
+        setVisible(true);
+        setResizable(true);
+        
+        for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
+        
+        this.Enter(r,t,w,h);
+        
+    }//window(int r, int t, int w, int h)
     
     private void Err(String type, String msg){
         
@@ -38,46 +52,7 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
-    public void Enter(
-        boolean print,
-        int init,
-        String title,
-        int r,
-        int t,
-        int w,
-        int h
-    )
-    {
-        
-        if(r < 0) r = 0;
-        if(t < 0) t = 0;
-        
-        if(r >= 100) r = 100;
-        if(t >= 100) t = 100;
-        
-        if(w < 700) w = 700;
-        if(h < 400) h = 400;
-        
-        Exec(init,r,t,w,h);
-        
-    }//Enter(String title, int r, int l, int w, int h)
-    
-    public void Enter(int init, int r, int t){
-        
-        if(r < 0) r = 0;
-        if(t < 0) t = 0;
-        
-        Exec(init,r,t,600,600);
-        
-    }//public void Enter(int init, String title)
-    
-    public void Enter(int init){
-        
-        Exec(init,50,50,600,600);
-        
-    }//public void Enter(int init, String title)
-    
-    private void Exec(int init, int r, int t, int w, int h){
+    private void Enter(int r, int t, int w, int h){
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -100,8 +75,6 @@ public class window extends javax.swing.JFrame {
         if(h > height) h = height;
         
         setBounds(r, t, w, h);
-        
-        Tem(init);
         
     }//Enter(String title, int r, int l, int w, int h)
     
