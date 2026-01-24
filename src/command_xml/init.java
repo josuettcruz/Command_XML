@@ -143,7 +143,7 @@ public class init {
             
             if(quot_end_line){
                 
-                tem += commit ? "'" : "\"";
+                if(!commit) tem += "\"";
                 quot_end_line = false;
                 
             }//if(quot_end_line)
@@ -199,7 +199,7 @@ public class init {
                         
                         dol = false;
                         
-                    }//cases
+                    }//case '"', '\''
                     
                     case '\\', '/' -> {
                         
@@ -244,6 +244,36 @@ public class init {
                         
                     }//case ';', ','
                     
+                    case '|',
+                        '_',
+                        '[',
+                        ']',
+                        '{',
+                        '}',
+                        '(',
+                        ')',
+                        '<',
+                        '>',
+                        '=',
+                        '+',
+                        '-',
+                        'º',
+                        'ª',
+                        '§' -> {
+                        
+                        if(amp && i < insert.get(sum).length()-1 && !quot_end_line){
+                            
+                            tem += insert.get(sum).charAt(i);
+                            amp = false;
+                            
+                        }//if(i < insert.get(sum).length()-1 && !quot_end_line)
+                        
+                        quot = true;
+                        
+                        dol = false;
+                        
+                    }//cases
+                    
                     default -> {
                         
                         tem += quot_end_line || dol
@@ -268,7 +298,7 @@ public class init {
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
-        if(quot_end_line) tem += commit ? "" : "\"";
+        if(quot_end_line && !commit) tem += "\"";
         
         if(commit) tem += "\"";
         
