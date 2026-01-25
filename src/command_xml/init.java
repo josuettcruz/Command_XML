@@ -10,6 +10,7 @@ import form.controller;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -369,12 +370,7 @@ public class init {
         
         var tot = 0;
         
-        for(String a : arqv){
-            
-            q.add("..\\" + a);
-            q.add("..\\..\\" + a);
-            
-        }//for(String a : arqv)
+        q.addAll(Arrays.asList(arqv));
         
         q.add(new Data().Load());
         
@@ -444,23 +440,6 @@ public class init {
             do{
                 
                 var file = q.get(ss);
-                file += ".ini";
-                
-                if(Arq.Exist(file)) nome = file;
-                
-                ss++;
-                
-            }while(ss > 0 && ss < q.size() && nome.isBlank());
-            
-        }//if(nome.isBlank()) - 1 - 3
-        
-        if(nome.isBlank()){
-            
-            ss = 0;
-            
-            do{
-                
-                var file = q.get(ss);
                 file += ".txt";
                 
                 if(Arq.Exist(file)) nome = file;
@@ -469,7 +448,7 @@ public class init {
                 
             }while(ss > 0 && ss < q.size() && nome.isBlank());
             
-        }//if(nome.isBlank()) - 2 - 3
+        }//if(nome.isBlank()) - 1
         
         if(nome.isBlank()){
             
@@ -477,14 +456,35 @@ public class init {
             
             do{
                 
-                var file = q.get(ss);
-                file += ".TXT";
+                var file = "..\\";
+                file += q.get(ss);
+                file += ".txt";
                 
                 if(Arq.Exist(file)) nome = file;
                 
+                ss++;
+                
             }while(ss > 0 && ss < q.size() && nome.isBlank());
             
-        }//if(nome.isBlank()) - 3 - 3
+        }//if(nome.isBlank()) - 2
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = "..\\..\\";
+                file += q.get(ss);
+                file += ".txt";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 3
         
         if(nome.isBlank()){
             
