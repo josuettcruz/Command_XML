@@ -149,7 +149,7 @@ public class init {
                     
                     inst += " ";
                     
-                    inst += t.toLowerCase();
+                    inst += t;
                     
                 }//if(node)
                 
