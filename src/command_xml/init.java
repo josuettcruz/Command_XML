@@ -20,7 +20,7 @@ public class init {
     
     private static void Form(){
         
-        controller.init();
+        controller.Msg();
         
     }//Form()
     

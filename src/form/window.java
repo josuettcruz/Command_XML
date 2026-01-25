@@ -81,7 +81,7 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
-    public boolean Tem_0(String text){
+    public boolean Command(String text){
         
         var ini = txt.text(text, true).split("\n");
         
@@ -106,15 +106,15 @@ public class window extends javax.swing.JFrame {
         
         return ini.length <= this.tem_0.length;
         
-    }//Tem_0(String text)
+    }//Command(String text)
     
-    public boolean Tem_1(){
+    public boolean Home(){
         
         Tem(1);
         
         return false;
         
-    }//Tem_1()
+    }//Home()
     
     public void Tem(int init){
         
@@ -134,12 +134,12 @@ public class window extends javax.swing.JFrame {
             
         }//for(int exe = 0; exe < tem.length; exe++)
         
-        Command(tem[0]);
-        Home(tem[1]);
+        Tem_0(tem[0]);
+        Tem_1(tem[1]);
         
     }//Tem(int init)
     
-    private void Command(boolean execute){
+    private void Tem_0(boolean execute){
         
         initial.setVisible(execute);
         
@@ -211,13 +211,13 @@ public class window extends javax.swing.JFrame {
             
         }//if(execute)
         
-    }//Command(boolean execute)
+    }//Tem_0(boolean execute)
     
-    private void Home(boolean execute){
+    private void Tem_1(boolean execute){
         
         home.setVisible(execute);
         
-    }//Home(boolean execute)
+    }//Tem_1(boolean execute)
 
     /**
      * This method is called from within the constructor to initialize the form.
