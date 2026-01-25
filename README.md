@@ -7,6 +7,7 @@ Nesse projeto, uma classe fica dentro de uma lista:
 > List<[nome da classe]> = new ArrayList();
 
 Isso permite com que cada __TAG__ de um __arquivo XML__ fique dentro de uma __classe__
+
 ~~Isso permite com que um arquivo seja lido completamente!~~
 
 ### TAGs do XML
