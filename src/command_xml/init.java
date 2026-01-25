@@ -142,7 +142,18 @@ public class init {
                     
                 } else if(inter){//if(node)
                     
-                    inst += txt.capitalize(t);
+                    for(int a = 0; a < t.length(); a++){
+                        
+                        switch(a){
+                            
+                            case 0 -> inst += t.toUpperCase().charAt(a);
+                            
+                            default -> inst += t.charAt(a);
+                            
+                        }
+                        
+                    }
+                    
                     inter = false;
                     
                 } else {//if(node)
