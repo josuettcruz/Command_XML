@@ -262,7 +262,7 @@ public class init {
                         
                         if(amp && i < insert.get(sum).length()-1){
                             
-                            tem += commit ? "." : ":";
+                            tem += ":";
                             amp = false;
                             
                             dol = true;
@@ -322,7 +322,7 @@ public class init {
                     
                     default -> {
                         
-                        tem += quot_end_line || dol
+                        tem += dol
                             ? insert.get(sum).toUpperCase().charAt(i)
                             : insert.get(sum).charAt(i);
                         
