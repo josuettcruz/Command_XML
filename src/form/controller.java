@@ -20,7 +20,7 @@ public class controller {
         Data d = new Data();
         
         var tema = "Bo";
-        tema += Hora.Good("m Di", "a Tarde", "a Noite");
+        tema += Hora.Good("m Dia", "a Tarde", "a Noite");
         tema += "!\nHoje é ";
         tema += d.DataCompleta(",\ndia ");
         tema += "!";
