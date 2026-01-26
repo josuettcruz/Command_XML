@@ -33,8 +33,6 @@ public class window extends javax.swing.JFrame {
         setVisible(true);
         setResizable(true);
         
-        for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
-        
         this.Enter(r,t,w,h);
         
     }//window(int r, int t, int w, int h)
