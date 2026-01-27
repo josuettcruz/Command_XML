@@ -208,28 +208,11 @@ public class init {
                         
                     }//case '\\', '/'
                     
-                    case '.', ':' -> {
-                        
-                        if(amp && i < insert.get(sum).length()-1){
-                            
-                            tem += ":";
-                            amp = false;
-                            
-                            dol = true;
-                            
-                        }//if(amp && i < insert.get(sum).length()-1)
-                        
-                        quot = true;
-                        
-                    }//case '.', ':'
-                    
-                    case '!', '?' ->{}
-                    
-                    case ';', ',' -> {
+                    case ';', ',', '.', ':' -> {
                         
                         if(amp && i < insert.get(sum).length()-1 && !quot_end_line){
                             
-                            tem += ",";
+                            tem += insert.get(sum).charAt(i);
                             amp = false;
                             
                         }//if(amp && i < insert.get(sum).length()-1 && !quot_end_line)
@@ -238,16 +221,10 @@ public class init {
                         
                         dol = false;
                         
-                    }//case ';', ','
+                    }//cases
                     
                     case '|',
                         '_',
-                        '[',
-                        ']',
-                        '{',
-                        '}',
-                        '(',
-                        ')',
                         '<',
                         '>',
                         '=',
@@ -269,6 +246,8 @@ public class init {
                         dol = false;
                         
                     }//cases
+                    
+                    case '!', '?' ->{}
                     
                     default -> {
                         
