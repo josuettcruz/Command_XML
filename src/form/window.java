@@ -30,8 +30,6 @@ public class window extends javax.swing.JFrame {
     public window(int r, int t, int w, int h){
         
         initComponents();
-        setVisible(true);
-        setResizable(true);
         
         this.Enter(r,t,w,h);
         

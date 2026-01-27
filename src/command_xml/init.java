@@ -323,7 +323,7 @@ public class init {
                     
                     default -> {
                         
-                        tem += dol
+                        tem += dol || (quot_end_line && commit)
                             ? insert.get(sum).toUpperCase().charAt(i)
                             : insert.get(sum).charAt(i);
                         

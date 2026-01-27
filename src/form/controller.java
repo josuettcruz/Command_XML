@@ -22,31 +22,47 @@ public class controller {
             
         } else {//if(init)
             
-            var com = Reg.modify.getDate().getDayOfWeek().getValue() < 6;
+            var com = Reg.modify.getDate().getDayOfWeek().getValue() < 6 ? "a" : "o";
             
             Data d = new Data();
             
             var tema = "Bo";
             tema += Hora.Good("m Dia", "a Tarde", "a Noite");
-            tema += "!\nHoje é ";
-            tema += d.DataCompleta(",\ndia ");
-            tema += "!";
+            tema += "!\n";
             
-            if(Reg.modify.CompareTo(d, false)){
+            if(d.CompareTo(Reg.modify)){
                 
-                tema += "\nA última modificação desse projeto foi feit";
-                tema += com ? "a na " : "o no ";
+                tema += "A última modificação\ndesse projeto\nfoi feit";
+                tema += com;
+                tema += " hoje:\n";
                 tema += Reg.modify.DataCompleta(",\n");
                 tema += "!";
 
-            }//if(Reg.modify.CompareDay(d, false))
+            } else {//if(d.CompareTo(Reg.modify))
+                
+                tema += "Hoje é ";
+                tema += d.DataCompleta(",\ndia ");
+                tema += "!";
+                
+            }//if(d.CompareTo(Reg.modify))
+            
+            if(Reg.modify.CompareTo(d, false)){
+                
+                tema += "\nA última modificação desse projeto foi feita n";
+                tema += com;
+                tema += " ";
+                tema += Reg.modify.DataCompleta(",\n");
+                tema += "!";
+
+            }//if(Reg.modify.CompareTo(d, false))
             
             if(d.CompareTo(Reg.modify, false)){
 
                 tema += "\nSegundo o sistema: esse projet";
                 tema += "o será atualizado no futuro!\nMai";
                 tema += "s precisamente n";
-                tema += com ? "a " : "o ";
+                tema += com;
+                tema += " ";
                 tema += Reg.modify.DataCompleta(",\ndia ");
                 tema += "!";
 
