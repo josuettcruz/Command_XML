@@ -25,57 +25,6 @@ public class init {
         
     }//Form()
     
-    /*public static List<String> Print(int tab){
-        
-        if(tab < 0) tab = tab - tab*2;
-        
-        if(tab == 0 || tab > 40) tab = 40;
-        
-        var t = "run: ";
-        
-        var addition = 1;
-        addition += t.length();
-        addition += Reg.ide.length();
-        
-        if(tab < addition) tab = addition;
-        
-        
-        List<String> println = new ArrayList();
-        
-        println.add(Reg.Tab(t + Reg.ide, Reg.http,tab));
-        println.add(Reg.Tab(t + Reg.categories, Reg.choose,tab));
-        
-        println.add(
-            Reg.Tab(
-                t + "Início do PROJETO",
-                Reg.create.DataCompleta(true),
-                tab
-            )
-        );
-        
-        println.add(
-            Reg.Tab(
-                t + "Última ATUALIZAÇÃO",
-                Reg.modify.DataCompleta(true),
-                tab
-            )
-        );
-        
-        println.add(
-            Reg.Tab(
-                t + "RESOLUÇÃO DE TELA",
-                Toolkit.getDefaultToolkit().getScreenSize().width
-                + "x"
-                + Toolkit.getDefaultToolkit().getScreenSize().height
-                + "p",
-                tab
-            )
-        );
-        
-        return println;
-        
-    }*/
-    
     private static String Tem(String text, boolean commit){
         
         List<String> insert = new ArrayList();
@@ -339,7 +288,7 @@ public class init {
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot && !quot_end_line) tem += "!";
+            if(quot && !quot_end_line && (sum < insert.size() - 1 || !commit)) tem += "!";
             
             if(commit && !quot && sum < insert.size()-1) tem += " --";
         
