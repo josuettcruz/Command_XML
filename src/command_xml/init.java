@@ -146,9 +146,7 @@ public class init {
                     tem += insert.size() > 1 ? " - " : " ";
                     tem += new Data().DataAbreviada(false);
                     tem += " -- ";
-                    tem += "Nesse COMMIT --";
-                    if(insert.size() > 1) tem += ">";
-                    tem += " ";
+                    tem += "Nesse COMMIT --> ";
                     
                     if(insert.size() > 1){
                         
@@ -275,6 +273,8 @@ public class init {
         }//for(int sum = 0; sum < insert.size(); sum++)
         
         if(quot && quot_end_line) tem += commit ? "'" : "\"";
+        
+        if(insert.size() == 1 && commit) tem += "!";
         
         if(commit) tem += "\"";
         
