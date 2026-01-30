@@ -142,13 +142,13 @@ public class init {
                 if(sum == 0){
                     
                     tem += "git commit -m \"";
-                    tem += new Data().DataAbreviada(true);
-                    tem += " - ";
-                    tem += new Hora(true).TimerGood(true);
-                    tem += " --";
-                    tem += insert.size() > 1 ? " " : "> ";
+                    tem += new Hora(true).Timer();
+                    tem += insert.size() > 1 ? " - " : " ";
+                    tem += new Data().DataAbreviada(false);
+                    tem += " -- ";
                     tem += "Nesse COMMIT --";
-                    tem += insert.size() > 1 ? " " : "> ";
+                    if(insert.size() > 1) tem += ">";
+                    tem += " ";
                     
                     if(insert.size() > 1){
                         
@@ -203,12 +203,17 @@ public class init {
                     
                     case ';', ',', '.', ':' -> {
                         
-                        if(amp && i < insert.get(sum).length()-1 && !quot_end_line){
+                        if(
+                            amp &&
+                            i < insert.get(sum).length()-1
+                            && !quot_end_line
+                        )
+                        {
                             
                             tem += insert.get(sum).charAt(i);
                             amp = false;
                             
-                        }//if(amp && i < insert.get(sum).length()-1 && !quot_end_line)
+                        }//if(amp && i < insert.get(sum).length()-1 &&...
                         
                         quot = true;
                         
@@ -260,9 +265,12 @@ public class init {
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot && !quot_end_line && (sum < insert.size() - 1 || !commit)) tem += "!";
+            if(quot && !quot_end_line && (sum < insert.size() - 1 || !commit)){
+                tem += "!";
+            }
             
             if(commit && !quot && sum < insert.size()-1) tem += " --";
+            if(commit && quot && sum < insert.size()-1) tem += " ->";
         
         }//for(int sum = 0; sum < insert.size(); sum++)
         
@@ -361,6 +369,23 @@ public class init {
             do{
                 
                 var file = q.get(ss);
+                file += ".ini";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 1 de 7
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = q.get(ss);
                 file += ".txt";
                 
                 if(Arq.Exist(file)) nome = file;
@@ -369,7 +394,7 @@ public class init {
                 
             }while(ss > 0 && ss < q.size() && nome.isBlank());
             
-        }//if(nome.isBlank()) - 1
+        }//if(nome.isBlank()) - 2 de 7
         
         if(nome.isBlank()){
             
@@ -387,7 +412,7 @@ public class init {
                 
             }while(ss > 0 && ss < q.size() && nome.isBlank());
             
-        }//if(nome.isBlank()) - 2
+        }//if(nome.isBlank()) - 3 de 7
         
         if(nome.isBlank()){
             
@@ -405,7 +430,60 @@ public class init {
                 
             }while(ss > 0 && ss < q.size() && nome.isBlank());
             
-        }//if(nome.isBlank()) - 3
+        }//if(nome.isBlank()) - 4 de 7
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = q.get(ss);
+                file += ".TXT";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 5 de 7
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = "..\\";
+                file += q.get(ss);
+                file += ".TXT";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 6 de 7
+        
+        if(nome.isBlank()){
+            
+            ss = 0;
+            
+            do{
+                
+                var file = "..\\..\\";
+                file += q.get(ss);
+                file += ".TXT";
+                
+                if(Arq.Exist(file)) nome = file;
+                
+                ss++;
+                
+            }while(ss > 0 && ss < q.size() && nome.isBlank());
+            
+        }//if(nome.isBlank()) - 7 de 7
         
         if(nome.isBlank()){
             

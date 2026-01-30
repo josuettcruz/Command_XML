@@ -33,7 +33,7 @@ public class controller {
             if(d.CompareTo(Reg.modify)){
                 
                 tema += "A última modificação desse projeto:\n";
-                tema += "\nHoje; ";
+                tema += "\nHoje: ";
                 tema += Reg.modify.DataCompleta(",\ndia ");
                 tema += "!";
 
