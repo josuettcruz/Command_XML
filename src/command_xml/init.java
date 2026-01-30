@@ -313,6 +313,7 @@ public class init {
         }//for(String b : arqv)
         
         var ag = true;
+        var dt = new Data().Load();
         
         for(
             int h = LocalTime.now().getHour();
@@ -328,7 +329,7 @@ public class init {
             )
             {
 
-                var nom = new Data().Load();
+                var nom = dt;
                 nom += "_";
                 nom += Reg.Numb(h);
                 nom += "-";
@@ -359,6 +360,15 @@ public class init {
                     if(dm.length() > tot) tot = dm.length();
 
                 }//for(String g : arqv) - 2 de 2
+
+                var node = dt;
+                node += "-";
+                node += Reg.Numb(h);
+                node += "-";
+                node += Reg.Numb(m);
+                
+                q.add(node);
+                q.add(node.replace("-", "_"));
 
             }//for(int m = ag ? LocalTime.now().getMinute() : 59;m >= 0;m--)
             
