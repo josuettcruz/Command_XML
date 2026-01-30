@@ -32,6 +32,7 @@ public class init {
         char[] ex = {
             '-',
             '>',
+            '0',
             '1',
             '2',
             '3',
@@ -350,7 +351,7 @@ public class init {
                 for(String g : arqv){
 
                     var dm = g;
-                    dm += " - ";
+                    dm += "-";
                     dm += nom;
 
                     q.add(dm);
