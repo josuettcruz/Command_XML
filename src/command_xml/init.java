@@ -32,7 +32,6 @@ public class init {
         char[] ex = {
             '-',
             '>',
-            '0',
             '1',
             '2',
             '3',
@@ -41,13 +40,7 @@ public class init {
             '6',
             '7',
             '8',
-            '9',
-            '!',
-            '?',
-            '.',
-            ':',
-            ';',
-            ','
+            '9'
         };
         
         for(String tx : txt.text(text,true).split("\n")){
@@ -151,7 +144,7 @@ public class init {
                     tem += "git commit -m \"";
                     tem += new Data().DataAbreviada(true);
                     tem += " - ";
-                    tem += new Hora(false).TimerGood(true);
+                    tem += new Hora(true).TimerGood(true);
                     tem += " --";
                     tem += insert.size() > 1 ? " " : "> ";
                     tem += "Nesse COMMIT --";

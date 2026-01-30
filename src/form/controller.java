@@ -22,7 +22,7 @@ public class controller {
             
         } else {//if(init)
             
-            var com = Reg.modify.getDate().getDayOfWeek().getValue() < 6 ? "a" : "o";
+            var com = Reg.modify.getDate().getDayOfWeek().getValue() < 6 ? "na " : "no ";
             
             Data d = new Data();
             
@@ -32,10 +32,9 @@ public class controller {
             
             if(d.CompareTo(Reg.modify)){
                 
-                tema += "A última modificação\ndesse projeto\nfoi feit";
-                tema += com;
-                tema += " hoje:\n";
-                tema += Reg.modify.DataCompleta(",\n");
+                tema += "A última modificação desse projeto:\n";
+                tema += "\nHoje; ";
+                tema += Reg.modify.DataCompleta(",\ndia ");
                 tema += "!";
 
             } else {//if(d.CompareTo(Reg.modify))
@@ -48,21 +47,19 @@ public class controller {
             
             if(Reg.modify.CompareTo(d, false)){
                 
-                tema += "\nA última modificação desse projeto foi feita n";
+                tema += "\nA última modificação desse projeto\nfoi feita ";
                 tema += com;
-                tema += " ";
-                tema += Reg.modify.DataCompleta(",\n");
+                tema += Reg.modify.DataCompleta(",\ndia ");
                 tema += "!";
 
             }//if(Reg.modify.CompareTo(d, false))
             
             if(d.CompareTo(Reg.modify, false)){
 
-                tema += "\nSegundo o sistema: esse projet";
+                tema += "\nSegundo o sistema:\nesse projet";
                 tema += "o será atualizado no futuro!\nMai";
-                tema += "s precisamente n";
+                tema += "s precisamente ";
                 tema += com;
-                tema += " ";
                 tema += Reg.modify.DataCompleta(",\ndia ");
                 tema += "!";
 
