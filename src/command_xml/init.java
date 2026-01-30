@@ -306,6 +306,8 @@ public class init {
         for(String b : arqv){
             
             q.add(b + "_" + new Data().Load());
+            q.add(b + " - " + new Data().Load());
+            q.add(b.toUpperCase() + " - " + new Data().Load());
             
         }//for(String b : arqv)
         
@@ -343,7 +345,31 @@ public class init {
 
                     if(dm.length() > tot) tot = dm.length();
 
-                }//for(String g : arqv)
+                }//for(String g : arqv) - 1 de 3
+
+                for(String g : arqv){
+
+                    var dm = g;
+                    dm += " - ";
+                    dm += nom;
+
+                    q.add(dm);
+
+                    if(dm.length() > tot) tot = dm.length();
+
+                }//for(String g : arqv) - 2 de 3
+
+                for(String g : arqv){
+
+                    var dm = g.toUpperCase();
+                    dm += " - ";
+                    dm += nom;
+
+                    q.add(dm);
+
+                    if(dm.length() > tot) tot = dm.length();
+
+                }//for(String g : arqv) - 3 de 3
 
             }//for(int m = ag ? LocalTime.now().getMinute() : 59;m >= 0;m--)
             
