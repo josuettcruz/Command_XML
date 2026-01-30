@@ -242,6 +242,8 @@ public class window extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMaximumSize(new java.awt.Dimension(600, 2147483647));
+        setMinimumSize(new java.awt.Dimension(300, 0));
 
         initial.setAlignmentX(0.0F);
         initial.setAlignmentY(0.0F);
@@ -384,10 +386,10 @@ public class window extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, 413, Short.MAX_VALUE)
+                .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                 .addGap(29, 29, 29)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 40, Short.MAX_VALUE))
+                .addGap(0, 253, Short.MAX_VALUE))
         );
 
         pack();

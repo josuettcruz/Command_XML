@@ -346,19 +346,7 @@ public class init {
 
                     if(dm.length() > tot) tot = dm.length();
 
-                }//for(String g : arqv) - 1 de 3
-
-                for(String g : arqv){
-
-                    var dm = g;
-                    dm += "-";
-                    dm += nom;
-
-                    q.add(dm);
-
-                    if(dm.length() > tot) tot = dm.length();
-
-                }//for(String g : arqv) - 2 de 3
+                }//for(String g : arqv) - 1 de 2
 
                 for(String g : arqv){
 
@@ -370,7 +358,7 @@ public class init {
 
                     if(dm.length() > tot) tot = dm.length();
 
-                }//for(String g : arqv) - 3 de 3
+                }//for(String g : arqv) - 2 de 2
 
             }//for(int m = ag ? LocalTime.now().getMinute() : 59;m >= 0;m--)
             
