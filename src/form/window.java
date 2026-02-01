@@ -35,8 +35,6 @@ public class window extends javax.swing.JFrame {
         
     }//window(int r, int t, int w, int h)
     
-    public void Title(String title){setTitle(title);}
-    
     private void Enter(int r, int t, int w, int h){
         
         setVisible(true);
@@ -77,7 +75,9 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
-    public boolean Command(String text){
+    public boolean Command(String title, String text){
+        
+        setTitle(title);
         
         initial.setAlignmentX(0f);
         initial.setAlignmentY(0f);
@@ -365,7 +365,7 @@ public class window extends javax.swing.JFrame {
                 .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         home.setAlignmentX(0.0F);

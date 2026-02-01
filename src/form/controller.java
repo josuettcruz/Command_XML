@@ -34,19 +34,22 @@ public class controller {
             
             Data d = new Data();
             
-            var tema = "Bo";
-            tema += Hora.Good("m Dia", "a Tarde", "a Noite");
-            tema += "!\n";
+            var good = "Bo";
+            good += Hora.Good("m Dia", "a Tarde", "a Noite");
+            good += "!";
+            
+            String tema;
             
             if(d.CompareTo(Reg.modify)){
                 
-                tema += "A última modificação desse projeto:\n";
-                tema += "\nHoje: ";
-                tema += Reg.modify.DataCompleta(",\ndia ");
-                tema += "!";
+                tema = "Última modificação:\nHoje: ";
+                tema += Reg.modify.DataCompleta(",\nDia ","!\nAno ");
+                tema += "!\n";
+                tema += good;
 
             } else {//if(d.CompareTo(Reg.modify))
                 
+                tema = good;
                 tema += "Hoje é ";
                 tema += d.DataCompleta(",\ndia ");
                 tema += "!";
@@ -85,8 +88,7 @@ public class controller {
                 )
             );
             
-            w.Title("Command_XML");
-            w.Command(tema);
+            w.Command("Command_XML", tema);
             
             init = true;
             
