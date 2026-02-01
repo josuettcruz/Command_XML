@@ -14,7 +14,15 @@ public class controller {
     private static window w = null;
     private static boolean init = false;
     
-    public static boolean Msg(){
+    public static void Init(){
+        
+        boolean ok = Msg();
+        
+        if(!ok) System.exit(0);
+        
+    }//Init()
+    
+    private static boolean Msg(){
         
         if(init){
             

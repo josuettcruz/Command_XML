@@ -19,18 +19,13 @@ import java.util.List;
  */
 public class init {
     
-    private static void Form(){
-        
-        controller.Msg();
-        
-    }//Form()
-    
     private static String Tem(String text, boolean commit){
         
         List<String> insert = new ArrayList();
         
         char[] ex = {
             '-',
+            '_',
             '>',
             '0',
             '1',
@@ -542,11 +537,11 @@ public class init {
         
         if(d.CompareTo(Reg.modify)){
             
-            if(gitCommit()) Form();
+            if(gitCommit()) controller.Init();
             
         } else {//if(d.CompareTo(Reg.modify))
             
-            Form();
+            controller.Init();
             
         }//if(d.CompareTo(Reg.modify))
         
