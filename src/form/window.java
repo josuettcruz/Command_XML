@@ -79,6 +79,9 @@ public class window extends javax.swing.JFrame {
     
     public boolean Command(String text){
         
+        initial.setAlignmentX(0f);
+        initial.setAlignmentY(0f);
+        
         var ini = txt.text(text, true).split("\n");
         
         try{
@@ -105,6 +108,9 @@ public class window extends javax.swing.JFrame {
     }//Command(String text)
     
     public boolean Home(){
+        
+        home.setAlignmentX(0f);
+        home.setAlignmentY(0f);
         
         Tem(1);
         
@@ -359,8 +365,14 @@ public class window extends javax.swing.JFrame {
                 .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
+
+        home.setAlignmentX(0.0F);
+        home.setAlignmentY(0.0F);
+        home.setMaximumSize(new java.awt.Dimension(600, 32767));
+        home.setMinimumSize(new java.awt.Dimension(300, 300));
+        home.setPreferredSize(new java.awt.Dimension(600, 600));
 
         javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
         home.setLayout(homeLayout);
@@ -370,7 +382,7 @@ public class window extends javax.swing.JFrame {
         );
         homeLayout.setVerticalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -380,16 +392,15 @@ public class window extends javax.swing.JFrame {
             .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
                 .addGap(29, 29, 29)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 253, Short.MAX_VALUE))
+                .addGap(0, 52, Short.MAX_VALUE))
         );
 
         pack();

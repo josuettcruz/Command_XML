@@ -191,11 +191,7 @@ public class init {
                     
                     case ';', ',', '.', ':' -> {
                         
-                        if(
-                            amp &&
-                            i < insert.get(sum).length()-1
-                        )
-                        {
+                        if(amp && i < insert.get(sum).length()-1){
                             
                             tem += insert.get(sum).charAt(i);
                             amp = false;
