@@ -12,7 +12,6 @@ import model.*;
 public class controller {
     
     private static window w = null;
-    private static boolean init = false;
     
     public static void Init(){
         
@@ -24,13 +23,25 @@ public class controller {
     
     private static boolean Msg(){
         
-        if(init){
+        var valid = false;
+        
+        if(w == null){
             
-            return false;
+            valid = true;
             
-        } else {//if(init)
+            var com = "n";
             
-            var com = Reg.modify.getDate().getDayOfWeek().getValue() < 6 ? "na " : "no ";
+            if(Reg.modify.getDate().getDayOfWeek().getValue() < 6){
+                
+                com += "o";
+                
+            } else {//if(Reg.modify.getDate().getDayOfWeek().getValue() < 6)
+                
+                com += "a";
+                
+            }//if(Reg.modify.getDate().getDayOfWeek().getValue() < 6)
+            
+            com += " ";
             
             Data d = new Data();
             
@@ -90,30 +101,10 @@ public class controller {
             
             w.Command("Command_XML", tema);
             
-            init = true;
-            
-            return true;
-            
-        }//if(init)
+        }//if(w == null)
+        
+        return valid;
         
     }//Msg()
-    
-    public static boolean Function(){
-        
-        if(init){
-            
-            /* 15:02 25/01/2026
-            **  Verificar se o formulário
-            **  window foi iniciado!
-            **
-            ** Só executar função se o mesmo for iniciado!
-            **
-            */
-            
-        }//if(init)
-        
-        return init;
-        
-    }//Function()
     
 }
