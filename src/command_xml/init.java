@@ -136,17 +136,20 @@ public class init {
                 if(sum == 0){
                     
                     tem += "git commit -m \"";
-                    tem += new Hora(true).TimerGood(false, " - ");
-                    tem += " -- ";
-                    tem += new Data().DataCompleta(", ");
-                    tem += " --> ";
-                    tem += "Nesse COMMIT --> ";
+                    tem += new Data().DataAbreviada(insert.size() > 1);
+                    tem += " - ";
+                    tem += new Hora(true).Timer();
                     
-                    if(insert.size() > 1){
+                    if(insert.size() == 1){
                         
+                        tem += " -- Nesse COMMIT --> ";
+                        
+                    } else {//if(insert.size() == 1)
+                        
+                        tem += " -- Nesse COMMIT -- ";
                         tem += divide_point;
                         
-                    }//if(insert.size() == 1){
+                    }//if(insert.size() == 1)
                     
                 } else {//if(sum == 0)
                     
@@ -200,18 +203,9 @@ public class init {
                         
                         quot = true;
                         
-                    }//cases
+                    }//case ';', ',', '.', ':'
                     
-                    case '|',
-                        '_',
-                        '<',
-                        '>',
-                        '=',
-                        '+',
-                        '-',
-                        'º',
-                        'ª',
-                        '§' -> {
+                    case '|', '-', '_' -> {
                         
                         if(amp){
                             
@@ -222,15 +216,13 @@ public class init {
                         
                         quot = true;
                         
-                    }//cases
+                    }//case '|', '-', '_'
                     
                     case '!', '?' ->{}
                     
                     default -> {
                         
-                        tem += quot_end_line && commit
-                            ? insert.get(sum).toUpperCase().charAt(i)
-                            : insert.get(sum).charAt(i);
+                        tem += insert.get(sum).charAt(i);
                         
                         quot = true;
                         
