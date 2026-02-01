@@ -140,8 +140,8 @@ public class init {
                     tem += "git commit -m \"";
                     tem += new Hora(true).TimerGood(false);
                     tem += " - ";
-                    tem += new Data().DataCompleta(", ");
-                    tem += " -- ";
+                    tem += new Data().DataCompleta(false);
+                    tem += " --> ";
                     tem += "Nesse COMMIT --> ";
                     
                     if(insert.size() > 1){
@@ -200,7 +200,6 @@ public class init {
                         if(
                             amp &&
                             i < insert.get(sum).length()-1
-                            && !quot_end_line
                         )
                         {
                             
@@ -270,7 +269,7 @@ public class init {
         
         if(quot && quot_end_line) tem += commit ? "'" : "\"";
         
-        if(insert.size() == 1 && commit) tem += "!";
+        if(insert.size() == 1 && commit && !quot_end_line) tem += "!";
         
         if(commit) tem += "\"";
         
