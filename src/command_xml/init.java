@@ -138,9 +138,9 @@ public class init {
                 if(sum == 0){
                     
                     tem += "git commit -m \"";
-                    tem += new Hora(true).Timer();
-                    tem += insert.size() > 1 ? " - " : " ";
-                    tem += new Data().DataAbreviada(false);
+                    tem += new Hora(true).TimerGood(false);
+                    tem += " - ";
+                    tem += new Data().DataCompleta(", ");
                     tem += " -- ";
                     tem += "Nesse COMMIT --> ";
                     
