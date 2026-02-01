@@ -119,8 +119,6 @@ public class init {
         
         for(int sum = 0; sum < insert.size(); sum++){
             
-            var dol = false;
-            
             quot = true;
             
             var divide_point = Reg.Numb(sum+1, insert.size(),"-");
@@ -138,9 +136,9 @@ public class init {
                 if(sum == 0){
                     
                     tem += "git commit -m \"";
-                    tem += new Hora(true).TimerGood(false);
-                    tem += " - ";
-                    tem += new Data().DataCompleta(false);
+                    tem += new Hora(true).TimerGood(false, " - ");
+                    tem += " -- ";
+                    tem += new Data().DataCompleta(", ");
                     tem += " --> ";
                     tem += "Nesse COMMIT --> ";
                     
@@ -180,8 +178,6 @@ public class init {
                         
                         amp = true;
                         
-                        dol = false;
-                        
                     }//case '"', '\''
                     
                     case '\\', '/' -> {
@@ -190,8 +186,6 @@ public class init {
                         quot = true;
                         
                         amp = false;
-                        
-                        dol = false;
                         
                     }//case '\\', '/'
                     
@@ -209,8 +203,6 @@ public class init {
                         }//if(amp && i < insert.get(sum).length()-1 &&...
                         
                         quot = true;
-                        
-                        dol = false;
                         
                     }//cases
                     
@@ -234,23 +226,19 @@ public class init {
                         
                         quot = true;
                         
-                        dol = false;
-                        
                     }//cases
                     
                     case '!', '?' ->{}
                     
                     default -> {
                         
-                        tem += dol || (quot_end_line && commit)
+                        tem += quot_end_line && commit
                             ? insert.get(sum).toUpperCase().charAt(i)
                             : insert.get(sum).charAt(i);
                         
                         quot = true;
                         
                         amp = true;
-                        
-                        dol = false;
                         
                     }//default
                     
