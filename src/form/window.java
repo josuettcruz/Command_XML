@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package form;
+import java.awt.Color;
 import java.awt.Toolkit;
 import model.*;
 
@@ -17,7 +18,8 @@ public class window extends javax.swing.JFrame {
      * Creates new form window
      */
     
-    private String[] tem_0 = new String[10];
+    private final float AlignmentX = 0f;
+    private final float AlignmentY = 0f;
     
     public window() {
         
@@ -39,8 +41,6 @@ public class window extends javax.swing.JFrame {
         
         setVisible(true);
         setResizable(true);
-        
-        for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -75,12 +75,16 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
-    public boolean Command(String title, String text){
+    public boolean Page_0(String title, String text){
         
         setTitle(title);
         
-        initial.setAlignmentX(0f);
-        initial.setAlignmentY(0f);
+        initial.setAlignmentX(AlignmentX);
+        initial.setAlignmentY(AlignmentY);
+        
+        String[] tem_0 = new String[10];
+        
+        for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
         
         var ini = txt.text(text, true).split("\n");
         
@@ -90,10 +94,10 @@ public class window extends javax.swing.JFrame {
             
             do{
                 
-                this.tem_0[s] = ini[s];
+                tem_0[s] = ini[s];
                 s++;
                 
-            }while(s > 0 && s < ini.length && s < this.tem_0.length);
+            }while(s > 0 && s < ini.length && s < tem_0.length);
             
             Tem(0);
             
@@ -102,21 +106,104 @@ public class window extends javax.swing.JFrame {
             this.Err("Exception", e.getMessage());
             
         }
+            
+        ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
+        ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ide.setText(Reg.ide);
         
-        return ini.length <= this.tem_0.length;
+        categories.setFont(new java.awt.Font("Tahoma", 0, 32));
+        categories.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        categories.setText(Reg.categories);
         
-    }//Command(String text)
+        choose.setFont(new java.awt.Font("Tahoma", 0, 32));
+        choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        choose.setText(Reg.choose + " ".repeat(2));
+        
+        java.awt.Font t_font = new java.awt.Font("Times New Roman", 2, 18);
+        
+        txt_1.setFont(t_font);
+        txt_1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_1.setVisible(!tem_0[0].isBlank());
+        txt_1.setText(tem_0[0]);
+        
+        txt_2.setFont(t_font);
+        txt_2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_2.setVisible(!tem_0[1].isBlank());
+        txt_2.setText(tem_0[1]);
+        
+        txt_3.setFont(t_font);
+        txt_3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_3.setVisible(!tem_0[2].isBlank());
+        txt_3.setText(tem_0[2]);
+        
+        txt_4.setFont(t_font);
+        txt_4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_4.setVisible(!tem_0[3].isBlank());
+        txt_4.setText(tem_0[3]);
+        
+        txt_5.setFont(t_font);
+        txt_5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_5.setVisible(!tem_0[4].isBlank());
+        txt_5.setText(tem_0[4]);
+        
+        txt_6.setFont(t_font);
+        txt_6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_6.setVisible(!tem_0[5].isBlank());
+        txt_6.setText(tem_0[5]);
+        
+        txt_7.setFont(t_font);
+        txt_7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_7.setVisible(!tem_0[6].isBlank());
+        txt_7.setText(tem_0[6]);
+        
+        txt_8.setFont(t_font);
+        txt_8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_8.setVisible(!tem_0[7].isBlank());
+        txt_8.setText(tem_0[7]);
+        
+        txt_9.setFont(t_font);
+        txt_9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_9.setVisible(!tem_0[8].isBlank());
+        txt_9.setText(tem_0[8]);
+        
+        txt_10.setFont(t_font);
+        txt_10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txt_10.setVisible(!tem_0[9].isBlank());
+        txt_10.setText(tem_0[9]);
+        
+        return ini.length <= tem_0.length;
+        
+    }//Page_0(String title, String text)
     
-    public boolean Home(){
+    public void Page_1(String title_1, String title_2){
         
-        home.setAlignmentX(0f);
-        home.setAlignmentY(0f);
+        setTitle(title_1);
+        
+        home_title.setText(title_2);
+        home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        home_title.setFont(new java.awt.Font("Impact", 0, 22));
+        
+        initial.setAlignmentX(AlignmentX);
+        initial.setAlignmentY(AlignmentY);
+        
+        home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
+        home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        
+        home_action.setText("SALVAR");
+        home_exit.setText("SAIR");
+        
+        home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
+        home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
+        
+        home_action.setBackground(Color.decode("#008b8b"));
+        home_exit.setBackground(Color.decode("#8b0000"));
+        
+        home_action.setForeground(Color.decode("#f5f5f5"));
+        home_exit.setForeground(Color.decode("#f0f8ff"));
         
         Tem(1);
         
-        return false;
-        
-    }//Home()
+    }//Page_1(String title_1, String title_2)
     
     public void Tem(int init){
         
@@ -136,90 +223,10 @@ public class window extends javax.swing.JFrame {
             
         }//for(int exe = 0; exe < tem.length; exe++)
         
-        Tem_0(tem[0]);
-        Tem_1(tem[1]);
+        initial.setVisible(tem[0]);
+        home.setVisible(tem[1]);
         
     }//Tem(int init)
-    
-    private void Tem_0(boolean execute){
-        
-        initial.setVisible(execute);
-        
-        if(execute){
-            
-            ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
-            ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            ide.setText(Reg.ide);
-            
-            categories.setFont(new java.awt.Font("Tahoma", 0, 32));
-            categories.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            categories.setText(Reg.categories);
-            
-            choose.setFont(new java.awt.Font("Tahoma", 0, 32));
-            choose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-            choose.setText(Reg.choose + " ".repeat(2));
-            
-            java.awt.Font t_font = new java.awt.Font("Times New Roman", 2, 18);
-            
-            txt_1.setFont(t_font);
-            txt_1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_1.setVisible(!this.tem_0[0].isBlank());
-            txt_1.setText(this.tem_0[0]);
-            
-            txt_2.setFont(t_font);
-            txt_2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_2.setVisible(!this.tem_0[1].isBlank());
-            txt_2.setText(this.tem_0[1]);
-            
-            txt_3.setFont(t_font);
-            txt_3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_3.setVisible(!this.tem_0[2].isBlank());
-            txt_3.setText(this.tem_0[2]);
-            
-            txt_4.setFont(t_font);
-            txt_4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_4.setVisible(!this.tem_0[3].isBlank());
-            txt_4.setText(this.tem_0[3]);
-            
-            txt_5.setFont(t_font);
-            txt_5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_5.setVisible(!this.tem_0[4].isBlank());
-            txt_5.setText(this.tem_0[4]);
-            
-            txt_6.setFont(t_font);
-            txt_6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_6.setVisible(!this.tem_0[5].isBlank());
-            txt_6.setText(this.tem_0[5]);
-            
-            txt_7.setFont(t_font);
-            txt_7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_7.setVisible(!this.tem_0[6].isBlank());
-            txt_7.setText(this.tem_0[6]);
-            
-            txt_8.setFont(t_font);
-            txt_8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_8.setVisible(!this.tem_0[7].isBlank());
-            txt_8.setText(this.tem_0[7]);
-            
-            txt_9.setFont(t_font);
-            txt_9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_9.setVisible(!this.tem_0[8].isBlank());
-            txt_9.setText(this.tem_0[8]);
-            
-            txt_10.setFont(t_font);
-            txt_10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            txt_10.setVisible(!this.tem_0[9].isBlank());
-            txt_10.setText(this.tem_0[9]);
-            
-        }//if(execute)
-        
-    }//Tem_0(boolean execute)
-    
-    private void Tem_1(boolean execute){
-        
-        home.setVisible(execute);
-        
-    }//Tem_1(boolean execute)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -245,6 +252,11 @@ public class window extends javax.swing.JFrame {
         txt_9 = new javax.swing.JLabel();
         txt_10 = new javax.swing.JLabel();
         home = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        list_demo = new javax.swing.JList<>();
+        home_title = new javax.swing.JLabel();
+        home_action = new javax.swing.JButton();
+        home_exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -334,7 +346,7 @@ public class window extends javax.swing.JFrame {
                             .addComponent(txt_8, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addGap(8, 8, 8))
         );
         initialLayout.setVerticalGroup(
@@ -365,7 +377,7 @@ public class window extends javax.swing.JFrame {
                 .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         home.setAlignmentX(0.0F);
@@ -374,25 +386,66 @@ public class window extends javax.swing.JFrame {
         home.setMinimumSize(new java.awt.Dimension(300, 300));
         home.setPreferredSize(new java.awt.Dimension(600, 600));
 
+        list_demo.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(list_demo);
+
+        home_title.setText("jLabel1");
+
+        home_action.setText("jButton1");
+        home_action.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                home_actionActionPerformed(evt);
+            }
+        });
+
+        home_exit.setText("jButton2");
+        home_exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                home_exitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
         home.setLayout(homeLayout);
         homeLayout.setHorizontalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(homeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(home_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(homeLayout.createSequentialGroup()
+                        .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(home_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         homeLayout.setVerticalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(homeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(home_title, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(home_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE))
+                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,6 +474,15 @@ public class window extends javax.swing.JFrame {
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_initialMouseReleased
+
+    private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
+        controller.Exit();
+    }//GEN-LAST:event_home_exitActionPerformed
+
+    private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
+        
+        controller.Home_Enter();
+    }//GEN-LAST:event_home_actionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,8 +513,13 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
     private javax.swing.JPanel home;
+    private javax.swing.JButton home_action;
+    private javax.swing.JButton home_exit;
+    private javax.swing.JLabel home_title;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> list_demo;
     private javax.swing.JLabel txt_1;
     private javax.swing.JLabel txt_10;
     private javax.swing.JLabel txt_2;

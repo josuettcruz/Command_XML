@@ -13,13 +13,68 @@ public class controller {
     
     private static window w = null;
     
+    private static final String page_title = "Command_XML";
+    
     public static void Init(){
         
-        boolean ok = Msg();
+        boolean ok = Home();
         
-        if(!ok) System.exit(0);
+        if(!ok){
+            
+            System.err.println(new Hora(true).TimerGood(false));
+            System.err.println(new Data().DataCompleta(true));
+            System.err.println("O valor deve ser \"null\" para poder ser iniciado!");
+            System.exit(0);
+            
+        }//if(!ok)
         
     }//Init()
+    
+    private static boolean Home(){
+        
+        boolean execute;
+        
+        if(w == null && new Data().CompareTo(Reg.modify)){
+            
+            var title = "Hoje é ";
+            title += Reg.modify.DataCompleta(true);
+            
+            w = new window(200,100,600,600);
+            w.Page_1(title, Reg.modify.DataAbreviada(true));
+            
+            execute = true;
+            
+        } else {//if(w == null && new Data().CompareTo(Reg.modify))
+            
+            execute = Msg();
+            
+        }//if(w == null && new Data().CompareTo(Reg.modify))
+        
+        return execute;
+        
+    }//Home()
+    
+    public static void Home_Enter(){
+        
+        Reg.Print(
+            new Hora(true).TimerGood(true),
+            new Data().DataCompleta(true),
+            39
+        );
+        
+        System.exit(0);
+        
+    }//Home_Enter()
+    
+    public static void Exit(){
+        
+        var h = new Hora(true).TimerGood(true);
+        
+        Reg.Print(new Data().DataAbreviada(true), h, 39 - h.length());
+        
+        System.exit(0);
+        
+    }//Exit()
     
     private static boolean Msg(){
         
@@ -51,21 +106,27 @@ public class controller {
             
             String tema;
             
-            if(d.CompareTo(Reg.modify)){
+            var pass = good;
+            pass += "Hoje é ";
+            pass += d.DataCompleta(",\ndia ");
+            pass += "!";
+            
+            /*if(d.CompareTo(Reg.modify)){
                 
-                tema = "Última modificação:\nHoje: ";
+                tema = "Última modificação:\nHoje, ";
                 tema += Reg.modify.DataCompleta(",\nDia ","!\nAno ");
                 tema += "!\n";
                 tema += good;
 
             } else {//if(d.CompareTo(Reg.modify))
                 
-                tema = good;
-                tema += "Hoje é ";
-                tema += d.DataCompleta(",\ndia ");
-                tema += "!";
+                tema = pass;
                 
-            }//if(d.CompareTo(Reg.modify))
+            }/*if(d.CompareTo(Reg.modify))*/
+            
+            tema = pass;
+            /* A condição a cima não será mais possivel **
+            ** com a nova modificação! */
             
             if(Reg.modify.CompareTo(d, false)){
                 
@@ -99,7 +160,7 @@ public class controller {
                 )
             );
             
-            w.Command("Command_XML", tema);
+            w.Page_0("Command_XML", tema);
             
         }//if(w == null)
         
