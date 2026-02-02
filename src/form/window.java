@@ -181,29 +181,6 @@ public class window extends javax.swing.JFrame {
         
     }//Page_0(String title, String text)
     
-    private void HommeButtomEnter(boolean active){
-        
-        home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
-        home_file_enter.setText("ADD");
-        
-        if(active){
-            
-            home_file_enter.setBackground(Color.decode("#008b8b"));
-            home_file_enter.setForeground(Color.decode("#f0f8ff"));
-            
-        } else {//if(active)
-            
-            
-            home_file_enter.setBackground(Color.decode("#d3d3d3"));
-            home_file_enter.setForeground(Color.decode("#a9a9a9"));
-            
-            
-        }//if(active)
-        
-        home_file_enter.setEnabled(active);
-        
-    }
-    
     public void Page_1(String title_1, String title_2, String FontInit, String FontKey){
         
         this.home_file_font_into = FontInit;
@@ -234,14 +211,16 @@ public class window extends javax.swing.JFrame {
         home_exit.setForeground(Color.decode("#f0f8ff"));
         
         home_file.setFont(new java.awt.Font(FontInit, 1, 22));
+        home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
         
         home_file.setBackground(Color.white);
+        home_file_enter.setBackground(Color.decode("#008b8b"));
         
         home_file.setForeground(Color.black);
+        home_file_enter.setForeground(Color.decode("#f0f8ff"));
         
         home_file.setText("");
-        
-        this.HommeButtomEnter(false);
+        home_file_enter.setText("ADD");
         
         Tem(1);
         
@@ -553,15 +532,9 @@ public class window extends javax.swing.JFrame {
         
         var tam = home_file.getText().length();
         
-        HommeButtomEnter(tam > 0);
-        
         switch(evt.getKeyCode()){
             
-            case 10 -> {
-                
-                if(tam > 0) controller.HomeFile(home_file.getText());
-                
-            }//case 10
+            case 10 -> controller.HomeFile(home_file.getText());
             
             default -> {
                 
@@ -610,7 +583,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_home_fileKeyReleased
 
     private void home_file_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_file_enterActionPerformed
-        if(home_file.getText().length() > 0) controller.HomeFile(home_file.getText());
+        controller.HomeFile(home_file.getText());
     }//GEN-LAST:event_home_file_enterActionPerformed
 
     /**

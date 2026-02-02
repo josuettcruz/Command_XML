@@ -4,7 +4,6 @@
  */
 package form;
 import model.*;
-import file.*;
 
 /**
  *
@@ -101,8 +100,16 @@ public class controller {
         
         if(println){
             
-            Reg.Print(new Data().DataAbreviada(true), txt.arq(file));
-            Reg.Print(new Hora(true).TimerGood(false), txt.title(file, false));
+            var homefilehour = "Bo";
+            homefilehour += Hora.Good("m Dia", "a Tarde", "a Noite");
+            homefilehour += "!";
+            
+            var homefileprint = "No momento não existe nenuma ação para ser executada!";
+            
+            if(!file.isBlank()) homefileprint = txt.title(file, true);
+            
+            Reg.Print(new Hora(true).TimerGood(false), new Data().DataCompleta(true));
+            Reg.Print(homefilehour, homefileprint);
             
         }//if(println)
         
