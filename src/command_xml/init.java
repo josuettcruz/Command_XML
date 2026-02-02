@@ -512,11 +512,11 @@ public class init {
         
         if(d.CompareTo(Reg.modify)){
             
-            if(gitCommit()) controller.Init();
+            if(gitCommit()) controller.Init(true);
             
         } else {//if(d.CompareTo(Reg.modify))
             
-            controller.Init();
+            controller.Init(Arq.Exist("manifest.mf"));
             
         }//if(d.CompareTo(Reg.modify))
         

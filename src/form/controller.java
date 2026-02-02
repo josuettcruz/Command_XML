@@ -4,6 +4,7 @@
  */
 package form;
 import model.*;
+import file.*;
 
 /**
  *
@@ -15,9 +16,13 @@ public class controller {
     
     private static final String page_title = "Command_XML";
     
-    public static void Init(){
+    private static boolean println;
+    
+    public static void Init(boolean java_ide){
         
         boolean ok = Home();
+        
+        println = java_ide;
         
         if(!ok){
             
@@ -34,7 +39,7 @@ public class controller {
         
         boolean execute;
         
-        if(w == null && new Data().CompareTo(Reg.modify)){
+        if(w == null){
             
             var title = "Hoje é ";
             title += Reg.modify.DataCompleta(true);
@@ -44,9 +49,13 @@ public class controller {
             
             execute = true;
             
-        } else {//if(w == null && new Data().CompareTo(Reg.modify))
+        } else if(println){//if(w == null && new Data().CompareTo(Reg.modify))
             
             execute = Msg();
+            
+        } else {//if(w == null && new Data().CompareTo(Reg.modify))
+            
+            execute = false;
             
         }//if(w == null && new Data().CompareTo(Reg.modify))
         
@@ -56,11 +65,15 @@ public class controller {
     
     public static void Home_Enter(){
         
-        Reg.Print(
-            new Hora(true).TimerGood(true),
-            new Data().DataCompleta(true),
-            39
-        );
+        if(println){
+            
+            Reg.Print(
+                new Hora(true).TimerGood(true),
+                new Data().DataCompleta(true),
+                39
+            );
+            
+        }//if(println)
         
         System.exit(0);
         
@@ -68,9 +81,17 @@ public class controller {
     
     public static void Exit(){
         
-        var h = new Hora(true).TimerGood(true);
+        var hour = new Hora(true).TimerGood(true);
         
-        Reg.Print(new Data().DataAbreviada(true), h, 39 - h.length());
+        if(println){
+            
+            Reg.Print(
+                new Data().DataAbreviada(true),
+                hour,
+                39 - hour.length()
+            );
+            
+        }//if(println)
         
         System.exit(0);
         
@@ -88,11 +109,11 @@ public class controller {
             
             if(Reg.modify.getDate().getDayOfWeek().getValue() < 6){
                 
-                com += "o";
+                com += "a";
                 
             } else {//if(Reg.modify.getDate().getDayOfWeek().getValue() < 6)
                 
-                com += "a";
+                com += "o";
                 
             }//if(Reg.modify.getDate().getDayOfWeek().getValue() < 6)
             
@@ -106,12 +127,7 @@ public class controller {
             
             String tema;
             
-            var pass = good;
-            pass += "Hoje é ";
-            pass += d.DataCompleta(",\ndia ");
-            pass += "!";
-            
-            /*if(d.CompareTo(Reg.modify)){
+            if(d.CompareTo(Reg.modify)){
                 
                 tema = "Última modificação:\nHoje, ";
                 tema += Reg.modify.DataCompleta(",\nDia ","!\nAno ");
@@ -120,13 +136,12 @@ public class controller {
 
             } else {//if(d.CompareTo(Reg.modify))
                 
-                tema = pass;
+                tema = good;
+                tema += "\nHoje é ";
+                tema += d.DataCompleta(",\ndia ");
+                tema += "!";
                 
-            }/*if(d.CompareTo(Reg.modify))*/
-            
-            tema = pass;
-            /* A condição a cima não será mais possivel **
-            ** com a nova modificação! */
+            }//if(d.CompareTo(Reg.modify))
             
             if(Reg.modify.CompareTo(d, false)){
                 
