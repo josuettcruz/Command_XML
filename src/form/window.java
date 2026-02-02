@@ -21,6 +21,9 @@ public class window extends javax.swing.JFrame {
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
     
+    private String home_file_font_into;
+    private String home_file_font;
+    
     public window() {
         
         initComponents();
@@ -41,6 +44,9 @@ public class window extends javax.swing.JFrame {
         
         setVisible(true);
         setResizable(true);
+        
+        this.home_file_font_into = "";
+        this.home_file_font = "";
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -175,22 +181,48 @@ public class window extends javax.swing.JFrame {
         
     }//Page_0(String title, String text)
     
-    public void Page_1(String title_1, String title_2){
+    private void HommeButtomEnter(boolean active){
+        
+        home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
+        home_file_enter.setText("ADD");
+        
+        if(active){
+            
+            home_file_enter.setBackground(Color.decode("#008b8b"));
+            home_file_enter.setForeground(Color.decode("#f0f8ff"));
+            
+        } else {//if(active)
+            
+            
+            home_file_enter.setBackground(Color.decode("#d3d3d3"));
+            home_file_enter.setForeground(Color.decode("#a9a9a9"));
+            
+            
+        }//if(active)
+        
+        home_file_enter.setEnabled(active);
+        
+    }
+    
+    public void Page_1(String title_1, String title_2, String FontInit, String FontKey){
+        
+        this.home_file_font_into = FontInit;
+        this.home_file_font = FontKey;
         
         setTitle(title_1);
+        
+        initial.setAlignmentX(AlignmentX);
+        initial.setAlignmentY(AlignmentY);
         
         home_title.setText(title_2);
         home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         home_title.setFont(new java.awt.Font("Impact", 0, 22));
         
-        initial.setAlignmentX(AlignmentX);
-        initial.setAlignmentY(AlignmentY);
-        
         home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
         home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         
         home_action.setText("SALVAR");
-        home_exit.setText("SAIR");
+        home_exit.setText("LIMPAR");
         
         home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
         home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
@@ -200,6 +232,16 @@ public class window extends javax.swing.JFrame {
         
         home_action.setForeground(Color.decode("#f5f5f5"));
         home_exit.setForeground(Color.decode("#f0f8ff"));
+        
+        home_file.setFont(new java.awt.Font(FontInit, 1, 22));
+        
+        home_file.setBackground(Color.white);
+        
+        home_file.setForeground(Color.black);
+        
+        home_file.setText("");
+        
+        this.HommeButtomEnter(false);
         
         Tem(1);
         
@@ -257,10 +299,11 @@ public class window extends javax.swing.JFrame {
         home_title = new javax.swing.JLabel();
         home_action = new javax.swing.JButton();
         home_exit = new javax.swing.JButton();
+        home_file = new javax.swing.JTextField();
+        home_file_enter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(600, 2147483647));
         setMinimumSize(new java.awt.Dimension(300, 0));
 
         initial.setAlignmentX(0.0F);
@@ -403,9 +446,24 @@ public class window extends javax.swing.JFrame {
         });
 
         home_exit.setText("jButton2");
+        home_exit.setAlignmentY(0.0F);
         home_exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 home_exitActionPerformed(evt);
+            }
+        });
+
+        home_file.setText("jTextField1");
+        home_file.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                home_fileKeyReleased(evt);
+            }
+        });
+
+        home_file_enter.setText("jButton1");
+        home_file_enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                home_file_enterActionPerformed(evt);
             }
         });
 
@@ -414,14 +472,18 @@ public class window extends javax.swing.JFrame {
         homeLayout.setHorizontalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(home_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(homeLayout.createSequentialGroup()
-                        .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(home_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(home_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(homeLayout.createSequentialGroup()
+                        .addComponent(home_file)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(home_file_enter, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         homeLayout.setVerticalGroup(
@@ -429,13 +491,17 @@ public class window extends javax.swing.JFrame {
             .addGroup(homeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(home_title, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(home_file)
+                    .addComponent(home_file_enter, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(home_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(home_action, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(home_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -476,13 +542,76 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialMouseReleased
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
-        controller.Exit();
+        controller.HomeClear();
     }//GEN-LAST:event_home_exitActionPerformed
 
     private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
-        
-        controller.Home_Enter();
+        controller.HomeEnter();
     }//GEN-LAST:event_home_actionActionPerformed
+
+    private void home_fileKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_home_fileKeyReleased
+        
+        var tam = home_file.getText().length();
+        
+        HommeButtomEnter(tam > 0);
+        
+        switch(evt.getKeyCode()){
+            
+            case 10 -> {
+                
+                if(tam > 0) controller.HomeFile(home_file.getText());
+                
+            }//case 10
+            
+            default -> {
+                
+                if(tam <= 10){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+                    
+                } else if(tam <= 20){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 0, 22));
+                    
+                } else if(tam <= 40){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 22));
+                    
+                } else if(tam <= 60){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 20));
+                    
+                } else if(tam <= 80){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 18));
+                    
+                } else if(tam <= 100){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 16));
+                    
+                } else if(tam <= 150){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 14));
+                    
+                } else if(tam <= 200){
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 12));
+                    
+                } else {
+                    
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 10));
+                    
+                }
+                
+            }//default
+            
+        }//switch(evt.getKeyCode())
+        
+    }//GEN-LAST:event_home_fileKeyReleased
+
+    private void home_file_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_file_enterActionPerformed
+        if(home_file.getText().length() > 0) controller.HomeFile(home_file.getText());
+    }//GEN-LAST:event_home_file_enterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -515,6 +644,8 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JPanel home;
     private javax.swing.JButton home_action;
     private javax.swing.JButton home_exit;
+    private javax.swing.JTextField home_file;
+    private javax.swing.JButton home_file_enter;
     private javax.swing.JLabel home_title;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;

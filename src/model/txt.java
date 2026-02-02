@@ -234,6 +234,7 @@ public class txt {
             "umas",
             "dois",
             "duas",
+            "de",
             "do",
             "da",
             "dos",
@@ -413,7 +414,7 @@ public class txt {
                     
                     default -> {
                         
-                        if(caracter){
+                        if(caracter && i > 0){
                             
                             txt += "_";
                             caracter = false;

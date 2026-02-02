@@ -45,7 +45,7 @@ public class controller {
             title += Reg.modify.DataCompleta(true);
             
             w = new window(200,100,600,600);
-            w.Page_1(title, Reg.modify.DataAbreviada(true));
+            w.Page_1(title, Reg.modify.DataAbreviada(true), "Aptos Black", "Agency FB");
             
             execute = true;
             
@@ -63,7 +63,7 @@ public class controller {
         
     }//Home()
     
-    public static void Home_Enter(){
+    public static void HomeEnter(){
         
         if(println){
             
@@ -79,7 +79,7 @@ public class controller {
         
     }//Home_Enter()
     
-    public static void Exit(){
+    public static void HomeClear(){
         
         var hour = new Hora(true).TimerGood(true);
         
@@ -96,6 +96,19 @@ public class controller {
         System.exit(0);
         
     }//Exit()
+    
+    public static void HomeFile(String file){
+        
+        if(println){
+            
+            Reg.Print(new Data().DataAbreviada(true), txt.arq(file));
+            Reg.Print(new Hora(true).TimerGood(false), txt.title(file, false));
+            
+        }//if(println)
+        
+        System.exit(0);
+        
+    }
     
     private static boolean Msg(){
         
