@@ -490,8 +490,6 @@ public class init {
             evt.Save(Tem(evt.Read().Read(),false));
             Reg.coppy(Tem(evt.Read().Read(),true));
             
-            Reg.Print(new Hora(true).TimerGood(false), nome);
-            
             var p = Tem(evt.Read().Read(),false).split("\n");
             
             for(int n = 0; n < p.length; n++){
@@ -499,6 +497,12 @@ public class init {
                 Reg.Print("Linha " + Reg.Numb(n+1, p.length, " de "), p[n]);
                 
             }//for(int n = 0; n < p.length; n++)
+            
+            System.out.println();
+            
+            Reg.Print(new Hora(true).TimerGood(false), "\"" + nome + "\"");
+            
+            System.out.println();
             
         }//if(enter)if(nome.isBlank())
         
@@ -510,7 +514,7 @@ public class init {
         
         Data d = new Data();
         
-        if(d.CompareTo(Reg.modify)){
+        if(d.CompareTo(Reg.modify) && Arq.Exist("manifest.mf")){
             
             if(gitCommit()) controller.Init(true);
             
