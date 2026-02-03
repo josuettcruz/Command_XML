@@ -5,9 +5,6 @@
 package form;
 import java.awt.Color;
 import java.awt.Toolkit;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
 import model.*;
 
 /**
@@ -24,8 +21,8 @@ public class window extends javax.swing.JFrame {
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
     
-    private String home_file_font_into;
-    private String home_file_font;
+    private final String home_file_font_into = "Aptos Black";
+    private final String home_file_font = "Agency FB";
     
     private Painel_1 pg1 = null;
     
@@ -49,9 +46,6 @@ public class window extends javax.swing.JFrame {
         
         setVisible(true);
         setResizable(true);
-        
-        this.home_file_font_into = "";
-        this.home_file_font = "";
         
         var tool = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -192,14 +186,11 @@ public class window extends javax.swing.JFrame {
         
     }//Home(Painel_1 pg_1)
     
-    public void Page_1(String title_1, String title_2, String FontInit, String FontKey){
+    public void Page_1(String title_1, String title_2){
         
         if(this.pg1 == null){
             
             /* 09:38 03/02/2026 */
-            this.home_file_font_into = FontInit;
-            this.home_file_font = FontKey;
-
             setTitle(title_1);
 
             initial.setAlignmentX(AlignmentX);
@@ -224,7 +215,7 @@ public class window extends javax.swing.JFrame {
             home_action.setForeground(Color.decode("#f5f5f5"));
             home_exit.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setFont(new java.awt.Font(FontInit, 1, 22));
+            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
             home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
 
             home_file.setBackground(Color.white);
@@ -261,9 +252,6 @@ public class window extends javax.swing.JFrame {
             //System.exit(0);
             
         } else {
-            
-            this.home_file_font_into = this.pg1.Font_Init();
-            this.home_file_font = this.pg1.Font_Key();
 
             setTitle(this.pg1.Title(true));
 
@@ -289,7 +277,7 @@ public class window extends javax.swing.JFrame {
             home_action.setForeground(Color.decode("#f5f5f5"));
             home_exit.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setFont(new java.awt.Font(this.pg1.Font_Init(), 1, 22));
+            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
             home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
 
             home_file.setBackground(Color.white);
@@ -632,7 +620,7 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
-            this.pg1.Apagar(true);
+            this.pg1.Apagar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
             
         }
         
@@ -646,7 +634,7 @@ public class window extends javax.swing.JFrame {
             
         } else {//if(this.pg1 == null)
             
-            pg1.Salvar(true, list_page1.getSelectedIndex());
+            pg1.Salvar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
             
         }//if(this.pg1 == null)
         
@@ -666,7 +654,7 @@ public class window extends javax.swing.JFrame {
                     
                 } else {
                     
-                    this.pg1.Adicionar(false);
+                    this.pg1.Adicionar(false, home_file.getText());
                     
                 }
                 
@@ -728,7 +716,7 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
-            this.pg1.Adicionar(true);
+            this.pg1.Adicionar(true, home_file.getText());
             
         }
         
@@ -746,7 +734,7 @@ public class window extends javax.swing.JFrame {
                     
                 } else {//if(this.pg1 == null)
                     
-                    pg1.Salvar(false, list_page1.getSelectedIndex());
+                    pg1.Salvar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
                     
                 }//if(this.pg1 == null)
                 
@@ -771,20 +759,27 @@ public class window extends javax.swing.JFrame {
                     
                 } else {//if(this.pg1 == null)
                     
-                    pg1.Apagar(false);
+                    pg1.Apagar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
                     
                 }//if(this.pg1 == null)
                 
             }//case 8, 127
             
+            case 32 -> home_file.requestFocus();
+            
             default ->{
                 
-                System.out.println(evt.getKeyCode());
-                System.exit(0);
+                if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿'){
+                    
+                    home_file.setText(home_file.getText() + evt.getKeyChar());
+                    home_file.requestFocus();
+                    
+                }//if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿')
                 
-            }/*default*/
+            }//default
             
-        }
+        }//switch(evt.getKeyCode())
+        
     }//GEN-LAST:event_list_page1KeyReleased
 
     /**

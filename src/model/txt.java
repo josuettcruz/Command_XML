@@ -15,7 +15,7 @@ public class txt {
     
     public static String text(String text, boolean remove_char){
         
-        if(text.isBlank()) text = "null";
+        if(text.trim().isBlank()) text = "null";
         
         var txt = "";
         
@@ -90,7 +90,7 @@ public class txt {
     
     public static List<String> phrase(String text, boolean remove_char){
         
-        if(text.isBlank()) text = "null";
+        if(text.trim().isBlank()) text = "null";
         
         List<String> tem = new ArrayList();
         
@@ -158,7 +158,7 @@ public class txt {
     
     public static String capitalize(String phrase){
         
-        if(phrase.isBlank()) phrase = "null";
+        if(phrase.trim().isBlank()) phrase = "null";
         
         var txt = "";
         
@@ -220,7 +220,7 @@ public class txt {
     
     public static String title(String text, boolean remove_char){
         
-        if(text.isBlank()) text = "null";
+        if(text.trim().isBlank()) text = "null";
         
         String[] articles = {
             "com",

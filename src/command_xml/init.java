@@ -234,7 +234,7 @@ public class init {
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot && !quot_end_line && (sum < insert.size() - 1 || !commit)){
+            if(quot && !quot_end_line){
                 tem += "!";
             }
             
@@ -244,8 +244,6 @@ public class init {
         }//for(int sum = 0; sum < insert.size(); sum++)
         
         if(quot && quot_end_line) tem += commit ? "'" : "\"";
-        
-        if(insert.size() == 1 && commit && !quot_end_line) tem += "!";
         
         if(commit) tem += "\"";
         

@@ -8,15 +8,11 @@ import java.util.List;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public interface Painel_1 {
     
     public String Title(boolean title);
-    
-    public String Font_Init();
-    
-    public String Font_Key();
     
     public List<String> List();
     
@@ -24,10 +20,10 @@ public interface Painel_1 {
     
     public int MaxListMode();
     
-    public void Salvar(boolean button, int index);
+    public void Salvar(boolean button, int index, String name);
     
-    public void Apagar(boolean button);
+    public void Apagar(boolean button, int index, String name);
     
-    public void Adicionar(boolean button);
+    public void Adicionar(boolean button, String input);
     
 }

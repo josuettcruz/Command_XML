@@ -44,7 +44,7 @@ public class controller {
             title += Reg.modify.DataCompleta(true);
             
             w = new window(200,100,600,600);
-            w.Page_1(title, Reg.modify.DataAbreviada(true), "Aptos Black", "Agency FB");
+            w.Page_1(title, Reg.modify.DataAbreviada(true));
             
             execute = true;
             
