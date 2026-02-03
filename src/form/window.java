@@ -189,15 +189,76 @@ public class window extends javax.swing.JFrame {
     public void Home(Painel_1 pg_1){
         
         this.pg1 = pg_1;
-        this.Page_1();
         
     }//Home(Painel_1 pg_1)
     
-    private void Page_1(){
+    public void Page_1(String title_1, String title_2, String FontInit, String FontKey){
         
         if(this.pg1 == null){
             
-            System.exit(0);
+            /* 09:38 03/02/2026 */
+            this.home_file_font_into = FontInit;
+            this.home_file_font = FontKey;
+
+            setTitle(title_1);
+
+            initial.setAlignmentX(AlignmentX);
+            initial.setAlignmentY(AlignmentY);
+
+            home_title.setText(title_2);
+            home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            home_title.setFont(new java.awt.Font("Impact", 0, 22));
+
+            home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
+            home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+            home_action.setText("SALVAR");
+            home_exit.setText("LIMPAR");
+
+            home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
+            home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
+
+            home_action.setBackground(Color.decode("#008b8b"));
+            home_exit.setBackground(Color.decode("#8b0000"));
+
+            home_action.setForeground(Color.decode("#f5f5f5"));
+            home_exit.setForeground(Color.decode("#f0f8ff"));
+
+            home_file.setFont(new java.awt.Font(FontInit, 1, 22));
+            home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
+
+            home_file.setBackground(Color.white);
+            home_file_enter.setBackground(Color.decode("#008b8b"));
+
+            home_file.setForeground(Color.black);
+            home_file_enter.setForeground(Color.decode("#f0f8ff"));
+
+            home_file.setText("");
+            home_file_enter.setText("ADD");
+
+            String[] nome = new String[20];
+
+            for(int i = 0; i < nome.length; i++){
+
+                nome[i] = " ".repeat(5);
+                nome[i] += "Item ";
+                nome[i] += Reg.Numb(i+1, nome.length, " de ");
+
+            }
+            
+            list_page1.setLayoutOrientation(0);
+            list_page1.setFont(new java.awt.Font("Aptos Black", 1, 22));
+            list_page1.setListData(nome);
+            
+            Tem(1);
+            
+            /* 09:38 03/02/2026 **
+            ** Depois da modificação **
+            ** tudo à cima vai ser **
+            ** removido e substituído **
+            ** pelo seguinte comando */
+            
+            //System.exit(0);
             
         } else {
             
@@ -217,7 +278,7 @@ public class window extends javax.swing.JFrame {
             home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
             home_action.setText("SALVAR");
-            home_exit.setText("LIMPAR");
+            home_exit.setText("APAGAR");
 
             home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
             home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
@@ -240,58 +301,28 @@ public class window extends javax.swing.JFrame {
             home_file.setText("");
             home_file_enter.setText("ADD");
             
-            list_page1.setListData(this.pg1.List());
+            var max_list = this.pg1.List().size() >= this.pg1.MaxListMode();
+            
+            String[] data = new String[this.pg1.List().size()];
+            
+            for(int i = 0; i < this.pg1.List().size(); i++){
+                
+                data[i] = " ".repeat(5);
+                data[i] += this.pg1.List().get(i);
+                
+                if(max_list) data[i] += " ".repeat(5);
+                
+            }//for(int i = 0; i < this.pg1.List().size(); i++)
+            
+            list_page1.setLayoutOrientation(max_list ? 1 : 0);
+            list_page1.setFont(this.pg1.ListFont());
+            list_page1.setListData(data);
             
             Tem(1);
             
         }
         
     }
-    
-    public void Page_1(String title_1, String title_2, String FontInit, String FontKey){
-        
-        this.home_file_font_into = FontInit;
-        this.home_file_font = FontKey;
-        
-        setTitle(title_1);
-        
-        initial.setAlignmentX(AlignmentX);
-        initial.setAlignmentY(AlignmentY);
-        
-        home_title.setText(title_2);
-        home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        home_title.setFont(new java.awt.Font("Impact", 0, 22));
-        
-        home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
-        home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        
-        home_action.setText("SALVAR");
-        home_exit.setText("LIMPAR");
-        
-        home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
-        home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
-        
-        home_action.setBackground(Color.decode("#008b8b"));
-        home_exit.setBackground(Color.decode("#8b0000"));
-        
-        home_action.setForeground(Color.decode("#f5f5f5"));
-        home_exit.setForeground(Color.decode("#f0f8ff"));
-        
-        home_file.setFont(new java.awt.Font(FontInit, 1, 22));
-        home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
-        
-        home_file.setBackground(Color.white);
-        home_file_enter.setBackground(Color.decode("#008b8b"));
-        
-        home_file.setForeground(Color.black);
-        home_file_enter.setForeground(Color.decode("#f0f8ff"));
-        
-        home_file.setText("");
-        home_file_enter.setText("ADD");
-        
-        Tem(1);
-        
-    }//Page_1(String title_1, String title_2)
     
     public void Tem(int init){
         
@@ -480,6 +511,12 @@ public class window extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        list_page1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list_page1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                list_page1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(list_page1);
 
         home_title.setText("jLabel1");
@@ -595,7 +632,7 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
-            this.pg1.Limpar();
+            this.pg1.Apagar(true);
             
         }
         
@@ -609,7 +646,7 @@ public class window extends javax.swing.JFrame {
             
         } else {//if(this.pg1 == null)
             
-            pg1.Salvar();
+            pg1.Salvar(true, list_page1.getSelectedIndex());
             
         }//if(this.pg1 == null)
         
@@ -619,107 +656,67 @@ public class window extends javax.swing.JFrame {
         
         var tam = home_file.getText().length();
         
-        if(this.pg1 == null){
-        
-            switch(evt.getKeyCode()){
+        switch(evt.getKeyCode()){
 
-                case 10 -> controller.HomeFile(home_file.getText());
+            case 10 -> {
+                
+                if(this.pg1 == null){
+                    
+                    controller.HomeFile(home_file.getText());
+                    
+                } else {
+                    
+                    this.pg1.Adicionar(false);
+                    
+                }
+                
+            }//case 10
 
-                default -> {
+            case 40 -> list_page1.requestFocus();
 
-                    if(tam <= 10){
+            default -> {
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+                if(tam <= 10){
 
-                    } else if(tam <= 20){
+                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font_into, 0, 22));
+                } else if(tam <= 20){
 
-                    } else if(tam <= 40){
+                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 0, 22));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 22));
+                } else if(tam <= 40){
 
-                    } else if(tam <= 60){
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 22));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 20));
+                } else if(tam <= 60){
 
-                    } else if(tam <= 80){
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 20));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 18));
+                } else if(tam <= 80){
 
-                    } else if(tam <= 100){
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 18));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 16));
+                } else if(tam <= 100){
 
-                    } else if(tam <= 150){
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 16));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 14));
+                } else if(tam <= 150){
 
-                    } else if(tam <= 200){
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 14));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 12));
+                } else if(tam <= 200){
 
-                    } else {
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 12));
 
-                        home_file.setFont(new java.awt.Font(this.home_file_font, 0, 10));
+                } else {
 
-                    }
+                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 10));
 
-                }//default
+                }
 
-            }//switch(evt.getKeyCode())
-        
-        } else {
-            
-            switch(evt.getKeyCode()){
+            }//default
 
-                case 10 -> this.pg1.Adicionar(false);
-
-                default -> {
-
-                    if(tam <= 10){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Init(), 1, 22));
-
-                    } else if(tam <= 20){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Init(), 0, 22));
-
-                    } else if(tam <= 40){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 22));
-
-                    } else if(tam <= 60){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 20));
-
-                    } else if(tam <= 80){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 18));
-
-                    } else if(tam <= 100){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 16));
-
-                    } else if(tam <= 150){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 14));
-
-                    } else if(tam <= 200){
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 12));
-
-                    } else {
-
-                        home_file.setFont(new java.awt.Font(this.pg1.Font_Key(), 0, 10));
-
-                    }
-
-                }//default
-
-            }//switch(evt.getKeyCode())
-            
-        }
+        }//switch(evt.getKeyCode())
         
     }//GEN-LAST:event_home_fileKeyReleased
 
@@ -736,6 +733,59 @@ public class window extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_home_file_enterActionPerformed
+
+    private void list_page1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page1KeyReleased
+        
+        switch(evt.getKeyCode()){
+            
+            case 10 -> {
+                
+                if(this.pg1 == null){
+                    
+                    controller.HomeEnter();
+                    
+                } else {//if(this.pg1 == null)
+                    
+                    pg1.Salvar(false, list_page1.getSelectedIndex());
+                    
+                }//if(this.pg1 == null)
+                
+            }
+            
+            case 38 ->{
+                
+                if(list_page1.getSelectedIndex() == 0){
+                    
+                    
+                    home_file.requestFocus();
+                    
+                }
+                
+            }
+            
+            case 8, 127 ->{
+                
+                if(this.pg1 == null){
+                    
+                    controller.HomeClear();
+                    
+                } else {//if(this.pg1 == null)
+                    
+                    pg1.Apagar(false);
+                    
+                }//if(this.pg1 == null)
+                
+            }//case 8, 127
+            
+            default ->{
+                
+                System.out.println(evt.getKeyCode());
+                System.exit(0);
+                
+            }/*default*/
+            
+        }
+    }//GEN-LAST:event_list_page1KeyReleased
 
     /**
      * @param args the command line arguments

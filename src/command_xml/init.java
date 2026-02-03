@@ -222,7 +222,7 @@ public class init {
                     
                     default -> {
                         
-                        tem += insert.get(sum).charAt(i);
+                        tem += quot_end_line ? insert.get(sum).toUpperCase().charAt(i) : insert.get(sum).charAt(i);
                         
                         quot = true;
                         

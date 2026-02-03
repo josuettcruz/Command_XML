@@ -4,6 +4,8 @@
  */
 package form;
 
+import java.util.List;
+
 /**
  *
  * @author joaot
@@ -16,11 +18,15 @@ public interface Painel_1 {
     
     public String Font_Key();
     
-    public String[] List();
+    public List<String> List();
     
-    public void Salvar();
+    public java.awt.Font ListFont();
     
-    public void Limpar();
+    public int MaxListMode();
+    
+    public void Salvar(boolean button, int index);
+    
+    public void Apagar(boolean button);
     
     public void Adicionar(boolean button);
     
