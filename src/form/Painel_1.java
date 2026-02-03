@@ -4,9 +4,6 @@
  */
 package form;
 
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
-
 /**
  *
  * @author joaot

@@ -240,11 +240,7 @@ public class window extends javax.swing.JFrame {
             home_file.setText("");
             home_file_enter.setText("ADD");
             
-            list_page1.setModel(new javax.swing.AbstractListModel<String>() {
-                String[] strings = pg1.List();
-                public int getSize() { return strings.length; }
-                public String getElementAt(int i) { return strings[i]; }
-            });
+            list_page1.setListData(this.pg1.List());
             
             Tem(1);
             
