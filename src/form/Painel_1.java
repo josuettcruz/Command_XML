@@ -14,16 +14,18 @@ public interface Painel_1 {
     
     public String Title(boolean title);
     
+    public String InputText();
+    
     public List<String> List();
     
     public java.awt.Font ListFont();
     
     public int MaxListMode();
     
-    public void Salvar(boolean button, int index, String name);
+    public Painel_1 Salvar(boolean button, int index, String name);
     
-    public void Apagar(boolean button, int index, String name);
+    public Painel_1 Apagar(boolean button, int index, String name);
     
-    public void Adicionar(boolean button, String input);
+    public Painel_1 Adicionar(boolean button, String input);
     
 }

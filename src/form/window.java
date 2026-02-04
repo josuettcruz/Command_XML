@@ -183,6 +183,7 @@ public class window extends javax.swing.JFrame {
     public void Home(Painel_1 pg_1){
         
         this.pg1 = pg_1;
+        this.Page_1(pg1.Title(true), pg1.Title(true));
         
     }//Home(Painel_1 pg_1)
     
@@ -286,7 +287,7 @@ public class window extends javax.swing.JFrame {
             home_file.setForeground(Color.black);
             home_file_enter.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setText("");
+            home_file.setText(this.pg1.InputText());
             home_file_enter.setText("ADD");
             
             var max_list = this.pg1.List().size() >= this.pg1.MaxListMode();
@@ -620,7 +621,8 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
-            this.pg1.Apagar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+            var pg_1 = this.pg1.Apagar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+            this.Home(pg_1);
             
         }
         
@@ -634,7 +636,8 @@ public class window extends javax.swing.JFrame {
             
         } else {//if(this.pg1 == null)
             
-            pg1.Salvar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+            var pg_1 = pg1.Salvar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+            this.Home(pg_1);
             
         }//if(this.pg1 == null)
         
@@ -654,14 +657,15 @@ public class window extends javax.swing.JFrame {
                     
                 } else {
                     
-                    this.pg1.Adicionar(false, home_file.getText());
+                    var pg_1 = this.pg1.Adicionar(false, home_file.getText());
+                    this.Home(pg_1);
                     
                 }
                 
             }//case 10
 
             case 40 -> list_page1.requestFocus();
-
+            
             default -> {
 
                 if(tam <= 10){
@@ -698,7 +702,8 @@ public class window extends javax.swing.JFrame {
 
                 } else {
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 10));
+                    home_file.setText("");
+                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
 
                 }
 
@@ -716,7 +721,8 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
-            this.pg1.Adicionar(true, home_file.getText());
+            var pg_1 = this.pg1.Adicionar(true, home_file.getText());
+            this.Home(pg_1);
             
         }
         
@@ -734,13 +740,14 @@ public class window extends javax.swing.JFrame {
                     
                 } else {//if(this.pg1 == null)
                     
-                    pg1.Salvar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+                    var pg_1 = pg1.Salvar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+                    this.Home(pg_1);
                     
                 }//if(this.pg1 == null)
                 
             }
             
-            case 38 ->{
+            /*case 38 ->{
                 
                 if(list_page1.getSelectedIndex() == 0){
                     
@@ -749,7 +756,7 @@ public class window extends javax.swing.JFrame {
                     
                 }
                 
-            }
+            }*/
             
             case 8, 127 ->{
                 
