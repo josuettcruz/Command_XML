@@ -34,7 +34,7 @@ public class txt {
                     
                 }//case ' '
                 
-                case '\t', '\f' ->{
+                case '\t', '\f', '￿' ->{
                     
                     if(remove_char){
                         
@@ -47,7 +47,7 @@ public class txt {
                         
                     }//if(remove_char)
                     
-                }//case '\t', '\f'
+                }//case '\t', '\f', '￿'
                 
                 case '\n' ->{
                     
@@ -116,7 +116,7 @@ public class txt {
                     
                 }//case '\n', ' '
                 
-                case '\t', '\f' ->{
+                case '\t', '\f', '￿' ->{
                     
                     if(remove_char){
                         
@@ -135,7 +135,7 @@ public class txt {
                         
                     }//if(remove_char)
                     
-                }//case '\t', '\f'
+                }//case '\t', '\f', '￿'
                 
                 default ->{
                     
@@ -196,6 +196,8 @@ public class txt {
                         '9',
                         '-',
                         '_' -> txt += phrase.charAt(p);
+                        
+                    case '￿' -> {}
                         
                     default ->{
                         
@@ -418,7 +420,8 @@ public class txt {
                          '(',
                          ')',
                          '"',
-                         '_' -> caracter = true;
+                         '_',
+                         '￿' -> caracter = true;
                     
                     default -> {
                         
@@ -484,7 +487,8 @@ public class txt {
             'w',
             'y',
             'x',
-            'z'
+            'z',
+            '￿'
         };
         
         for(int smaller = 0; smaller < text.length(); smaller++){
