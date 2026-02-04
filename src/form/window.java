@@ -766,7 +766,8 @@ public class window extends javax.swing.JFrame {
                     
                 } else {//if(this.pg1 == null)
                     
-                    pg1.Apagar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+                    var pg_1 = pg1.Apagar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+                    this.Home(pg_1);
                     
                 }//if(this.pg1 == null)
                 
