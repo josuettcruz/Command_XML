@@ -203,13 +203,6 @@ public class window extends javax.swing.JFrame {
         
     }//Page_0(String title, String text)
     
-    /*public void Home(Painel_1 pg_1){
-        
-        this.pg1 = pg_1;
-        this.Page_1();
-        
-    }//Home(Painel_1 pg_1)*/
-    
     private void Page_1(boolean button, String action){
         
         var d = new Data().DataCompleta(true);
@@ -709,17 +702,6 @@ public class window extends javax.swing.JFrame {
                 }//if(this.pg1 == null)
                 
             }
-            
-            /*case 38 ->{
-                
-                if(list_page1.getSelectedIndex() == 0){
-                    
-                    
-                    home_file.requestFocus();
-                    
-                }
-                
-            }*/
             
             case 8, 127 ->{
                 
