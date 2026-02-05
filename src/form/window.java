@@ -286,8 +286,6 @@ public class window extends javax.swing.JFrame {
             list_page1.setFont(this.pg1.ListFont());
             list_page1.setListData(data);
             
-            this.Page_1();
-            
             this.Tem(1);
             
         }//if(this.pg1 != null)
