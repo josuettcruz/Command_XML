@@ -319,7 +319,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="home_action">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton1"/>
+            <Property name="text" type="java.lang.String" value="SALVAR"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="home_actionActionPerformed"/>
@@ -327,7 +327,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="home_exit">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton2"/>
+            <Property name="text" type="java.lang.String" value="APAGAR"/>
             <Property name="alignmentY" type="float" value="0.0"/>
           </Properties>
           <Events>
@@ -344,7 +344,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="home_file_enter">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jButton1"/>
+            <Property name="text" type="java.lang.String" value="ADD"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="home_file_enterActionPerformed"/>

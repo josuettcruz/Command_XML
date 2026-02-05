@@ -80,6 +80,29 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
+    public void Tem(int init){
+        
+        boolean tem[] = new boolean[2];
+        
+        for(int exe = 0; exe < tem.length; exe++){
+            
+            if(init >= 0 && init < tem.length){
+                
+                tem[exe] = exe == init;
+                
+            } else {//if(init >= 0 && init < tem.length)
+                
+                tem[exe] = exe == 0;
+                
+            }//if(init >= 0 && init < tem.length)
+            
+        }//for(int exe = 0; exe < tem.length; exe++)
+        
+        initial.setVisible(tem[0]);
+        home.setVisible(tem[1]);
+        
+    }//Tem(int init)
+    
     public boolean Page_0(String title, String text){
         
         setTitle(title);
@@ -180,79 +203,35 @@ public class window extends javax.swing.JFrame {
         
     }//Page_0(String title, String text)
     
-    public void Home(Painel_1 pg_1){
+    /*public void Home(Painel_1 pg_1){
         
         this.pg1 = pg_1;
-        this.Page_1(pg1.Title(true), pg1.Title(true));
+        this.Page_1();
         
-    }//Home(Painel_1 pg_1)
+    }//Home(Painel_1 pg_1)*/
     
-    public void Page_1(String title_1, String title_2){
+    private void Page_1(boolean button, String action){
         
-        if(this.pg1 == null){
-            
-            /* 09:38 03/02/2026 */
-            setTitle(title_1);
-
-            initial.setAlignmentX(AlignmentX);
-            initial.setAlignmentY(AlignmentY);
-
-            home_title.setText(title_2);
-            home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-            home_title.setFont(new java.awt.Font("Impact", 0, 22));
-
-            home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
-            home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-            home_action.setText("SALVAR");
-            home_exit.setText("LIMPAR");
-
-            home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
-            home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
-
-            home_action.setBackground(Color.decode("#008b8b"));
-            home_exit.setBackground(Color.decode("#8b0000"));
-
-            home_action.setForeground(Color.decode("#f5f5f5"));
-            home_exit.setForeground(Color.decode("#f0f8ff"));
-
-            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
-            home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
-
-            home_file.setBackground(Color.white);
-            home_file_enter.setBackground(Color.decode("#008b8b"));
-
-            home_file.setForeground(Color.black);
-            home_file_enter.setForeground(Color.decode("#f0f8ff"));
-
-            home_file.setText("");
-            home_file_enter.setText("ADD");
-
-            String[] nome = new String[20];
-
-            for(int i = 0; i < nome.length; i++){
-
-                nome[i] = " ".repeat(5);
-                nome[i] += "Item ";
-                nome[i] += Reg.Numb(i+1, nome.length, " de ");
-
-            }
-            
-            list_page1.setLayoutOrientation(0);
-            list_page1.setFont(new java.awt.Font("Aptos Black", 1, 22));
-            list_page1.setListData(nome);
-            
-            Tem(1);
-            
-            /* 09:38 03/02/2026 **
-            ** Depois da modificação **
-            ** tudo à cima vai ser **
-            ** removido e substituído **
-            ** pelo seguinte comando */
-            
-            //System.exit(0);
-            
-        } else {
+        var d = new Data().DataCompleta(true);
+        
+        var Page_1_String1 = "\"";
+        Page_1_String1 += action;
+        Page_1_String1 += "\"";
+        
+        var Page_1_String2 = "Impossível executar a ação do";
+        Page_1_String2 += button ? "teclado" : "mouse";
+        Page_1_String2 += "!";
+        
+        Reg.Print(new Hora(true).TimerGood(false), d);
+        Reg.Print(Page_1_String1, Page_1_String2);
+        
+        System.exit(0);
+        
+    }//Err(String msg)
+    
+    private void Page_1(){
+        
+        if(this.pg1 != null){
 
             setTitle(this.pg1.Title(true));
 
@@ -307,34 +286,20 @@ public class window extends javax.swing.JFrame {
             list_page1.setFont(this.pg1.ListFont());
             list_page1.setListData(data);
             
-            Tem(1);
+            this.Page_1();
             
-        }
+            this.Tem(1);
+            
+        }//if(this.pg1 != null)
         
-    }
+    }//Page_1()
     
-    public void Tem(int init){
+    public void Page_1(Painel_1 inteface_page_1){
         
-        boolean tem[] = new boolean[2];
+        this.pg1 = inteface_page_1;
+        this.Page_1();
         
-        for(int exe = 0; exe < tem.length; exe++){
-            
-            if(init >= 0 && init < tem.length){
-                
-                tem[exe] = exe == init;
-                
-            } else {//if(init >= 0 && init < tem.length)
-                
-                tem[exe] = exe == 0;
-                
-            }//if(init >= 0 && init < tem.length)
-            
-        }//for(int exe = 0; exe < tem.length; exe++)
-        
-        initial.setVisible(tem[0]);
-        home.setVisible(tem[1]);
-        
-    }//Tem(int init)
+    }//Page_1(Painel_1 interace_page_1)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -510,14 +475,14 @@ public class window extends javax.swing.JFrame {
 
         home_title.setText("jLabel1");
 
-        home_action.setText("jButton1");
+        home_action.setText("SALVAR");
         home_action.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 home_actionActionPerformed(evt);
             }
         });
 
-        home_exit.setText("jButton2");
+        home_exit.setText("APAGAR");
         home_exit.setAlignmentY(0.0F);
         home_exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -532,7 +497,7 @@ public class window extends javax.swing.JFrame {
             }
         });
 
-        home_file_enter.setText("jButton1");
+        home_file_enter.setText("ADD");
         home_file_enter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 home_file_enterActionPerformed(evt);
@@ -617,12 +582,12 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1 == null){
             
-            controller.HomeClear();
+            this.Page_1(true, "APAGAR");
             
         } else {
             
             var pg_1 = this.pg1.Apagar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
-            this.Home(pg_1);
+            this.Page_1(pg_1);
             
         }
         
@@ -632,12 +597,12 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1 == null){
             
-            controller.HomeEnter();
+            this.Page_1(true, "SALVAR");
             
         } else {//if(this.pg1 == null)
             
             var pg_1 = pg1.Salvar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
-            this.Home(pg_1);
+            this.Page_1(pg_1);
             
         }//if(this.pg1 == null)
         
@@ -653,12 +618,12 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1 == null){
                     
-                    controller.HomeFile(home_file.getText());
+                    this.Page_1(false, "ADD");
                     
                 } else {
                     
                     var pg_1 = this.pg1.Adicionar(false, home_file.getText());
-                    this.Home(pg_1);
+                    this.Page_1(pg_1);
                     
                 }
                 
@@ -717,12 +682,12 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1 == null){
             
-            controller.HomeFile(home_file.getText());
+            this.Page_1(true, "SALVAR");
             
         } else {
             
             var pg_1 = this.pg1.Adicionar(true, home_file.getText());
-            this.Home(pg_1);
+            this.Page_1(pg_1);
             
         }
         
@@ -736,12 +701,12 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1 == null){
                     
-                    controller.HomeEnter();
+                    this.Page_1(false, "SALVAR");
                     
                 } else {//if(this.pg1 == null)
                     
                     var pg_1 = pg1.Salvar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
-                    this.Home(pg_1);
+                    this.Page_1(pg_1);
                     
                 }//if(this.pg1 == null)
                 
@@ -762,12 +727,12 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1 == null){
                     
-                    controller.HomeClear();
+                    this.Page_1(false, "ADD");
                     
                 } else {//if(this.pg1 == null)
                     
                     var pg_1 = pg1.Apagar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
-                    this.Home(pg_1);
+                    this.Page_1(pg_1);
                     
                 }//if(this.pg1 == null)
                 

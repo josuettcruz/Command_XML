@@ -36,86 +36,9 @@ public class controller {
     
     private static boolean Home(){
         
-        boolean execute;
-        
-        if(w == null){
-            
-            var title = "Hoje é ";
-            title += Reg.modify.DataCompleta(true);
-            
-            w = new window(200,100,600,600);
-            w.Page_1(title, Reg.modify.DataAbreviada(true));
-            
-            execute = true;
-            
-        } else if(println){//if(w == null && new Data().CompareTo(Reg.modify))
-            
-            execute = Msg();
-            
-        } else {//if(w == null && new Data().CompareTo(Reg.modify))
-            
-            execute = false;
-            
-        }//if(w == null && new Data().CompareTo(Reg.modify))
-        
-        return execute;
+        return Msg();
         
     }//Home()
-    
-    public static void HomeEnter(){
-        
-        if(println){
-            
-            Reg.Print(
-                new Hora(true).TimerGood(true),
-                new Data().DataCompleta(true),
-                39
-            );
-            
-        }//if(println)
-        
-        System.exit(0);
-        
-    }//Home_Enter()
-    
-    public static void HomeClear(){
-        
-        var hour = new Hora(true).TimerGood(true);
-        
-        if(println){
-            
-            Reg.Print(
-                new Data().DataAbreviada(true),
-                hour,
-                39 - hour.length()
-            );
-            
-        }//if(println)
-        
-        System.exit(0);
-        
-    }//Exit()
-    
-    public static void HomeFile(String file){
-        
-        if(println){
-            
-            var homefilehour = "Bo";
-            homefilehour += Hora.Good("m Dia", "a Tarde", "a Noite");
-            homefilehour += "!";
-            
-            var homefileprint = "No momento não existe nenuma ação para ser executada!";
-            
-            if(!file.isBlank()) homefileprint = txt.title(file, true);
-            
-            Reg.Print(new Hora(true).TimerGood(false), new Data().DataCompleta(true));
-            Reg.Print(homefilehour, homefileprint);
-            
-        }//if(println)
-        
-        System.exit(0);
-        
-    }
     
     private static boolean Msg(){
         
@@ -149,7 +72,7 @@ public class controller {
             
             if(d.CompareTo(Reg.modify)){
                 
-                tema = "Última modificação:\nHoje, ";
+                tema = "Última modificação;\nHoje; ";
                 tema += Reg.modify.DataCompleta(",\nDia ","!\nAno ");
                 tema += "!\n";
                 tema += good;
