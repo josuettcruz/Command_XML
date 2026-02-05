@@ -3,9 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package form;
+
+import model.*;
+
 import java.awt.Color;
 import java.awt.Toolkit;
-import model.*;
 
 /**
  *
@@ -211,7 +213,7 @@ public class window extends javax.swing.JFrame {
         Page_1_String1 += action;
         Page_1_String1 += "\"";
         
-        var Page_1_String2 = "Impossível executar a ação do";
+        var Page_1_String2 = "Impossível executar a ação do ";
         Page_1_String2 += button ? "teclado" : "mouse";
         Page_1_String2 += "!";
         
