@@ -22,10 +22,20 @@ public interface Painel_1 {
     
     public boolean ListColumn();
     
-    public Painel_1 Salvar(boolean button, int index, String name);
-    
-    public Painel_1 Apagar(boolean button, int index, String name);
-    
     public Painel_1 Adicionar(boolean button, String input);
+    
+    public Painel_1 Salvar(
+        boolean button,
+        int index,
+        String name,
+        String input
+    );
+    
+    public Painel_1 Apagar(
+        boolean button,
+        int index,
+        String name,
+        String input
+    );
     
 }

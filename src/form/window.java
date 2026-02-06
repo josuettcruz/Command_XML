@@ -614,7 +614,8 @@ public class window extends javax.swing.JFrame {
             var pg_1 = this.pg1.Apagar(
                 true,
                 list_page1.getSelectedIndex(),
-                list_page1.getSelectedValue()
+                list_page1.getSelectedValue(),
+                home_file.getText()
             );
             
             this.Page_1(pg_1);
@@ -636,7 +637,8 @@ public class window extends javax.swing.JFrame {
             var pg_1 = pg1.Salvar(
                 true,
                 list_page1.getSelectedIndex(),
-                list_page1.getSelectedValue()
+                list_page1.getSelectedValue(),
+                home_file.getText()
             );
             
             this.Page_1(pg_1);
@@ -768,7 +770,8 @@ public class window extends javax.swing.JFrame {
                     var pg_1 = pg1.Salvar(
                         false,
                         list_page1.getSelectedIndex(),
-                        list_page1.getSelectedValue()
+                        list_page1.getSelectedValue(),
+                        home_file.getText()
                     );
                     
                     this.Page_1(pg_1);
@@ -790,7 +793,8 @@ public class window extends javax.swing.JFrame {
                     var pg_1 = pg1.Apagar(
                         false,
                         list_page1.getSelectedIndex(),
-                        list_page1.getSelectedValue()
+                        list_page1.getSelectedValue(),
+                        home_file.getText()
                     );
                     
                     this.Page_1(pg_1);
