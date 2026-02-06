@@ -261,8 +261,8 @@ public class init {
             "info",
             "title",
             "code",
-            "name",
-            "nome",
+            "cod",
+            "doc",
             "run"
         };
         

@@ -27,6 +27,7 @@ public class window extends javax.swing.JFrame {
     private final String home_file_font = "Agency FB";
     
     private Painel_1 pg1 = null;
+    private boolean pg1_input_user = false;
     
     public window() {
         
@@ -207,8 +208,6 @@ public class window extends javax.swing.JFrame {
     
     private void Page_1(boolean button, String action){
         
-        var d = new Data().DataCompleta(true);
-        
         var Page_1_String1 = "\"";
         Page_1_String1 += action;
         Page_1_String1 += "\"";
@@ -217,8 +216,12 @@ public class window extends javax.swing.JFrame {
         Page_1_String2 += button ? "teclado" : "mouse";
         Page_1_String2 += "!";
         
-        Reg.Print(new Hora(true).TimerGood(false), d);
         Reg.Print(Page_1_String1, Page_1_String2);
+        
+        Reg.Print(
+            new Hora(true).TimerGood(false),
+            new Data().DataCompleta(true)
+        );
         
         System.exit(0);
         
@@ -227,6 +230,13 @@ public class window extends javax.swing.JFrame {
     private void Page_1(){
         
         if(this.pg1 != null){
+            
+            final var max_list = this.pg1.ListColumn()
+                && this.pg1.List().size() > 1;
+            
+            final var list_empty = this.pg1.List().isEmpty();
+            
+            final var repeat_char_list = " ".repeat(5);
 
             setTitle(this.pg1.Title(true));
 
@@ -261,21 +271,41 @@ public class window extends javax.swing.JFrame {
             home_file.setForeground(Color.black);
             home_file_enter.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setText(this.pg1.InputText());
+            home_file.setText(this.pg1.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
             
-            var max_list = this.pg1.List().size() >= this.pg1.MaxListMode();
+            String[] data = new String[list_empty ? 2 : this.pg1.List().size()];
             
-            String[] data = new String[this.pg1.List().size()];
+            if(list_empty){
+                
+                for(int dat = 0; dat < data.length; dat++){
+                    
+                    data[dat] = dat == 0
+                        ? repeat_char_list
+                        + "A lista está vazia!"
+                        : "";
+                    
+                }//for(int dat = 0; dat < data.length; dat++)
+                
+            } else {//if(list_empty)
+                
+                for(
+                    int i = 0;
+                    i < this.pg1.List().size() && i < data.length;
+                    i++
+                )
+                {
+                    
+                    data[i] = repeat_char_list;
+                    data[i] += this.pg1.List().get(i);
+                    
+                    if(max_list) data[i] += repeat_char_list;
+                    
+                }//for(int i = 0; i < this.pg1.List().size() && i < data...
+                
+            }//if(list_empty)
             
-            for(int i = 0; i < this.pg1.List().size(); i++){
-                
-                data[i] = " ".repeat(5);
-                data[i] += this.pg1.List().get(i);
-                
-                if(max_list) data[i] += " ".repeat(5);
-                
-            }//for(int i = 0; i < this.pg1.List().size(); i++)
+
             
             list_page1.setLayoutOrientation(max_list ? 1 : 0);
             list_page1.setFont(this.pg1.ListFont());
@@ -579,7 +609,14 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
-            var pg_1 = this.pg1.Apagar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+            this.pg1_input_user = true;
+            
+            var pg_1 = this.pg1.Apagar(
+                true,
+                list_page1.getSelectedIndex(),
+                list_page1.getSelectedValue()
+            );
+            
             this.Page_1(pg_1);
             
         }
@@ -594,7 +631,14 @@ public class window extends javax.swing.JFrame {
             
         } else {//if(this.pg1 == null)
             
-            var pg_1 = pg1.Salvar(true, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+            this.pg1_input_user = true;
+            
+            var pg_1 = pg1.Salvar(
+                true,
+                list_page1.getSelectedIndex(),
+                list_page1.getSelectedValue()
+            );
+            
             this.Page_1(pg_1);
             
         }//if(this.pg1 == null)
@@ -615,6 +659,7 @@ public class window extends javax.swing.JFrame {
                     
                 } else {
                     
+                    this.pg1_input_user = true;
                     var pg_1 = this.pg1.Adicionar(false, home_file.getText());
                     this.Page_1(pg_1);
                     
@@ -628,40 +673,59 @@ public class window extends javax.swing.JFrame {
 
                 if(tam <= 10){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font_into, 1, 22)
+                    );
 
                 } else if(tam <= 20){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 0, 22));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font_into, 0, 22)
+                    );
 
                 } else if(tam <= 40){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 22));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 22)
+                    );
 
                 } else if(tam <= 60){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 20));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 20)
+                    );
 
                 } else if(tam <= 80){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 18));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 18)
+                    );
 
                 } else if(tam <= 100){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 16));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 16)
+                    );
 
                 } else if(tam <= 150){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 14));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 14)
+                    );
 
                 } else if(tam <= 200){
 
-                    home_file.setFont(new java.awt.Font(this.home_file_font, 0, 12));
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 12)
+                    );
 
                 } else {
 
                     home_file.setText("");
-                    home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+                    
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font_into, 1, 22)
+                    );
 
                 }
 
@@ -679,6 +743,7 @@ public class window extends javax.swing.JFrame {
             
         } else {
             
+            this.pg1_input_user = true;
             var pg_1 = this.pg1.Adicionar(true, home_file.getText());
             this.Page_1(pg_1);
             
@@ -698,7 +763,14 @@ public class window extends javax.swing.JFrame {
                     
                 } else {//if(this.pg1 == null)
                     
-                    var pg_1 = pg1.Salvar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+                    this.pg1_input_user = true;
+                    
+                    var pg_1 = pg1.Salvar(
+                        false,
+                        list_page1.getSelectedIndex(),
+                        list_page1.getSelectedValue()
+                    );
+                    
                     this.Page_1(pg_1);
                     
                 }//if(this.pg1 == null)
@@ -709,11 +781,18 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1 == null){
                     
-                    this.Page_1(false, "ADD");
+                    this.Page_1(false, "APAGAR");
                     
                 } else {//if(this.pg1 == null)
                     
-                    var pg_1 = pg1.Apagar(false, list_page1.getSelectedIndex(), list_page1.getSelectedValue());
+                    this.pg1_input_user = true;
+                    
+                    var pg_1 = pg1.Apagar(
+                        false,
+                        list_page1.getSelectedIndex(),
+                        list_page1.getSelectedValue()
+                    );
+                    
                     this.Page_1(pg_1);
                     
                 }//if(this.pg1 == null)

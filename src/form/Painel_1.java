@@ -14,13 +14,13 @@ public interface Painel_1 {
     
     public String Title(boolean title);
     
-    public String InputText();
+    public String InputText(boolean user);
     
     public List<String> List();
     
     public java.awt.Font ListFont();
     
-    public int MaxListMode();
+    public boolean ListColumn();
     
     public Painel_1 Salvar(boolean button, int index, String name);
     
