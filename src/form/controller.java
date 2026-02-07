@@ -97,10 +97,16 @@ public class controller {
             
             if(d.CompareTo(Reg.modify)){
                 
-                tema = "Última modificação;\nHoje; ";
-                tema += Reg.modify.DataCompleta(",\nDia ","!\nAno ");
-                tema += "!\n";
-                tema += good;
+                var node1 = Reg.modify.DataCompleta("#");
+                var node2 = node1.indexOf("#");
+                var node0 = node2 > 1 ? node2 : 1;
+                
+                tema = Reg.http;
+                tema += "\n";
+                tema += "_".repeat(node0 + 1);
+                tema += "\n";
+                tema += Reg.modify.DataCompleta("!\nDia ", "!\nAno de ");
+                tema += "!";
 
             } else {//if(d.CompareTo(Reg.modify))
                 

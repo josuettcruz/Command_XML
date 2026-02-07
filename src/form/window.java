@@ -22,6 +22,7 @@ public class window extends javax.swing.JFrame {
     
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
+    private final java.awt.Dimension dim = new java.awt.Dimension(600, 600);
     
     private final String home_file_font_into = "Aptos Black";
     private final String home_file_font = "Agency FB";
@@ -112,6 +113,10 @@ public class window extends javax.swing.JFrame {
         
         initial.setAlignmentX(AlignmentX);
         initial.setAlignmentY(AlignmentY);
+        
+        initial.setMinimumSize(this.dim);
+        initial.setPreferredSize(this.dim);
+        initial.setMaximumSize(this.dim);
         
         String[] tem_0 = new String[10];
         
@@ -240,8 +245,12 @@ public class window extends javax.swing.JFrame {
 
             setTitle(this.pg1.Title(true));
 
-            initial.setAlignmentX(AlignmentX);
-            initial.setAlignmentY(AlignmentY);
+            home.setAlignmentX(AlignmentX);
+            home.setAlignmentY(AlignmentY);
+            
+            home.setMinimumSize(this.dim);
+            home.setPreferredSize(this.dim);
+            home.setMaximumSize(this.dim);
 
             home_title.setText(this.pg1.Title(false));
             home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -443,7 +452,7 @@ public class window extends javax.swing.JFrame {
                             .addComponent(txt_8, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 6, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(8, 8, 8))
         );
         initialLayout.setVerticalGroup(
@@ -474,7 +483,7 @@ public class window extends javax.swing.JFrame {
                 .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         home.setAlignmentX(0.0F);
@@ -537,7 +546,7 @@ public class window extends javax.swing.JFrame {
                     .addComponent(home_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addGroup(homeLayout.createSequentialGroup()
-                        .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+                        .addComponent(home_action, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(home_exit, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(homeLayout.createSequentialGroup()
@@ -568,10 +577,10 @@ public class window extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
