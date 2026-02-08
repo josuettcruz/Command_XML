@@ -139,18 +139,23 @@ public class init {
                     tem += new Data().DataAbreviada(true);
                     tem += " - ";
                     
-                    if(insert.size() == 1){
+                    Hora h = new Hora(true);
+                    
+                    var pm = Hora.Good(h, "", "#", "#").contains("#");
+                    var insert_size = insert.size() == 1;
+                    
+                    tem += pm && insert_size ? h.TimerGood(false) : h.Timer();
+                    
+                    if(insert_size){
                         
-                        tem += new Hora(true).TimerGood(false);
                         tem += " -- Nesse COMMIT --> ";
                         
-                    } else {//if(insert.size() == 1)
+                    } else {//if(insert_size)
                         
-                        tem += new Hora(true).Timer();
                         tem += " -- Nesse COMMIT -- ";
                         tem += divide_point;
                         
-                    }//if(insert.size() == 1)
+                    }//if(insert_size)
                     
                 } else {//if(sum == 0)
                     
