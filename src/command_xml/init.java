@@ -136,16 +136,17 @@ public class init {
                 if(sum == 0){
                     
                     tem += "git commit -m \"";
-                    tem += new Data().DataAbreviada(insert.size() > 1);
+                    tem += new Data().DataAbreviada(true);
                     tem += " - ";
-                    tem += new Hora(true).Timer();
                     
                     if(insert.size() == 1){
                         
+                        tem += new Hora(true).TimerGood(false);
                         tem += " -- Nesse COMMIT --> ";
                         
                     } else {//if(insert.size() == 1)
                         
+                        tem += new Hora(true).Timer();
                         tem += " -- Nesse COMMIT -- ";
                         tem += divide_point;
                         
