@@ -149,7 +149,7 @@ public class controller {
                 )
             );
             
-            w.Page_0("Command_XML", tema);
+            w.Page_0(new Link(Reg.http).page(false), tema);
             
         }//if(w == null)
         

@@ -114,6 +114,7 @@ public class window extends javax.swing.JFrame {
         initial.setAlignmentX(AlignmentX);
         initial.setAlignmentY(AlignmentY);
         
+        initial.setSize(this.dim);
         initial.setMinimumSize(this.dim);
         initial.setPreferredSize(this.dim);
         initial.setMaximumSize(this.dim);
@@ -248,6 +249,7 @@ public class window extends javax.swing.JFrame {
             home.setAlignmentX(AlignmentX);
             home.setAlignmentY(AlignmentY);
             
+            home.setSize(this.dim);
             home.setMinimumSize(this.dim);
             home.setPreferredSize(this.dim);
             home.setMaximumSize(this.dim);
@@ -483,7 +485,7 @@ public class window extends javax.swing.JFrame {
                 .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         home.setAlignmentX(0.0F);
@@ -585,10 +587,10 @@ public class window extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
+                .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGap(0, 39, Short.MAX_VALUE))
         );
 
         pack();
