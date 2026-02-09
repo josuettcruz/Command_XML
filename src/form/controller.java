@@ -15,28 +15,26 @@ public class controller {
     
     private static window w = null;
     
-    private static boolean println;
+    private static boolean println = true;
     
     public static void Init(boolean java_ide){
         
         println = java_ide;
         
-        boolean ok = Home();
+        Home();
         
-        if(!ok){
+    }//Init()
+    
+    private static void Home(){
+        
+        if(!Msg()){
             
             System.err.println(new Hora(true).TimerGood(false));
             System.err.println(new Data().DataCompleta(true));
             System.err.println("O valor deve ser \"null\" para poder ser iniciado!");
             System.exit(0);
             
-        }//if(!ok)
-        
-    }//Init()
-    
-    private static boolean Home(){
-        
-        return Msg();
+        }//if(!Msg())
         
     }//Home()
     
