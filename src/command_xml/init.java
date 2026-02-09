@@ -176,14 +176,14 @@ public class init {
                     
                     case '"', '\'' -> {
                         
-                        if(quot && i < insert.get(sum).length()-1){
+                        if(quot){
                             
                             quot_end_line = !quot_end_line;
                             
-                            tem += commit ? "'" : "\"";
+                            tem += commit ? "\\\"" : "\"";
                             quot = false;
                             
-                        }//if(quot && i < insert.get(sum).length()-1)
+                        }//if(quot)
                         
                         amp = true;
                         
