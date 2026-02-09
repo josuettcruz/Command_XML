@@ -39,7 +39,7 @@ public class init {
             '9'
         };
         
-        for(String tx : txt.text(text,true).split("\n")){
+        for(String tx : txt.text(text.replace("_"," "),true).split("\n")){
             
             var inst = "";
             var inter = true;
