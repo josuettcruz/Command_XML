@@ -176,14 +176,14 @@ public class init {
                     
                     case '"', '\'' -> {
                         
-                        if(quot){
+                        if(quot && i < insert.get(sum).length()-1){
                             
                             quot_end_line = !quot_end_line;
                             
                             tem += commit ? "'" : "\"";
                             quot = false;
                             
-                        }//if(val)
+                        }//if(quot && i < insert.get(sum).length()-1)
                         
                         amp = true;
                         
@@ -228,9 +228,9 @@ public class init {
                     
                     default -> {
                         
-                        tem += quot_end_line
-                                ? insert.get(sum).toUpperCase().charAt(i)
-                                : insert.get(sum).charAt(i);
+                        tem += quot_end_line && commit
+                            ? insert.get(sum).toUpperCase().charAt(i)
+                            : insert.get(sum).charAt(i);
                         
                         quot = true;
                         
