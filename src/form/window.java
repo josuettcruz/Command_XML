@@ -75,14 +75,14 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    private void Err(String type, String msg){
+    /* private void Err(String type, String msg){
         
         Reg.Print(new Data().DataAbreviada(true), "\"" + type + "\"");
         Reg.Print(new Hora(true).TimerGood(false), msg);
         
         System.exit(0);
         
-    }//Err(String msg)
+    }/*Err(String msg)*/
     
     public void Tem(int init){
         
@@ -90,7 +90,7 @@ public class window extends javax.swing.JFrame {
         
         for(int exe = 0; exe < tem.length; exe++){
             
-            if(init >= 0 && init < tem.length){
+            if(init > 0 && init < tem.length){
                 
                 tem[exe] = exe == init;
                 
@@ -124,25 +124,15 @@ public class window extends javax.swing.JFrame {
         for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
         
         var ini = txt.text(text, true).split("\n");
-        
-        try{
             
-            var s = 0;
-            
-            do{
-                
-                tem_0[s] = ini[s];
-                s++;
-                
-            }while(s > 0 && s < ini.length && s < tem_0.length);
-            
-            Tem(0);
-            
-        }catch(Exception e){
-            
-            this.Err("Exception", e.getMessage());
-            
-        }
+        var s = 0;
+
+        do{
+
+            tem_0[s] = ini[s];
+            s++;
+
+        }while(s > 0 && s < ini.length && s < tem_0.length);
             
         ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
         ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -207,6 +197,8 @@ public class window extends javax.swing.JFrame {
         txt_10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_10.setVisible(!tem_0[9].isBlank());
         txt_10.setText(tem_0[9]);
+
+        this.Tem(0);
         
         return ini.length <= tem_0.length;
         
@@ -264,11 +256,12 @@ public class window extends javax.swing.JFrame {
             home_title.setText(this.pg1.Title(false));
             home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             home_title.setFont(new java.awt.Font("Impact", 0, 22));
+            home_title.setAutoscrolls(false);
 
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
             home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-            home_action.setText("SALVAR");
+            home_action.setText("ABRIR");
             home_exit.setText("APAGAR");
 
             home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
@@ -279,6 +272,9 @@ public class window extends javax.swing.JFrame {
 
             home_action.setForeground(Color.decode("#f5f5f5"));
             home_exit.setForeground(Color.decode("#f0f8ff"));
+
+            home_file.setAutoscrolls(true);
+            home_file_enter.setAutoscrolls(false);
 
             home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
             home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
@@ -323,8 +319,7 @@ public class window extends javax.swing.JFrame {
                 
             }//if(list_empty)
             
-
-            
+            list_page1.setAutoscrolls(true);
             list_page1.setLayoutOrientation(max_list ? 1 : 0);
             list_page1.setFont(this.pg1.ListFont());
             list_page1.setListData(data);
@@ -518,7 +513,7 @@ public class window extends javax.swing.JFrame {
 
         home_title.setText("jLabel1");
 
-        home_action.setText("SALVAR");
+        home_action.setText("ABRIR");
         home_action.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 home_actionActionPerformed(evt);

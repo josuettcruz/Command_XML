@@ -319,7 +319,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="home_action">
           <Properties>
-            <Property name="text" type="java.lang.String" value="SALVAR"/>
+            <Property name="text" type="java.lang.String" value="ABRIR"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="home_actionActionPerformed"/>
