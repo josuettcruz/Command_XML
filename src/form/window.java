@@ -311,7 +311,17 @@ public class window extends javax.swing.JFrame {
                 {
                     
                     data[i] = repeat_char_list;
-                    data[i] += this.pg1.List().get(i);
+                    
+                    if(this.pg1.List().get(i).length() > 200){
+                        
+                        data[i] += this.pg1.List().get(i).substring(0,197);
+                        data[i] += "...";
+                        
+                    } else {
+                        
+                        data[i] += this.pg1.List().get(i);
+                        
+                    }
                     
                     if(max_list) data[i] += repeat_char_list;
                     
@@ -815,6 +825,31 @@ public class window extends javax.swing.JFrame {
                 }//if(this.pg1 == null)
                 
             }//case 8, 127
+            
+            case 38 ->{
+                
+                if(list_page1.getSelectedIndex() == 0) home_file.requestFocus();
+                
+            }//case 38
+            
+            /*case 40 ->{
+                
+                boolean l[] = new boolean[2];
+                
+                l[0] = list_page1.getSelectedIndex() == this.pg1.List().size()-1;
+                l[1] = this.pg1.List().size() > 2;
+                
+                var list_page1_boolean = true;
+                
+                for(boolean not : l) if(!not) list_page1_boolean = false;
+                
+                if(list_page1_boolean){
+                    
+                    list_page1.setSelectedIndex(0);
+                    
+                }//if(list_page1.getSelectedIndex() == this.pg1.List()...
+                
+            }/*case 40*/
             
             case 32 -> home_file.requestFocus();
             
