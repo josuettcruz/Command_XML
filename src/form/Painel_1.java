@@ -24,7 +24,7 @@ public interface Painel_1 {
     
     public Painel_1 Adicionar(boolean button, String input);
     
-    public Painel_1 Salvar(
+    public Painel_1 Abrir(
         boolean button,
         int index,
         String name,

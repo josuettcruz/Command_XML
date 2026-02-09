@@ -233,6 +233,13 @@ public class window extends javax.swing.JFrame {
         
     }//Err(String msg)
     
+    private void Page_1(boolean visible){
+        
+        home_action.setVisible(visible);
+        home_exit.setVisible(visible);
+        
+    }//Page_1(boolean visible)
+    
     private void Page_1(){
         
         if(this.pg1 != null){
@@ -321,6 +328,8 @@ public class window extends javax.swing.JFrame {
             list_page1.setLayoutOrientation(max_list ? 1 : 0);
             list_page1.setFont(this.pg1.ListFont());
             list_page1.setListData(data);
+            
+            this.Page_1(false);
             
             this.Tem(1);
             
@@ -639,13 +648,13 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1 == null){
             
-            this.Page_1(true, "SALVAR");
+            this.Page_1(true, "ABRIR");
             
         } else {//if(this.pg1 == null)
             
             this.pg1_input_user = true;
             
-            var pg_1 = pg1.Salvar(
+            var pg_1 = pg1.Abrir(
                 true,
                 list_page1.getSelectedIndex(),
                 list_page1.getSelectedValue(),
@@ -752,7 +761,7 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1 == null){
             
-            this.Page_1(true, "SALVAR");
+            this.Page_1(true, "ADD");
             
         } else {
             
@@ -766,19 +775,21 @@ public class window extends javax.swing.JFrame {
 
     private void list_page1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page1KeyReleased
         
+        this.Page_1(list_page1.getSelectedIndex() >= 0);
+        
         switch(evt.getKeyCode()){
             
             case 10 -> {
                 
                 if(this.pg1 == null){
                     
-                    this.Page_1(false, "SALVAR");
+                    this.Page_1(false, "ABRIR");
                     
                 } else {//if(this.pg1 == null)
                     
                     this.pg1_input_user = true;
                     
-                    var pg_1 = pg1.Salvar(
+                    var pg_1 = pg1.Abrir(
                         false,
                         list_page1.getSelectedIndex(),
                         list_page1.getSelectedValue(),
