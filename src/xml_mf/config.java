@@ -4,6 +4,7 @@
  */
 package xml_mf;
 
+import model.*;
 import form.Painel_1;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -16,24 +17,50 @@ import java.util.List;
 public class config implements Painel_1{
     
     List<String> list;
+    String input;
+    
+    boolean recent;
     
     public config(){
         
+        this.input = "";
+        this.recent = true;
+        
         this.list = new ArrayList();
-        this.list.add("09/02/2026");
-        this.list.add("17:50");
+        this.list.add(new Data().DataAbreviada(true));
+        this.list.add(new Hora(true).TimerGood(true));
         this.list.add("Nenhum item ainda!");
         
-    }//config()
+    }//Enter()
+    
+    private void Exit(){
+        
+        int max = 0;
+        
+        for(String g : this.list) if(g.length() > max) max = g.length();
+        
+        for(int g = 0; g < this.list.size(); g++){
+            
+            Reg.Print(
+                this.list.get(g),
+                "Linha " + Reg.Numb(g+1,this.list.size()," de "),
+                max+1
+            );
+            
+        }//for(int g = 0; g < this.list.size(); g++)
+        
+        System.exit(0);
+        
+    }//Exit()
 
     @Override
     public String Title(boolean title) {
-        return "";
+        return title ? Reg.modify.DataCompleta(true) : "Testando Funcionalidade";
     }
 
     @Override
     public String InputText(boolean user) {
-        return "";
+        return this.input;
     }
 
     @Override
@@ -43,27 +70,94 @@ public class config implements Painel_1{
 
     @Override
     public Font ListFont() {
-        return new java.awt.Font("Impact", 0, 16);
+        
+        var max = 0;
+        
+        for(String t : this.list) if(t.length() > max) max = t.length();
+        
+        if(this.recent){
+            
+            return new java.awt.Font("Arial Black", 0, 18);
+            
+        } else if(max < 20){
+            
+            return new java.awt.Font("Tahoma", 0, 18);
+            
+        } else if(max < 40){
+            
+            return new java.awt.Font("Times New Roman", 0, 18);
+            
+        } else if(max < 60){
+            
+            return new java.awt.Font("Times New Roman", 0, 16);
+            
+        } else if(max < 80){
+            
+            return new java.awt.Font("Times New Roman", 0, 14);
+            
+        } else if(max < 100){
+            
+            return new java.awt.Font("Times New Roman", 0, 12);
+            
+        } else {
+            
+            return new java.awt.Font("Times New Roman", 0, 10);
+            
+        }
+        
     }
 
     @Override
     public boolean ListColumn() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.list.size() > 10 || this.recent;
     }
 
     @Override
     public Painel_1 Adicionar(boolean button, String input) {
+        
+        var insert = txt.text(input, true);
+        
+        if(!insert.isBlank() && !insert.equalsIgnoreCase("null")){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(insert);
+            
+        } else {//if(!insert.isBlank() && !insert.equalsIgnoreCase("null"))
+            
+            this.Exit();
+            
+        }//if(!insert.isBlank() && !insert.equalsIgnoreCase("null"))
+        
         return this;
+        
     }
 
     @Override
     public void Abrir(boolean button, int index, String name, String input) {
-        //null
+        this.Exit();
     }
 
     @Override
     public Painel_1 Apagar(boolean button, int index, String name, String input) {
+        
+        if(this.list.size() > 1){
+            
+            this.list.remove(index);
+            
+        } else {
+            
+            this.Exit();
+            
+        }
+        
         return this;
+        
     }
     
 }

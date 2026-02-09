@@ -21,7 +21,25 @@ public class controller {
         
         println = java_ide;
         
-        Home();
+        try{
+            
+            w = new window(100,100,600,600);
+            w.Page_1(new config());
+        
+        } catch(Exception e) {
+            
+            if(println){
+                
+                System.err.println(e.hashCode());
+                System.err.println(e.getMessage());
+                
+            }//if(println)
+            
+            Home();
+            
+        }
+        
+        //Home();
         
     }//Init()
     

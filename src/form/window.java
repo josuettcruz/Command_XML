@@ -273,7 +273,7 @@ public class window extends javax.swing.JFrame {
             home_action.setForeground(Color.decode("#f5f5f5"));
             home_exit.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setAutoscrolls(true);
+            home_file.setAutoscrolls(false);
             home_file_enter.setAutoscrolls(false);
 
             home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
