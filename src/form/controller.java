@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package form;
+
 import model.*;
+import xml_mf.config;
 
 /**
  *
@@ -33,33 +35,6 @@ public class controller {
     }//Init()
     
     private static boolean Home(){
-        
-        if(println){
-            
-            var homeString0 = "Hoje é ";
-            
-            homeString0 += new Data().DataCompleta(
-                true,
-                " do ano de "
-            );
-            
-            homeString0 += "!";
-            
-            final var homeString1 = new Hora(true).TimerGood(false);
-            
-            var homeString2 = "Bo";
-            homeString2 += Hora.Good("m Dia", "a Tarde", "a Noite");
-            homeString2 += "!";
-            
-            System.out.println(homeString0);
-            
-            Reg.Print(
-                homeString1,
-                homeString2,
-                homeString0.length() - homeString2.length()
-            );
-            
-        }//if(println)
         
         return Msg();
         
