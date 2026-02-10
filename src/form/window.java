@@ -515,6 +515,11 @@ public class window extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         list_page1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list_page1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                list_page1MouseReleased(evt);
+            }
+        });
         list_page1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 list_page1KeyReleased(evt);
@@ -868,6 +873,10 @@ public class window extends javax.swing.JFrame {
         }//switch(evt.getKeyCode())
         
     }//GEN-LAST:event_list_page1KeyReleased
+
+    private void list_page1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_page1MouseReleased
+        this.Page_1(true);
+    }//GEN-LAST:event_list_page1MouseReleased
 
     /**
      * @param args the command line arguments

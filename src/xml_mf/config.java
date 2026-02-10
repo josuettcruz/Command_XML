@@ -171,7 +171,13 @@ public class config implements Painel_1{
         
         var insert = !txt.text(input, true).isBlank();
         
-        if(insert){
+        var m = txt.phrase(input, true).size();
+        
+        if(input.equalsIgnoreCase("exit")){
+            
+            this.Exit();
+            
+        } else if(insert && m < 2){
             
             if(this.recent){
                 
@@ -180,13 +186,46 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(txt.phrase(input, true).size() > 3 ? txt.title(input, true) : txt.arq(input));
+            this.list.add(txt.arq(input));
             
-        } else {//if(!insert.isBlank() && !insert.equalsIgnoreCase("null"))
+        } else if(insert && m < 10){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(txt.title(input, true));
+            
+        } else if(insert && m < 20){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(txt.arq(input));
+            
+        } else if(insert){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(txt.text(input, true));
+            
+        } else {
             
             this.Exit();
             
-        }//if(!insert.isBlank() && !insert.equalsIgnoreCase("null"))
+        }
         
         return this;
         
