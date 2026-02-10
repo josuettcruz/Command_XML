@@ -177,7 +177,7 @@ public class config implements Painel_1{
             
             this.Exit();
             
-        } else if(insert && m < 2){
+        } else if(insert && m <= 2){
             
             if(this.recent){
                 
