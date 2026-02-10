@@ -37,19 +37,71 @@ public class config implements Painel_1{
     
     private void Exit(){
         
-        int max = 0;
-        
-        for(String g : this.list) if(g.length() > max) max = g.length();
-        
-        for(int g = 0; g < this.list.size(); g++){
+        if(this.list.isEmpty()){
             
-            Reg.Print(
-                this.list.get(g),
-                "-- " + Reg.Numb(g+1,this.list.size()," de "),
-                max+1
-            );
+            System.err.println("Lista vazia!");
             
-        }//for(int g = 0; g < this.list.size(); g++)
+        } else if(this.list.size() == 1){//if(this.list.isEmpty())
+            
+            var d = new Data().DataCompleta(true);
+            var h = new Hora(true).TimerGood(true, " - ");
+            var p = this.list.get(0);
+            
+            if(p.length() < h.length()+1){
+                
+                System.out.print(h);
+                System.out.print(" -- ");
+                System.out.println(d);
+                
+            } else {//if(p.length() + 2 < h.length())
+                
+                var max = 0;
+                
+                for(String t : this.list){
+                    
+                    if(t.length() > max) max = t.length();
+                    
+                }//for(String t : this.list)
+                
+                max++;
+                
+                Reg.Print(
+                    "\"" + new Data().DataAbreviada(true) + "\"",
+                    "\"" + new Hora(true).TimerGood(true) + "\"",
+                    max
+                );
+                
+            }//if(p.length() + 2 < h.length())
+            
+            System.out.print("\"");
+            System.out.print(p);
+            System.out.println("\"");
+            
+        } else {//if(this.list.isEmpty())
+            
+            int max = 0;
+            
+            for(String g : this.list){
+                
+                if(g.length() > max){
+                    
+                    max = g.length();
+                    
+                }//if(g.length() > max)
+                
+            }//for(String g : this.list)
+            
+            for(int g = 0; g < this.list.size(); g++){
+                
+                Reg.Print(
+                    this.list.get(g),
+                    "-- " + Reg.Numb(g+1,this.list.size()," de "),
+                    max+1
+                );
+                
+            }//for(int g = 0; g < this.list.size(); g++)
+            
+        }//if(this.list.isEmpty())
         
         System.exit(0);
         
@@ -57,7 +109,7 @@ public class config implements Painel_1{
 
     @Override
     public String Title(boolean title) {
-        return title ? Reg.modify.DataCompleta(true) : "Testando Funcionalidade";
+        return title ? Reg.modify.DataAbreviada(true) : new Data().DataCompleta(this.recent);
     }
 
     @Override
@@ -117,9 +169,9 @@ public class config implements Painel_1{
     @Override
     public Painel_1 Adicionar(boolean button, String input) {
         
-        var insert = txt.text(input, true);
+        var insert = !txt.text(input, true).isBlank();
         
-        if(!insert.isBlank() && !insert.equalsIgnoreCase("null")){
+        if(insert){
             
             if(this.recent){
                 
@@ -128,7 +180,7 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(insert);
+            this.list.add(txt.phrase(input, true).size() > 3 ? txt.title(input, true) : txt.arq(input));
             
         } else {//if(!insert.isBlank() && !insert.equalsIgnoreCase("null"))
             

@@ -15,8 +15,6 @@ public class txt {
     
     public static String text(String text, boolean remove_char){
         
-        if(text.trim().isBlank()) text = "null";
-        
         var txt = "";
         
         var line = false;
@@ -420,6 +418,7 @@ public class txt {
                          '(',
                          ')',
                          '"',
+                         '-',
                          '_',
                          '￿' -> caracter = true;
                     
@@ -427,7 +426,7 @@ public class txt {
                         
                         if(caracter && i > 0){
                             
-                            txt += "_";
+                            txt += "-";
                             caracter = false;
                             
                         }//if(caracter)
