@@ -35,34 +35,13 @@ public class controller {
                 
             }//if(println)
             
-            Home();
-            
         }
-        
-        //Home();
         
     }//Init()
     
-    private static void Home(){
-        
-        if(!Msg()){
-            
-            System.err.println(new Hora(true).TimerGood(false));
-            System.err.println(new Data().DataCompleta(true));
-            System.err.println("O valor deve ser \"null\" para poder ser iniciado!");
-            System.exit(0);
-            
-        }//if(!Msg())
-        
-    }//Home()
-    
-    private static boolean Msg(){
-        
-        var valid = false;
+    public static boolean Msg(){
         
         if(w == null){
-            
-            valid = true;
             
             var com = "n";
             
@@ -142,9 +121,24 @@ public class controller {
             
             w.Page_0(new Link(Reg.http).page(false), tema);
             
+            return true;
+            
+        } else if(println){//if(w == null)
+            
+            System.err.println(new Hora(true).TimerGood(false));
+            System.err.println(new Data().DataCompleta(true));
+            System.err.println("O valor deve ser \"null\" para poder ser iniciado!");
+            System.exit(0);
+            
+            return false;
+            
+        } else {//if(w == null)
+            
+            System.exit(0);
+            
+            return false;
+            
         }//if(w == null)
-        
-        return valid;
         
     }//Msg()
     
