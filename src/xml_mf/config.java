@@ -6,13 +6,15 @@ package xml_mf;
 
 import model.*;
 import form.Painel_1;
+
 import java.awt.Font;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class config implements Painel_1{
     
@@ -28,7 +30,7 @@ public class config implements Painel_1{
         
         this.list = new ArrayList();
         this.list.add(new Data().DataAbreviada(true));
-        this.list.add(new Hora(true).TimerGood(true));
+        this.list.add(new Hora(true).TimerGood(false));
         this.list.add("Nenhum item ainda!");
         
     }//Enter()
@@ -43,7 +45,7 @@ public class config implements Painel_1{
             
             Reg.Print(
                 this.list.get(g),
-                "Linha " + Reg.Numb(g+1,this.list.size()," de "),
+                "-- " + Reg.Numb(g+1,this.list.size()," de "),
                 max+1
             );
             
@@ -160,4 +162,4 @@ public class config implements Painel_1{
         
     }
     
-}
+}//config

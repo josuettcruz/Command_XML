@@ -50,4 +50,4 @@ public class Long {
         return this.valid;
     }
     
-}
+}//Long

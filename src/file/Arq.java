@@ -435,4 +435,4 @@ public class Arq {
         
     }//Files(String diretory)
     
-}
+}//Arq

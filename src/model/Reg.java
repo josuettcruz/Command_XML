@@ -14,7 +14,10 @@ import java.awt.datatransfer.StringSelection;
  */
 public class Reg {
     
-    public final static String http = "https://github.com/josuettcruz/Command_XML";
+    public final static String http = "https:/"
+            + "/github.com"
+            + "/josuettcruz"
+            + "/Command_XML";
     
     public final static String ide = "Apache NetBeans IDE 27";
     
@@ -217,4 +220,4 @@ public class Reg {
         
     }//Numb(int numb, int max, String sep)
     
-}
+}//Reg

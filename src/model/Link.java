@@ -358,4 +358,4 @@ public class Link {
         
     }//WebVal(String contain, boolean initial)
     
-}
+}//Link

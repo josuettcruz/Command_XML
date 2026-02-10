@@ -16,6 +16,7 @@ import java.awt.Toolkit;
 public class window extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(window.class.getName());
+    
     /**
      * Creates new form window
      */
