@@ -196,7 +196,7 @@ public class config implements Painel_1{
             
             this.Exit();
             
-        } else if(input.length() > 50){
+        } else if(m == 1){
             
             if(this.recent){
                 
@@ -206,12 +206,29 @@ public class config implements Painel_1{
             }//if(this.recent)
             
             this.list.add(
-                txt.arq(input).length()
-                + " - \""
-                + txt.arq(input)
-                + "\"");
+                "\""
+                + input.length()
+                + "\" - "
+                + input
+            );
             
-        } else if(m <= 2){
+        } else if(input.length() > 40){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(
+                "\""
+                + txt.arq(input).length()
+                + "\" - "
+                + txt.arq(input)
+            );
+            
+        } else if(m <= 3){
             
             if(this.recent){
                 
