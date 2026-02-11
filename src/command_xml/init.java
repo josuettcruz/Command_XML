@@ -39,7 +39,7 @@ public class init {
             '9'
         };
         
-        for(String tx : txt.text(text.replace("_"," "),true).split("\n")){
+        for(String tx : txt.text(text,true).split("\n")){
             
             var inst = "";
             var inter = true;
@@ -141,7 +141,7 @@ public class init {
                     
                     Hora h = new Hora(true);
                     
-                    var pm = Hora.Good(h, "", "#", "#").contains("#");
+                    var pm = Hora.Good(h, "", "", "#").contains("#");
                     var insert_size = insert.size() == 1;
                     
                     tem += pm && insert_size ? h.TimerGood(false) : h.Timer();
@@ -211,7 +211,20 @@ public class init {
                         
                     }//case ';', ',', '.', ':'
                     
-                    case '|', '-', '_' -> {
+                    case '_' -> {
+                        
+                        if(amp && i > 0 && i < insert.get(sum).length()-1){
+                            
+                            tem += " ";
+                            amp = false;
+                            
+                        }//if(amp && i > 0 && i < insert.get(sum).length()-1)
+                        
+                        quot = true;
+                        
+                    }//case '|', '-', '_'
+                    
+                    case '|', '-' -> {
                         
                         if(amp){
                             

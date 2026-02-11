@@ -62,8 +62,10 @@ public class config implements Painel_1{
                     if(t.length() > max) max = t.length();
                     
                 }//for(String t : this.list)
-                
-                max++;
+            
+                if(p.length() > 1) if(p.charAt(0) == '"') max--;
+            
+                if(p.length() > 1) if(p.charAt(p.length()-1) != '"') max++;
                 
                 Reg.Print(
                     "\"" + new Data().DataAbreviada(true) + "\"",
@@ -73,9 +75,28 @@ public class config implements Painel_1{
                 
             }//if(p.length() + 2 < h.length())
             
-            System.out.print("\"");
+            if(p.length() > 1) if(p.charAt(0) != '"') System.out.print("\"");
+            
             System.out.print(p);
-            System.out.println("\"");
+            
+            if(p.length() > 1){
+                
+                if(p.charAt(p.length()-1) == '"'){
+                    
+                    System.out.println();
+                    
+                } else {//if(p.charAt(p.length()-1) == '"')
+                    
+                    System.out.println("\"");
+                    
+                }//if(p.charAt(p.length()-1) == '"')
+                
+            } else {//if(p.length() > 1)
+                
+                System.err.println("Length 0");
+                
+            }//if(p.length() > 1)
+            
             
         } else {//if(this.list.isEmpty())
             
@@ -169,15 +190,28 @@ public class config implements Painel_1{
     @Override
     public Painel_1 Adicionar(boolean button, String input) {
         
-        var insert = !txt.text(input, true).isBlank();
-        
         var m = txt.phrase(input, true).size();
         
-        if(input.equalsIgnoreCase("exit")){
+        if(input.equalsIgnoreCase("exit") || input.trim().isBlank()){
             
             this.Exit();
             
-        } else if(insert && m <= 2){
+        } else if(input.length() > 50){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(
+                txt.arq(input).length()
+                + " - \""
+                + txt.arq(input)
+                + "\"");
+            
+        } else if(m <= 2){
             
             if(this.recent){
                 
@@ -188,7 +222,7 @@ public class config implements Painel_1{
             
             this.list.add(txt.arq(input));
             
-        } else if(insert && m < 10){
+        } else if(m < 10){
             
             if(this.recent){
                 
@@ -197,20 +231,9 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(txt.title(input, true));
+            this.list.add(txt.title(input.replace("'", "\""), true));
             
-        } else if(insert && m < 20){
-            
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(txt.arq(input));
-            
-        } else if(insert){
+        } else {
             
             if(this.recent){
                 
@@ -220,10 +243,6 @@ public class config implements Painel_1{
             }//if(this.recent)
             
             this.list.add(txt.text(input, true));
-            
-        } else {
-            
-            this.Exit();
             
         }
         

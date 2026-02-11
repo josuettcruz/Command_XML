@@ -328,6 +328,8 @@ public class txt {
         
         for(String p : phrase(text, true)){
             
+            var user = false;
+            
             if(line){
                 
                 txt += "-";
@@ -420,16 +422,18 @@ public class txt {
                          '"',
                          '-',
                          '_',
-                         '￿' -> caracter = true;
+                         '￿' -> {
+                        
+                        if(user) caracter = true;
+                        
+                    }
                     
                     default -> {
                         
-                        if(caracter && i > 0){
-                            
-                            txt += "-";
-                            caracter = false;
-                            
-                        }//if(caracter)
+                        if(caracter && i > 0) txt += "_";
+                        
+                        caracter = false;
+                        user = true;
                         
                         txt += p.toLowerCase().charAt(i);
                         
