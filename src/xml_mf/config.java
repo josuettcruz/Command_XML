@@ -207,7 +207,7 @@ public class config implements Painel_1{
             
             this.list.add(
                 "\""
-                + txt.arq(input).length()
+                + Reg.Numb(txt.arq(input).length(), 100000)
                 + "\" - "
                 + txt.arq(input)
             );
@@ -223,7 +223,7 @@ public class config implements Painel_1{
             
             this.list.add(
                 "\""
-                + txt.arq(input).length()
+                + Reg.Numb(txt.arq(input).length(), 100000)
                 + "\" - "
                 + txt.arq(input)
             );

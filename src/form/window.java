@@ -337,6 +337,18 @@ public class window extends javax.swing.JFrame {
         this.Page_1();
         
     }//Page_1(Painel_1 interace_page_1)
+    
+    public void Pg1_select(boolean no_input){
+        
+        if(no_input) home_file.requestFocus();
+        
+        if(this.pg1.List().size() > 1){
+            
+            list_page1.setSelectedIndex(0);
+            
+        }//if(this.pg1.List().size() > 1)
+        
+    }//Pg1_select(boolean input)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -667,6 +679,8 @@ public class window extends javax.swing.JFrame {
 
     private void home_fileKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_home_fileKeyReleased
         
+        this.Pg1_select(false);
+        
         var tam = home_file.getText().length();
         
         switch(evt.getKeyCode()){
@@ -846,14 +860,14 @@ public class window extends javax.swing.JFrame {
                 
             }/*case 40*/
             
-            case 32 -> home_file.requestFocus();
+            case 32 -> this.Pg1_select(true);
             
             default ->{
                 
                 if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿'){
                     
                     home_file.setText(home_file.getText() + evt.getKeyChar());
-                    home_file.requestFocus();
+                    this.Pg1_select(true);
                     
                 }//if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿')
                 
