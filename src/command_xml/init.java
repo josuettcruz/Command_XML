@@ -531,17 +531,15 @@ public class init {
     
     public static void Exec(){
         
-        boolean print = Arq.Exist("manifest.mf");
-        
         Data d = new Data();
         
-        if(d.CompareTo(Reg.modify) && print){
+        if(d.CompareTo(Reg.modify) && Reg.java){
             
             if(gitCommit()) controller.Init(true);
             
         } else {//if(d.CompareTo(Reg.modify) && print)
             
-            controller.Init(print);
+            controller.Init(Reg.java);
             
         }//if(d.CompareTo(Reg.modify) && print)
         

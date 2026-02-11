@@ -4,6 +4,7 @@
  */
 package model;
 
+import file.Arq;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -28,6 +29,8 @@ public class Reg {
     public final static Data create = new Data(2025, 10, 27);
     
     public final static Data modify = new Data(2026, 2, 11);
+    
+    public final static boolean java = Arq.Exist("manifest.mf");
     
     private final static int result = 28;
     

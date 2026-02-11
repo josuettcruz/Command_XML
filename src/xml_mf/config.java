@@ -207,12 +207,12 @@ public class config implements Painel_1{
             
             this.list.add(
                 "\""
-                + input.length()
+                + txt.arq(input).length()
                 + "\" - "
-                + input
+                + txt.arq(input)
             );
             
-        } else if(input.length() > 40){
+        } else if(input.length() > 30){
             
             if(this.recent){
                 
@@ -228,17 +228,6 @@ public class config implements Painel_1{
                 + txt.arq(input)
             );
             
-        } else if(m <= 3){
-            
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(txt.arq(input));
-            
         } else if(m < 10){
             
             if(this.recent){
@@ -249,6 +238,17 @@ public class config implements Painel_1{
             }//if(this.recent)
             
             this.list.add(txt.title(input.replace("'", "\""), true));
+            
+        } else if(m < 15){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(txt.Local(input));
             
         } else {
             

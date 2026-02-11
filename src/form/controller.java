@@ -39,6 +39,8 @@ public class controller {
         
     }//Init()
     
+    public static void Init(){Init(Reg.java);}
+    
     public static boolean Msg(){
         
         if(w == null){
