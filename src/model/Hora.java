@@ -277,7 +277,7 @@ public class Hora {
             
             if(h.Min() > this.Min()) act = true;
             
-            if(h.Min() == this.Min()) act = h.Sec() > this.Sec();
+            if(h.Min() == this.Min()) act = h.Sec() >= this.Sec();
             
         }//if(h.Hour() == this.Hour())
         
