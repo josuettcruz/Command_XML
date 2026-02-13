@@ -61,10 +61,6 @@ public class controller {
             
             Data d = new Data();
             
-            var good = "Bo";
-            good += Hora.Good("m Dia", "a Tarde", "a Noite");
-            good += "!";
-            
             String tema;
             
             if(d.CompareTo(Reg.modify)){
@@ -82,7 +78,7 @@ public class controller {
 
             } else {//if(d.CompareTo(Reg.modify))
                 
-                tema = good;
+                tema = Hora.Good();
                 tema += "\nHoje é ";
                 tema += d.DataCompleta(",\ndia ");
                 tema += "!";

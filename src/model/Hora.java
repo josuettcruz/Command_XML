@@ -163,83 +163,41 @@ public class Hora {
         
     }//public Hora(String t)
     
-    public String Err(){
-        
-        return this.error;
+    public LocalTime getHora(){return this.hora;}
     
-    }//Err()
+    public int Hour(){return this.hora.getHour();}
     
-    public boolean Val(){
-        
-        return this.error.isBlank();
+    public int Min(){return this.hora.getMinute();}
     
-    }//Val()
+    public int Sec(){return this.hora.getSecond();}
     
-    public LocalTime getHora(){
-        
-        return this.hora;
+    public String Err(){return this.error;}
     
-    }//getHora()
+    public boolean Val(){return this.error.isBlank();}
     
-    public static String Good(String morning, String after, String night){
+    public String Timer(){
         
-        LocalTime t = LocalTime.now(); 
+        int h = this.hora.getHour();
+        int m = this.hora.getMinute();
+        int s = this.hora.getSecond();
         
-        final String[] good = {morning, after, night};
+        var txt = Reg.Numb(h);
         
-        int txt;
+        txt += ":";
         
-        if(t.getHour() == 18 && t.getMinute() > 30){
-            
-            txt = 2;
-            
-        } else if(t.getHour() > 18){//if
-            
-            txt = 2;
-            
-        } else if(t.getHour() >= 12){//if
-            
-            txt = 1;
-            
-        } else {//if
-            
-            txt = 0;
-            
-        }//if
+        txt += Reg.Numb(m);
         
-        return good[txt];
+        if(s > 0){
+            
+            txt += ":";
+            
+            txt += Reg.Numb(s);
+            
+        }//if(s > 0)
         
-    }//Good(String morning, String after, String night)
-    
-    public static String Good(Hora h, String morning, String after, String night){
+        return this.error.isBlank() ? txt : this.error;
         
-        LocalTime t = h.getHora();
-        
-        final String[] good = {morning, after, night};
-        
-        int txt;
-        
-        if(t.getHour() == 18 && t.getMinute() > 30){
-            
-            txt = 2;
-            
-        } else if(t.getHour() > 18){//if
-            
-            txt = 2;
-            
-        } else if(t.getHour() >= 12){//if
-            
-            txt = 1;
-            
-        } else {//if
-            
-            txt = 0;
-            
-        }//if
-        
-        return good[txt];
-        
-    }//Good(Hora h, String morning, String after, String night)
+    }//Timer(String sep)
     
     public String TimerGood(boolean after, String space, String sep){
         
@@ -309,34 +267,89 @@ public class Hora {
         
     }//public String TimerGood(boolean after)
     
-    public String Timer(String sep){
+    public boolean Compare(Hora h){
         
-        int h = this.hora.getHour();
-        int m = this.hora.getMinute();
-        int s = this.hora.getSecond();
+        boolean act = false;
         
-        var txt = Reg.Numb(h);
+        if(h.Hour() > this.Hour()) act = true;
         
-        txt += sep;
-        
-        txt += Reg.Numb(m);
-        
-        if(s > 0){
+        if(h.Hour() == this.Hour()){
             
-            txt += sep;
+            if(h.Min() > this.Min()) act = true;
             
-            txt += Reg.Numb(s);
+            if(h.Min() == this.Min()) act = h.Sec() > this.Sec();
             
-        }//if(s > 0)
+        }//if(h.Hour() == this.Hour())
         
-        return this.error.isBlank() ? txt : this.error;
+        return act;
         
-    }//Timer(String sep)
+    }//Compare(Hora h)
     
-    public String Timer(){
+    public static String Good(
+        Hora h,
+        String morning,
+        String after,
+        String night
+    )
+    {
         
-        return this.Timer(":");
+        LocalTime t = h.getHora();
         
-    }//Timer()
+        final String[] good = {morning, after, night};
+        
+        int txt;
+        
+        if(t.getHour() == 18 && t.getMinute() > 30){
+            
+            txt = 2;
+            
+        } else if(t.getHour() > 18){//if
+            
+            txt = 2;
+            
+        } else if(t.getHour() >= 12){//if
+            
+            txt = 1;
+            
+        } else {//if
+            
+            txt = 0;
+            
+        }//if
+        
+        return good[txt];
+        
+    }//Good(Hora h, String morning, String after, String night)
+    
+    public static String Good()
+    {
+        
+        LocalTime t = LocalTime.now();
+        
+        final String[] good = {"m Dia", "a Tarde", "a Noite"};
+        
+        int txt;
+        
+        if(t.getHour() == 18 && t.getMinute() > 30){
+            
+            txt = 2;
+            
+        } else if(t.getHour() > 18){//if
+            
+            txt = 2;
+            
+        } else if(t.getHour() >= 12){//if
+            
+            txt = 1;
+            
+        } else {//if
+            
+            txt = 0;
+            
+        }//if
+        
+        return "Bo" + good[txt] + "!";
+        
+    }//Good()
     
 }//Hora
