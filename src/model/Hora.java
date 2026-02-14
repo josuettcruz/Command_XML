@@ -271,13 +271,13 @@ public class Hora {
         
         boolean act = false;
         
-        if(h.Hour() > this.Hour()) act = true;
+        if(this.Hour() > h.Hour()) act = true;
         
-        if(h.Hour() == this.Hour()){
+        if(this.Hour() == h.Hour()){
             
-            if(h.Min() > this.Min()) act = true;
+            if(this.Min() > h.Min()) act = true;
             
-            if(h.Min() == this.Min()) act = h.Sec() >= this.Sec();
+            if(this.Min() == h.Min()) act = this.Sec() >= h.Sec();
             
         }//if(h.Hour() == this.Hour())
         

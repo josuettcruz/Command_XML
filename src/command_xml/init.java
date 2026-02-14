@@ -140,11 +140,9 @@ public class init {
                     tem += " - ";
                     
                     Hora h = new Hora(true);
-                    
-                    var pm = Hora.Good(h, "", "", "#").contains("#");
                     var insert_size = insert.size() == 1;
                     
-                    tem += pm && insert_size ? h.TimerGood(false) : h.Timer();
+                    tem += h.Compare(new Hora(19,30,30)) ? h.TimerGood(false) : h.Timer();
                     
                     if(insert_size){
                         
