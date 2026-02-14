@@ -535,11 +535,11 @@ public class init {
         
         if(d.CompareTo(Reg.modify) && Reg.java){
             
-            if(gitCommit()) controller.Init(true);
+            if(gitCommit()) controller.Init();
             
         } else {//if(d.CompareTo(Reg.modify) && print)
             
-            controller.Init(Reg.java);
+            controller.Init();
             
         }//if(d.CompareTo(Reg.modify) && print)
         

@@ -15,20 +15,26 @@ public class controller {
     
     private static window w = null;
     
-    private static boolean println = true;
-    
-    public static void Init(boolean java_ide){
+    public static void Init(){
         
-        println = java_ide;
+        Data d = new Data();
+        
+        if(Reg.modify.CompareTo(d, true)) Home();
+        
+        if(Reg.modify.CompareTo(d, false)) Msg();
+        
+    }//Init()
+    
+    public static void Home(){
         
         try{
             
-            w = new window(100,100,600,600);
+            if(w == null) w = new window(100,100,600,600);
             w.Page_1(new config());
         
         } catch(Exception e) {
             
-            if(println){
+            if(Reg.java){
                 
                 System.err.println(e.hashCode());
                 System.err.println(e.getMessage());
@@ -37,9 +43,7 @@ public class controller {
             
         }
         
-    }//Init()
-    
-    public static void Init(){Init(Reg.java);}
+    }//Home()
     
     public static boolean Msg(){
         
@@ -121,7 +125,7 @@ public class controller {
             
             return true;
             
-        } else if(println){//if(w == null)
+        } else if(Reg.java){//if(w == null)
             
             System.err.println(new Hora(true).TimerGood(false));
             System.err.println(new Data().DataCompleta(true));
