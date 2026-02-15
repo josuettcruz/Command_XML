@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author josue
  */
-public class Clean_Painel_1  implements Painel_1{
+public class Clean_Painel_1 implements Painel_1{
     
     private java.awt.Font font_null;
     private String node;
