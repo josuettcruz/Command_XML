@@ -130,7 +130,11 @@ public class config implements Painel_1{
 
     @Override
     public String Title(boolean title) {
-        return title ? Reg.modify.DataAbreviada(true) : new Data().DataCompleta(this.recent);
+        
+        return title
+            ? Reg.modify.DataAbreviada(true)
+            : new Data().DataCompleta(this.recent);
+        
     }
 
     @Override
@@ -270,7 +274,7 @@ public class config implements Painel_1{
     @Override
     public Painel_1 Abrir(boolean button, int index, String name, String input) {
         
-        //this.Exit();
+        this.Exit();
         
         return new Clean_Painel_1();
         
@@ -282,14 +286,14 @@ public class config implements Painel_1{
         if(this.list.size() > 1){
             
             this.list.remove(index);
+            return this;
             
-        } else {
+        } else {//if(this.list.size() > 1)
             
             this.Exit();
+            return new Clean_Painel_1();
             
-        }
-        
-        return this;
+        }//if(this.list.size() > 1)
         
     }
     
