@@ -211,14 +211,22 @@ public class init {
                     
                     case '_' -> {
                         
-                        if(amp && i > 0 && i < insert.get(sum).length()-1){
+                        if(commit){
                             
-                            tem += " ";
-                            amp = false;
+                            if(amp && i > 0 && i < insert.get(sum).length()-1){
+                                
+                                tem += " ";
+                                amp = false;
+                                
+                            }//if(amp && i > 0 && i < insert.get(sum).length()-1)
                             
-                        }//if(amp && i > 0 && i < insert.get(sum).length()-1)
-                        
-                        quot = true;
+                            quot = true;
+                            
+                        } else {//if(commit)
+                            
+                            tem += "_";
+                            
+                        }//if(commit)
                         
                     }//case '|', '-', '_'
                     

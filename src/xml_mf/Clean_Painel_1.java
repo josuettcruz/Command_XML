@@ -16,13 +16,7 @@ import java.util.List;
  */
 public class Clean_Painel_1 implements Painel_1{
     
-    private java.awt.Font font_null;
-    
-    public Clean_Painel_1(){
-        
-        this.font_null = new java.awt.Font("Times New Roman",1,72);
-        
-    }//Clean_Painel_1()
+    public Clean_Painel_1(){}
         
 
     @Override
