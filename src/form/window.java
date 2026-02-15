@@ -666,12 +666,14 @@ public class window extends javax.swing.JFrame {
             
             this.pg1_input_user = true;
             
-            pg1.Abrir(
+            var pg_1 = pg1.Abrir(
                 true,
                 list_page1.getSelectedIndex(),
                 list_page1.getSelectedValue(),
                 home_file.getText()
             );
+            
+            this.Page_1(pg_1);
             
         }//if(this.pg1 == null)
         
@@ -801,12 +803,14 @@ public class window extends javax.swing.JFrame {
                     
                     this.pg1_input_user = true;
                     
-                    pg1.Abrir(
+                    var pg_1 = pg1.Abrir(
                         false,
                         list_page1.getSelectedIndex(),
                         list_page1.getSelectedValue(),
                         home_file.getText()
                     );
+                    
+                    this.Page_1(pg_1);
                     
                 }//if(this.pg1 == null)
                 

@@ -268,8 +268,12 @@ public class config implements Painel_1{
     }
 
     @Override
-    public void Abrir(boolean button, int index, String name, String input) {
-        this.Exit();
+    public Painel_1 Abrir(boolean button, int index, String name, String input) {
+        
+        //this.Exit();
+        
+        return new Clean_Painel_1();
+        
     }
 
     @Override
