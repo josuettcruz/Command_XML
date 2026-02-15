@@ -45,10 +45,6 @@ public class Clean_Painel_1 implements Painel_1{
     
     public void Exit(String input){
         
-        var out = txt.text(input, true).equalsIgnoreCase(input)
-            ? input.trim()
-            : txt.text(input, true);
-        
         if(!input.trim().isBlank() && Reg.java){
             
             if(txt.text(input, true).equalsIgnoreCase(input)){
