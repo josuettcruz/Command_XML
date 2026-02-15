@@ -75,15 +75,6 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    /* private void Err(String type, String msg){
-        
-        Reg.Print(new Data().DataAbreviada(true), "\"" + type + "\"");
-        Reg.Print(new Hora(true).TimerGood(false), msg);
-        
-        System.exit(0);
-        
-    }/*Err(String msg)*/
-    
     public void Tem(int init){
         
         boolean tem[] = new boolean[2];
@@ -844,25 +835,6 @@ public class window extends javax.swing.JFrame {
                 if(list_page1.getSelectedIndex() == 0) home_file.requestFocus();
                 
             }//case 38
-            
-            /*case 40 ->{
-                
-                boolean l[] = new boolean[2];
-                
-                l[0] = list_page1.getSelectedIndex() == this.pg1.List().size()-1;
-                l[1] = this.pg1.List().size() > 2;
-                
-                var list_page1_boolean = true;
-                
-                for(boolean not : l) if(!not) list_page1_boolean = false;
-                
-                if(list_page1_boolean){
-                    
-                    list_page1.setSelectedIndex(0);
-                    
-                }//if(list_page1.getSelectedIndex() == this.pg1.List()...
-                
-            }/*case 40*/
             
             case 32 -> this.Pg1_select(true);
             
