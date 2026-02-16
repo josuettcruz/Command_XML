@@ -16,7 +16,7 @@ public interface Painel_2 {
     
     public String Input();
     
-    public List<String> List();
+    public List<Domain> List();
     
     public java.awt.Font ListFont();
     
@@ -24,8 +24,6 @@ public interface Painel_2 {
     
     public String Button();
     
-    public Painel_2 Action(Action act);
+    public Painel_2 Action(Action act, List<Domain> tema);
     
-    public Painel_2 Delet(boolean press);
-    
-}
+}//Painel_2

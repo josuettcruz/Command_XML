@@ -6,10 +6,10 @@ package form;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public enum Action {
     
-    button, press, key, error;
+    button, press, key, del, backspace, error;
     
-}
+}//Action

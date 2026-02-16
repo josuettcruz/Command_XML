@@ -8,6 +8,9 @@ import model.*;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,8 +32,10 @@ public class window extends javax.swing.JFrame {
     private final String home_file_font = "Agency FB";
     
     private Painel_1 pg1 = null;
-    private Painel_2 pg2 = null;
     private boolean pg1_input_user = false;
+    
+    private Painel_2 pg2 = null;
+    private List<Domain> p2 = null;
     
     public window() {
         
@@ -346,6 +351,8 @@ public class window extends javax.swing.JFrame {
     
     private void Page_2(){
         
+        this.p2 = new ArrayList();
+        
         if(this.pg2 == null){
             
             System.exit(0);
@@ -365,22 +372,35 @@ public class window extends javax.swing.JFrame {
             input_pg2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             input_pg2.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
             
+            int max_p2 = 0;
+            
+            for(Domain a : this.pg2.List()){
+                
+                var v = a.index(0);
+                
+                if(v > max_p2) max_p2 = v;
+                
+            }//for(Domain a : this.pg2.List())
+            
             final String[] modelo = new String[2];
             
-            modelo[0] = Reg.Numb(this.pg2.List().size());
+            modelo[0] = "-- ";
+            modelo[0] += Reg.Numb(max_p2);
+            modelo[0] += " --";
+            
             modelo[1] = this.pg2.Table();
             
             DefaultTableModel tela = new DefaultTableModel(modelo, 0);
                 
-            for(int i = 0; i < this.pg2.List().size(); i++){
+            for(Domain b : this.pg2.List()){
                 
                 String[] code = new String[2];
                 
                 code[0] = "-- ";
-                code[0] += Reg.Numb(i+1, this.pg2.List().size());
+                code[0] += Reg.Numb(b.index(0), this.pg2.List().size());
                 code[0] += " --";
                 
-                code[1] = txt.text(this.pg2.List().get(i), true);
+                code[1] = b.Text(true);
                 
                 tela.addRow(code);
                 
@@ -412,6 +432,26 @@ public class window extends javax.swing.JFrame {
         Page_2();
         
     }//Page_2(Painel_2 inteface_page_2)
+    
+    private List<Domain> Page_2(List<Domain> tema){
+        
+        List<Domain> demo = new ArrayList();
+        
+        Domain[] d = new Domain[this.pg1.List().size()];
+        
+        for(int i = 0; i < d.length; i++)d[i] = tema.get(i);
+        
+        for(int f : list_page2.getSelectedRows()){
+            
+            if(f >= 0 && f < d.length) d[f].Select(true);
+            
+        }//for(int f : list_page2.getSelectedRows())
+        
+        demo.addAll(Arrays.asList(d));
+        
+        return demo;
+        
+    }//Page_2(String[] tema)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1008,7 +1048,7 @@ public class window extends javax.swing.JFrame {
 
     private void activeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeActionPerformed
         
-        var pg_2 = this.pg2.Action(Action.button);
+        var pg_2 = this.pg2.Action(Action.button, this.Page_2(this.p2));
         this.pg2 = pg_2;
         this.Page_2();
         
@@ -1022,7 +1062,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 ->{
                 
-                var pg_2 = this.pg2.Action(Action.key);
+                var pg_2 = this.pg2.Action(Action.key, this.Page_2(this.p2));
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1074,7 +1114,7 @@ public class window extends javax.swing.JFrame {
                     
                 } else {
                     
-                    var pg_2 = this.pg2.Action(Action.error);
+                    var pg_2 = this.pg2.Action(Action.error, this.Page_2(this.p2));
                     this.pg2 = pg_2;
                     this.Page_2();
                     
@@ -1100,7 +1140,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 ->{
                 
-                var pg_2 = this.pg2.Action(Action.key);
+                var pg_2 = this.pg2.Action(Action.key, this.Page_2(this.p2));
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1108,7 +1148,7 @@ public class window extends javax.swing.JFrame {
             
             case 8 ->{
                 
-                var pg_2 = this.pg2.Delet(true);
+                var pg_2 = this.pg2.Action(Action.del, this.Page_2(this.p2));
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1116,7 +1156,7 @@ public class window extends javax.swing.JFrame {
             
             case 127 ->{
                 
-                var pg_2 = this.pg2.Delet(false);
+                var pg_2 = this.pg2.Action(Action.backspace, this.Page_2(this.p2));
                 this.pg2 = pg_2;
                 this.Page_2();
                 
