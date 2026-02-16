@@ -285,44 +285,7 @@ public class Hora {
         
     }//Compare(Hora h)
     
-    public static String Good(
-        Hora h,
-        String morning,
-        String after,
-        String night
-    )
-    {
-        
-        LocalTime t = h.getHora();
-        
-        final String[] good = {morning, after, night};
-        
-        int txt;
-        
-        if(t.getHour() == 18 && t.getMinute() > 30){
-            
-            txt = 2;
-            
-        } else if(t.getHour() > 18){//if
-            
-            txt = 2;
-            
-        } else if(t.getHour() >= 12){//if
-            
-            txt = 1;
-            
-        } else {//if
-            
-            txt = 0;
-            
-        }//if
-        
-        return good[txt];
-        
-    }//Good(Hora h, String morning, String after, String night)
-    
-    public static String Good()
-    {
+    public static String Good(){
         
         LocalTime t = LocalTime.now();
         
