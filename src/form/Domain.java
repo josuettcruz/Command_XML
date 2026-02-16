@@ -16,14 +16,6 @@ public class Domain {
     private String text;
     private int index;
     
-    public Domain(boolean selected, int index, String text){
-        
-        this.selected = selected;
-        this.index = index;
-        this.text = text;
-        
-    }//Domain(boolean selected, int index, String text)
-    
     public Domain(int index, String text){
         
         this.selected = false;

@@ -354,7 +354,9 @@ public class window extends javax.swing.JFrame {
             
             System.exit(0);
             
-        } else {
+        } else {//if(this.pg2 == null)
+            
+            list_page2.setRequestFocusEnabled(false);
             
             List<Domain> doc = new ArrayList();
             
@@ -373,7 +375,7 @@ public class window extends javax.swing.JFrame {
             
             title_pg2.setText(this.pg2.Title(false));
             title_pg2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-            title_pg2.setFont(new java.awt.Font("Tahoma", 1, 32));
+            title_pg2.setFont(new java.awt.Font("Verdana", 0, 16));
             
             input_pg2.setText(this.pg2.Input());
             input_pg2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
@@ -416,19 +418,34 @@ public class window extends javax.swing.JFrame {
             list_page2.setModel(tela);
             list_page2.setFont(this.pg2.ListFont());
             
+            String button_text;
+            
+            if(this.pg2.ButtonText().length() >= 30){
+                
+                button_text = this.pg2.ButtonText().substring(0, 27);
+                button_text += "...";
+                active.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+                
+            } else {
+                
+                button_text = this.pg2.ButtonText();
+                active.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                
+            }
+            
             
             //https://www.w3schools.com/colors/color_tryit.asp?color=MediumAquaMarine
             active.setBackground(Color.decode("#66CDAA"));
             active.setForeground(Color.BLACK);
-            active.setFont(new java.awt.Font("Impact", 0, 16));
-            active.setText(this.pg2.Button());
+            active.setFont(new java.awt.Font("Arial Black", 0, 26));
+            active.setText(button_text);
             active.setVisible(false);
             
             input_pg2.requestFocus();
             
             this.Tem(2);
             
-        }
+        }//if(this.pg2 == null)
         
     }//Page_2()
     
@@ -446,24 +463,40 @@ public class window extends javax.swing.JFrame {
         
         List<Domain> demo = new ArrayList();
         
-        Domain[] d = new Domain[this.pg1.List().size()];
-        
-        for(int i = 0; i < d.length; i++){
+        if(this.pg2 == null){
             
-            Domain add = tema.get(i);
-            add.Select(false);
+            demo.add(new Domain(0,"null"));
+            System.exit(0);
             
-            d[i] = add;
+        } else {//if(this.pg2 == null)
             
-        }
-        
-        for(int f : list_page2.getSelectedRows()){
-            
-            if(f >= 0 && f < d.length) d[f].Select(true);
-            
-        }//for(int f : list_page2.getSelectedRows())
-        
-        demo.addAll(Arrays.asList(d));
+            try{
+                
+                Domain[] d = new Domain[this.pg2.TableModel().size()];
+                
+                for(int i = 0; i < d.length; i++){
+                    
+                    Domain add = tema.get(i);
+                    add.Select(false);
+                    
+                    d[i] = add;
+                    
+                }
+                
+                for(int f : list_page2.getSelectedRows()){
+                    if(f >= 0 && f < d.length) d[f].Select(true);
+                }
+                
+                demo.addAll(Arrays.asList(d));
+                
+            }catch(Exception e){
+                
+                demo.add(new Domain(0,"Exception"));
+                demo.add(new Domain(e.hashCode(),e.getMessage()));
+                
+            }
+
+        }//if(this.pg2 == null)
         
         return demo;
         
@@ -745,6 +778,9 @@ public class window extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        list_page2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        list_page2.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        list_page2.setUpdateSelectionOnSort(false);
         list_page2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 list_page2MouseReleased(evt);
@@ -770,25 +806,26 @@ public class window extends javax.swing.JFrame {
             containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(containLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(title_pg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(input_pg2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
-                    .addComponent(active, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(title_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(input_pg2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                        .addComponent(active, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         containLayout.setVerticalGroup(
             containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(containLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(title_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(title_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(input_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(active, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1068,27 +1105,48 @@ public class window extends javax.swing.JFrame {
 
     private void activeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeActionPerformed
         
-        var pg_2 = this.pg2.Action(Action.button, this.Domain_pg2());
+        try{
+        
+        var pg_2 = this.pg2.Action(Action.button, this.Domain_pg2(), input_pg2.getText());
         this.pg2 = pg_2;
         this.Page_2();
+        
+        }catch(NullPointerException e){
+            
+            System.err.println("NullPointerException");
+            System.err.println(e.getMessage());
+            System.exit(0);
+            
+        }catch(Exception e){
+            
+            System.err.println("Exception");
+            System.err.println(e.getMessage());
+            System.exit(0);
+            
+        }
         
     }//GEN-LAST:event_activeActionPerformed
 
     private void input_pg2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_pg2KeyReleased
         
+        try{
+        
         switch(evt.getKeyCode()){
             
             case 10 ->{
                 
-                var pg_2 = this.pg2.Action(Action.key, this.Domain_pg2());
+                var pg_2 = this.pg2.Action(
+                    Action.key,
+                    this.Domain_pg2(),
+                    input_pg2.getText()
+                );
+                
                 this.pg2 = pg_2;
                 this.Page_2();
                 
             }//case 10
             
             default ->{
-                
-                input_pg2.setText(txt.text(input_pg2.getText(), true));
                 
                 var tem = input_pg2.getText().length();
                 
@@ -1174,7 +1232,7 @@ public class window extends javax.swing.JFrame {
                     
                 } else {
                     
-                    var pg_2 = this.pg2.Action(Action.error, this.Domain_pg2());
+                    var pg_2 = this.pg2.Action(Action.error, this.Domain_pg2(), input_pg2.getText());
                     this.pg2 = pg_2;
                     this.Page_2();
                     
@@ -1191,9 +1249,25 @@ public class window extends javax.swing.JFrame {
         
         active.setVisible(true);
         
+        }catch(NullPointerException e){
+            
+            System.err.println("NullPointerException");
+            System.err.println(e.getMessage());
+            System.exit(0);
+            
+        }catch(Exception e){
+            
+            System.err.println("Exception");
+            System.err.println(e.getMessage());
+            System.exit(0);
+            
+        }
+        
     }//GEN-LAST:event_input_pg2KeyReleased
 
     private void list_page2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page2KeyReleased
+        
+        try{
         
         switch(evt.getKeyCode()){
             
@@ -1205,7 +1279,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 ->{
                 
-                var pg_2 = this.pg2.Action(Action.enter, this.Domain_pg2());
+                var pg_2 = this.pg2.Action(Action.enter, this.Domain_pg2(), input_pg2.getText());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1213,7 +1287,7 @@ public class window extends javax.swing.JFrame {
             
             case 8 ->{
                 
-                var pg_2 = this.pg2.Action(Action.del, this.Domain_pg2());
+                var pg_2 = this.pg2.Action(Action.del, this.Domain_pg2(), input_pg2.getText());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1221,7 +1295,7 @@ public class window extends javax.swing.JFrame {
             
             case 127 ->{
                 
-                var pg_2 = this.pg2.Action(Action.backspace, this.Domain_pg2());
+                var pg_2 = this.pg2.Action(Action.backspace, this.Domain_pg2(), input_pg2.getText());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1253,6 +1327,20 @@ public class window extends javax.swing.JFrame {
         }//switch(evt.getKeyCode())
         
         active.setVisible(list_page2.getSelectedRow() >= 0);
+        
+        }catch(NullPointerException e){
+            
+            System.err.println("NullPointerException");
+            System.err.println(e.getMessage());
+            System.exit(0);
+            
+        }catch(Exception e){
+            
+            System.err.println("Exception");
+            System.err.println(e.getMessage());
+            System.exit(0);
+            
+        }
         
     }//GEN-LAST:event_list_page2KeyReleased
 

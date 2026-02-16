@@ -30,7 +30,7 @@ public class controller {
         try{
             
             if(w == null) w = new window(100,100,600,600);
-            w.Page_1(new config());
+            w.Page_2(new config());
         
         } catch(Exception e) {
             

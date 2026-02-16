@@ -22,8 +22,8 @@ public interface Painel_2 {
     
     public java.awt.Font ListFont();
     
-    public String Button();
+    public String ButtonText();
     
-    public Painel_2 Action(Action act, List<Domain> tema);
+    public Painel_2 Action(Action act, List<Domain> tema, String input);
     
 }//Painel_2

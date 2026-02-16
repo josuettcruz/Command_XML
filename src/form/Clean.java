@@ -15,7 +15,7 @@ import model.Link;
  *
  * @author josue
  */
-public class Clean implements Painel_1 {
+public class Clean implements Painel_1, Painel_2 {
 
     @Override
     public String Title(boolean title) {
@@ -58,6 +58,38 @@ public class Clean implements Painel_1 {
 
     @Override
     public Painel_1 Apagar(boolean button, int index, String name, String input) {
+        System.exit(0);
+        return this;
+    }
+
+    @Override
+    public String Input() {
+        return "";
+    }
+
+    @Override
+    public java.util.List<Domain> TableModel() {
+        
+        List<Domain> tema = new ArrayList();
+        
+        for(int i = 1; i <= 5; i++) tema.add(new Domain(i,"Linha " + i));
+        
+        return tema;
+        
+    }
+
+    @Override
+    public String TableTitle() {
+        return "void";
+    }
+
+    @Override
+    public String ButtonText() {
+        return "null";
+    }
+
+    @Override
+    public Painel_2 Action(form.Action act, java.util.List<Domain> tema, String input) {
         System.exit(0);
         return this;
     }
