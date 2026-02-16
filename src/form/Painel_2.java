@@ -1,0 +1,31 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
+package form;
+
+import java.util.List;
+
+/**
+ *
+ * @author josue
+ */
+public interface Painel_2 {
+    
+    public String Title(boolean title);
+    
+    public String Input();
+    
+    public List<String> List();
+    
+    public java.awt.Font ListFont();
+    
+    public String Table();
+    
+    public String Button();
+    
+    public Painel_2 Action(Action act);
+    
+    public Painel_2 Delet(boolean press);
+    
+}

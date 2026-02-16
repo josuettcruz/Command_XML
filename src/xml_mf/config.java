@@ -283,17 +283,17 @@ public class config implements Painel_1{
     @Override
     public Painel_1 Apagar(boolean button, int index, String name, String input) {
         
-        if(this.list.size() > 1){
+        if(this.list.size() > 1 && index >= 0){
             
             this.list.remove(index);
             return this;
             
-        } else {//if(this.list.size() > 1)
+        } else {//if(this.list.size() > 1 && index >= 0)
             
             this.Exit();
             return new Clean();
             
-        }//if(this.list.size() > 1)
+        }//if(this.list.size() > 1 && index >= 0)
         
     }
     

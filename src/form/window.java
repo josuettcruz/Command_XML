@@ -8,6 +8,7 @@ import model.*;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,6 +29,7 @@ public class window extends javax.swing.JFrame {
     private final String home_file_font = "Agency FB";
     
     private Painel_1 pg1 = null;
+    private Painel_2 pg2 = null;
     private boolean pg1_input_user = false;
     
     public window() {
@@ -75,9 +77,9 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void Tem(int init){
+    private void Tem(int init){
         
-        boolean tem[] = new boolean[2];
+        boolean tem[] = new boolean[3];
         
         for(int exe = 0; exe < tem.length; exe++){
             
@@ -95,6 +97,7 @@ public class window extends javax.swing.JFrame {
         
         initial.setVisible(tem[0]);
         home.setVisible(tem[1]);
+        contain.setVisible(tem[2]);
         
     }//Tem(int init)
     
@@ -340,6 +343,75 @@ public class window extends javax.swing.JFrame {
         }//if(this.pg1.List().size() > 1)
         
     }//Pg1_select(boolean input)
+    
+    private void Page_2(){
+        
+        if(this.pg2 == null){
+            
+            System.exit(0);
+            
+        } else {
+            
+            home.setAlignmentX(AlignmentX);
+            home.setAlignmentY(AlignmentY);
+            
+            setTitle(this.pg2.Title(true));
+            
+            title_pg2.setText(this.pg2.Title(false));
+            title_pg2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+            title_pg2.setFont(new java.awt.Font("Tahoma", 1, 32));
+            
+            input_pg2.setText(this.pg2.Input());
+            input_pg2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            input_pg2.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+            
+            final String[] modelo = new String[2];
+            
+            modelo[0] = Reg.Numb(this.pg2.List().size());
+            modelo[1] = this.pg2.Table();
+            
+            DefaultTableModel tela = new DefaultTableModel(modelo, 0);
+                
+            for(int i = 0; i < this.pg2.List().size(); i++){
+                
+                String[] code = new String[2];
+                
+                code[0] = "-- ";
+                code[0] += Reg.Numb(i+1, this.pg2.List().size());
+                code[0] += " --";
+                
+                code[1] = txt.text(this.pg2.List().get(i), true);
+                
+                tela.addRow(code);
+                
+            }//for(int i = 0; i < this.pg2.List().size(); i++)
+            
+            list_page2.setModel(tela);
+            list_page2.setFont(this.pg2.ListFont());
+            
+            
+            //https://www.w3schools.com/colors/color_tryit.asp?color=MediumAquaMarine
+            active.setBackground(Color.decode("#66CDAA"));
+            active.setForeground(Color.BLACK);
+            active.setFont(new java.awt.Font("Impact", 0, 16));
+            active.setText(this.pg2.Button());
+            active.setVisible(false);
+            
+            input_pg2.requestFocus();
+            
+            this.Tem(2);
+            
+        }
+        
+    }//Page_2()
+    
+    
+    public void Page_2(Painel_2 inteface_page_2){
+        
+        this.pg2 = inteface_page_2;
+        Page_2();
+        
+    }//Page_2(Painel_2 inteface_page_2)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -372,6 +444,12 @@ public class window extends javax.swing.JFrame {
         home_exit = new javax.swing.JButton();
         home_file = new javax.swing.JTextField();
         home_file_enter = new javax.swing.JButton();
+        contain = new javax.swing.JPanel();
+        title_pg2 = new javax.swing.JLabel();
+        input_pg2 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        list_page2 = new javax.swing.JTable();
+        active = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -460,7 +538,7 @@ public class window extends javax.swing.JFrame {
                             .addComponent(txt_8, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_9, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_10, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addGap(8, 8, 8))
         );
         initialLayout.setVerticalGroup(
@@ -587,14 +665,81 @@ public class window extends javax.swing.JFrame {
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
+        contain.setMaximumSize(new java.awt.Dimension(600, 600));
+        contain.setMinimumSize(new java.awt.Dimension(600, 600));
+        contain.setPreferredSize(new java.awt.Dimension(600, 600));
+
+        title_pg2.setText("sub-title");
+
+        input_pg2.setText("jTextField1");
+        input_pg2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                input_pg2KeyReleased(evt);
+            }
+        });
+
+        list_page2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        list_page2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                list_page2KeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(list_page2);
+
+        active.setText("ATIVAR");
+        active.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                activeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout containLayout = new javax.swing.GroupLayout(contain);
+        contain.setLayout(containLayout);
+        containLayout.setHorizontalGroup(
+            containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(containLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(title_pg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(input_pg2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                    .addComponent(active, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        containLayout.setVerticalGroup(
+            containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(containLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(title_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(input_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(active, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(contain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,7 +747,9 @@ public class window extends javax.swing.JFrame {
                 .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 39, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addComponent(contain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -854,8 +1001,155 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_list_page1KeyReleased
 
     private void list_page1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_page1MouseReleased
+        
         this.Page_1(true);
+        
     }//GEN-LAST:event_list_page1MouseReleased
+
+    private void activeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeActionPerformed
+        
+        var pg_2 = this.pg2.Action(Action.button);
+        this.pg2 = pg_2;
+        this.Page_2();
+        
+    }//GEN-LAST:event_activeActionPerformed
+
+    private void input_pg2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_pg2KeyReleased
+        
+        input_pg2.setText(txt.text(input_pg2.getText(), true));
+        
+        switch(evt.getKeyCode()){
+            
+            case 10 ->{
+                
+                var pg_2 = this.pg2.Action(Action.key);
+                this.pg2 = pg_2;
+                this.Page_2();
+                
+            }//case 10
+            
+            case ' ' ->{
+                
+                var tem = input_pg2.getText().length();
+                
+                if(tem <= 10){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+                    
+                } else if(tem <= 20){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font_into, 0, 22));
+                    
+                } else if(tem <= 30){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 22));
+                    
+                } else if(tem <= 40){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 20));
+                    
+                } else if(tem <= 60){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 18));
+                    
+                } else if(tem <= 80){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 16));
+                    
+                } else if(tem <= 100){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 14));
+                    
+                } else if(tem <= 120){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 12));
+                    
+                } else if(tem <= 140){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 10));
+                    
+                } else if(tem <= 150){
+                    
+                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 8));
+                    
+                } else {
+                    
+                    var pg_2 = this.pg2.Action(Action.error);
+                    this.pg2 = pg_2;
+                    this.Page_2();
+                    
+                }
+                
+            }//default
+            
+        }//switch(evt.getKeyCode())
+        
+        active.setVisible(true);
+        
+    }//GEN-LAST:event_input_pg2KeyReleased
+
+    private void list_page2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page2KeyReleased
+        
+        switch(evt.getKeyCode()){
+            
+            case 40 ->{
+                
+                if(list_page2.getSelectedRow() == 0) input_pg2.requestFocus();
+                
+            }//case 40
+            
+            case 10 ->{
+                
+                var pg_2 = this.pg2.Action(Action.key);
+                this.pg2 = pg_2;
+                this.Page_2();
+                
+            }//case 10
+            
+            case 8 ->{
+                
+                var pg_2 = this.pg2.Delet(true);
+                this.pg2 = pg_2;
+                this.Page_2();
+                
+            }//case 10
+            
+            case 127 ->{
+                
+                var pg_2 = this.pg2.Delet(false);
+                this.pg2 = pg_2;
+                this.Page_2();
+                
+            }//case 10
+            
+            case 32 ->{
+                
+                if(txt.text(input_pg2.getText(), true).length() >= 2){
+                    
+                    input_pg2.setText(input_pg2.getText() + " ");
+                    
+                }//if(txt.text(input_pg2.getText(), true).length() >= 2)
+                
+                input_pg2.requestFocus();
+                
+            }//case 32
+            
+            default ->{
+                
+                if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿'){
+                    
+                    input_pg2.setText(input_pg2.getText() + evt.getKeyChar());
+                    this.Pg1_select(true);
+                    
+                }//if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿')
+                
+            }//default
+            
+        }//switch(evt.getKeyCode())
+        
+        active.setVisible(true);
+        
+    }//GEN-LAST:event_list_page2KeyReleased
 
     /**
      * @param args the command line arguments
@@ -883,8 +1177,10 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton active;
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
+    private javax.swing.JPanel contain;
     private javax.swing.JPanel home;
     private javax.swing.JButton home_action;
     private javax.swing.JButton home_exit;
@@ -893,8 +1189,12 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel home_title;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
+    private javax.swing.JTextField input_pg2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> list_page1;
+    private javax.swing.JTable list_page2;
+    private javax.swing.JLabel title_pg2;
     private javax.swing.JLabel txt_1;
     private javax.swing.JLabel txt_10;
     private javax.swing.JLabel txt_2;
