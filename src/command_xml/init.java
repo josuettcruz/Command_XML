@@ -178,7 +178,7 @@ public class init {
                             
                             quot_end_line = !quot_end_line;
                             
-                            tem += commit ? "\\\"" : "\"";
+                            tem += commit ? "'" : "\"";
                             quot = false;
                             
                         }//if(quot)

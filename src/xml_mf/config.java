@@ -255,17 +255,6 @@ public class config implements Painel_1{
             
             this.list.add(txt.title(input.replace("'", "\""), true));
             
-        } else if(m <= 10){
-            
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(txt.arq(input));
-            
         } else {
             
             if(this.recent){
@@ -275,7 +264,7 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(txt.Local(input));
+            this.list.add(txt.arq(input));
             
         }
         

@@ -100,7 +100,6 @@ public class txt {
             var space = false;
             
             var z = 0;
-            var loop = true;
             
             do{
                 
@@ -150,7 +149,7 @@ public class txt {
                 
                 z++;
                 
-            }while(z > 0 && z < text.length() && loop); 
+            }while(z > 0 && z < text.length()); 
             
             if(space) tem.add(txt);
             
@@ -342,12 +341,13 @@ public class txt {
         var txt = "";
         
         var space = false;
+        var demo = true;
         
         for(String p : phrase(text, true)){
             
             if(space){
                 
-                txt += "-";
+                if(demo) txt += "-";
                 
             } else {//if(line)
                 
@@ -444,12 +444,14 @@ public class txt {
                          '￿' -> {
                         
                         if(i > 0 && i < p.length()-1) txt += "_";
+                        demo = false;
                         
                     }
                     
                     default -> {
                         
                         txt += p.toLowerCase().charAt(i);
+                        demo = true;
                         
                     }//default
                     

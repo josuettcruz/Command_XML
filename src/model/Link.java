@@ -201,8 +201,7 @@ public class Link {
         
         var valid = true;
         
-        if(this.lnk.size() > 1 && web)
-            valid = this.lnk.get(1).contains(".");
+        if(this.lnk.size() > 1 && web) valid = this.lnk.get(1).contains(".");
         
         var pg = this.lnk.get(0);
         
