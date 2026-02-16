@@ -239,15 +239,6 @@ public class txt {
         } else {//if(text.trim().isBlank())
             
             String[] articles = {
-                "com",
-                "sem",
-                "se",
-                "sim",
-                "não",
-                "nao",
-                "ao",
-                "aos",
-                "às",
                 "no",
                 "na",
                 "nos",
@@ -269,6 +260,7 @@ public class txt {
                 "apos",
                 "os",
                 "as",
+                "às",
                 "em",
                 "ue",
                 "ué",
