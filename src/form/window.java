@@ -358,9 +358,9 @@ public class window extends javax.swing.JFrame {
             
             List<Domain> doc = new ArrayList();
             
-            for(int i = 0; i < this.pg2.List().size(); i++){
+            for(int i = 0; i < this.pg2.TableModel().size(); i++){
                 
-                Domain cod = this.pg2.List().get(i);
+                Domain cod = this.pg2.TableModel().get(i);
                 cod.Select(false);
                 doc.add(cod);
                 
@@ -381,7 +381,7 @@ public class window extends javax.swing.JFrame {
             
             int max_p2 = 0;
             
-            for(Domain a : this.pg2.List()){
+            for(Domain a : this.pg2.TableModel()){
                 
                 var v = a.index(0);
                 
@@ -395,7 +395,7 @@ public class window extends javax.swing.JFrame {
             modelo[0] += Reg.Numb(max_p2);
             modelo[0] += " --";
             
-            modelo[1] = this.pg2.Table();
+            modelo[1] = this.pg2.TableTitle();
             
             DefaultTableModel tela = new DefaultTableModel(modelo, 0);
                 
@@ -442,7 +442,7 @@ public class window extends javax.swing.JFrame {
     
     private List<Domain> Domain_pg2(){
         
-        List<Domain> tema = this.pg2.List();
+        List<Domain> tema = this.pg2.TableModel();
         
         List<Domain> demo = new ArrayList();
         

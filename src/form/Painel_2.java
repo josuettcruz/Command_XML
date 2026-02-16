@@ -16,11 +16,11 @@ public interface Painel_2 {
     
     public String Input();
     
-    public List<Domain> List();
+    public List<Domain> TableModel();
+    
+    public String TableTitle();
     
     public java.awt.Font ListFont();
-    
-    public String Table();
     
     public String Button();
     
