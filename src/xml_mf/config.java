@@ -4,6 +4,7 @@
  */
 package xml_mf;
 
+import form.Clean;
 import model.*;
 import form.Painel_1;
 
@@ -200,6 +201,22 @@ public class config implements Painel_1{
             
             this.Exit();
             
+        } else if(m == 1 && input.trim().length() > 10){
+            
+            if(this.recent){
+                
+                this.list.clear();
+                this.recent = false;
+                
+            }//if(this.recent)
+            
+            this.list.add(
+                "\""
+                + Reg.Numb(txt.arq(input).length(), 100000)
+                + "\" - "
+                + txt.arq(input)
+            );
+            
         } else if(m == 1){
             
             if(this.recent){
@@ -209,14 +226,9 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(
-                "\""
-                + Reg.Numb(txt.arq(input).length(), 100000)
-                + "\" - "
-                + txt.arq(input)
-            );
+            this.list.add(txt.arq(input));
             
-        } else if(input.length() > 30){
+        } else if(input.length() > 100){
             
             if(this.recent){
                 
@@ -232,7 +244,7 @@ public class config implements Painel_1{
                 + txt.arq(input)
             );
             
-        } else if(m < 10){
+        } else if(m <= 5){
             
             if(this.recent){
                 
@@ -243,7 +255,7 @@ public class config implements Painel_1{
             
             this.list.add(txt.title(input.replace("'", "\""), true));
             
-        } else if(m < 15){
+        } else if(m <= 10){
             
             if(this.recent){
                 
@@ -252,7 +264,7 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(txt.Local(input));
+            this.list.add(txt.arq(input));
             
         } else {
             
@@ -263,7 +275,7 @@ public class config implements Painel_1{
                 
             }//if(this.recent)
             
-            this.list.add(txt.text(input, true));
+            this.list.add(txt.Local(input));
             
         }
         
@@ -275,8 +287,7 @@ public class config implements Painel_1{
     public Painel_1 Abrir(boolean button, int index, String name, String input) {
         
         this.Exit();
-        
-        return new Clean_Painel_1();
+        return new Clean();
         
     }
 
@@ -291,7 +302,7 @@ public class config implements Painel_1{
         } else {//if(this.list.size() > 1)
             
             this.Exit();
-            return new Clean_Painel_1();
+            return new Clean();
             
         }//if(this.list.size() > 1)
         

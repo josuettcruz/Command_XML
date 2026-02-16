@@ -88,35 +88,25 @@ public class txt {
     
     public static List<String> phrase(String text, boolean remove_char){
         
-        if(text.trim().isBlank()) text = "null";
-        
         List<String> tem = new ArrayList();
         
-        var txt = "";
-        var space = false;
-        
-        var z = 0;
-        var loop = true;
-        
-        do{
+        if(text.trim().isBlank()){
             
-            switch(text.charAt(z)){
+            tem.add("");
+            
+        } else {//if(text.trim().isBlank())
+            
+            var txt = "";
+            var space = false;
+            
+            var z = 0;
+            var loop = true;
+            
+            do{
                 
-                case '\n', ' ' ->{
+                switch(text.charAt(z)){
                     
-                    if(space){
-                        
-                        tem.add(txt);
-                        txt = "";
-                        space = false;
-                        
-                    }//if(space)
-                    
-                }//case '\n', ' '
-                
-                case '\t', '\f', '￿' ->{
-                    
-                    if(remove_char){
+                    case '\n', ' ' ->{
                         
                         if(space){
                             
@@ -126,29 +116,45 @@ public class txt {
                             
                         }//if(space)
                         
-                    } else {//if(remove_char)
+                    }//case '\n', ' '
+                    
+                    case '\t', '\f', '￿' ->{
+                        
+                        if(remove_char){
+                            
+                            if(space){
+                                
+                                tem.add(txt);
+                                txt = "";
+                                space = false;
+                                
+                            }//if(space)
+                            
+                        } else {//if(remove_char)
+                            
+                            txt += text.charAt(z);
+                            space = true;
+                            
+                        }//if(remove_char)
+                        
+                    }//case '\t', '\f', '￿'
+                    
+                    default ->{
                         
                         txt += text.charAt(z);
                         space = true;
                         
-                    }//if(remove_char)
+                    }//default
                     
-                }//case '\t', '\f', '￿'
+                }//switch(text.charAt(z))
                 
-                default ->{
-                    
-                    txt += text.charAt(z);
-                    space = true;
-                    
-                }//default
+                z++;
                 
-            }//switch(text.charAt(z))
+            }while(z > 0 && z < text.length() && loop); 
             
-            z++;
+            if(space) tem.add(txt);
             
-        }while(z > 0 && z < text.length() && loop); 
-        
-        if(space) tem.add(txt);
+        }//if(text.trim().isBlank())
         
         return tem;
         
@@ -351,6 +357,9 @@ public class txt {
                          'â',
                          'ä',
                          'ª' -> txt += "a";
+                         
+                    case 'c',
+                         'ç' -> txt += "c";
                             
                     case 'e',
                          'é',
@@ -378,11 +387,14 @@ public class txt {
                          'û',
                          'ü' -> txt += "u";
                         
-                    case '\n',
-                         '\t',
-                         '\f',
-                         '\\',
-                         '\'',
+                    case '_',
+                        '\n',
+                        '\t',
+                        '\f',
+                        '\\',
+                        '\'',
+                         '"',
+                         '-',
                          '/',
                          '|',
                          ':',
@@ -399,6 +411,7 @@ public class txt {
                          '+',
                          '=',
                          '§',
+                         '₢',
                          '`',
                          '´',
                          '^',
@@ -419,21 +432,13 @@ public class txt {
                          '}',
                          '(',
                          ')',
-                         '"',
-                         '-',
-                         '_',
                          '￿' -> {
                         
-                        if(user) caracter = true;
+                        if(i > 0 && i < p.length()-1) txt += "_";
                         
                     }
                     
                     default -> {
-                        
-                        if(caracter && i > 0) txt += "_";
-                        
-                        caracter = false;
-                        user = true;
                         
                         txt += p.toLowerCase().charAt(i);
                         

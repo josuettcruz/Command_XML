@@ -25,7 +25,7 @@ public class controller {
         
     }//Init()
     
-    public static void Home(){
+    private static void Home(){
         
         try{
             
@@ -45,7 +45,7 @@ public class controller {
         
     }//Home()
     
-    public static boolean Msg(){
+    private static void Msg(){
         
         if(w == null){
             
@@ -123,8 +123,6 @@ public class controller {
             
             w.Page_0(new Link(Reg.http).page(false), tema);
             
-            return true;
-            
         } else if(Reg.java){//if(w == null)
             
             System.err.println(new Hora(true).TimerGood(false));
@@ -132,13 +130,9 @@ public class controller {
             System.err.println("O valor deve ser \"null\" para poder ser iniciado!");
             System.exit(0);
             
-            return false;
-            
         } else {//if(w == null)
             
             System.exit(0);
-            
-            return false;
             
         }//if(w == null)
         
