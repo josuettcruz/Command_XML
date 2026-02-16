@@ -10,6 +10,6 @@ package form;
  */
 public enum Action {
     
-    button, press, key, del, backspace, error;
+    button, press, key, enter, del, backspace, error;
     
 }//Action

@@ -30,12 +30,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="initial" alignment="0" pref="606" max="32767" attributes="0"/>
-          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-              <Component id="home" pref="606" max="32767" attributes="0"/>
-              <Group type="102" attributes="0">
-                  <Component id="contain" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
+          <Component id="home" pref="606" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Component id="contain" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -436,6 +434,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="list_page2MouseReleased"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="list_page2KeyReleased"/>
               </Events>
             </Component>

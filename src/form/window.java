@@ -35,7 +35,6 @@ public class window extends javax.swing.JFrame {
     private boolean pg1_input_user = false;
     
     private Painel_2 pg2 = null;
-    private List<Domain> p2 = null;
     
     public window() {
         
@@ -351,13 +350,21 @@ public class window extends javax.swing.JFrame {
     
     private void Page_2(){
         
-        this.p2 = new ArrayList();
-        
         if(this.pg2 == null){
             
             System.exit(0);
             
         } else {
+            
+            List<Domain> doc = new ArrayList();
+            
+            for(int i = 0; i < this.pg2.List().size(); i++){
+                
+                Domain cod = this.pg2.List().get(i);
+                cod.Select(false);
+                doc.add(cod);
+                
+            }//for(int i = 0; i < this.pg2.List().size(); i++)
             
             home.setAlignmentX(AlignmentX);
             home.setAlignmentY(AlignmentY);
@@ -392,12 +399,12 @@ public class window extends javax.swing.JFrame {
             
             DefaultTableModel tela = new DefaultTableModel(modelo, 0);
                 
-            for(Domain b : this.pg2.List()){
+            for(Domain b : doc){
                 
                 String[] code = new String[2];
                 
                 code[0] = "-- ";
-                code[0] += Reg.Numb(b.index(0), this.pg2.List().size());
+                code[0] += Reg.Numb(b.index(0), doc.size());
                 code[0] += " --";
                 
                 code[1] = b.Text(true);
@@ -433,13 +440,22 @@ public class window extends javax.swing.JFrame {
         
     }//Page_2(Painel_2 inteface_page_2)
     
-    private List<Domain> Page_2(List<Domain> tema){
+    private List<Domain> Domain_pg2(){
+        
+        List<Domain> tema = this.pg2.List();
         
         List<Domain> demo = new ArrayList();
         
         Domain[] d = new Domain[this.pg1.List().size()];
         
-        for(int i = 0; i < d.length; i++)d[i] = tema.get(i);
+        for(int i = 0; i < d.length; i++){
+            
+            Domain add = tema.get(i);
+            add.Select(false);
+            
+            d[i] = add;
+            
+        }
         
         for(int f : list_page2.getSelectedRows()){
             
@@ -729,6 +745,11 @@ public class window extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        list_page2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                list_page2MouseReleased(evt);
+            }
+        });
         list_page2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 list_page2KeyReleased(evt);
@@ -775,11 +796,10 @@ public class window extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(contain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(contain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1048,7 +1068,7 @@ public class window extends javax.swing.JFrame {
 
     private void activeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeActionPerformed
         
-        var pg_2 = this.pg2.Action(Action.button, this.Page_2(this.p2));
+        var pg_2 = this.pg2.Action(Action.button, this.Domain_pg2());
         this.pg2 = pg_2;
         this.Page_2();
         
@@ -1056,69 +1076,114 @@ public class window extends javax.swing.JFrame {
 
     private void input_pg2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_pg2KeyReleased
         
-        input_pg2.setText(txt.text(input_pg2.getText(), true));
-        
         switch(evt.getKeyCode()){
             
             case 10 ->{
                 
-                var pg_2 = this.pg2.Action(Action.key, this.Page_2(this.p2));
+                var pg_2 = this.pg2.Action(Action.key, this.Domain_pg2());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
             }//case 10
             
-            case ' ' ->{
+            default ->{
+                
+                input_pg2.setText(txt.text(input_pg2.getText(), true));
                 
                 var tem = input_pg2.getText().length();
                 
                 if(tem <= 10){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font_into, 1, 22
+                        )
+                    );
                     
                 } else if(tem <= 20){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font_into, 0, 22));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font_into, 0, 22
+                        )
+                    );
                     
                 } else if(tem <= 30){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 22));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 22
+                        )
+                    );
                     
                 } else if(tem <= 40){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 20));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 20
+                        )
+                    );
                     
                 } else if(tem <= 60){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 18));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 18
+                        )
+                    );
                     
                 } else if(tem <= 80){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 16));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 16
+                        )
+                    );
                     
                 } else if(tem <= 100){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 14));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 14
+                        )
+                    );
                     
                 } else if(tem <= 120){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 12));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 12
+                        )
+                    );
                     
                 } else if(tem <= 140){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 10));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 10
+                        )
+                    );
                     
                 } else if(tem <= 150){
                     
-                    input_pg2.setFont(new java.awt.Font(this.home_file_font, 0, 8));
+                    input_pg2.setFont(
+                        new java.awt.Font(
+                            this.home_file_font, 0, 8
+                        )
+                    );
                     
                 } else {
                     
-                    var pg_2 = this.pg2.Action(Action.error, this.Page_2(this.p2));
+                    var pg_2 = this.pg2.Action(Action.error, this.Domain_pg2());
                     this.pg2 = pg_2;
                     this.Page_2();
                     
                 }
+                
+                active.setVisible(
+                    list_page2.getSelectedRow() >= 0 &&
+                    !input_pg2.getText().trim().isBlank()
+                );
                 
             }//default
             
@@ -1140,7 +1205,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 ->{
                 
-                var pg_2 = this.pg2.Action(Action.key, this.Page_2(this.p2));
+                var pg_2 = this.pg2.Action(Action.enter, this.Domain_pg2());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1148,7 +1213,7 @@ public class window extends javax.swing.JFrame {
             
             case 8 ->{
                 
-                var pg_2 = this.pg2.Action(Action.del, this.Page_2(this.p2));
+                var pg_2 = this.pg2.Action(Action.del, this.Domain_pg2());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1156,7 +1221,7 @@ public class window extends javax.swing.JFrame {
             
             case 127 ->{
                 
-                var pg_2 = this.pg2.Action(Action.backspace, this.Page_2(this.p2));
+                var pg_2 = this.pg2.Action(Action.backspace, this.Domain_pg2());
                 this.pg2 = pg_2;
                 this.Page_2();
                 
@@ -1164,7 +1229,7 @@ public class window extends javax.swing.JFrame {
             
             case 32 ->{
                 
-                if(txt.text(input_pg2.getText(), true).length() >= 2){
+                if(input_pg2.getText().length() >= 2){
                     
                     input_pg2.setText(input_pg2.getText() + " ");
                     
@@ -1187,9 +1252,13 @@ public class window extends javax.swing.JFrame {
             
         }//switch(evt.getKeyCode())
         
-        active.setVisible(true);
+        active.setVisible(list_page2.getSelectedRow() >= 0);
         
     }//GEN-LAST:event_list_page2KeyReleased
+
+    private void list_page2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_page2MouseReleased
+        active.setVisible(list_page2.getSelectedRow() >= 0);
+    }//GEN-LAST:event_list_page2MouseReleased
 
     /**
      * @param args the command line arguments
