@@ -162,165 +162,186 @@ public class txt {
     
     public static String capitalize(String phrase){
         
-        if(phrase.trim().isBlank()) phrase = "null";
-        
-        var txt = "";
-        
-        var cap = true;
-        
-        for(int p = 0; p < phrase.length(); p++){
+        if(phrase.trim().isBlank()){
             
-            if(cap){
-                
-                switch(phrase.charAt(p)){
-                    
-                    case ' ',
-                        '\t',
-                        '\n',
-                        '\f',
-                        '\\',
-                        '\'',
-                        '"',
-                        '/',
-                        '(',
-                        ')',
-                        '[',
-                        ']',
-                        '{',
-                        '}',
-                        '0',
-                        '1',
-                        '2',
-                        '3',
-                        '4',
-                        '5',
-                        '6',
-                        '7',
-                        '8',
-                        '9',
-                        '-',
-                        '_' -> txt += phrase.charAt(p);
-                        
-                    case '￿' -> {}
-                        
-                    default ->{
-                        
-                        txt += phrase.toUpperCase().charAt(p);
-                        cap = false;
-                        
-                    }
-                    
-                }//switch(phrase.charAt(p))
-                
-            } else {//if(cap)
-                
-                txt += phrase.toLowerCase().charAt(p);
-                
-            }//if(cap)
+            return "";
             
-        }//for(int p = 0; p < phrase.length(); p++)
-        
-        return txt;
+        } else {//if(phrase.trim().isBlank())
+            
+            var txt = "";
+            
+            var cap = true;
+            
+            for(int p = 0; p < phrase.length(); p++){
+                
+                if(cap){
+                    
+                    switch(phrase.charAt(p)){
+                        
+                        case ' ',
+                            '\t',
+                            '\n',
+                            '\f',
+                            '\\',
+                            '\'',
+                            '"',
+                            '/',
+                            '(',
+                            ')',
+                            '[',
+                            ']',
+                            '{',
+                            '}',
+                            '0',
+                            '1',
+                            '2',
+                            '3',
+                            '4',
+                            '5',
+                            '6',
+                            '7',
+                            '8',
+                            '9',
+                            '-',
+                            '_' -> txt += phrase.charAt(p);
+                            
+                        case '￿' -> {}
+                        
+                        default ->{
+                            
+                            txt += phrase.toUpperCase().charAt(p);
+                            cap = false;
+                            
+                        }
+                        
+                    }//switch(phrase.charAt(p))
+                    
+                } else {//if(cap)
+                    
+                    txt += phrase.toLowerCase().charAt(p);
+                    
+                }//if(cap)
+                
+            }//for(int p = 0; p < phrase.length(); p++)
+            
+            return txt;
+            
+        }//if(phrase.trim().isBlank())
         
     }//capitalize(String phrase)
     
     public static String title(String text, boolean remove_char){
         
-        if(text.trim().isBlank()) text = "null";
-        
-        String[] articles = {
-            "com",
-            "sem",
-            "se",
-            "sim",
-            "não",
-            "nao",
-            "ao",
-            "aos",
-            "às",
-            "no",
-            "na",
-            "nos",
-            "nas",
-            "um",
-            "uma",
-            "uns",
-            "umas",
-            "dois",
-            "duas",
-            "de",
-            "do",
-            "da",
-            "dos",
-            "das",
-            "pôs",
-            "pos",
-            "após",
-            "apos",
-            "os",
-            "as",
-            "em",
-            "ue",
-            "ué",
-            "uè",
-            "uê"
-        };
-        
-        var txt = "";
-        
-        var note = true;
-        
-        for(String p : phrase(text, remove_char)){
+        if(text.trim().isBlank()){
             
-            if(note){
-                
-                txt += capitalize(p);
-                note = false;
-                
-            } else if(p.length() == 1){//if(note)
-                
-                txt += " ";
-                txt += p.toLowerCase();
-                
-            } else {//if(note)
-                
-                txt += " ";
-                
-                boolean article = true;
-                int t = 0;
-                
-                do{
-                    
-                    if(
-                        p.toLowerCase()
-                         .replace(":", "")
-                         .replace(";", "")
-                         .replace(",", "")
-                         .replace(".", "")
-                         .replace("!", "")
-                         .equalsIgnoreCase(
-                                articles[t]
-                         )
-                    )
-                    {
-                        
-                        txt += p.toLowerCase();
-                        article = false;
-                        
-                    }//if(p.equalsIgnoreCase(articles[t]))
-                    
-                    t++;
-                    
-                }while(t > 0 && t < articles.length && article);
-                
-                if(article)
-                txt += capitalize(p);
-                
-            }//if(note)
+            return "";
             
-        }//for(String p : phease(true))
-        
-        return txt;
+        } else {//if(text.trim().isBlank())
+            
+            String[] articles = {
+                "com",
+                "sem",
+                "se",
+                "sim",
+                "não",
+                "nao",
+                "ao",
+                "aos",
+                "às",
+                "no",
+                "na",
+                "nos",
+                "nas",
+                "um",
+                "uma",
+                "uns",
+                "umas",
+                "dois",
+                "duas",
+                "de",
+                "do",
+                "da",
+                "dos",
+                "das",
+                "pôs",
+                "pos",
+                "após",
+                "apos",
+                "os",
+                "as",
+                "em",
+                "ue",
+                "ué",
+                "uè",
+                "uê"
+            };
+            
+            var txt = "";
+            
+            var note = true;
+            
+            for(String p : phrase(text, remove_char)){
+                
+                if(note){
+                    
+                    txt += capitalize(p);
+                    note = false;
+                    
+                } else if(p.length() == 1){//if(note)
+                    
+                    txt += " ";
+                    txt += p.toLowerCase();
+                    
+                } else {//if(note)
+                    
+                    txt += " ";
+                    
+                    boolean article = true;
+                    int t = 0;
+                    
+                    var node = "";
+                    
+                    for(int i = 0; i < p.length(); i++){
+                        
+                        switch(p.toLowerCase().charAt(i)){
+                            
+                            case ':',
+                                 ';',
+                                 ',',
+                                 '.',
+                                 '!',
+                                 '?',
+                                 '-' ->{}
+                            
+                            default -> node += p.toLowerCase().charAt(i);
+                            
+                        }
+                        
+                    }//for(int i = 0; i < p.length(); i++)
+                    
+                    do{
+                        
+                        if(node.equalsIgnoreCase(articles[t])){
+
+                            txt += p.toLowerCase();
+                            article = false;
+
+                        }//if(p.equalsIgnoreCase(articles[t]))
+
+                        t++;
+
+                    }while(t > 0 && t < articles.length && article);
+
+                    if(article)
+                    txt += capitalize(p);
+
+                }//if(note)
+
+            }//for(String p : phease(true))
+
+            return txt;
+
+        }//if(text.trim().isBlank())
         
     }//title(String text, boolean remove_char)
     
@@ -328,21 +349,17 @@ public class txt {
         
         var txt = "";
         
-        var line = false;
-        
-        var caracter = false;
+        var space = false;
         
         for(String p : phrase(text, true)){
             
-            var user = false;
-            
-            if(line){
+            if(space){
                 
                 txt += "-";
                 
             } else {//if(line)
                 
-                line = true;
+                space = true;
                 
             }//if(line)
             
@@ -403,15 +420,15 @@ public class txt {
                          '!',
                          '@',
                          '#',
-                         '$',
-                         '%',
-                         '¨',
-                         '&',
                          '*',
-                         '+',
-                         '=',
+                         '&',
+                         '$',
                          '§',
                          '₢',
+                         '%',
+                         '¨',
+                         '+',
+                         '=',
                          '`',
                          '´',
                          '^',
