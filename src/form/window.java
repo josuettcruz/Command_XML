@@ -4,13 +4,13 @@
  */
 package form;
 
+import static form.pg1sm.multiple;
 import static form.pg1sm.single;
 import model.*;
 
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -374,6 +374,36 @@ public class window extends javax.swing.JFrame {
         return demo;
         
     }//Page_1(List<Domain> view)
+    
+    public List<Domain> Pg1m(){
+        
+        List<Domain> tema = new ArrayList();
+        
+        for(Domain insert : this.pg1m.ListMode()){
+            
+            Domain d = insert;
+            
+            int[] select = list_page1.getSelectedIndices();
+            boolean selected = false;
+            int for_each = 0;
+            
+            do{
+                
+                selected = d.index() == select[for_each];
+                
+                for_each++;
+                
+            }while(!selected && for_each > 0 && for_each < select.length);
+            
+            d.Select(selected);
+            
+            tema.add(d);
+            
+        }//for(Domain insert : this.pg1m.ListMode())
+        
+        return tema;
+        
+    }//Pg1m()
     
     private void Page_1Multiple(){
         
@@ -898,6 +928,18 @@ public class window extends javax.swing.JFrame {
             
             this.Page_1(pg_1);
             
+        } else if(this.pg1m != null && this.pg1 == multiple){
+            
+            this.pg1_input_user = true;
+            
+            var pg_1 = this.pg1m.Action(
+                pag1.remove,
+                this.Pg1m(),
+                home_file.getText()
+            );
+            
+            this.Page_1(pg_1);
+            
         } else {
             
             this.Page_1(true, "APAGAR");
@@ -916,6 +958,18 @@ public class window extends javax.swing.JFrame {
                 true,
                 list_page1.getSelectedIndex(),
                 list_page1.getSelectedValue(),
+                home_file.getText()
+            );
+            
+            this.Page_1(pg_1);
+            
+        } else if(this.pg1m != null && this.pg1 == multiple){
+            
+            this.pg1_input_user = true;
+            
+            var pg_1 = this.pg1m.Action(
+                pag1.open,
+                this.Pg1m(),
                 home_file.getText()
             );
             
@@ -943,6 +997,18 @@ public class window extends javax.swing.JFrame {
                     
                     this.pg1_input_user = true;
                     var pg_1 = this.pg1s.Adicionar(false, home_file.getText());
+                    this.Page_1(pg_1);
+                    
+                } else if(this.pg1m != null && this.pg1 == multiple){
+                    
+                    this.pg1_input_user = true;
+                    
+                    var pg_1 = this.pg1m.Action(
+                        pag1.key,
+                        this.Pg1m(),
+                        home_file.getText()
+                    );
+                    
                     this.Page_1(pg_1);
                     
                 } else {
@@ -1035,6 +1101,18 @@ public class window extends javax.swing.JFrame {
             var pg_1 = this.pg1s.Adicionar(true, home_file.getText());
             this.Page_1(pg_1);
             
+        } else if(this.pg1m != null && this.pg1 == multiple){
+            
+            this.pg1_input_user = true;
+            
+            var pg_1 = this.pg1m.Action(
+                pag1.remove,
+                this.Pg1m(),
+                home_file.getText()
+            );
+            
+            this.Page_1(pg_1);
+            
         } else {
             
             this.Page_1(true, "ADD");
@@ -1064,6 +1142,18 @@ public class window extends javax.swing.JFrame {
                     
                     this.Page_1(false, "ABRIR");
                     
+                } else if(this.pg1m != null && this.pg1 == multiple){
+
+                    this.pg1_input_user = true;
+
+                    var pg_1 = this.pg1m.Action(
+                        pag1.enter,
+                        this.Pg1m(),
+                        home_file.getText()
+                    );
+
+                    this.Page_1(pg_1);
+
                 } else {
                     
                     this.pg1_input_user = true;
@@ -1087,6 +1177,18 @@ public class window extends javax.swing.JFrame {
                     
                     this.Page_1(pg_1);
                     
+                } else if(this.pg1m != null && this.pg1 == multiple){
+
+                    this.pg1_input_user = true;
+
+                    var pg_1 = this.pg1m.Action(
+                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
+                        this.Pg1m(),
+                        home_file.getText()
+                    );
+
+                    this.Page_1(pg_1);
+
                 } else {
                     
                     this.Page_1(false, "APAGAR");
