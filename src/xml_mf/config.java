@@ -4,9 +4,18 @@
  */
 package xml_mf;
 
-import form.Domain;
 import model.*;
+import form.Domain;
 import form.Painel_1Single;
+import form.Painel_1Multiple;
+import form.pag1;
+
+import static form.pag1.remove;
+import static form.pag1.open;
+import static form.pag1.key;
+import static form.pag1.enter;
+import static form.pag1.delet;
+import static form.pag1.backspace;
 
 import java.awt.Font;
 
@@ -17,7 +26,7 @@ import java.util.List;
  *
  * @author josue
  */
-public class config implements Painel_1Single{
+public class config implements Painel_1Single, Painel_1Multiple{
     
     private List<String> list;
     private String input;
@@ -298,6 +307,122 @@ public class config implements Painel_1Single{
             return new Clean();
             
         }//if(this.list.size() > 1 && index >= 0)
+        
+    }
+
+    @Override
+    public java.util.List<Domain> ListMode() {
+        
+        List<Domain> node = new ArrayList();
+        
+        for(int x = 0; x < this.list.size(); x++){
+            
+            node.add(new Domain(x+1,this.list.get(x)));
+            
+        }//for(int x = 0; x < this.list.size(); x++)
+        
+        node.add(new Domain(this.list.size(),"valor nulo"));
+        
+        return node;
+        
+    }
+
+    @Override
+    public Painel_1Multiple Action(pag1 action, java.util.List<Domain> vol, String input) {
+        
+        var code = txt.text(input, true);
+        
+        if(code.isBlank()){
+            
+            this.Exit();
+            
+        } else if(this.recent){//if(code.isBlank())
+            
+            this.list.clear();
+            this.list.add(new Hora(true).TimerGood(false));
+            this.recent = false;
+            
+        } else {//if(code.isBlank())
+            
+            switch(action){
+                
+                case open, enter, key ->{
+                    
+                    if(code.isBlank() || code.equalsIgnoreCase("exit") || code.equalsIgnoreCase("sair")){
+                        
+                        this.Exit();
+                        
+                    } else {
+                        
+                        var acept = false;
+                        var ok = 0;
+                        
+                        do{
+
+                            acept = vol.get(ok).Select();
+                            ok++;
+
+                        }while(!acept && ok > 0 && ok < vol.size());
+                        
+                        if(acept){
+
+                            for(Domain a : vol){
+
+                                if(a.Select()){
+                                    this.list.add(a.Text(true));
+                                }
+
+                            }//for(Domain a : vol)
+                            
+                        }//if(acept)
+                        
+                    }//if(code.isBlank() || code.equalsIgnoreCase("exit"...
+                    
+                }//case
+                
+                case remove, delet, backspace ->{
+                    
+                    if(code.isBlank() || code.equalsIgnoreCase("exit") || code.equalsIgnoreCase("sair")){
+                        
+                        this.Exit();
+                        
+                    } else {
+                        
+                        this.list.clear();
+                        
+                        var acept = false;
+                        var ok = 0;
+                        
+                        do{
+
+                            acept = vol.get(ok).Select();
+                            ok++;
+
+                        }while(!acept && ok > 0 && ok < vol.size());
+                        
+                        if(acept){
+
+                            for(Domain a : vol){
+
+                                if(!a.Select()){
+                                    this.list.add(a.Text(true));
+                                }
+
+                            }//for(Domain a : vol)
+                            
+                        }//if(acept)
+                        
+                    }//if(code.isBlank() || code.equalsIgnoreCase("exit"...
+                    
+                }//case
+                
+            }//switch(action)
+            
+            if(!code.isBlank()) this.list.add(code);
+            
+        }//if(code.isBlank())
+        
+        return this;
         
     }
     

@@ -32,7 +32,7 @@ public class Domain {
     
     public String Text(boolean sample){
         
-        return sample ? txt.text(text, selected) : this.text;
+        return sample ? txt.text(text, true) : this.text;
         
     }//Text(boolean sample)
     

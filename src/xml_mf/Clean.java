@@ -4,7 +4,10 @@
  */
 package xml_mf;
 
+import form.Domain;
 import form.Painel_1Single;
+import form.Painel_1Multiple;
+import form.pag1;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +19,7 @@ import model.Link;
  *
  * @author josue
  */
-public class Clean implements Painel_1Single{
+public class Clean implements Painel_1Single, Painel_1Multiple{
 
     @Override
     public String Title(boolean title) {
@@ -59,6 +62,21 @@ public class Clean implements Painel_1Single{
 
     @Override
     public Painel_1Single Apagar(boolean button, int index, String name, String input) {
+        System.exit(0);
+        return this;
+    }
+
+    @Override
+    public java.util.List<Domain> ListMode() {
+        
+        List<Domain> rm = new ArrayList();
+        rm.add(new Domain(0,""));
+        return rm;
+        
+    }
+
+    @Override
+    public Painel_1Multiple Action(pag1 action, java.util.List<Domain> vol, String input) {
         System.exit(0);
         return this;
     }

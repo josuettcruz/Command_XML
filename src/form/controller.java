@@ -13,7 +13,7 @@ import xml_mf.config;
  */
 public class controller {
     
-    private static window w = null;
+    private static window w;
     
     public static void Init(){
         
@@ -30,13 +30,17 @@ public class controller {
         try{
             
             if(w == null) w = new window(100,100,600,600);
-            w.Page_1(new config());
+            w.Page_1Multiple(new config());
         
         } catch(Exception e) {
             
             if(Reg.java){
                 
-                System.err.println(e.hashCode());
+                System.err.println("Exception");
+                System.err.println(new Data().DataCompleta(false));
+                System.err.println(new Hora(true).TimerGood(true));
+                System.err.println();
+                System.err.println("Exception");
                 System.err.println(e.getMessage());
                 
             }//if(println)

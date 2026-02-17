@@ -4,6 +4,7 @@
  */
 package form;
 
+import static form.pg1sm.none;
 import static form.pg1sm.multiple;
 import static form.pg1sm.single;
 import model.*;
@@ -33,8 +34,8 @@ public class window extends javax.swing.JFrame {
     
     private Painel_1Single pg1s;
     private Painel_1Multiple pg1m;
-    private pg1sm pg1 = pg1sm.none;
     private boolean pg1_input_user = false;
+    private pg1sm pg1sm;
     
     public window() {
         
@@ -53,6 +54,8 @@ public class window extends javax.swing.JFrame {
     }//window(int r, int t, int w, int h)
     
     private void Enter(int r, int t, int w, int h){
+        
+        this.pg1sm = none;
         
         setVisible(true);
         setResizable(true);
@@ -227,7 +230,7 @@ public class window extends javax.swing.JFrame {
     
     private void Page_1Single(){
         
-        if(this.pg1s != null){
+        if(this.pg1s != null && this.pg1sm == single){
             
             list_page1.setSelectionMode(
                 javax.swing.ListSelectionModel.SINGLE_SELECTION
@@ -338,16 +341,14 @@ public class window extends javax.swing.JFrame {
         List<Domain> demo = new ArrayList();
         List<Integer> test = new ArrayList();
         
-        for(Domain insert : view){
+        for(Domain ad : view){
             
-            test.add(insert.index());
+            test.add(ad.index());
             
-            Domain ad = insert;
-            boolean acept = false;
+            boolean acept = true;
             
             if(test.size() > 1){
                 
-                acept = true;
                 Integer add = 0;
                 
                 do{
@@ -360,14 +361,10 @@ public class window extends javax.swing.JFrame {
                 
             }//if(test.size() > 1)
             
-            if(insert.index() < 0) acept = false;
+            if(ad.index() < 0) acept = false;
             
-            if(acept){
-                
-                ad.Select(false);
-                demo.add(ad);
-                
-            }//if(acept)
+            ad.Select(false);
+            demo.add(new Domain(acept ? ad.index() : -1, ad.Text(false)));
             
         }//for(Domain insert : view)
         
@@ -377,29 +374,42 @@ public class window extends javax.swing.JFrame {
     
     public List<Domain> Pg1m(){
         
-        List<Domain> tema = new ArrayList();
+        int[] select = list_page1.getSelectedIndices();
         
-        for(Domain insert : this.pg1m.ListMode()){
+        for(int r = 0; r < select.length; r++) select[r] = 0;
+        
+        List<Domain> tema = this.pg1m.ListMode();
+        
+        for(int set = 0; set < tema.size(); set++){
             
-            Domain d = insert;
+            Domain d = tema.get(set);
+            d.Select(false);
+            tema.set(set, d);
             
-            int[] select = list_page1.getSelectedIndices();
-            boolean selected = false;
-            int for_each = 0;
+        }//for(int set = 0; set < tema.size(); set++) - 1 - 2
+        
+        if(list_page1.getSelectedIndices().length > 1){
+        
+        boolean selected = false;
+        int for_each = 0;
             
-            do{
+        do{
+            
+            for(int set = 0; set < tema.size(); set++){
                 
-                selected = d.index() == select[for_each];
+                Domain d = tema.get(set);
                 
-                for_each++;
+                if(d.index() == select[for_each]) d.Select(true);
                 
-            }while(!selected && for_each > 0 && for_each < select.length);
-            
-            d.Select(selected);
-            
-            tema.add(d);
-            
-        }//for(Domain insert : this.pg1m.ListMode())
+                tema.set(set, d);
+                
+            }//for(int set = 0; set < tema.size(); set++) - 2 - 2
+                
+            for_each++;
+                
+        }while(!selected && for_each > 0 && for_each < select.length);
+        
+        }//if(list_page1.getSelectedIndices().length > 1)
         
         return tema;
         
@@ -407,7 +417,7 @@ public class window extends javax.swing.JFrame {
     
     private void Page_1Multiple(){
         
-        if(this.pg1s != null){
+        if(this.pg1m != null && this.pg1sm == multiple){
             
             list_page1.setSelectionMode(
                 javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
@@ -422,7 +432,7 @@ public class window extends javax.swing.JFrame {
             
             List<Domain> d = this.Page_1(this.pg1m.ListMode());
 
-            setTitle(this.pg1s.Title(true));
+            setTitle(this.pg1m.Title(true));
 
             home.setAlignmentX(AlignmentX);
             home.setAlignmentY(AlignmentY);
@@ -483,7 +493,7 @@ public class window extends javax.swing.JFrame {
                 )
                 {
                     
-                    var ad = d.get(i).Text(true);
+                    var ad = d.get(i).Text(false);
                     
                     data[i] = repeat_char_list;
                     
@@ -506,7 +516,8 @@ public class window extends javax.swing.JFrame {
             
             list_page1.setAutoscrolls(true);
             list_page1.setLayoutOrientation(max_list ? 1 : 0);
-            list_page1.setFont(this.pg1s.ListFont());
+            
+            list_page1.setFont(this.pg1m.ListFont());
             list_page1.setListData(data);
             
             this.Page_1(false);
@@ -515,19 +526,19 @@ public class window extends javax.swing.JFrame {
             
         }//if(this.pg1 != null)
         
-    }//Page_1Single()
+    }//Page_1Multiple()
     
-    public void Page_1(Painel_1Single inteface_page_1){
+    public void Page_1Single(Painel_1Single inteface_page_1){
         
-        this.pg1 = pg1sm.single;
+        this.pg1sm = single;
         this.pg1s = inteface_page_1;
         this.Page_1Single();
         
     }//Page_1(Painel_1 interace_page_1)
     
-    public void Page_1(Painel_1Multiple inteface_page_1){
+    public void Page_1Multiple(Painel_1Multiple inteface_page_1){
         
-        this.pg1 = pg1sm.multiple;
+        this.pg1sm = multiple;
         this.pg1m = inteface_page_1;
         this.Page_1Multiple();
         
@@ -537,11 +548,27 @@ public class window extends javax.swing.JFrame {
         
         if(no_input) home_file.requestFocus();
         
-        if(this.pg1s.List().size() > 1){
+        var com = false;
+        
+        switch(pg1sm){
             
-            list_page1.setSelectedIndex(0);
+            case single -> {
+                
+                if(this.pg1s != null) com = this.pg1s.List().size() > 1;
+                
+            }
             
-        }//if(this.pg1.List().size() > 1)
+            case multiple -> {
+                
+                if(this.pg1m != null) com = this.pg1m.ListMode().size() > 1;
+                
+            }
+            
+        }
+        
+        //if(this.pg1s.List().size() > 1){
+            
+        if(com) list_page1.setSelectedIndex(0);
         
     }//Pg1_select(boolean input)
 
@@ -915,7 +942,7 @@ public class window extends javax.swing.JFrame {
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
         
-        if(this.pg1s != null && this.pg1 == single){
+        if(this.pg1s != null && this.pg1sm == single){
             
             this.pg1_input_user = true;
             
@@ -926,9 +953,9 @@ public class window extends javax.swing.JFrame {
                 home_file.getText()
             );
             
-            this.Page_1(pg_1);
+            this.Page_1Single(pg_1);
             
-        } else if(this.pg1m != null && this.pg1 == multiple){
+        } else if(this.pg1m != null && this.pg1sm == multiple){
             
             this.pg1_input_user = true;
             
@@ -938,7 +965,7 @@ public class window extends javax.swing.JFrame {
                 home_file.getText()
             );
             
-            this.Page_1(pg_1);
+            this.Page_1Multiple(pg_1);
             
         } else {
             
@@ -950,7 +977,7 @@ public class window extends javax.swing.JFrame {
 
     private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
         
-        if(this.pg1s != null && this.pg1 == single){
+        if(this.pg1s != null && this.pg1sm == single){
             
             this.pg1_input_user = true;
             
@@ -961,9 +988,9 @@ public class window extends javax.swing.JFrame {
                 home_file.getText()
             );
             
-            this.Page_1(pg_1);
+            this.Page_1Single(pg_1);
             
-        } else if(this.pg1m != null && this.pg1 == multiple){
+        } else if(this.pg1m != null && this.pg1sm == multiple){
             
             this.pg1_input_user = true;
             
@@ -973,7 +1000,7 @@ public class window extends javax.swing.JFrame {
                 home_file.getText()
             );
             
-            this.Page_1(pg_1);
+            this.Page_1Multiple(pg_1);
             
         } else {
             
@@ -993,13 +1020,13 @@ public class window extends javax.swing.JFrame {
 
             case 10 -> {
                 
-                if(this.pg1s != null && this.pg1 == single){
+                if(this.pg1s != null && this.pg1sm == single){
                     
                     this.pg1_input_user = true;
                     var pg_1 = this.pg1s.Adicionar(false, home_file.getText());
-                    this.Page_1(pg_1);
+                    this.Page_1Single(pg_1);
                     
-                } else if(this.pg1m != null && this.pg1 == multiple){
+                } else if(this.pg1m != null && this.pg1sm == multiple){
                     
                     this.pg1_input_user = true;
                     
@@ -1009,7 +1036,7 @@ public class window extends javax.swing.JFrame {
                         home_file.getText()
                     );
                     
-                    this.Page_1(pg_1);
+                    this.Page_1Multiple(pg_1);
                     
                 } else {
                     
@@ -1095,13 +1122,13 @@ public class window extends javax.swing.JFrame {
 
     private void home_file_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_file_enterActionPerformed
         
-        if(this.pg1s != null && this.pg1 == single){
+        if(this.pg1s != null && this.pg1sm == single){
             
             this.pg1_input_user = true;
             var pg_1 = this.pg1s.Adicionar(true, home_file.getText());
-            this.Page_1(pg_1);
+            this.Page_1Single(pg_1);
             
-        } else if(this.pg1m != null && this.pg1 == multiple){
+        } else if(this.pg1m != null && this.pg1sm == multiple){
             
             this.pg1_input_user = true;
             
@@ -1111,7 +1138,7 @@ public class window extends javax.swing.JFrame {
                 home_file.getText()
             );
             
-            this.Page_1(pg_1);
+            this.Page_1Multiple(pg_1);
             
         } else {
             
@@ -1129,7 +1156,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 -> {
                 
-                if(this.pg1s != null && this.pg1 == single){
+                if(this.pg1s != null && this.pg1sm == single){
                     
                     var pg_1 = pg1s.Abrir(
                         false,
@@ -1138,11 +1165,11 @@ public class window extends javax.swing.JFrame {
                         home_file.getText()
                     );
                     
-                    this.Page_1(pg_1);
+                    this.Page_1Single(pg_1);
                     
                     this.Page_1(false, "ABRIR");
                     
-                } else if(this.pg1m != null && this.pg1 == multiple){
+                } else if(this.pg1m != null && this.pg1sm == multiple){
 
                     this.pg1_input_user = true;
 
@@ -1152,7 +1179,7 @@ public class window extends javax.swing.JFrame {
                         home_file.getText()
                     );
 
-                    this.Page_1(pg_1);
+                    this.Page_1Multiple(pg_1);
 
                 } else {
                     
@@ -1164,7 +1191,7 @@ public class window extends javax.swing.JFrame {
             
             case 8, 127 ->{
                 
-                if(this.pg1s != null && this.pg1 == single){
+                if(this.pg1s != null && this.pg1sm == single){
                     
                     this.pg1_input_user = true;
                     
@@ -1175,9 +1202,9 @@ public class window extends javax.swing.JFrame {
                         home_file.getText()
                     );
                     
-                    this.Page_1(pg_1);
+                    this.Page_1Single(pg_1);
                     
-                } else if(this.pg1m != null && this.pg1 == multiple){
+                } else if(this.pg1m != null && this.pg1sm == multiple){
 
                     this.pg1_input_user = true;
 
@@ -1187,7 +1214,7 @@ public class window extends javax.swing.JFrame {
                         home_file.getText()
                     );
 
-                    this.Page_1(pg_1);
+                    this.Page_1Multiple(pg_1);
 
                 } else {
                     
