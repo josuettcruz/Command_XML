@@ -333,6 +333,48 @@ public class window extends javax.swing.JFrame {
         
     }//Page_1Single()
     
+    private List<Domain> Page_1(List<Domain> view){
+        
+        List<Domain> demo = new ArrayList();
+        List<Integer> test = new ArrayList();
+        
+        for(Domain insert : view){
+            
+            test.add(insert.index());
+            
+            Domain ad = insert;
+            boolean acept = false;
+            
+            if(test.size() > 1){
+                
+                acept = true;
+                Integer add = 0;
+                
+                do{
+                    
+                    if(test.get(add) == ad.index()) acept = false;
+                    
+                    add++;
+                    
+                }while(acept && add > 0 && add < test.size());
+                
+            }//if(test.size() > 1)
+            
+            if(insert.index() < 0) acept = false;
+            
+            if(acept){
+                
+                ad.Select(false);
+                demo.add(ad);
+                
+            }//if(acept)
+            
+        }//for(Domain insert : view)
+        
+        return demo;
+        
+    }//Page_1(List<Domain> view)
+    
     private void Page_1Multiple(){
         
         if(this.pg1s != null){
@@ -341,10 +383,14 @@ public class window extends javax.swing.JFrame {
                 javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
             );
             
+            final var list_empty = this.pg1m.ListMode().isEmpty();
+            
             final var max_list = this.pg1m.ListColumn()
                 && this.pg1m.ListMode().size() > 1;
             
-            final var list_empty = this.pg1m.ListMode().isEmpty();
+            final var repeat_char_list = " ".repeat(5);
+            
+            List<Domain> d = this.Page_1(this.pg1m.ListMode());
 
             setTitle(this.pg1s.Title(true));
 
@@ -385,10 +431,53 @@ public class window extends javax.swing.JFrame {
             home_file.setText(this.pg1m.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
             
+            String[] data = new String[list_empty ? 2 : this.pg1m.ListMode().size()];
+            
+            if(list_empty){
+                
+                for(int dat = 0; dat < data.length; dat++){
+                    
+                    data[dat] = dat == 0
+                        ? repeat_char_list
+                        + "A lista está vazia!"
+                        : "";
+                    
+                }//for(int dat = 0; dat < data.length; dat++)
+                
+            } else {//if(list_empty)
+                
+                for(
+                    int i = 0;
+                    i < d.size() && i < data.length;
+                    i++
+                )
+                {
+                    
+                    var ad = d.get(i).Text(true);
+                    
+                    data[i] = repeat_char_list;
+                    
+                    if(ad.length() > 200){
+                        
+                        data[i] += ad.substring(0,197);
+                        data[i] += "...";
+                        
+                    } else {
+                        
+                        data[i] += ad;
+                        
+                    }
+                    
+                    if(max_list) data[i] += repeat_char_list;
+                    
+                }//for(int i = 0; i < this.pg1.List().size() && i < data...
+                
+            }//if(list_empty)
+            
             list_page1.setAutoscrolls(true);
             list_page1.setLayoutOrientation(max_list ? 1 : 0);
             list_page1.setFont(this.pg1s.ListFont());
-            //list_page1.setListData(data);
+            list_page1.setListData(data);
             
             this.Page_1(false);
             
