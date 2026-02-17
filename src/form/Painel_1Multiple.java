@@ -22,20 +22,6 @@ public interface Painel_1Multiple {
     
     public boolean ListColumn();
     
-    public Painel_1Single Adicionar(boolean button, String input);
-    
-    public Painel_1Single Abrir(
-        boolean button,
-        int index,
-        String name,
-        String input
-    );
-    
-    public Painel_1Single Apagar(
-        boolean button,
-        int index,
-        String name,
-        String input
-    );
+    public Painel_1Multiple Action(pag1 action, List<Domain> vol, String input);
     
 }
