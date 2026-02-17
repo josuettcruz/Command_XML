@@ -16,10 +16,26 @@ public interface Painel_1Multiple {
     
     public String InputText(boolean user);
     
+    public List<Domain> ListMode();
+    
     public java.awt.Font ListFont();
     
     public boolean ListColumn();
     
-    public List<Domain> ListMode();
+    public Painel_1Single Adicionar(boolean button, String input);
+    
+    public Painel_1Single Abrir(
+        boolean button,
+        int index,
+        String name,
+        String input
+    );
+    
+    public Painel_1Single Apagar(
+        boolean button,
+        int index,
+        String name,
+        String input
+    );
     
 }

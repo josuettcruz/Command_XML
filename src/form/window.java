@@ -4,6 +4,7 @@
  */
 package form;
 
+import static form.pg1sm.single;
 import model.*;
 
 import java.awt.Color;
@@ -32,6 +33,7 @@ public class window extends javax.swing.JFrame {
     
     private Painel_1Single pg1s;
     private Painel_1Multiple pg1m;
+    private pg1sm pg1 = pg1sm.none;
     private boolean pg1_input_user = false;
     
     public window() {
@@ -244,7 +246,7 @@ public class window extends javax.swing.JFrame {
             home.setAlignmentY(AlignmentY);
 
             home_title.setText(this.pg1s.Title(false));
-            home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            home_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             home_title.setFont(new java.awt.Font("Impact", 0, 22));
 
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
@@ -338,21 +340,14 @@ public class window extends javax.swing.JFrame {
             list_page1.setSelectionMode(
                 javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
             );
-            
-            final var max_list = this.pg1s.ListColumn()
-                && this.pg1s.List().size() > 1;
-            
-            final var list_empty = this.pg1s.List().isEmpty();//New Code
-            
-            final var repeat_char_list = " ".repeat(5);//New Code
 
             setTitle(this.pg1s.Title(true));
 
             home.setAlignmentX(AlignmentX);
             home.setAlignmentY(AlignmentY);
 
-            home_title.setText(this.pg1s.Title(false));
-            home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            home_title.setText(this.pg1m.Title(false));
+            home_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             home_title.setFont(new java.awt.Font("Impact", 0, 22));
 
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
@@ -382,15 +377,8 @@ public class window extends javax.swing.JFrame {
             home_file.setForeground(Color.black);
             home_file_enter.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setText(this.pg1s.InputText(this.pg1_input_user));
+            home_file.setText(this.pg1m.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
-            
-            //New Code
-            
-            list_page1.setAutoscrolls(true);
-            list_page1.setLayoutOrientation(max_list ? 1 : 0);
-            list_page1.setFont(this.pg1s.ListFont());
-            //list_page1.setListData(data);
             
             this.Page_1(false);
             
@@ -402,6 +390,7 @@ public class window extends javax.swing.JFrame {
     
     public void Page_1(Painel_1Single inteface_page_1){
         
+        this.pg1 = pg1sm.single;
         this.pg1s = inteface_page_1;
         this.Page_1Single();
         
@@ -409,6 +398,7 @@ public class window extends javax.swing.JFrame {
     
     public void Page_1(Painel_1Multiple inteface_page_1){
         
+        this.pg1 = pg1sm.multiple;
         this.pg1m = inteface_page_1;
         this.Page_1Multiple();
         
@@ -646,19 +636,21 @@ public class window extends javax.swing.JFrame {
         homeLayout.setHorizontalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(home_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, homeLayout.createSequentialGroup()
                         .addComponent(home_file)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(home_file_enter))
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, homeLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(home_action, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(home_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(home_exit, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)))
                 .addGap(17, 17, 17))
+            .addGroup(homeLayout.createSequentialGroup()
+                .addComponent(home_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         homeLayout.setVerticalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -794,11 +786,7 @@ public class window extends javax.swing.JFrame {
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
         
-        if(this.pg1s == null){
-            
-            this.Page_1(true, "APAGAR");
-            
-        } else {
+        if(this.pg1s != null && pg1 == single){
             
             this.pg1_input_user = true;
             
@@ -811,17 +799,17 @@ public class window extends javax.swing.JFrame {
             
             this.Page_1(pg_1);
             
+        } else {
+            
+            this.Page_1(true, "APAGAR");
+            
         }
         
     }//GEN-LAST:event_home_exitActionPerformed
 
     private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
         
-        if(this.pg1s == null){
-            
-            this.Page_1(true, "ABRIR");
-            
-        } else {//if(this.pg1 == null)
+        if(this.pg1s != null && this.pg1 == single){
             
             this.pg1_input_user = true;
             
@@ -834,7 +822,11 @@ public class window extends javax.swing.JFrame {
             
             this.Page_1(pg_1);
             
-        }//if(this.pg1 == null)
+        } else {
+            
+            this.Page_1(true, "ABRIR");
+            
+        }
         
     }//GEN-LAST:event_home_actionActionPerformed
 
@@ -848,15 +840,15 @@ public class window extends javax.swing.JFrame {
 
             case 10 -> {
                 
-                if(this.pg1s == null){
-                    
-                    this.Page_1(false, "ADD");
-                    
-                } else {
+                if(this.pg1s != null && this.pg1 == single){
                     
                     this.pg1_input_user = true;
                     var pg_1 = this.pg1s.Adicionar(false, home_file.getText());
                     this.Page_1(pg_1);
+                    
+                } else {
+                    
+                    this.Page_1(false, "ADD");
                     
                 }
                 
@@ -902,16 +894,22 @@ public class window extends javax.swing.JFrame {
                         new java.awt.Font(this.home_file_font, 0, 16)
                     );
 
-                } else if(tam <= 150){
+                } else if(tam <= 140){
 
                     home_file.setFont(
                         new java.awt.Font(this.home_file_font, 0, 14)
                     );
 
-                } else if(tam <= 200){
+                } else if(tam <= 180){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 12)
+                        new java.awt.Font(this.home_file_font, 0, 10)
+                    );
+
+                } else if(tam <= 195){
+
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 8)
                     );
 
                 } else {
@@ -932,15 +930,15 @@ public class window extends javax.swing.JFrame {
 
     private void home_file_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_file_enterActionPerformed
         
-        if(this.pg1s == null){
-            
-            this.Page_1(true, "ADD");
-            
-        } else {
+        if(this.pg1s != null && this.pg1 == single){
             
             this.pg1_input_user = true;
             var pg_1 = this.pg1s.Adicionar(true, home_file.getText());
             this.Page_1(pg_1);
+            
+        } else {
+            
+            this.Page_1(true, "ADD");
             
         }
         
@@ -954,13 +952,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 -> {
                 
-                if(this.pg1s == null){
-                    
-                    this.Page_1(false, "ABRIR");
-                    
-                } else {//if(this.pg1 == null)
-                    
-                    this.pg1_input_user = true;
+                if(this.pg1s != null && this.pg1 == single){
                     
                     var pg_1 = pg1s.Abrir(
                         false,
@@ -971,17 +963,19 @@ public class window extends javax.swing.JFrame {
                     
                     this.Page_1(pg_1);
                     
-                }//if(this.pg1 == null)
+                    this.Page_1(false, "ABRIR");
+                    
+                } else {
+                    
+                    this.pg1_input_user = true;
+                    
+                }
                 
             }
             
             case 8, 127 ->{
                 
-                if(this.pg1s == null){
-                    
-                    this.Page_1(false, "APAGAR");
-                    
-                } else {//if(this.pg1 == null)
+                if(this.pg1s != null && this.pg1 == single){
                     
                     this.pg1_input_user = true;
                     
@@ -994,7 +988,11 @@ public class window extends javax.swing.JFrame {
                     
                     this.Page_1(pg_1);
                     
-                }//if(this.pg1 == null)
+                } else {
+                    
+                    this.Page_1(false, "APAGAR");
+                    
+                }
                 
             }//case 8, 127
             
