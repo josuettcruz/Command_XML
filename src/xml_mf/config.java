@@ -321,8 +321,6 @@ public class config implements Painel_1Single, Painel_1Multiple{
             
         }//for(int x = 0; x < this.list.size(); x++)
         
-        node.add(new Domain(this.list.size(),"valor nulo"));
-        
         return node;
         
     }
@@ -340,6 +338,11 @@ public class config implements Painel_1Single, Painel_1Multiple{
             
             this.list.clear();
             this.list.add(new Hora(true).TimerGood(false));
+            if(!code.isBlank()){
+                
+                this.list.add(code.trim().length() > 20 ? Reg.Numb(code.trim().length()) : txt.title(code, true));
+                
+            }
             this.recent = false;
             
         } else {//if(code.isBlank())
@@ -418,7 +421,30 @@ public class config implements Painel_1Single, Painel_1Multiple{
                 
             }//switch(action)
             
-            if(!code.isBlank()) this.list.add(code);
+            int m = txt.phrase(code, true).size();
+            
+            if(code.length() >= 100){
+                
+                this.list.add(Reg.Numb(code.trim().length()));
+                
+            } else if(m == 1){
+                
+                this.list.add(
+                    txt.arq(code).toUpperCase()
+                    + " - "
+                    + Reg.Numb(code.trim().length())
+                    + " letras!"
+                );
+                
+            } else if(m <= 5){
+                
+                this.list.add(txt.title(code, true));
+                
+            } else {
+                
+                this.list.add(txt.arq(code));
+                
+            }
             
         }//if(code.isBlank())
         
