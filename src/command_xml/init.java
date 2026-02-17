@@ -39,7 +39,7 @@ public class init {
             '9'
         };
         
-        for(String tx : txt.text(text,true).split("\n")){
+        for(String tx : txt.text(text.replace("_", " "),true).split("\n")){
             
             var inst = "";
             var inter = true;
@@ -196,7 +196,7 @@ public class init {
                         
                     }//case '\\', '/'
                     
-                    case ';', ',', '.', ':' -> {
+                    case ';', ',', ':' -> {
                         
                         if(amp && i < insert.get(sum).length()-1){
                             
@@ -207,49 +207,16 @@ public class init {
                         
                         quot = true;
                         
-                    }//case ';', ',', '.', ':'
-                    
-                    case '_' -> {
-                        
-                        if(commit){
-                            
-                            if(amp && i > 0 && i < insert.get(sum).length()-1){
-                                
-                                tem += " ";
-                                amp = false;
-                                
-                            }//if(amp && i > 0 && i < insert.get(sum).length()-1)
-                            
-                            quot = true;
-                            
-                        } else {//if(commit)
-                            
-                            tem += "_";
-                            
-                        }//if(commit)
-                        
-                    }//case '|', '-', '_'
-                    
-                    case '|', '-' -> {
-                        
-                        if(amp){
-                            
-                            tem += insert.get(sum).charAt(i);
-                            amp = false;
-                            
-                        }//if(amp)
-                        
-                        quot = true;
-                        
-                    }//case '|', '-', '_'
+                    }//case ';', ',', ':'
                     
                     case '!', '?' ->{}
                     
+                    case ' ' ->
+                        tem += quot_end_line && commit ? "_" : " ";
+                    
                     default -> {
                         
-                        tem += quot_end_line && commit
-                            ? insert.get(sum).toUpperCase().charAt(i)
-                            : insert.get(sum).charAt(i);
+                        tem += insert.get(sum).charAt(i);
                         
                         quot = true;
                         
