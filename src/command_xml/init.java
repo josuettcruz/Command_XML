@@ -247,9 +247,9 @@ public class init {
                     
                     default -> {
                         
-                        tem += /*quot_end_line && commit
+                        tem += quot_end_line && commit
                             ? insert.get(sum).toUpperCase().charAt(i)
-                            : */insert.get(sum).charAt(i);
+                            : insert.get(sum).charAt(i);
                         
                         quot = true;
                         

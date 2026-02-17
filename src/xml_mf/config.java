@@ -194,7 +194,7 @@ public class config implements Painel_1Single{
 
     @Override
     public boolean ListColumn() {
-        return this.list.size() > 10 || this.recent;
+        return this.list.size() > 10 && !this.recent;
     }
 
     @Override
