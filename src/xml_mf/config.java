@@ -8,7 +8,6 @@ import form.Clean;
 import form.Domain;
 import model.*;
 import form.Painel_1;
-import form.Painel_2;
 
 import java.awt.Font;
 
@@ -19,7 +18,7 @@ import java.util.List;
  *
  * @author josue
  */
-public class config implements Painel_1, Painel_2{
+public class config implements Painel_1{
     
     private List<String> list;
     private String input;
@@ -300,76 +299,6 @@ public class config implements Painel_1, Painel_2{
             return new Clean();
             
         }//if(this.list.size() > 1 && index >= 0)
-        
-    }
-
-    @Override
-    public String Input() {
-        return "";
-    }
-
-    @Override
-    public java.util.List<Domain> TableModel() {
-        
-        List<Domain> tem = new ArrayList();
-        
-        if(this.recent) tem.add(new Domain(0,new Data().DataAbreviada(true)));
-        
-        for(int add = 0; add < this.dom.size(); add++) tem.add(new Domain(add+1, this.dom.get(add)));
-        
-        return tem;
-        
-    }
-
-    @Override
-    public String TableTitle() {
-        return new Link(Reg.http).page(true);
-    }
-
-    @Override
-    public String ButtonText() {
-        return "0".repeat(10);
-    }
-
-    @Override
-    public Painel_2 Action(form.Action act, java.util.List<Domain> tema, String input) {
-        
-        if(input.trim().isBlank() || input.trim().equalsIgnoreCase("exit")){
-            
-            System.exit(0);
-            return new Clean();
-            
-        } else {//if(input.trim().isBlank() || input.trim().equalsIgnoreCase...
-            
-            this.recent = false;
-            
-            this.dom.add(new Hora(true).Timer());
-            
-            if(txt.phrase(input, true).size() == 1){
-                
-                this.dom.add(input);
-                
-                if(!txt.arq(input).equals(input)){
-                    this.dom.add(txt.arq(input).toUpperCase());
-                }
-                
-            } else {
-                
-                this.dom.add(txt.text(input, true));
-                
-                if(!txt.arq(input).equals(input)){
-                    this.dom.add(txt.arq(input));
-                }
-                
-                if(!txt.title(input, true).equals(input)){
-                    this.dom.add(txt.title(input, true));
-                }
-                
-            }
-            
-            return this;
-            
-        }//if(input.trim().isBlank() || input.trim().equalsIgnoreCase...
         
     }
     
