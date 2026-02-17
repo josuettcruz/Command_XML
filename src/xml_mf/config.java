@@ -4,7 +4,6 @@
  */
 package xml_mf;
 
-import form.Clean;
 import form.Domain;
 import model.*;
 import form.Painel_1Single;

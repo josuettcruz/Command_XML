@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package form;
+package xml_mf;
 
+import form.Painel_1Single;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
