@@ -340,6 +340,11 @@ public class window extends javax.swing.JFrame {
             list_page1.setSelectionMode(
                 javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
             );
+            
+            final var max_list = this.pg1m.ListColumn()
+                && this.pg1m.ListMode().size() > 1;
+            
+            final var list_empty = this.pg1m.ListMode().isEmpty();
 
             setTitle(this.pg1s.Title(true));
 
@@ -379,6 +384,11 @@ public class window extends javax.swing.JFrame {
 
             home_file.setText(this.pg1m.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
+            
+            list_page1.setAutoscrolls(true);
+            list_page1.setLayoutOrientation(max_list ? 1 : 0);
+            list_page1.setFont(this.pg1s.ListFont());
+            //list_page1.setListData(data);
             
             this.Page_1(false);
             
@@ -786,7 +796,7 @@ public class window extends javax.swing.JFrame {
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
         
-        if(this.pg1s != null && pg1 == single){
+        if(this.pg1s != null && this.pg1 == single){
             
             this.pg1_input_user = true;
             
