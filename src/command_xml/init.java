@@ -68,7 +68,7 @@ public class init {
                     
                 }while(c > 0 && c < t.length() && node);
                 
-                if(node && t.length() > 2){
+                if(node && t.contains("-")){
                     
                     if(!inst.isBlank()){
                         
