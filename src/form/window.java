@@ -31,6 +31,7 @@ public class window extends javax.swing.JFrame {
     private final String home_file_font = "Agency FB";
     
     private Painel_1Single pg1s;
+    private Painel_1Multiple pg1m;
     private boolean pg1_input_user = false;
     
     public window() {
@@ -201,7 +202,7 @@ public class window extends javax.swing.JFrame {
         Page_1_String1 += "\"";
         
         var Page_1_String2 = "Impossível executar a ação do ";
-        Page_1_String2 += button ? "teclado" : "mouse";
+        Page_1_String2 += button ? "mouse" : "teclase";
         Page_1_String2 += "!";
         
         Reg.Print(Page_1_String1, Page_1_String2);
@@ -328,12 +329,88 @@ public class window extends javax.swing.JFrame {
             
         }//if(this.pg1 != null)
         
-    }//Page_1()
+    }//Page_1Single()
+    
+    private void Page_1Multiple(){
+        
+        if(this.pg1s != null){
+            
+            list_page1.setSelectionMode(
+                javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+            );
+            
+            final var max_list = this.pg1s.ListColumn()
+                && this.pg1s.List().size() > 1;
+            
+            final var list_empty = this.pg1s.List().isEmpty();//New Code
+            
+            final var repeat_char_list = " ".repeat(5);//New Code
+
+            setTitle(this.pg1s.Title(true));
+
+            home.setAlignmentX(AlignmentX);
+            home.setAlignmentY(AlignmentY);
+
+            home_title.setText(this.pg1s.Title(false));
+            home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+            home_title.setFont(new java.awt.Font("Impact", 0, 22));
+
+            home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
+            home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+            home_action.setText("ABRIR");
+            home_exit.setText("APAGAR");
+
+            home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
+            home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
+
+            home_action.setBackground(Color.decode("#008b8b"));
+            home_exit.setBackground(Color.decode("#8b0000"));
+
+            home_action.setForeground(Color.decode("#f5f5f5"));
+            home_exit.setForeground(Color.decode("#f0f8ff"));
+
+            home_file.setAutoscrolls(false);
+            home_file_enter.setAutoscrolls(false);
+
+            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+            home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
+
+            home_file.setBackground(Color.white);
+            home_file_enter.setBackground(Color.decode("#008b8b"));
+
+            home_file.setForeground(Color.black);
+            home_file_enter.setForeground(Color.decode("#f0f8ff"));
+
+            home_file.setText(this.pg1s.InputText(this.pg1_input_user));
+            home_file_enter.setText("ADD");
+            
+            //New Code
+            
+            list_page1.setAutoscrolls(true);
+            list_page1.setLayoutOrientation(max_list ? 1 : 0);
+            list_page1.setFont(this.pg1s.ListFont());
+            //list_page1.setListData(data);
+            
+            this.Page_1(false);
+            
+            this.Tem(1);
+            
+        }//if(this.pg1 != null)
+        
+    }//Page_1Single()
     
     public void Page_1(Painel_1Single inteface_page_1){
         
         this.pg1s = inteface_page_1;
         this.Page_1Single();
+        
+    }//Page_1(Painel_1 interace_page_1)
+    
+    public void Page_1(Painel_1Multiple inteface_page_1){
+        
+        this.pg1m = inteface_page_1;
+        this.Page_1Multiple();
         
     }//Page_1(Painel_1 interace_page_1)
     
