@@ -15,7 +15,7 @@ import model.Link;
  *
  * @author josue
  */
-public class Clean implements Painel_1{
+public class Clean implements Painel_1Single{
 
     @Override
     public String Title(boolean title) {
@@ -45,19 +45,19 @@ public class Clean implements Painel_1{
     }
 
     @Override
-    public Painel_1 Adicionar(boolean button, String input) {
+    public Painel_1Single Adicionar(boolean button, String input) {
         System.exit(0);
         return this;
     }
 
     @Override
-    public Painel_1 Abrir(boolean button, int index, String name, String input) {
+    public Painel_1Single Abrir(boolean button, int index, String name, String input) {
         System.exit(0);
         return this;
     }
 
     @Override
-    public Painel_1 Apagar(boolean button, int index, String name, String input) {
+    public Painel_1Single Apagar(boolean button, int index, String name, String input) {
         System.exit(0);
         return this;
     }

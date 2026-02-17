@@ -30,7 +30,7 @@ public class window extends javax.swing.JFrame {
     private final String home_file_font_into = "Aptos Black";
     private final String home_file_font = "Agency FB";
     
-    private Painel_1 pg1 = null;
+    private Painel_1Single pg1s;
     private boolean pg1_input_user = false;
     
     public window() {
@@ -222,27 +222,27 @@ public class window extends javax.swing.JFrame {
         
     }//Page_1(boolean visible)
     
-    private void Page_1(){
+    private void Page_1Single(){
         
-        if(this.pg1 != null){
+        if(this.pg1s != null){
             
             list_page1.setSelectionMode(
                 javax.swing.ListSelectionModel.SINGLE_SELECTION
             );
             
-            final var max_list = this.pg1.ListColumn()
-                && this.pg1.List().size() > 1;
+            final var max_list = this.pg1s.ListColumn()
+                && this.pg1s.List().size() > 1;
             
-            final var list_empty = this.pg1.List().isEmpty();
+            final var list_empty = this.pg1s.List().isEmpty();
             
             final var repeat_char_list = " ".repeat(5);
 
-            setTitle(this.pg1.Title(true));
+            setTitle(this.pg1s.Title(true));
 
             home.setAlignmentX(AlignmentX);
             home.setAlignmentY(AlignmentY);
 
-            home_title.setText(this.pg1.Title(false));
+            home_title.setText(this.pg1s.Title(false));
             home_title.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
             home_title.setFont(new java.awt.Font("Impact", 0, 22));
 
@@ -273,10 +273,10 @@ public class window extends javax.swing.JFrame {
             home_file.setForeground(Color.black);
             home_file_enter.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setText(this.pg1.InputText(this.pg1_input_user));
+            home_file.setText(this.pg1s.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
             
-            String[] data = new String[list_empty ? 2 : this.pg1.List().size()];
+            String[] data = new String[list_empty ? 2 : this.pg1s.List().size()];
             
             if(list_empty){
                 
@@ -293,21 +293,21 @@ public class window extends javax.swing.JFrame {
                 
                 for(
                     int i = 0;
-                    i < this.pg1.List().size() && i < data.length;
+                    i < this.pg1s.List().size() && i < data.length;
                     i++
                 )
                 {
                     
                     data[i] = repeat_char_list;
                     
-                    if(this.pg1.List().get(i).length() > 200){
+                    if(this.pg1s.List().get(i).length() > 200){
                         
-                        data[i] += this.pg1.List().get(i).substring(0,197);
+                        data[i] += this.pg1s.List().get(i).substring(0,197);
                         data[i] += "...";
                         
                     } else {
                         
-                        data[i] += this.pg1.List().get(i);
+                        data[i] += this.pg1s.List().get(i);
                         
                     }
                     
@@ -319,7 +319,7 @@ public class window extends javax.swing.JFrame {
             
             list_page1.setAutoscrolls(true);
             list_page1.setLayoutOrientation(max_list ? 1 : 0);
-            list_page1.setFont(this.pg1.ListFont());
+            list_page1.setFont(this.pg1s.ListFont());
             list_page1.setListData(data);
             
             this.Page_1(false);
@@ -330,10 +330,10 @@ public class window extends javax.swing.JFrame {
         
     }//Page_1()
     
-    public void Page_1(Painel_1 inteface_page_1){
+    public void Page_1(Painel_1Single inteface_page_1){
         
-        this.pg1 = inteface_page_1;
-        this.Page_1();
+        this.pg1s = inteface_page_1;
+        this.Page_1Single();
         
     }//Page_1(Painel_1 interace_page_1)
     
@@ -341,7 +341,7 @@ public class window extends javax.swing.JFrame {
         
         if(no_input) home_file.requestFocus();
         
-        if(this.pg1.List().size() > 1){
+        if(this.pg1s.List().size() > 1){
             
             list_page1.setSelectedIndex(0);
             
@@ -717,7 +717,7 @@ public class window extends javax.swing.JFrame {
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
         
-        if(this.pg1 == null){
+        if(this.pg1s == null){
             
             this.Page_1(true, "APAGAR");
             
@@ -725,7 +725,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1_input_user = true;
             
-            var pg_1 = this.pg1.Apagar(
+            var pg_1 = this.pg1s.Apagar(
                 true,
                 list_page1.getSelectedIndex(),
                 list_page1.getSelectedValue(),
@@ -740,7 +740,7 @@ public class window extends javax.swing.JFrame {
 
     private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
         
-        if(this.pg1 == null){
+        if(this.pg1s == null){
             
             this.Page_1(true, "ABRIR");
             
@@ -748,7 +748,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1_input_user = true;
             
-            var pg_1 = pg1.Abrir(
+            var pg_1 = pg1s.Abrir(
                 true,
                 list_page1.getSelectedIndex(),
                 list_page1.getSelectedValue(),
@@ -771,14 +771,14 @@ public class window extends javax.swing.JFrame {
 
             case 10 -> {
                 
-                if(this.pg1 == null){
+                if(this.pg1s == null){
                     
                     this.Page_1(false, "ADD");
                     
                 } else {
                     
                     this.pg1_input_user = true;
-                    var pg_1 = this.pg1.Adicionar(false, home_file.getText());
+                    var pg_1 = this.pg1s.Adicionar(false, home_file.getText());
                     this.Page_1(pg_1);
                     
                 }
@@ -855,14 +855,14 @@ public class window extends javax.swing.JFrame {
 
     private void home_file_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_file_enterActionPerformed
         
-        if(this.pg1 == null){
+        if(this.pg1s == null){
             
             this.Page_1(true, "ADD");
             
         } else {
             
             this.pg1_input_user = true;
-            var pg_1 = this.pg1.Adicionar(true, home_file.getText());
+            var pg_1 = this.pg1s.Adicionar(true, home_file.getText());
             this.Page_1(pg_1);
             
         }
@@ -877,7 +877,7 @@ public class window extends javax.swing.JFrame {
             
             case 10 -> {
                 
-                if(this.pg1 == null){
+                if(this.pg1s == null){
                     
                     this.Page_1(false, "ABRIR");
                     
@@ -885,7 +885,7 @@ public class window extends javax.swing.JFrame {
                     
                     this.pg1_input_user = true;
                     
-                    var pg_1 = pg1.Abrir(
+                    var pg_1 = pg1s.Abrir(
                         false,
                         list_page1.getSelectedIndex(),
                         list_page1.getSelectedValue(),
@@ -900,7 +900,7 @@ public class window extends javax.swing.JFrame {
             
             case 8, 127 ->{
                 
-                if(this.pg1 == null){
+                if(this.pg1s == null){
                     
                     this.Page_1(false, "APAGAR");
                     
@@ -908,7 +908,7 @@ public class window extends javax.swing.JFrame {
                     
                     this.pg1_input_user = true;
                     
-                    var pg_1 = pg1.Apagar(
+                    var pg_1 = pg1s.Apagar(
                         false,
                         list_page1.getSelectedIndex(),
                         list_page1.getSelectedValue(),
@@ -945,9 +945,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_list_page1KeyReleased
 
     private void list_page1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_page1MouseReleased
-        
         this.Page_1(true);
-        
     }//GEN-LAST:event_list_page1MouseReleased
 
     private void activeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeActionPerformed

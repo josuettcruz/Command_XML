@@ -7,7 +7,7 @@ package xml_mf;
 import form.Clean;
 import form.Domain;
 import model.*;
-import form.Painel_1;
+import form.Painel_1Single;
 
 import java.awt.Font;
 
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author josue
  */
-public class config implements Painel_1{
+public class config implements Painel_1Single{
     
     private List<String> list;
     private String input;
@@ -198,7 +198,7 @@ public class config implements Painel_1{
     }
 
     @Override
-    public Painel_1 Adicionar(boolean button, String input) {
+    public Painel_1Single Adicionar(boolean button, String input) {
         
         var m = txt.phrase(input, true).size();
         
@@ -278,7 +278,7 @@ public class config implements Painel_1{
     }
 
     @Override
-    public Painel_1 Abrir(boolean button, int index, String name, String input) {
+    public Painel_1Single Abrir(boolean button, int index, String name, String input) {
         
         this.Exit();
         return new Clean();
@@ -286,7 +286,7 @@ public class config implements Painel_1{
     }
 
     @Override
-    public Painel_1 Apagar(boolean button, int index, String name, String input) {
+    public Painel_1Single Apagar(boolean button, int index, String name, String input) {
         
         if(this.list.size() > 1 && index >= 0){
             

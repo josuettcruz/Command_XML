@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author josue
  */
-public interface Painel_1 {
+public interface Painel_1Single {
     
     public String Title(boolean title);
     
@@ -22,16 +22,16 @@ public interface Painel_1 {
     
     public boolean ListColumn();
     
-    public Painel_1 Adicionar(boolean button, String input);
+    public Painel_1Single Adicionar(boolean button, String input);
     
-    public Painel_1 Abrir(
+    public Painel_1Single Abrir(
         boolean button,
         int index,
         String name,
         String input
     );
     
-    public Painel_1 Apagar(
+    public Painel_1Single Apagar(
         boolean button,
         int index,
         String name,
