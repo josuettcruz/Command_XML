@@ -7,9 +7,9 @@ package form;
 /**
  *
  * @author josue
- */
+ *
 public enum Action {
     
     button, press, key, enter, del, backspace, error;
     
-}//Action
+}//Action*/

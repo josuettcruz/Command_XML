@@ -519,7 +519,7 @@ public class window extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        list_page1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        list_page1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         list_page1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 list_page1MouseReleased(evt);
