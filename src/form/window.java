@@ -229,6 +229,10 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1 != null){
             
+            list_page1.setSelectionMode(
+                javax.swing.ListSelectionModel.SINGLE_SELECTION
+            );
+            
             final var max_list = this.pg1.ListColumn()
                 && this.pg1.List().size() > 1;
             

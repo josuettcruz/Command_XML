@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface Painel_2 {
     
+    public String obs = "Arquivo morto!";
+    
     public String Title(boolean title);
     
     public String Input();

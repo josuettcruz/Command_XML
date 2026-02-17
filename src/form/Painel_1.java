@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface Painel_1 {
     
+    public String obs = "FUNIONANDO";
+    
     public String Title(boolean title);
     
     public String InputText(boolean user);
