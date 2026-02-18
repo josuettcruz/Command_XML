@@ -370,7 +370,7 @@ public class config implements Painel_1Single, Painel_1Multiple{
             
             switch(action){
                 
-                case open, enter, key ->{
+                case add, open, enter, key ->{
                     
                     if(
                         code.isBlank()
@@ -411,42 +411,31 @@ public class config implements Painel_1Single, Painel_1Multiple{
                 
                 case remove, delet, backspace ->{
                     
-                    if(
-                        code.isBlank()
-                        || code.equalsIgnoreCase("exit")
-                        || code.equalsIgnoreCase("sair")
-                    )
-                    {
+                    var selected = false;
+                    var procv = 0;
+                    
+                    do{
                         
-                        this.Exit();
+                        selected = vol.get(procv).Select();
+                        procv++;
                         
-                    } else {
+                    }while(!selected && procv > 0 && procv < vol.size());
+                    
+                    if(selected){
                         
                         this.list.clear();
                         
-                        var acept = false;
-                        var ok = 0;
-                        
-                        do{
-
-                            acept = vol.get(ok).Select();
-                            ok++;
-
-                        }while(!acept && ok > 0 && ok < vol.size());
-                        
-                        if(acept){
-
-                            for(Domain a : vol){
-
-                                if(!a.Select()){
-                                    this.list.add(a.Text(true));
-                                }
-
-                            }//for(Domain a : vol)
+                        for(Domain d : vol){
                             
-                        }//if(acept)
+                            if(d.Select()) this.list.add(d.Text(true));
+                            
+                        }//for(Domain d : vol)
                         
-                    }//if(code.isBlank() || code.equalsIgnoreCase("exit"...
+                    } else {//if(selected)
+                        
+                        this.list.add(Hora.Good());
+                        
+                    }//if(selected)
                     
                 }//case
                 

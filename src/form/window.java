@@ -379,7 +379,7 @@ public class window extends javax.swing.JFrame {
         
         List<Domain> tema = new ArrayList();
         
-        if(list_page1.getSelectedIndices().length > 1){
+        if(select.length > 1){
             
             for(int add = 0; add < this.pg1m.ListMode().size(); add++){
                 
@@ -564,8 +564,6 @@ public class window extends javax.swing.JFrame {
             
         }
         
-        //if(this.pg1s.List().size() > 1){
-            
         if(com) list_page1.setSelectedIndex(0);
         
     }//Pg1_select(boolean input)
