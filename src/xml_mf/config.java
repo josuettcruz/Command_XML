@@ -347,11 +347,7 @@ public class config implements Painel_1Single, Painel_1Multiple{
         
         var code = txt.text(input, true);
         
-        if(code.isBlank()){
-            
-            this.Exit();
-            
-        } else if(this.recent){//if(code.isBlank())
+        if(this.recent){//if(code.isBlank())
             
             this.list.clear();
             this.list.add(new Hora(true).TimerGood(false));

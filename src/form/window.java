@@ -384,8 +384,8 @@ public class window extends javax.swing.JFrame {
             for(int add = 0; add < this.pg1m.ListMode().size(); add++){
                 
                 Domain ad = new Domain(
-                    tema.get(add).index(),
-                    tema.get(add).Text(false)
+                    this.pg1m.ListMode().get(add).index(),
+                    this.pg1m.ListMode().get(add).Text(false)
                 );
                 
                 var selected = false;
