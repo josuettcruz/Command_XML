@@ -37,6 +37,10 @@ public class window extends javax.swing.JFrame {
     private boolean pg1_input_user = false;
     private pg1sm pg1sm;
     
+    private List<Domain> domo;
+    
+    private Painel_2 pg2;
+    
     public window() {
         
         initComponents();
@@ -54,6 +58,8 @@ public class window extends javax.swing.JFrame {
     }//window(int r, int t, int w, int h)
     
     private void Enter(int r, int t, int w, int h){
+        
+        this.domo = new ArrayList();
         
         this.pg1sm = none;
         
@@ -86,7 +92,7 @@ public class window extends javax.swing.JFrame {
     
     private void Tem(int init){
         
-        boolean tem[] = new boolean[2];
+        boolean tem[] = new boolean[3];
         
         for(int exe = 0; exe < tem.length; exe++){
             
@@ -104,6 +110,7 @@ public class window extends javax.swing.JFrame {
         
         initial.setVisible(tem[0]);
         home.setVisible(tem[1]);
+        front.setVisible(tem[2]);
         
     }//Tem(int init)
     
@@ -335,7 +342,7 @@ public class window extends javax.swing.JFrame {
         
     }//Page_1Single()
     
-    private List<Domain> Page_1(List<Domain> view){
+    private List<Domain> Domo(List<Domain> view){
         
         List<Domain> demo = new ArrayList();
         List<Integer> test = new ArrayList();
@@ -381,11 +388,11 @@ public class window extends javax.swing.JFrame {
         
         if(select.length > 1){
             
-            for(int add = 0; add < this.pg1m.ListMode().size(); add++){
+            for(int add = 0; add < this.domo.size(); add++){
                 
                 Domain ad = new Domain(
-                    this.pg1m.ListMode().get(add).index(),
-                    this.pg1m.ListMode().get(add).Text(false)
+                    this.domo.get(add).index(),
+                    this.domo.get(add).Text(false)
                 );
                 
                 var selected = false;
@@ -407,7 +414,7 @@ public class window extends javax.swing.JFrame {
             
         } else {//if(list_page1.getSelectedIndices().length > 1)
             
-            tema.addAll(this.pg1m.ListMode());
+            tema.addAll(this.domo);
             
         }//if(list_page1.getSelectedIndices().length > 1)
         
@@ -428,7 +435,9 @@ public class window extends javax.swing.JFrame {
             
             final var repeat_char_list = " ".repeat(5);
             
-            List<Domain> d = this.Page_1(this.pg1m.ListMode());
+            this.domo.clear();
+            
+            this.domo.addAll(this.pg1m.ListMode());
 
             setTitle(this.pg1m.Title(true));
 
@@ -469,9 +478,13 @@ public class window extends javax.swing.JFrame {
             home_file.setText(this.pg1m.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
             
-            String[] data = new String[d.isEmpty() ? 2 : d.size()];
+            String[] data = new String[
+                this.domo.isEmpty()
+                ? 2
+                : this.domo.size()
+            ];
             
-            if(d.isEmpty()){
+            if(this.domo.isEmpty()){
                 
                 for(int dat = 0; dat < data.length; dat++){
                     
@@ -486,12 +499,12 @@ public class window extends javax.swing.JFrame {
                 
                 for(
                     int i = 0;
-                    i < d.size() && i < data.length;
+                    i < this.domo.size() && i < data.length;
                     i++
                 )
                 {
                     
-                    var ad = d.get(i).Text(false);
+                    var ad = this.domo.get(i).Text(false);
                     
                     data[i] = repeat_char_list;
                     
@@ -567,6 +580,100 @@ public class window extends javax.swing.JFrame {
         if(com) list_page1.setSelectedIndex(0);
         
     }//Pg1_select(boolean input)
+    
+    private void Button2(boolean visible){
+        
+        confirm.setVisible(visible);
+        cancel.setVisible(visible);
+        
+    }//Button2(boolean visible)
+    
+    private void Painel_2(){
+        
+        if(this.pg2 != null){
+            
+            this.domo.clear();
+            this.domo.addAll(pg2.ListMode());
+            
+            front_list.setSelectionMode(
+                javax.swing.ListSelectionModel.SINGLE_SELECTION
+            );
+            
+            this.setTitle(pg2.Title(true));
+            
+            front_title.setText(pg2.Title(false));
+            
+            front_list.setFont(pg2.ListFont());
+            
+            if(pg2.ListMode().size() > 1){
+                
+                final var max = this.domo.size();
+                
+                String[] data = new String[max];
+                
+                for(int i = 0; i < max; i++){
+                    
+                    data[i] = domo.get(i).Text(true);
+                    
+                }
+                
+                front_list.setListData(data);
+            
+            } else {
+                
+                String[] data = {"Lista Vazia!",""};
+                
+                front_list.setListData(data);
+                
+            }
+            
+            front_list.setSelectedIndex(0);
+            
+            this.Button2(false);
+            
+            Tem(2);
+            
+        }//if(this.pg2 != null)
+        
+    }//Painel_2()
+    
+    public void Painel_2(Painel_2 pg2){
+        
+        this.pg2 = pg2;
+        Painel_2();
+        
+    }//Painel_2(Painel_2 pg2)
+    
+    private void p2act(pag2 pg){
+        
+        var num = this.front_list.getSelectedIndex();
+        
+        if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty()){
+            
+            Painel_2 doc = this.pg2.Command(pg, domo.get(num));
+            
+            this.pg2 = doc;
+            
+            Painel_2();
+            
+        } else if(!this.domo.isEmpty() && num >= 0){
+            
+            System.err.print("Value:  ");
+            System.err.println(Reg.Numb(num+1));
+            
+            System.err.print("Máximo: ");
+            System.err.println(Reg.Numb(this.domo.size()));
+            
+            System.exit(0);
+            
+        } else {
+            
+            System.err.println("Erro inesperado!");
+            System.exit(0);
+            
+        }
+        
+    }//p2act(pag2 pg)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -599,6 +706,12 @@ public class window extends javax.swing.JFrame {
         home_exit = new javax.swing.JButton();
         home_file = new javax.swing.JTextField();
         home_file_enter = new javax.swing.JButton();
+        front = new javax.swing.JPanel();
+        front_title = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        front_list = new javax.swing.JList<>();
+        confirm = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -816,12 +929,88 @@ public class window extends javax.swing.JFrame {
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
+        front_title.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        front_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        front_title.setText("Front Title");
+        front_title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        front_list.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        front_list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        front_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                front_listMousePressed(evt);
+            }
+        });
+        front_list.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                front_listKeyReleased(evt);
+            }
+        });
+        jScrollPane2.setViewportView(front_list);
+
+        confirm.setBackground(new java.awt.Color(0, 102, 102));
+        confirm.setFont(new java.awt.Font("Arial Black", 0, 36)); // NOI18N
+        confirm.setForeground(new java.awt.Color(255, 255, 255));
+        confirm.setText("Confirmar");
+        confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmActionPerformed(evt);
+            }
+        });
+
+        cancel.setBackground(new java.awt.Color(102, 0, 0));
+        cancel.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        cancel.setForeground(new java.awt.Color(255, 255, 255));
+        cancel.setText("Cancelar");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout frontLayout = new javax.swing.GroupLayout(front);
+        front.setLayout(frontLayout);
+        frontLayout.setHorizontalGroup(
+            frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frontLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frontLayout.createSequentialGroup()
+                        .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(front_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        frontLayout.setVerticalGroup(
+            frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(frontLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(front_title, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(confirm, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
             .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(front, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -829,7 +1018,9 @@ public class window extends javax.swing.JFrame {
                 .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(658, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(front, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         pack();
@@ -1162,6 +1353,40 @@ public class window extends javax.swing.JFrame {
         this.Page_1(true);
     }//GEN-LAST:event_list_page1MouseReleased
 
+    private void confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmActionPerformed
+        
+        this.p2act(pag2.confirm);
+        
+    }//GEN-LAST:event_confirmActionPerformed
+
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        
+        this.p2act(pag2.cancel);
+        
+    }//GEN-LAST:event_cancelActionPerformed
+
+    private void front_listKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_front_listKeyReleased
+        
+        this.Button2(front_list.getSelectedIndex() >= 0);
+        
+        switch(evt.getKeyCode()){
+            
+            case 8 -> this.p2act(pag2.del);
+            
+            case 10 -> this.p2act(pag2.enter);
+            
+            case 127 -> this.p2act(pag2.backspace);
+            
+        }//switch(evt.getKeyCode())
+        
+    }//GEN-LAST:event_front_listKeyReleased
+
+    private void front_listMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_front_listMousePressed
+        
+        this.Button2(front_list.getSelectedIndex() >= 0);
+        
+    }//GEN-LAST:event_front_listMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -1188,8 +1413,13 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancel;
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
+    private javax.swing.JButton confirm;
+    private javax.swing.JPanel front;
+    private javax.swing.JList<String> front_list;
+    private javax.swing.JLabel front_title;
     private javax.swing.JPanel home;
     private javax.swing.JButton home_action;
     private javax.swing.JButton home_exit;
@@ -1199,6 +1429,7 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> list_page1;
     private javax.swing.JLabel txt_1;
     private javax.swing.JLabel txt_10;

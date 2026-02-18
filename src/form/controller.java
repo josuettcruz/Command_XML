@@ -142,4 +142,25 @@ public class controller {
         
     }//Msg()
     
+    public static void p1s(Painel_1Single painel){
+        
+        if(w == null) w = new window();
+        w.Page_1Single(painel);
+        
+    }//P1s(Painel_1Single painel)
+    
+    public static void p1m(Painel_1Multiple painel){
+        
+        if(w == null) w = new window();
+        w.Page_1Multiple(painel);
+        
+    }//p1m(Painel_1Multiple painel)
+    
+    public static void p2(Painel_2 painel){
+        
+        if(w == null) w = new window();
+        w.Painel_2(painel);
+        
+    }//p2(Painel_2 painel)
+    
 }//controller
