@@ -377,20 +377,23 @@ public class window extends javax.swing.JFrame {
         
         int[] select = list_page1.getSelectedIndices();
         
-        List<Domain> tema = this.pg1m.ListMode();
+        List<Domain> tema = new ArrayList();
         
         if(list_page1.getSelectedIndices().length > 1){
             
-            for(Domain d : this.pg1m.ListMode()){
+            for(int add = 0; add < this.pg1m.ListMode().size(); add++){
                 
-                Domain ad = new Domain(d.index(),d.Text(false));
+                Domain ad = new Domain(
+                    tema.get(add).index(),
+                    tema.get(add).Text(false)
+                );
                 
                 var selected = false;
                 var row = 0;
                 
                 do{
                     
-                    selected = d.index() == select[row];
+                    selected = add == select[row];
                     
                     row++;
                     
