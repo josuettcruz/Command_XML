@@ -378,7 +378,7 @@ public class window extends javax.swing.JFrame {
         
         int[] select = list_page1.getSelectedIndices();
         
-        for(int r = 0; r < select.length; r++) select[r] = 0;
+        //for(int r = 0; r < select.length; r++) select[r] = 0;
         
         List<Domain> tema = this.pg1m.ListMode();
         
