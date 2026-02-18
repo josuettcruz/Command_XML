@@ -377,38 +377,35 @@ public class window extends javax.swing.JFrame {
         
         int[] select = list_page1.getSelectedIndices();
         
-        //for(int r = 0; r < select.length; r++) select[r] = 0;
-        
         List<Domain> tema = this.pg1m.ListMode();
         
-        for(int set = 0; set < tema.size(); set++){
-            
-            Domain d = tema.get(set);
-            d.Select(false);
-            tema.set(set, d);
-            
-        }//for(int set = 0; set < tema.size(); set++) - 1 - 2
-        
         if(list_page1.getSelectedIndices().length > 1){
-        
-        int for_each = 0;
             
-        do{
+            for(Domain d : this.pg1m.ListMode()){
+                
+                Domain ad = new Domain(d.index(),d.Text(false));
+                
+                var selected = false;
+                var row = 0;
+                
+                do{
+                    
+                    selected = d.index() == select[row];
+                    
+                    row++;
+                    
+                }while(!selected && row > 0 && row < select.length);
+                
+                ad.Select(selected);
+                
+                tema.add(ad);
+                
+            }//for(Domain d : this.pg1m.ListMode())
             
-            for(int set = 0; set < tema.size(); set++){
-                
-                Domain d = tema.get(set);
-                
-                if(d.index() == select[for_each]) d.Select(true);
-                
-                tema.set(set, d);
-                
-            }//for(int set = 0; set < tema.size(); set++) - 2 - 2
-                
-            for_each++;
-                
-        }while(for_each > 0 && for_each < select.length);
-        
+        } else {//if(list_page1.getSelectedIndices().length > 1)
+            
+            tema.addAll(this.pg1m.ListMode());
+            
         }//if(list_page1.getSelectedIndices().length > 1)
         
         return tema;
