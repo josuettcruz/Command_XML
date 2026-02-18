@@ -86,7 +86,7 @@ public class window extends javax.swing.JFrame {
     
     private void Tem(int init){
         
-        boolean tem[] = new boolean[3];
+        boolean tem[] = new boolean[2];
         
         for(int exe = 0; exe < tem.length; exe++){
             
@@ -104,7 +104,6 @@ public class window extends javax.swing.JFrame {
         
         initial.setVisible(tem[0]);
         home.setVisible(tem[1]);
-        contain.setVisible(tem[2]);
         
     }//Tem(int init)
     
@@ -602,12 +601,6 @@ public class window extends javax.swing.JFrame {
         home_exit = new javax.swing.JButton();
         home_file = new javax.swing.JTextField();
         home_file_enter = new javax.swing.JButton();
-        contain = new javax.swing.JPanel();
-        title_pg2 = new javax.swing.JLabel();
-        input_pg2 = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        list_page2 = new javax.swing.JTable();
-        active = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -825,89 +818,12 @@ public class window extends javax.swing.JFrame {
                 .addContainerGap(116, Short.MAX_VALUE))
         );
 
-        contain.setMaximumSize(new java.awt.Dimension(600, 600));
-        contain.setMinimumSize(new java.awt.Dimension(600, 600));
-        contain.setPreferredSize(new java.awt.Dimension(600, 600));
-
-        title_pg2.setText("sub-title");
-
-        input_pg2.setText("jTextField1");
-        input_pg2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                input_pg2KeyReleased(evt);
-            }
-        });
-
-        list_page2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        list_page2.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        list_page2.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        list_page2.setUpdateSelectionOnSort(false);
-        list_page2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                list_page2MouseReleased(evt);
-            }
-        });
-        list_page2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                list_page2KeyReleased(evt);
-            }
-        });
-        jScrollPane2.setViewportView(list_page2);
-
-        active.setText("ATIVAR");
-        active.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                activeActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout containLayout = new javax.swing.GroupLayout(contain);
-        contain.setLayout(containLayout);
-        containLayout.setHorizontalGroup(
-            containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(containLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(title_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(input_pg2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-                        .addComponent(active, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        containLayout.setVerticalGroup(
-            containLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(containLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(title_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(input_pg2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(active, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(151, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
             .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(contain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,9 +831,7 @@ public class window extends javax.swing.JFrame {
                 .addComponent(initial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(contain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addContainerGap(658, Short.MAX_VALUE))
         );
 
         pack();
@@ -1132,7 +1046,7 @@ public class window extends javax.swing.JFrame {
             this.pg1_input_user = true;
             
             var pg_1 = this.pg1m.Action(
-                pag1.remove,
+                pag1.add,
                 this.Pg1m(),
                 home_file.getText()
             );
@@ -1250,22 +1164,6 @@ public class window extends javax.swing.JFrame {
         this.Page_1(true);
     }//GEN-LAST:event_list_page1MouseReleased
 
-    private void activeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_activeActionPerformed
-
-    private void input_pg2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_pg2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_input_pg2KeyReleased
-
-    private void list_page2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_list_page2KeyReleased
-
-    private void list_page2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_page2MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_list_page2MouseReleased
-
     /**
      * @param args the command line arguments
      */
@@ -1292,10 +1190,8 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton active;
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
-    private javax.swing.JPanel contain;
     private javax.swing.JPanel home;
     private javax.swing.JButton home_action;
     private javax.swing.JButton home_exit;
@@ -1304,12 +1200,8 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel home_title;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
-    private javax.swing.JTextField input_pg2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> list_page1;
-    private javax.swing.JTable list_page2;
-    private javax.swing.JLabel title_pg2;
     private javax.swing.JLabel txt_1;
     private javax.swing.JLabel txt_10;
     private javax.swing.JLabel txt_2;

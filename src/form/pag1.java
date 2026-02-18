@@ -10,6 +10,6 @@ package form;
  */
 public enum pag1 {
     
-    remove, open, key, enter, delet, backspace;
+    add, remove, open, key, enter, delet, backspace;
     
 }
