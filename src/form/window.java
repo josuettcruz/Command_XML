@@ -470,7 +470,7 @@ public class window extends javax.swing.JFrame {
             home_file.setText(this.pg1m.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
             
-            String[] data = new String[d.isEmpty() ? 2 : this.pg1m.ListMode().size()];
+            String[] data = new String[d.isEmpty() ? 2 : d.size()];
             
             if(d.isEmpty()){
                 
