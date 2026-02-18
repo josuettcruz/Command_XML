@@ -7,7 +7,9 @@ package xml_mf;
 import form.Domain;
 import form.Painel_1Single;
 import form.Painel_1Multiple;
+import form.Painel_2;
 import form.pag1;
+import form.pag2;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ import model.Link;
  *
  * @author josue
  */
-public class Clean implements Painel_1Single, Painel_1Multiple{
+public class Clean implements Painel_1Single, Painel_1Multiple, Painel_2{
 
     @Override
     public String Title(boolean title) {
@@ -102,6 +104,11 @@ public class Clean implements Painel_1Single, Painel_1Multiple{
         System.exit(0);
         return this;
         
+    }
+
+    @Override
+    public Painel_2 Command(pag2 op, Domain value) {
+        return this;
     }
     
 }//Clean
