@@ -659,22 +659,19 @@ public class window extends javax.swing.JFrame {
             
             Painel_2();
             
-        } else if(!this.domo.isEmpty() && num >= 0){
+        } else if(!this.domo.isEmpty() && num >= 0){//if(num >= 0...
             
-            System.err.print("Value:  ");
-            System.err.println(Reg.Numb(num+1));
-            
-            System.err.print("Máximo: ");
-            System.err.println(Reg.Numb(this.domo.size()));
+            System.err.println(Reg.Tab("Valor inserido:", Reg.Numb(num+1), 16));
+            System.err.println(Reg.Tab("Valor máximo:", Reg.Numb(num+1), 16));
             
             System.exit(0);
             
-        } else {
+        } else {//if(num >= 0 && num < this.domo.size() && !this.domo...
             
             System.err.println("Erro inesperado!");
             System.exit(0);
             
-        }
+        }//if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty())
         
     }//p2act(pag2 pg)
 
