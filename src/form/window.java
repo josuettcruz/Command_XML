@@ -650,7 +650,10 @@ public class window extends javax.swing.JFrame {
         
         if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty()){
             
-            Painel_2 doc = this.pg2.Command(pg, domo.get(num));
+            Domain d = domo.get(num);
+            d.Select(true);
+            
+            Painel_2 doc = this.pg2.Command(pg, d);
             
             this.pg2 = doc;
             
