@@ -343,8 +343,6 @@ public class window extends javax.swing.JFrame {
         
         for(Domain ad : view){
             
-            test.add(ad.index());
-            
             boolean acept = true;
             
             if(test.size() > 1){
@@ -363,8 +361,12 @@ public class window extends javax.swing.JFrame {
             
             if(ad.index() < 0) acept = false;
             
-            ad.Select(false);
-            demo.add(new Domain(acept ? ad.index() : -1, ad.Text(false)));
+            if(acept){
+                
+                demo.add(new Domain(ad.index(), ad.Text(false)));
+                test.add(ad.index());
+                
+            }//if(acept)
             
         }//for(Domain insert : view)
         
