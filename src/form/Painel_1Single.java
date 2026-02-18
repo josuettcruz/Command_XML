@@ -38,4 +38,4 @@ public interface Painel_1Single {
         String input
     );
     
-}//Painel_1
+}//Painel_1Single

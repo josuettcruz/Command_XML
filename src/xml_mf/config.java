@@ -286,7 +286,13 @@ public class config implements Painel_1Single, Painel_1Multiple{
     }
 
     @Override
-    public Painel_1Single Abrir(boolean button, int index, String name, String input) {
+    public Painel_1Single Abrir(
+        boolean button,
+        int index,
+        String name,
+        String input
+    )
+    {
         
         this.Exit();
         return new Clean();
@@ -294,7 +300,13 @@ public class config implements Painel_1Single, Painel_1Multiple{
     }
 
     @Override
-    public Painel_1Single Apagar(boolean button, int index, String name, String input) {
+    public Painel_1Single Apagar(
+        boolean button,
+        int index,
+        String name,
+        String input
+    )
+    {
         
         if(this.list.size() > 1 && index >= 0){
             
@@ -326,7 +338,12 @@ public class config implements Painel_1Single, Painel_1Multiple{
     }
 
     @Override
-    public Painel_1Multiple Action(pag1 action, java.util.List<Domain> vol, String input) {
+    public Painel_1Multiple Action(
+        pag1 action,
+        java.util.List<Domain> vol,
+        String input
+    )
+    {
         
         var code = txt.text(input, true);
         
@@ -340,7 +357,11 @@ public class config implements Painel_1Single, Painel_1Multiple{
             this.list.add(new Hora(true).TimerGood(false));
             if(!code.isBlank()){
                 
-                this.list.add(code.trim().length() > 20 ? Reg.Numb(code.trim().length()) : txt.title(code, true));
+                this.list.add(
+                    code.trim().length() > 20
+                    ? Reg.Numb(code.trim().length())
+                    : txt.title(code, true)
+                );
                 
             }
             this.recent = false;
@@ -351,7 +372,12 @@ public class config implements Painel_1Single, Painel_1Multiple{
                 
                 case open, enter, key ->{
                     
-                    if(code.isBlank() || code.equalsIgnoreCase("exit") || code.equalsIgnoreCase("sair")){
+                    if(
+                        code.isBlank()
+                        || code.equalsIgnoreCase("exit")
+                        || code.equalsIgnoreCase("sair")
+                    )
+                    {
                         
                         this.Exit();
                         
@@ -385,7 +411,12 @@ public class config implements Painel_1Single, Painel_1Multiple{
                 
                 case remove, delet, backspace ->{
                     
-                    if(code.isBlank() || code.equalsIgnoreCase("exit") || code.equalsIgnoreCase("sair")){
+                    if(
+                        code.isBlank()
+                        || code.equalsIgnoreCase("exit")
+                        || code.equalsIgnoreCase("sair")
+                    )
+                    {
                         
                         this.Exit();
                         

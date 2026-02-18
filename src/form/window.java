@@ -392,7 +392,6 @@ public class window extends javax.swing.JFrame {
         
         if(list_page1.getSelectedIndices().length > 1){
         
-        boolean selected = false;
         int for_each = 0;
             
         do{
@@ -409,7 +408,7 @@ public class window extends javax.swing.JFrame {
                 
             for_each++;
                 
-        }while(!selected && for_each > 0 && for_each < select.length);
+        }while(for_each > 0 && for_each < select.length);
         
         }//if(list_page1.getSelectedIndices().length > 1)
         
@@ -424,8 +423,6 @@ public class window extends javax.swing.JFrame {
             list_page1.setSelectionMode(
                 javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
             );
-            
-            final var list_empty = this.pg1m.ListMode().isEmpty();
             
             final var max_list = this.pg1m.ListColumn()
                 && this.pg1m.ListMode().size() > 1;
@@ -473,9 +470,9 @@ public class window extends javax.swing.JFrame {
             home_file.setText(this.pg1m.InputText(this.pg1_input_user));
             home_file_enter.setText("ADD");
             
-            String[] data = new String[list_empty ? 2 : this.pg1m.ListMode().size()];
+            String[] data = new String[d.isEmpty() ? 2 : this.pg1m.ListMode().size()];
             
-            if(list_empty){
+            if(d.isEmpty()){
                 
                 for(int dat = 0; dat < data.length; dat++){
                     

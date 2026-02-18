@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public interface Painel_1Multiple {
     
@@ -24,4 +24,4 @@ public interface Painel_1Multiple {
     
     public Painel_1Multiple Action(pag1 action, List<Domain> vol, String input);
     
-}
+}//Painel_1Multiple

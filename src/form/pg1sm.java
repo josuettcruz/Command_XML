@@ -6,7 +6,7 @@ package form;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public enum pg1sm {
     

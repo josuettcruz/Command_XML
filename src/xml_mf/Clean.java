@@ -55,15 +55,31 @@ public class Clean implements Painel_1Single, Painel_1Multiple{
     }
 
     @Override
-    public Painel_1Single Abrir(boolean button, int index, String name, String input) {
+    public Painel_1Single Abrir(
+        boolean button,
+        int index,
+        String name,
+        String input
+    )
+    {
+        
         System.exit(0);
         return this;
+        
     }
 
     @Override
-    public Painel_1Single Apagar(boolean button, int index, String name, String input) {
+    public Painel_1Single Apagar(
+        boolean button,
+        int index,
+        String name,
+        String input
+    )
+    {
+        
         System.exit(0);
         return this;
+        
     }
 
     @Override
@@ -76,9 +92,16 @@ public class Clean implements Painel_1Single, Painel_1Multiple{
     }
 
     @Override
-    public Painel_1Multiple Action(pag1 action, java.util.List<Domain> vol, String input) {
+    public Painel_1Multiple Action(
+        pag1 action,
+        java.util.List<Domain> vol,
+        String input
+    )
+    {
+        
         System.exit(0);
         return this;
+        
     }
     
-}
+}//Clean
