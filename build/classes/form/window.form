@@ -101,7 +101,7 @@
                               <Component id="txt_9" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
                               <Component id="txt_10" alignment="0" min="-2" pref="580" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -256,7 +256,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="home_action" min="-2" pref="380" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="home_exit" pref="191" max="32767" attributes="0"/>
+                          <Component id="home_exit" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
@@ -367,33 +367,33 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="confirm" min="-2" pref="357" max="-2" attributes="0"/>
-                          <EmptySpace pref="30" max="32767" attributes="0"/>
-                          <Component id="cancel" min="-2" pref="186" max="-2" attributes="0"/>
+                          <Component id="confirm" min="-2" pref="314" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="32767" attributes="0"/>
+                          <Component id="cancel" min="-2" pref="206" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="front_title" max="32767" attributes="0"/>
+                      <Component id="front_title" alignment="0" max="32767" attributes="0"/>
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="front_title" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="240" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="front_title" min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" pref="264" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="confirm" pref="66" max="32767" attributes="0"/>
                       <Component id="cancel" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

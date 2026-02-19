@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     
-    private final int mode = 10;
+    private final int mode = 15;
     
     private List<String> list;
     private String input;
@@ -183,6 +183,21 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
+    public java.util.List<Domain> ListMode() {
+        
+        List<Domain> node = new ArrayList();
+        
+        for(int x = 0; x < this.list.size(); x++){
+            
+            node.add(new Domain(x+1,this.list.get(x)));
+            
+        }//for(int x = 0; x < this.list.size(); x++)
+        
+        return node;
+        
+    }
+
+    @Override
     public Font ListFont() {
         
         var max = 0;
@@ -312,21 +327,6 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public java.util.List<Domain> ListMode() {
-        
-        List<Domain> node = new ArrayList();
-        
-        for(int x = 0; x < this.list.size(); x++){
-            
-            node.add(new Domain(x+1,this.list.get(x)));
-            
-        }//for(int x = 0; x < this.list.size(); x++)
-        
-        return node;
-        
-    }
-
-    @Override
     public void Action(
         pag1 action,
         java.util.List<Domain> vol,
@@ -338,37 +338,37 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             case add, enter, open, key ->{
                 
-                List<String> value = new ArrayList();
-                
-                for(Domain d : vol) value.add(d.Text(true));
-                
-                if(!input.trim().isBlank()) value.add(input.trim());
-                
-                controller.p1m(new config(value));
-                
-            }//case
-            
-            case remove, delet, backspace ->{
-                
                 String[] cod = {"sair", "exit", "end"};
-                boolean doc = true;
-                int e = 0;
+                boolean[] doc = new boolean[cod.length+1];
                 
-                do{
+                for(int i = 0; i < doc.length; i++){
                     
-                    doc = cod[e].equalsIgnoreCase(input);
+                    doc[i] = input.trim().equalsIgnoreCase(cod[1]);
                     
-                }while(doc && e > 0 && e < cod.length);
+                }
                 
-                if(doc){
+                doc[cod.length] = input.trim().isBlank();
+                
+                var type = true;
+                
+                for(boolean t : doc){
+                    
+                    if(t){
+                        
+                        type = false;
+                        break;
+                        
+                    }//if(t)
+                    
+                }//for(boolean t : doc)
+                
+                if(type){
                     
                     List<String> v = new ArrayList();
                     
-                    for(Domain d : vol){
-                        
-                        if(!d.Select()) v.add(d.Text(true));
-                        
-                    }
+                    for(Domain d : vol) v.add(d.Text(true));
+                    
+                    v.add(input);
                     
                     controller.p1m(new config(v));
                     
@@ -377,6 +377,26 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                     this.Exit();
                     
                 }
+                
+            }//case
+            
+            case remove, delet, backspace ->{
+                
+                List<String> value = new ArrayList();
+                
+                for(Domain d : vol){
+                    
+                    if(!d.Select()){
+                        
+                        value.add(d.Text(true));
+                        
+                    }//if(!d.Select())
+                    
+                }//for(Domain d : vol)
+                
+                if(!input.trim().isBlank()) value.add(input.trim());
+                
+                controller.p1m(new config(value));
                 
             }//case
             
