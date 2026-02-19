@@ -22,7 +22,7 @@ public interface Painel_1Single {
     
     public boolean ListColumn();
     
-    public void Adicionar(boolean button, String input);
+    public void Adicionar(boolean button, String input, List<String> lt);
     
     public void Abrir(
         boolean button,

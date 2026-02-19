@@ -34,14 +34,33 @@ public class controller {
         
         } catch(Exception e) {
             
+            String err = "Exception\n";
+            err += e.getMessage().replace("\"", "\n");
+            err += "\n-- ";
+            err += Reg.Numb(e.hashCode());
+            err += " --";
+            
+            if(
+                e.getLocalizedMessage() != null
+                && e.getLocalizedMessage().equalsIgnoreCase(err)
+            )
+            {
+                
+                err += e.getLocalizedMessage();
+                
+            }//if(e.getLocalizedMessage() != null && e.getLocalizedMessage()...
+                
+            if(w != null){
+                
+                w.Page_0("Exception", err);
+                
+            }
+            
             if(Reg.java){
                 
-                System.err.println("Exception");
-                System.err.println(new Data().DataCompleta(false));
-                System.err.println(new Hora(true).TimerGood(true));
-                System.err.println();
-                System.err.println("Exception");
-                System.err.println(e.getMessage());
+                for(String message : txt.text(err, true).split("\n")){
+                    System.err.println(message);
+                }
                 
             }//if(println)
             

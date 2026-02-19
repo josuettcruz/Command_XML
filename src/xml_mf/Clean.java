@@ -51,7 +51,7 @@ public class Clean implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public void Adicionar(boolean button, String input) {
+    public void Adicionar(boolean button, String input, List<String> lt) {
         System.exit(0);
     }
 

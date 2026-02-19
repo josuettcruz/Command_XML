@@ -436,7 +436,7 @@ public class window extends javax.swing.JFrame {
             
             this.domo.clear();
             
-            this.domo.addAll(this.pg1m.ListMode());
+            this.domo.addAll(this.Domo(this.pg1m.ListMode()));
 
             setTitle(this.pg1m.Title(true));
 
@@ -592,7 +592,7 @@ public class window extends javax.swing.JFrame {
         if(this.pg2 != null){
             
             this.domo.clear();
-            this.domo.addAll(pg2.ListMode());
+            this.domo.addAll(this.pg1m.ListMode());
             
             front_list.setSelectionMode(
                 javax.swing.ListSelectionModel.SINGLE_SELECTION
@@ -604,7 +604,7 @@ public class window extends javax.swing.JFrame {
             
             front_list.setFont(pg2.ListFont());
             
-            if(pg2.ListMode().size() > 1){
+            if(this.domo.size() > 1){
                 
                 final var max = this.domo.size();
                 
@@ -1103,7 +1103,11 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1s.Adicionar(false, home_file.getText());
+                    this.pg1s.Adicionar(
+                        false,
+                        home_file.getText().trim(),
+                        this.pg1s.List()
+                    );
                     
                 } else if(this.pg1m != null && this.pg1sm == multiple){
                     
@@ -1199,7 +1203,11 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1s.Adicionar(true, home_file.getText());
+            this.pg1s.Adicionar(
+                true,
+                home_file.getText().trim(),
+                this.pg1s.List()
+            );
             
         } else if(this.pg1m != null && this.pg1sm == multiple){
             

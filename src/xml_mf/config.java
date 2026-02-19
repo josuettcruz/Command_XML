@@ -65,7 +65,8 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         this.input = form;
         
-        this.list = value;
+        this.list = new ArrayList();
+        this.list.addAll(value);
         
     }//Enter()
     
@@ -226,9 +227,11 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public void Adicionar(boolean button, String input) {
+    public void Adicionar(boolean button, String input, List<String> lt) {
         
         List<String> value = new ArrayList();
+        
+        value.addAll(lt);
         
         var m = txt.phrase(input, true).size();
         
@@ -296,6 +299,8 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         List<String> value = new ArrayList();
         
+        value.addAll(lt);
+        
         for(int i = 0; i < lt.size(); i++){
             
             if(i != index) value.add(lt.get(i));
@@ -329,31 +334,53 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     )
     {
         
-        List<String> value = new ArrayList();
-        
         switch(action){
             
             case add, enter, open, key ->{
                 
+                List<String> value = new ArrayList();
+                
                 for(Domain d : vol) value.add(d.Text(true));
+                
+                if(!input.trim().isBlank()) value.add(input.trim());
+                
+                controller.p1m(new config(value));
                 
             }//case
             
             case remove, delet, backspace ->{
                 
-                for(Domain d : vol){
+                String[] cod = {"sair", "exit", "end"};
+                boolean doc = true;
+                int e = 0;
+                
+                do{
                     
-                    if(!d.Select()) value.add(d.Text(true));
+                    doc = cod[e].equalsIgnoreCase(input);
+                    
+                }while(doc && e > 0 && e < cod.length);
+                
+                if(doc){
+                    
+                    List<String> v = new ArrayList();
+                    
+                    for(Domain d : vol){
+                        
+                        if(!d.Select()) v.add(d.Text(true));
+                        
+                    }
+                    
+                    controller.p1m(new config(v));
+                    
+                } else {
+                    
+                    this.Exit();
                     
                 }
                 
             }//case
             
         }//switch(action)
-        
-        if(!input.trim().isBlank()) value.add(input.trim());
-        
-        controller.p1m(new config(value));
         
     }
 
