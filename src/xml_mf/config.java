@@ -8,6 +8,8 @@ import model.*;
 import form.Domain;
 import form.Painel_1Single;
 import form.Painel_1Multiple;
+import form.Painel_2;
+import form.controller;
 import form.pag1;
 
 import static form.pag1.remove;
@@ -16,6 +18,7 @@ import static form.pag1.key;
 import static form.pag1.enter;
 import static form.pag1.delet;
 import static form.pag1.backspace;
+import form.pag2;
 
 import java.awt.Font;
 
@@ -26,7 +29,7 @@ import java.util.List;
  *
  * @author josue
  */
-public class config implements Painel_1Single, Painel_1Multiple{
+public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     
     private List<String> list;
     private String input;
@@ -345,126 +348,99 @@ public class config implements Painel_1Single, Painel_1Multiple{
     )
     {
         
-        var code = txt.text(input, true);
-        
-        if(this.recent){//if(code.isBlank())
+        switch(action){
             
-            this.list.clear();
-            this.list.add(new Hora(true).TimerGood(false));
-            if(!code.isBlank()){
+            case remove, delet, backspace -> {
                 
-                this.list.add(
-                    code.trim().length() > 20
-                    ? Reg.Numb(code.trim().length())
-                    : txt.title(code, true)
-                );
+                var acept = false;
+                var ad = 0;
                 
-            }
-            this.recent = false;
+                do{
+                    
+                    acept = vol.get(ad).Select();
+                    ad++;
+                    
+                }while(!acept && ad > 0 && ad < vol.size());
+                
+                if(acept){
+                    
+                    this.list.clear();
+                    
+                    for(Domain d : vol){
+                        
+                        if(!d.Select()) this.list.add(d.Text(true));
+                        
+                    }//for(Domain d : vol)
+                    
+                } else if(txt.text(input, true).isBlank()){//if(acept)
+                    
+                    this.list.clear();
+                    
+                    this.list.add(new Hora(true).TimerGood(false));
+                    
+                } else {//if(acept)
+                    
+                    this.list.add(txt.arq(input));
+                    
+                }//if(acept)
+                
+            }//case - 1 - 2
             
-        } else {//if(code.isBlank())
+            case add, open, key, enter ->{
+                
+                var text = txt.text(input, true);
+                
+                var par = txt.phrase(text, true).size();
+                
+                if(this.recent){
+                    
+                    this.list.clear();
+                    this.recent = false;
+                    
+                }//if(this.recent)
+                
+                if(text.isBlank()){
+                    
+                    this.Exit();
+                    
+                } else if(text.length() >= 190){
+                    
+                    this.list.add(Reg.Numb(text.length(), 100000));
+                    
+                } else if(par == 1){
+                    
+                    this.list.add(txt.arq(text).toUpperCase());
+                    
+                } else if(par <= 5){
+                    
+                    this.list.add(txt.title(text, true));
+                    
+                } else if(par <= 10){
+                    
+                    this.list.add(txt.arq(text));
+                    
+                } else {
+                    
+                    this.list.add(Reg.Numb(par, 100000));
+                    
+                }
             
-            switch(action){
-                
-                case add, open, enter, key ->{
-                    
-                    if(
-                        code.isBlank()
-                        || code.equalsIgnoreCase("exit")
-                        || code.equalsIgnoreCase("sair")
-                    )
-                    {
-                        
-                        this.Exit();
-                        
-                    } else {
-                        
-                        var acept = false;
-                        var ok = 0;
-                        
-                        do{
-
-                            acept = vol.get(ok).Select();
-                            ok++;
-
-                        }while(!acept && ok > 0 && ok < vol.size());
-                        
-                        if(acept){
-
-                            for(Domain a : vol){
-
-                                if(a.Select()){
-                                    this.list.add(a.Text(true));
-                                }
-
-                            }//for(Domain a : vol)
-                            
-                        }//if(acept)
-                        
-                    }//if(code.isBlank() || code.equalsIgnoreCase("exit"...
-                    
-                }//case
-                
-                case remove, delet, backspace ->{
-                    
-                    var selected = false;
-                    var procv = 0;
-                    
-                    do{
-                        
-                        selected = vol.get(procv).Select();
-                        procv++;
-                        
-                    }while(!selected && procv > 0 && procv < vol.size());
-                    
-                    if(selected){
-                        
-                        this.list.clear();
-                        
-                        for(Domain d : vol){
-                            
-                            if(d.Select()) this.list.add(d.Text(true));
-                            
-                        }//for(Domain d : vol)
-                        
-                    } else {//if(selected)
-                        
-                        this.list.add(Hora.Good());
-                        
-                    }//if(selected)
-                    
-                }//case
-                
-            }//switch(action)
+            }//case - 2 - 2
             
-            int m = txt.phrase(code, true).size();
-            
-            if(code.length() >= 100){
-                
-                this.list.add(Reg.Numb(code.trim().length()));
-                
-            } else if(m == 1){
-                
-                this.list.add(
-                    txt.arq(code).toUpperCase()
-                    + " - "
-                    + Reg.Numb(code.trim().length())
-                    + " letras!"
-                );
-                
-            } else if(m <= 5){
-                
-                this.list.add(txt.title(code, true));
-                
-            } else {
-                
-                this.list.add(txt.arq(code));
-                
-            }
-            
-        }//if(code.isBlank())
+        }//switch(action)
         
         return this;
+        
+    }
+
+    @Override
+    public Painel_2 Command(pag2 op, Domain value) {
+        
+        this.list.add(value.Text(true));
+        
+        controller.p1m(this);
+        
+        return new Clean();
         
     }
     
