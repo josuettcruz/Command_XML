@@ -290,37 +290,43 @@ public class init {
                 m--
             )
             {
-
+                
                 var nom = dt;
                 nom += "_";
                 nom += Reg.Numb(h);
                 nom += "-";
                 nom += Reg.Numb(m);
-
+                
                 q.add(nom);
-
+                
+                var simple = Reg.Numb(h);
+                simple += "-";
+                simple += Reg.Numb(m);
+                
+                q.add(simple);
+                
                 for(String g : arqv){
-
+                    
                     var dm = g;
                     dm += "_";
                     dm += nom;
-
+                    
                     q.add(dm);
-
+                    
                     if(dm.length() > tot) tot = dm.length();
-
+                    
                 }//for(String g : arqv) - 1 de 2
-
+                
                 for(String g : arqv){
-
+                    
                     var dm = g.toUpperCase();
                     dm += " - ";
                     dm += nom;
-
+                    
                     q.add(dm);
-
+                    
                     if(dm.length() > tot) tot = dm.length();
-
+                    
                 }//for(String g : arqv) - 2 de 2
 
                 var node = dt;
