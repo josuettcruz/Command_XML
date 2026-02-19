@@ -1039,7 +1039,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialKeyTyped
 
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
-        // TODO add your handling code here:
+        //// TODO add your handling code here:
     }//GEN-LAST:event_initialMouseReleased
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
