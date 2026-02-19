@@ -18,6 +18,6 @@ public interface Painel_2 {
     
     public List<Domain> ListMode();
     
-    public Painel_2 Command(pag2 op, Domain value);
+    public void Command(pag2 op, Domain value);
     
 }//Painel_2

@@ -14,7 +14,7 @@ public interface Painel_1Single {
     
     public String Title(boolean title);
     
-    public String InputText(boolean user);
+    public String InputText();
     
     public List<String> List();
     
@@ -22,19 +22,19 @@ public interface Painel_1Single {
     
     public boolean ListColumn();
     
-    public Painel_1Single Adicionar(boolean button, String input);
+    public void Adicionar(boolean button, String input);
     
-    public Painel_1Single Abrir(
+    public void Abrir(
         boolean button,
         int index,
-        String name,
+        List<String> lt,
         String input
     );
     
-    public Painel_1Single Apagar(
+    public void Apagar(
         boolean button,
         int index,
-        String name,
+        List<String> lt,
         String input
     );
     

@@ -34,7 +34,6 @@ public class window extends javax.swing.JFrame {
     
     private Painel_1Single pg1s;
     private Painel_1Multiple pg1m;
-    private boolean pg1_input_user = false;
     private pg1sm pg1sm;
     
     private List<Domain> domo;
@@ -285,7 +284,7 @@ public class window extends javax.swing.JFrame {
             home_file.setForeground(Color.black);
             home_file_enter.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setText(this.pg1s.InputText(this.pg1_input_user));
+            home_file.setText(this.pg1s.InputText());
             home_file_enter.setText("ADD");
             
             String[] data = new String[list_empty ? 2 : this.pg1s.List().size()];
@@ -475,7 +474,7 @@ public class window extends javax.swing.JFrame {
             home_file.setForeground(Color.black);
             home_file_enter.setForeground(Color.decode("#f0f8ff"));
 
-            home_file.setText(this.pg1m.InputText(this.pg1_input_user));
+            home_file.setText(this.pg1m.InputText());
             home_file_enter.setText("ADD");
             
             String[] data = new String[
@@ -653,11 +652,7 @@ public class window extends javax.swing.JFrame {
             Domain d = domo.get(num);
             d.Select(true);
             
-            Painel_2 doc = this.pg2.Command(pg, d);
-            
-            this.pg2 = doc;
-            
-            Painel_2();
+            this.pg2.Command(pg, d);
             
         } else if(!this.domo.isEmpty() && num >= 0){//if(num >= 0...
             
@@ -1046,28 +1041,20 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1_input_user = true;
-            
-            var pg_1 = this.pg1s.Apagar(
+            this.pg1s.Apagar(
                 true,
                 list_page1.getSelectedIndex(),
-                list_page1.getSelectedValue(),
+                this.pg1s.List(),
                 home_file.getText()
             );
             
-            this.Page_1Single(pg_1);
-            
         } else if(this.pg1m != null && this.pg1sm == multiple){
             
-            this.pg1_input_user = true;
-            
-            var pg_1 = this.pg1m.Action(
+            this.pg1m.Action(
                 pag1.remove,
                 this.Pg1m(),
                 home_file.getText()
             );
-            
-            this.Page_1Multiple(pg_1);
             
         } else {
             
@@ -1081,28 +1068,20 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1_input_user = true;
-            
-            var pg_1 = pg1s.Abrir(
+            pg1s.Abrir(
                 true,
                 list_page1.getSelectedIndex(),
-                list_page1.getSelectedValue(),
+                this.pg1s.List(),
                 home_file.getText()
             );
             
-            this.Page_1Single(pg_1);
-            
         } else if(this.pg1m != null && this.pg1sm == multiple){
             
-            this.pg1_input_user = true;
-            
-            var pg_1 = this.pg1m.Action(
+            this.pg1m.Action(
                 pag1.open,
                 this.Pg1m(),
                 home_file.getText()
             );
-            
-            this.Page_1Multiple(pg_1);
             
         } else {
             
@@ -1124,21 +1103,15 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1_input_user = true;
-                    var pg_1 = this.pg1s.Adicionar(false, home_file.getText());
-                    this.Page_1Single(pg_1);
+                    this.pg1s.Adicionar(false, home_file.getText());
                     
                 } else if(this.pg1m != null && this.pg1sm == multiple){
                     
-                    this.pg1_input_user = true;
-                    
-                    var pg_1 = this.pg1m.Action(
+                    this.pg1m.Action(
                         pag1.key,
                         this.Pg1m(),
                         home_file.getText()
                     );
-                    
-                    this.Page_1Multiple(pg_1);
                     
                 } else {
                     
@@ -1226,21 +1199,15 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1_input_user = true;
-            var pg_1 = this.pg1s.Adicionar(true, home_file.getText());
-            this.Page_1Single(pg_1);
+            this.pg1s.Adicionar(true, home_file.getText());
             
         } else if(this.pg1m != null && this.pg1sm == multiple){
             
-            this.pg1_input_user = true;
-            
-            var pg_1 = this.pg1m.Action(
+            this.pg1m.Action(
                 pag1.add,
                 this.Pg1m(),
                 home_file.getText()
             );
-            
-            this.Page_1Multiple(pg_1);
             
         } else {
             
@@ -1260,33 +1227,27 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    var pg_1 = pg1s.Abrir(
+                    pg1s.Abrir(
                         false,
                         list_page1.getSelectedIndex(),
-                        list_page1.getSelectedValue(),
+                        this.pg1s.List(),
                         home_file.getText()
                     );
-                    
-                    this.Page_1Single(pg_1);
                     
                     this.Page_1(false, "ABRIR");
                     
                 } else if(this.pg1m != null && this.pg1sm == multiple){
 
-                    this.pg1_input_user = true;
-
-                    var pg_1 = this.pg1m.Action(
+                    this.pg1m.Action(
                         pag1.enter,
                         this.Pg1m(),
                         home_file.getText()
                     );
 
-                    this.Page_1Multiple(pg_1);
-
                 } else {
-                    
-                    this.pg1_input_user = true;
-                    
+
+                    this.Page_1(false, "ABRIR");
+
                 }
                 
             }
@@ -1295,28 +1256,20 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1_input_user = true;
-                    
-                    var pg_1 = pg1s.Apagar(
+                    pg1s.Apagar(
                         false,
                         list_page1.getSelectedIndex(),
-                        list_page1.getSelectedValue(),
+                        this.pg1s.List(),
                         home_file.getText()
                     );
                     
-                    this.Page_1Single(pg_1);
-                    
                 } else if(this.pg1m != null && this.pg1sm == multiple){
 
-                    this.pg1_input_user = true;
-
-                    var pg_1 = this.pg1m.Action(
+                    this.pg1m.Action(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
                         this.Pg1m(),
                         home_file.getText()
                     );
-
-                    this.Page_1Multiple(pg_1);
 
                 } else {
                     

@@ -14,7 +14,7 @@ public interface Painel_1Multiple {
     
     public String Title(boolean title);
     
-    public String InputText(boolean user);
+    public String InputText();
     
     public List<Domain> ListMode();
     
@@ -22,6 +22,6 @@ public interface Painel_1Multiple {
     
     public boolean ListColumn();
     
-    public Painel_1Multiple Action(pag1 action, List<Domain> vol, String input);
+    public void Action(pag1 action, List<Domain> vol, String input);
     
 }//Painel_1Multiple

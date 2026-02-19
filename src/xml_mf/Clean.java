@@ -29,7 +29,7 @@ public class Clean implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public String InputText(boolean user) {
+    public String InputText() {
         return "";
     }
 
@@ -51,36 +51,33 @@ public class Clean implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public Painel_1Single Adicionar(boolean button, String input) {
+    public void Adicionar(boolean button, String input) {
         System.exit(0);
-        return this;
     }
 
     @Override
-    public Painel_1Single Abrir(
+    public void Abrir(
         boolean button,
         int index,
-        String name,
+        List<String> lt,
         String input
     )
     {
         
         System.exit(0);
-        return this;
         
     }
 
     @Override
-    public Painel_1Single Apagar(
+    public void Apagar(
         boolean button,
         int index,
-        String name,
+        List<String> lt,
         String input
     )
     {
         
         System.exit(0);
-        return this;
         
     }
 
@@ -94,7 +91,7 @@ public class Clean implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public Painel_1Multiple Action(
+    public void Action(
         pag1 action,
         java.util.List<Domain> vol,
         String input
@@ -102,13 +99,12 @@ public class Clean implements Painel_1Single, Painel_1Multiple, Painel_2{
     {
         
         System.exit(0);
-        return this;
         
     }
 
     @Override
-    public Painel_2 Command(pag2 op, Domain value) {
-        return this;
+    public void Command(pag2 op, Domain value) {
+        System.exit(0);
     }
     
 }//Clean

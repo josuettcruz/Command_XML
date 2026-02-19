@@ -19,6 +19,11 @@ import static form.pag1.enter;
 import static form.pag1.delet;
 import static form.pag1.backspace;
 import form.pag2;
+import static form.pag2.backspace;
+import static form.pag2.cancel;
+import static form.pag2.confirm;
+import static form.pag2.del;
+import static form.pag2.enter;
 
 import java.awt.Font;
 
@@ -31,24 +36,36 @@ import java.util.List;
  */
 public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     
+    private final int mode = 10;
+    
     private List<String> list;
     private String input;
-    
-    private List<String> dom;
-    
-    boolean recent;
+    private boolean week;
     
     public config(){
         
         this.input = "";
-        this.recent = true;
         
-        this.dom = new ArrayList();
+        this.week = true;
         
         this.list = new ArrayList();
         this.list.add(new Data().DataAbreviada(true));
-        this.list.add(new Hora(true).TimerGood(false));
-        this.list.add("Nenhum item ainda!");
+        
+    }//Enter()
+    
+    public config(List<String> value){
+        
+        var form = "";
+        
+        this.week = false;
+        
+        if(value.size() > 1 && value.size() <= this.mode){
+            form = value.get(value.size()-1);
+        }
+        
+        this.input = form;
+        
+        this.list = value;
         
     }//Enter()
     
@@ -148,14 +165,14 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     @Override
     public String Title(boolean title) {
         
-        return title
-            ? Reg.modify.DataAbreviada(true)
-            : new Data().DataCompleta(this.recent);
+        Data d = new Data();
+        
+        return title ? d.DataAbreviada(this.week) : d.DataCompleta(this.week);
         
     }
 
     @Override
-    public String InputText(boolean user) {
+    public String InputText() {
         return this.input;
     }
 
@@ -171,7 +188,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         for(String t : this.list) if(t.length() > max) max = t.length();
         
-        if(this.recent){
+        if(max <= 10){
             
             return new java.awt.Font("Arial Black", 0, 18);
             
@@ -205,11 +222,13 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
 
     @Override
     public boolean ListColumn() {
-        return this.list.size() > 10 && !this.recent;
+        return this.list.size() > this.mode;
     }
 
     @Override
-    public Painel_1Single Adicionar(boolean button, String input) {
+    public void Adicionar(boolean button, String input) {
+        
+        List<String> value = new ArrayList();
         
         var m = txt.phrase(input, true).size();
         
@@ -219,14 +238,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         } else if(m == 1 && input.trim().length() > 10){
             
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(
+            value.add(
                 "\""
                 + Reg.Numb(txt.arq(input).length(), 100000)
                 + "\" - "
@@ -235,25 +247,11 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         } else if(m == 1){
             
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(txt.arq(input));
+            value.add(txt.arq(input));
             
         } else if(input.length() > 100){
             
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(
+            value.add(
                 "\""
                 + Reg.Numb(txt.arq(input).length(), 100000)
                 + "\" - "
@@ -262,66 +260,49 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         } else if(m <= 5){
             
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(txt.title(input.replace("'", "\""), true));
+            value.add(txt.title(input.replace("'", "\""), true));
             
         } else {
             
-            if(this.recent){
-                
-                this.list.clear();
-                this.recent = false;
-                
-            }//if(this.recent)
-            
-            this.list.add(txt.arq(input));
+            value.add(txt.arq(input));
             
         }
         
-        return this;
+        controller.p1s(new config(value));
         
     }
 
     @Override
-    public Painel_1Single Abrir(
+    public void Abrir(
         boolean button,
         int index,
-        String name,
+        List<String> lt,
         String input
     )
     {
         
         this.Exit();
-        return new Clean();
         
     }
 
     @Override
-    public Painel_1Single Apagar(
+    public void Apagar(
         boolean button,
         int index,
-        String name,
+        List<String> lt,
         String input
     )
     {
         
-        if(this.list.size() > 1 && index >= 0){
+        List<String> value = new ArrayList();
+        
+        for(int i = 0; i < lt.size(); i++){
             
-            this.list.remove(index);
-            return this;
+            if(i != index) value.add(lt.get(i));
             
-        } else {//if(this.list.size() > 1 && index >= 0)
-            
-            this.Exit();
-            return new Clean();
-            
-        }//if(this.list.size() > 1 && index >= 0)
+        }
+        
+        controller.p1s(new config(value));
         
     }
 
@@ -341,106 +322,51 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public Painel_1Multiple Action(
+    public void Action(
         pag1 action,
         java.util.List<Domain> vol,
         String input
     )
     {
         
+        List<String> value = new ArrayList();
+        
         switch(action){
             
-            case remove, delet, backspace -> {
+            case add, enter, open, key ->{
                 
-                var acept = false;
-                var ad = 0;
+                for(Domain d : vol) value.add(d.Text(true));
                 
-                do{
-                    
-                    acept = vol.get(ad).Select();
-                    ad++;
-                    
-                }while(!acept && ad > 0 && ad < vol.size());
-                
-                if(acept){
-                    
-                    this.list.clear();
-                    
-                    for(Domain d : vol){
-                        
-                        if(!d.Select()) this.list.add(d.Text(true));
-                        
-                    }//for(Domain d : vol)
-                    
-                } else if(txt.text(input, true).isBlank()){//if(acept)
-                    
-                    this.list.clear();
-                    
-                    this.list.add(new Hora(true).TimerGood(false));
-                    
-                } else {//if(acept)
-                    
-                    this.list.add(txt.arq(input));
-                    
-                }//if(acept)
-                
-            }//case - 1 - 2
+            }//case
             
-            case add, open, key, enter ->{
+            case remove, delet, backspace ->{
                 
-                var text = txt.text(input, true);
-                
-                var par = txt.phrase(text, true).size();
-                
-                if(this.recent){
+                for(Domain d : vol){
                     
-                    this.list.clear();
-                    this.recent = false;
-                    
-                }//if(this.recent)
-                
-                if(text.isBlank()){
-                    
-                    this.Exit();
-                    
-                } else if(text.length() >= 190){
-                    
-                    this.list.add(Reg.Numb(text.length(), 100000));
-                    
-                } else if(par == 1){
-                    
-                    this.list.add(txt.arq(text).toUpperCase());
-                    
-                } else if(par <= 5){
-                    
-                    this.list.add(txt.title(text, true));
-                    
-                } else if(par <= 10){
-                    
-                    this.list.add(txt.arq(text));
-                    
-                } else {
-                    
-                    this.list.add(Reg.Numb(par, 100000));
+                    if(!d.Select()) value.add(d.Text(true));
                     
                 }
-            
-            }//case - 2 - 2
+                
+            }//case
             
         }//switch(action)
         
-        return this;
+        if(!input.trim().isBlank()) value.add(input.trim());
+        
+        controller.p1m(new config(value));
         
     }
 
     @Override
-    public Painel_2 Command(pag2 op, Domain value) {
+    public void Command(pag2 op, Domain value) {
         
-        this.list.add(value.Text(true));
-        
-        controller.p1m(this);
-        
-        return new Clean();
+        switch(op){
+            
+            case confirm, enter -> controller.p1m(new config());
+            
+            case cancel, del, backspace -> controller.p1m(new config());
+            
+        }//switch(op)
         
     }
     
