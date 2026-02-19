@@ -212,7 +212,7 @@ public class window extends javax.swing.JFrame {
         Page_1_String1 += "\"";
         
         var Page_1_String2 = "Impossível executar a ação do ";
-        Page_1_String2 += button ? "mouse" : "teclase";
+        Page_1_String2 += button ? "mouse" : "teclado";
         Page_1_String2 += "!";
         
         Reg.Print(Page_1_String1, Page_1_String2);
@@ -379,7 +379,7 @@ public class window extends javax.swing.JFrame {
         
     }//Page_1(List<Domain> view)
     
-    public List<Domain> Pg1m(){
+    public List<Domain> Pg1m(List<Domain> doc){
         
         int[] select = list_page1.getSelectedIndices();
         
@@ -387,11 +387,11 @@ public class window extends javax.swing.JFrame {
         
         if(select.length > 1){
             
-            for(int add = 0; add < this.domo.size(); add++){
+            for(int add = 0; add < doc.size(); add++){
                 
                 Domain ad = new Domain(
-                    this.domo.get(add).index(),
-                    this.domo.get(add).Text(false)
+                    doc.get(add).index(),
+                    doc.get(add).Text(false)
                 );
                 
                 var selected = false;
@@ -592,7 +592,7 @@ public class window extends javax.swing.JFrame {
         if(this.pg2 != null){
             
             this.domo.clear();
-            this.domo.addAll(this.pg1m.ListMode());
+            this.domo.addAll(this.Domo(this.pg2.ListMode()));
             
             front_list.setSelectionMode(
                 javax.swing.ListSelectionModel.SINGLE_SELECTION
@@ -1052,7 +1052,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1m.Action(
                 pag1.remove,
-                this.Pg1m(),
+                this.Pg1m(this.pg1m.ListMode()),
                 home_file.getText()
             );
             
@@ -1079,7 +1079,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1m.Action(
                 pag1.open,
-                this.Pg1m(),
+                this.Pg1m(this.pg1m.ListMode()),
                 home_file.getText()
             );
             
@@ -1113,7 +1113,7 @@ public class window extends javax.swing.JFrame {
                     
                     this.pg1m.Action(
                         pag1.key,
-                        this.Pg1m(),
+                        this.Pg1m(this.pg1m.ListMode()),
                         home_file.getText()
                     );
                     
@@ -1213,7 +1213,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1m.Action(
                 pag1.add,
-                this.Pg1m(),
+                this.Pg1m(this.pg1m.ListMode()),
                 home_file.getText()
             );
             
@@ -1248,7 +1248,7 @@ public class window extends javax.swing.JFrame {
 
                     this.pg1m.Action(
                         pag1.enter,
-                        this.Pg1m(),
+                        this.Pg1m(this.pg1m.ListMode()),
                         home_file.getText()
                     );
 
@@ -1275,7 +1275,7 @@ public class window extends javax.swing.JFrame {
 
                     this.pg1m.Action(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                        this.Pg1m(),
+                        this.Pg1m(this.pg1m.ListMode()),
                         home_file.getText()
                     );
 
