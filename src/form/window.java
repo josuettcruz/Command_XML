@@ -623,6 +623,8 @@ public class window extends javax.swing.JFrame {
             
             Tem(2);
             
+            front_list.requestFocus();
+            
         }//if(this.pg2 != null)
         
     }//Painel_2()
