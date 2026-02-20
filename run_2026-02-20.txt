@@ -1,0 +1,30 @@
+Código funcionando, mas existe alguns erros internos!
+Exception in thread "AWT-EventQueue-0" java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1!
+At java.desktop/javax.swing.plaf.basic.BasicListUI.updateLayoutState(BasicListUI.java:1451)!
+At java.desktop/javax.swing.plaf.basic.BasicListUI.maybeUpdateLayoutState(BasicListUI.java:1394)!
+At java.desktop/javax.swing.plaf.basic.BasicListUI.getPreferredSize(BasicListUI.java:653)!
+At java.desktop/javax.swing.JComponent.getPreferredSize(JComponent.java:1725)!
+At java.desktop/javax.swing.ScrollPaneLayout.layoutContainer(ScrollPaneLayout.java:799)!
+At java.desktop/java.awt.Container.layout(Container.java:1541)!
+At java.desktop/java.awt.Container.doLayout(Container.java:1530)!
+At java.desktop/java.awt.Container.validateTree(Container.java:1725)!
+At java.desktop/java.awt.Container.validate(Container.java:1660)!
+At java.desktop/javax.swing.RepaintManager$3.run(RepaintManager.java:757)!
+At java.desktop/javax.swing.RepaintManager$3.run(RepaintManager.java:755)!
+At java.base/java.security.AccessController.doPrivileged(AccessController.java:399)!
+At java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)!
+At java.desktop/javax.swing.RepaintManager.validateInvalidComponents(RepaintManager.java:754)!
+At java.desktop/javax.swing.RepaintManager$ProcessingRunnable.run(RepaintManager.java:1897)!
+At java.desktop/java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318)!
+At java.desktop/java.awt.EventQueue.dispatchEventImpl(EventQueue.java:771)!
+At java.desktop/java.awt.EventQueue$4.run(EventQueue.java:722)!
+At java.desktop/java.awt.EventQueue$4.run(EventQueue.java:716)!
+At java.base/java.security.AccessController.doPrivileged(AccessController.java:399)!
+At java.base/java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:86)!
+At java.desktop/java.awt.EventQueue.dispatchEvent(EventQueue.java:741)!
+At java.desktop/java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203)!
+At java.desktop/java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124)!
+At java.desktop/java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113)!
+At java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109)!
+At java.desktop/java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)!
+At java.desktop/java.awt.EventDispatchThread.run(EventDispatchThread.java:90)!
