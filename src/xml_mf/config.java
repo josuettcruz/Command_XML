@@ -411,7 +411,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             case confirm, enter -> controller.p1m(new config());
             
-            case cancel, del, backspace -> controller.p1m(new config());
+            case cancel, del, backspace -> controller.p1s(new config());
             
         }//switch(op)
         
