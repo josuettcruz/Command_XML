@@ -24,20 +24,4 @@ public interface Painel_1Single {
     
     public void Button(pag1 action, int index, List<String> vol, String input);
     
-    public void Adicionar(boolean button, String input, List<String> lt);
-    
-    public void Abrir(
-        boolean button,
-        int index,
-        List<String> lt,
-        String input
-    );
-    
-    public void Apagar(
-        boolean button,
-        int index,
-        List<String> lt,
-        String input
-    );
-    
 }//Painel_1Single

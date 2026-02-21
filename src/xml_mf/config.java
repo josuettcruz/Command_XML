@@ -11,13 +11,20 @@ import form.Painel_1Multiple;
 import form.Painel_2;
 import form.controller;
 import form.pag1;
+import static form.pag1.add;
+import static form.pag1.backspace;
 
 import static form.pag1.remove;
 import static form.pag1.open;
 import static form.pag1.key;
 import static form.pag1.enter;
 import static form.pag1.delet;
-import static form.pag1.backspace;
+import static form.pag1.delet;
+import static form.pag1.enter;
+import static form.pag1.key;
+import static form.pag1.open;
+import static form.pag1.remove;
+
 import form.pag2;
 import static form.pag2.backspace;
 import static form.pag2.cancel;
@@ -60,10 +67,21 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         this.week = false;
         
         if(value.size() > 1 && value.size() <= this.mode){
-            form = value.get(value.size()-1);
+            form = this.Submit(value.get(value.size()-1));
         }
         
         this.input = form;
+        
+        this.list = new ArrayList();
+        this.list.addAll(value);
+        
+    }//Enter()
+    
+    public config(List<String> value, String input){
+        
+        this.input = input;
+        
+        this.week = true;
         
         this.list = new ArrayList();
         this.list.addAll(value);
@@ -162,6 +180,40 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         System.exit(0);
         
     }//Exit()
+    
+    private String Submit(String input){
+        
+        var val = input.replace("_", " ").replace("-", " ");
+        
+        var m = txt.phrase(val, true).size();
+        
+        if(val.length() > 100 && m == 1){
+            
+            return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
+            
+        } else if(val.length() > 100){
+            
+            return txt.arq(val).toUpperCase();
+            
+        } else if(m == 1){
+            
+            return txt.capitalize(val);
+            
+        } else if(m < 5){
+            
+            return txt.title(val, true);
+            
+        } else if(m == 5){
+            
+            return txt.text(val, true);
+            
+        } else {
+            
+            return txt.arq(val);
+            
+        }
+        
+    }//Submit(String input)
 
     @Override
     public String Title(boolean title) {
@@ -228,107 +280,86 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             return new java.awt.Font("Times New Roman", 0, 12);
             
-        } else {
+        } else if(max < 150){
             
             return new java.awt.Font("Times New Roman", 0, 10);
             
-        }
-        
-    }
-
-    @Override
-    public boolean ListColumn() {
-        return this.list.size() > this.mode;
-    }
-
-    @Override
-    public void Adicionar(boolean button, String input, List<String> lt) {
-        
-        List<String> value = new ArrayList();
-        
-        value.addAll(lt);
-        
-        var m = txt.phrase(input, true).size();
-        
-        if(input.equalsIgnoreCase("exit") || input.trim().isBlank()){
-            
-            this.Exit();
-            
-        } else if(m == 1 && input.trim().length() > 10){
-            
-            value.add(
-                "\""
-                + Reg.Numb(txt.arq(input).length(), 100000)
-                + "\" - "
-                + txt.arq(input)
-            );
-            
-        } else if(m == 1){
-            
-            value.add(txt.arq(input));
-            
-        } else if(input.length() > 100){
-            
-            value.add(
-                "\""
-                + Reg.Numb(txt.arq(input).length(), 100000)
-                + "\" - "
-                + txt.arq(input)
-            );
-            
-        } else if(m <= 5){
-            
-            value.add(txt.title(input.replace("'", "\""), true));
-            
         } else {
             
-            value.add(txt.arq(input));
+            return new java.awt.Font("Times New Roman", 0, 8);
             
         }
-        
-        controller.p1s(new config(value));
         
     }
 
     @Override
-    public void Abrir(
-        boolean button,
-        int index,
-        List<String> lt,
-        String input
-    )
-    {
-        
-        this.Exit();
-        
-    }
-
-    @Override
-    public void Apagar(
-        boolean button,
-        int index,
-        List<String> lt,
-        String input
-    )
-    {
-        
-        List<String> value = new ArrayList();
-        
-        value.addAll(lt);
-        
-        for(int i = 0; i < lt.size(); i++){
-            
-            if(i != index) value.add(lt.get(i));
-            
-        }
-        
-        controller.p1s(new config(value));
-        
-    }
+    public boolean ListColumn() {return this.list.size() > this.mode;}
 
     @Override
     public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        switch(action){
+            
+            case add, enter, open, key ->{
+                
+                String[] cod = {"sair", "exit", "end"};
+                boolean[] doc = new boolean[cod.length+1];
+                
+                for(int i = 0; i < doc.length; i++){
+                    
+                    doc[i] = input.trim().equalsIgnoreCase(cod[1]);
+                    
+                }
+                
+                doc[cod.length] = input.trim().isBlank();
+                
+                var type = true;
+                
+                for(boolean t : doc){
+                    
+                    if(t){
+                        
+                        type = false;
+                        break;
+                        
+                    }//if(t)
+                    
+                }//for(boolean t : doc)
+                
+                if(type){
+                    
+                    List<String> v = new ArrayList();
+                    
+                    v.addAll(vol);
+                    
+                    v.add(this.Submit(input));
+                    
+                    controller.p1s(new config(v));
+                    
+                } else {
+                    
+                    this.Exit();
+                    
+                }
+                
+            }//case
+            
+            case remove, delet, backspace ->{
+                
+                List<String> v = new ArrayList();
+                
+                for(int i = 0; i < vol.size(); i++){
+                    
+                    if(i != index) v.add(vol.get(i));
+                    
+                }
+                
+                controller.p1s(new config(v, txt.title(vol.get(index), true)));
+                
+            }//case
+            
+        }//switch(action)
+        
     }
 
     @Override
@@ -371,9 +402,9 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                     
                     List<String> v = new ArrayList();
                     
-                    for(Domain d : vol) v.add(d.Text(true));
+                    for(Domain d : vol) v.add(this.Submit(d.Text(true)));
                     
-                    v.add(input);
+                    v.add(this.Submit(input));
                     
                     controller.p1m(new config(v));
                     
@@ -387,21 +418,22 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             case remove, delet, backspace ->{
                 
-                List<String> value = new ArrayList();
+                List<String> v = new ArrayList();
+                
+                var value = true;
+                var t = "";
                 
                 for(Domain d : vol){
                     
-                    if(!d.Select()){
-                        
-                        value.add(d.Text(true));
-                        
-                    }//if(!d.Select())
+                    if(value && d.Select()) t = d.Text(true);
+                    
+                    if(!d.Select()) v.add(d.Text(true));
                     
                 }//for(Domain d : vol)
                 
-                if(!input.trim().isBlank()) value.add(input.trim());
+                if(!input.trim().isBlank()) v.add(input);
                 
-                controller.p1m(new config(value));
+                controller.p1m(new config(v, t));
                 
             }//case
             

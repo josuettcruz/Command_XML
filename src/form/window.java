@@ -1034,13 +1034,6 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1s.Apagar(
-                true,
-                list_page1.getSelectedIndex(),
-                this.pg1s.List(),
-                home_file.getText()
-            );
-            
             this.pg1s.Button(
                 pag1.remove,
                 list_page1.getSelectedIndex(),
@@ -1067,13 +1060,6 @@ public class window extends javax.swing.JFrame {
     private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
         
         if(this.pg1s != null && this.pg1sm == single){
-            
-            pg1s.Abrir(
-                true,
-                list_page1.getSelectedIndex(),
-                this.pg1s.List(),
-                home_file.getText()
-            );
             
             this.pg1s.Button(
                 pag1.open,
@@ -1110,17 +1096,11 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1s.Adicionar(
-                        false,
-                        home_file.getText().trim(),
-                        this.pg1s.List()
-                    );
-                    
                     this.pg1s.Button(
                         pag1.key,
                         list_page1.getSelectedIndex(),
                         this.pg1s.List(),
-                        home_file.getText()
+                        home_file.getText().trim()
                     );
                     
                 } else if(this.pg1m != null && this.pg1sm == multiple){
@@ -1217,12 +1197,6 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1s.Adicionar(
-                true,
-                home_file.getText().trim(),
-                this.pg1s.List()
-            );
-            
             this.pg1s.Button(
                 pag1.add,
                 list_page1.getSelectedIndex(),
@@ -1256,13 +1230,6 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    pg1s.Abrir(
-                        false,
-                        list_page1.getSelectedIndex(),
-                        this.pg1s.List(),
-                        home_file.getText()
-                    );
-                    
                     this.pg1s.Button(
                         pag1.enter,
                         list_page1.getSelectedIndex(),
@@ -1289,13 +1256,6 @@ public class window extends javax.swing.JFrame {
             case 8, 127 ->{
                 
                 if(this.pg1s != null && this.pg1sm == single){
-                    
-                    pg1s.Apagar(
-                        false,
-                        list_page1.getSelectedIndex(),
-                        this.pg1s.List(),
-                        home_file.getText()
-                    );
                     
                     this.pg1s.Button(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
