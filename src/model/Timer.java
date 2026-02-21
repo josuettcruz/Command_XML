@@ -32,6 +32,15 @@ public class Timer {
         
     }//Timer(int seconds)
     
+    public Timer(Hora h){
+        
+        this.hours = h.Hour();
+        this.min = h.Min();
+        this.sec = h.Sec();
+        this.error = h.Err();
+        
+    }//Timer(int seconds)
+    
     public Timer(String text){
         
         this.hours = 0;

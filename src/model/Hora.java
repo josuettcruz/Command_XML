@@ -47,6 +47,22 @@ public class Hora {
         
     }//Hora(int h, int m, int s)
     
+    public Hora(int h, int m){
+        
+        try{
+            
+            this.hora = LocalTime.of(h, m, 0);
+            this.error = "";
+            
+        }catch(Exception err){
+            
+            this.hora = LocalTime.of(0, 0);
+            this.error = err.getMessage();
+            
+        }
+        
+    }//Hora(int h, int m)
+    
     public Hora(boolean second){
         
         this.error = "";

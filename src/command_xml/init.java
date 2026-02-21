@@ -142,7 +142,9 @@ public class init {
                     Hora h = new Hora(true);
                     var insert_size = insert.size() == 1;
                     
-                    tem += h.Compare(new Hora(19,30,30)) ? h.TimerGood(false) : h.Timer();
+                    tem += h.Compare(new Hora(19,30,30))
+                        ? h.TimerGood(false)
+                        : h.Timer();
                     
                     if(insert_size){
                         
@@ -209,7 +211,11 @@ public class init {
                         
                     }//case ';', ',', ':'
                     
-                    case '!', '?' ->{}
+                    case '!', '?' ->{
+                        
+                        if(!commit) tem += insert.get(sum).charAt(i);
+                        
+                    }
                     
                     case ' ' ->
                         tem += quot_end_line && commit ? "_" : " ";
@@ -228,7 +234,7 @@ public class init {
                 
             }//for(int i = 0; i < insert.get(sum).length(); i++)
             
-            if(quot && !quot_end_line){
+            if(commit && quot && !quot_end_line){
                 tem += "!";
             }
             
