@@ -1,8 +1,0 @@
-Exclusão da classe "Clean" do pacote "xml mf"
-As funções da interface referentes aos botões, devem ser do tipo "VOID" e com isso, não será mais necessário limpar a ITERFACE
-Antes, sempre retornava a própria interface para tal função, mas isso impedia que a execução saísse da interface atual
-Com isso foi criada funções na classe "controller"
-"public static void p1s(Painel 1Single painel)"
-"public static void p1m(Painel 1Multiple painel)"
-"public static void p2(Painel 2 painel)"
-Para que a função fosse chamada de qualquer classe do projeto através do "import form.controller"
