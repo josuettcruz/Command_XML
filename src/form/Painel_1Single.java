@@ -22,6 +22,8 @@ public interface Painel_1Single {
     
     public boolean ListColumn();
     
+    public void Button(pag1 action, int index, List<String> vol, String input);
+    
     public void Adicionar(boolean button, String input, List<String> lt);
     
     public void Abrir(

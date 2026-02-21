@@ -327,6 +327,11 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
+    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
     public void Action(
         pag1 action,
         java.util.List<Domain> vol,
