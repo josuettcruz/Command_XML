@@ -81,7 +81,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         this.input = input;
         
-        this.week = true;
+        this.week = false;
         
         this.list = new ArrayList();
         this.list.addAll(value);
@@ -189,11 +189,11 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         if(val.length() > 100 && m == 1){
             
-            return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
+            return Reg.Numb(m) + " letras --> " + val;
             
         } else if(val.length() > 100){
             
-            return txt.arq(val).toUpperCase();
+            return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
             
         } else if(m == 1){
             
@@ -256,7 +256,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         for(String t : this.list) if(t.length() > max) max = t.length();
         
-        if(max <= 10){
+        if(this.week){
             
             return new java.awt.Font("Arial Black", 0, 18);
             
@@ -296,7 +296,13 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     public boolean ListColumn() {return this.list.size() > this.mode;}
 
     @Override
-    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
+    public void Button(
+        pag1 action, 
+        int index,
+        java.util.List<String> vol,
+        String input
+    )
+    {
         
         switch(action){
             
@@ -425,7 +431,12 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
                 for(Domain d : vol){
                     
-                    if(value && d.Select()) t = d.Text(true);
+                    if(d.Select() && value){
+                        
+                        t = d.Text(true);
+                        value = false;
+                        
+                    }//if(value && d.Select())
                     
                     if(!d.Select()) v.add(d.Text(true));
                     
