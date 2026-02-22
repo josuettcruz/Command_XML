@@ -308,12 +308,12 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             case add, enter, open, key ->{
                 
-                String[] cod = {"sair", "exit", "end"};
+                String[] cod = {"sair", "exit", "end", "fim"};
                 boolean[] doc = new boolean[cod.length+1];
                 
-                for(int i = 0; i < doc.length; i++){
+                for(int i = 0; i < cod.length; i++){
                     
-                    doc[i] = input.trim().equalsIgnoreCase(cod[1]);
+                    doc[i] = input.trim().equalsIgnoreCase(cod[i]);
                     
                 }
                 
@@ -380,12 +380,12 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             case add, enter, open, key ->{
                 
-                String[] cod = {"sair", "exit", "end"};
+                String[] cod = {"sair", "exit", "end","fim"};
                 boolean[] doc = new boolean[cod.length+1];
                 
-                for(int i = 0; i < doc.length; i++){
+                for(int i = 0; i < cod.length; i++){
                     
-                    doc[i] = input.trim().equalsIgnoreCase(cod[1]);
+                    doc[i] = input.trim().equalsIgnoreCase(cod[i]);
                     
                 }
                 
