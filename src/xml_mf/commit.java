@@ -4,17 +4,18 @@
  */
 package xml_mf;
 
-import form.Painel_1Single;
+import form.Domain;
+import java.util.List;
+
+import form.Painel_1Multiple;
 import form.pag1;
 import java.awt.Font;
-
-import java.util.List;
 
 /**
  *
  * @author joaot
  */
-public class commit implements Painel_1Single{
+public class commit implements Painel_1Multiple{
     
     private final String Unsupported = "Projeto pendente de atualização!";
     
@@ -37,7 +38,7 @@ public class commit implements Painel_1Single{
     }
 
     @Override
-    public java.util.List<String> List() {
+    public List<Domain> ListMode() {
         throw new UnsupportedOperationException(this.Unsupported);
     }
 
@@ -52,7 +53,7 @@ public class commit implements Painel_1Single{
     }
 
     @Override
-    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
+    public void Action(pag1 action, List<Domain> vol, String input) {
         throw new UnsupportedOperationException(this.Unsupported);
     }
     

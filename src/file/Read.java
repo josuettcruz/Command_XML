@@ -16,22 +16,15 @@ import model.Reg;
 public class Read {
     
     private List<String> text;
+    private String name;
     private boolean exec;
     
     public Read(List <String> read, String arq){
         
-        if(read.isEmpty()){
-            
-            this.text = new ArrayList();
-            this.text.add(arq);
-            this.exec = false;
-            
-        } else {//if(read.isEmpty())
-            
-            this.text = read;
-            this.exec = true;
-            
-        }//if(read.isEmpty())
+        this.text = read;
+        this.name = arq;
+        
+        this.exec = true;
         
     }//Read(List <String> text)
     
@@ -40,9 +33,17 @@ public class Read {
         this.text = new ArrayList();
         this.text.add(type);
         this.text.add(msg);
+        this.name = msg;
+        
         this.exec = false;
         
     }//Read(String type, String msg)
+    
+    public String Arq(){
+        
+        return this.name;
+        
+    }
     
     public String Read(){
         
