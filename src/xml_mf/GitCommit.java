@@ -52,7 +52,7 @@ public class GitCommit implements Painel_2{
             
         } else {
             
-            // 16:43 23/02/2026
+            controller.p1s(new commit(text));
             
         }
         
