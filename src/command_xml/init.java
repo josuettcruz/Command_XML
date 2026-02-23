@@ -7,7 +7,7 @@ package command_xml;
 import file.*;
 import model.*;
 import form.controller;
-import xml_mf.GitCommit;
+import xml_mf.*;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -531,7 +531,7 @@ public class init {
         
     }//Exec()
     
-    public static List<Read> Commit(String folder){
+    private static List<Read> Commit(String folder){
         
         final String[] arqv = {"code", "title", "info", "run"};
         final String ext = ".txt";
@@ -686,6 +686,34 @@ public class init {
         }//for(int x = h.Hour(); x >= 0; x--) - 2 - 2
         
         return learn;
+        
+    }//Commit(String folder)
+    
+    public static void txtList(){
+        
+        List<Read> tem = new ArrayList();
+        
+        for(Read r : Commit("")){
+            if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);
+        }
+        
+        for(Read r : Commit("..\\")){
+            if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);
+        }
+        
+        for(Read r : Commit("..\\..\\")){
+            if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);
+        }
+        
+        if(tem.isEmpty()){
+            
+            controller.p2(new config());
+            
+        } else {
+            
+            controller.p2(new GitCommit(tem));
+            
+        }
         
     }
     

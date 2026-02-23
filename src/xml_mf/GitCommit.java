@@ -5,131 +5,104 @@
 package xml_mf;
 
 import file.Read;
-import model.txt;
-import form.controller;
+import model.*;
+import form.*;
 
-import form.Painel_1Single;
-import form.pag1;
 import java.awt.Font;
 
 import java.util.List;
 import java.util.ArrayList;
 
+import form.pag2;
+import static form.pag2.*;
+
 /**
  *
  * @author joaot
  */
-public class GitCommit implements Painel_1Single{
+public class GitCommit implements Painel_2{
+       
+    private List<Domain> lin;
+    private List<String> all_text;
     
-    private final String Unsupported = "Projeto pendente de atualização!";
+    public GitCommit(List<Read> arq){
+        
+        this.lin = new ArrayList();
+        
+        int cod = 1;
+        this.lin.add(new Domain(cod,".."));
+        this.all_text.add("");
+        
+        for(Read r : arq){
+            
+            cod++;
+            
+            this.lin.add(new Domain(cod,r.Arq()));
+            this.all_text.add(r.Read());
+            
+        }
+        
+    }//GitCommit(List<Read> arq)
     
-    private List<Read> arq;
-    private List<String> name;
-    private String input;
+    private void execute(String text){
+        
+        if(text.isBlank()){
+            
+            controller.p2(new config());
+            
+        } else {
+            
+            // 16:43 23/02/2026
+            
+        }
+        
+    }
     
-    public GitCommit(List<Read> file){
+    private void Action(Domain value){
         
-        this.Git(file);
-        this.input = "";
         
-    }//GitCommit(List<Read> file)
-    
-    public GitCommit(List<Read> file, int index){
+        var add = 0;
+        var loop = true;
         
-        this.Git(file);
-        
-        if(!this.arq.isEmpty() && index >= 0 && index < this.arq.size()){
+        do{
             
-            this.input = this.arq.get(index).Arq();
-            
-        } else {//if(!this.arq.isEmpty() && index >= 0 && index < this.arq...
-            
-            this.input = "";
-            
-        }//if(!this.arq.isEmpty() && index >= 0 && index < this.arq.size())
-        
-    }//GitCommit(List<Read> file)
-    
-    private void Git(List<Read> file){
-        
-        this.arq = new ArrayList();
-        
-        for(Read tem : file){
-            
-            var tema = txt.text(tem.Read(), true);
-            
-            if(tem.Val() && !tema.isBlank()) this.arq.add(tem);
-            
-        }//for(Read tem : file)
-        
-    }//public GitCommit(List<Read> file)
-    
-    private void Submit(int index){
-        
-        if(!this.arq.isEmpty() && index >= 0 && index < this.arq.size()){
-            
-            List<String> out = new ArrayList();
-            
-            for(int x = 0; x < this.arq.get(index).Max(); x++){
+            if(value.index() == this.lin.get(add).index()){
                 
-                var text = txt.text(this.arq.get(index).Read(x), true);
+                this.execute(this.all_text.get(add));
+                loop = false;
                 
-                if(!text.isBlank()) out.add(text);
-                
-            }//for(int x = 0; x < this.arq.get(index).Max(); x++)
+            }//if(value.index() == this.lin.get(add).index())
             
-            controller.p1m(new commit(out));
+            add++;
             
-        } else {//if(!this.arq.isEmpty() && index >= 0 && index < this...
-            
-            System.exit(0);
-            
-        }//if(!this.arq.isEmpty() && index >= 0 && index < this.arq.size())
+        }while(
+            loop && add > 0 && add < this.lin.size()
+            && add < this.all_text.size()
+        );
+        
+        if(loop) System.exit(0);
         
     }
 
     @Override
     public String Title(boolean title) {
-        throw new UnsupportedOperationException(this.Unsupported);
-    }
-
-    @Override
-    public String InputText() {
-        return this.input;
-    }
-
-    @Override
-    public java.util.List<String> List() {
-        throw new UnsupportedOperationException(this.Unsupported);
+        return new Link(Reg.http).page(!title);
     }
 
     @Override
     public Font ListFont() {
-        throw new UnsupportedOperationException(this.Unsupported);
+        return new java.awt.Font("Consolas",0,16);
     }
 
     @Override
-    public boolean ListColumn() {
-        throw new UnsupportedOperationException(this.Unsupported);
-    }
-
-    @Override
-    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
+    public java.util.List<Domain> ListMode() {
         
-        switch(action){
-            
-            case backspace, remove -> controller.p1s(
-                new GitCommit(
-                    this.arq,
-                    index
-                )
-            );
-            
-            case delet -> System.exit(0);
-            
-            default -> this.Submit(index);
-            
-        }
+        return this.lin;
+        
+    }
+
+    @Override
+    public void Command(pag2 op, Domain value) {
         
     }
     
