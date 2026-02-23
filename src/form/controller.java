@@ -99,22 +99,32 @@ public class controller {
             
         } else {//if(text.isEmpty() || text.size() > 10)
             
-            var title = txt.title(setTtitle, true);
-            
-            if(title.isBlank()) title = new Link(Reg.http).page(false);
-            
-            if(w == null){
+            try{
+
+                var title = txt.title(setTtitle, true);
+
+                if(title.isBlank()) title = new Link(Reg.http).page(false);
+
+                if(w == null){
+
+                    w = new window(
+                        400,
+                        200,
+                        600,
+                        200 + text.size() * 25
+                    );
+
+                }//if(w == null)
+
+                w.Page_0(title, text);
+
+            }catch(Exception err){
                 
-                w = new window(
-                    400,
-                    200,
-                    600,
-                    200 + text.size() * 25
-                );
+                System.err.println(Reg.Numb(err.hashCode()));
+                System.err.println(err.getMessage());
+                System.exit(0);
                 
-            }//if(w == null)
-            
-            w.Page_0(title, text);
+            }//throw
             
         }//if(text.isEmpty() || text.size() > 10)
         
@@ -124,22 +134,52 @@ public class controller {
     
     public static void p1s(Painel_1Single painel){
         
-        if(w == null) w = new window();
-        w.Page_1Single(painel);
+        try{
+            
+            if(w == null) w = new window();
+            w.Page_1Single(painel);
+            
+        }catch(Exception err){
+
+            System.err.println(Reg.Numb(err.hashCode()));
+            System.err.println(err.getMessage());
+            System.exit(0);
+
+        }//throw
         
     }//P1s(Painel_1Single painel)
     
     public static void p1m(Painel_1Multiple painel){
         
-        if(w == null) w = new window();
-        w.Page_1Multiple(painel);
+        try{
+            
+            if(w == null) w = new window();
+            w.Page_1Multiple(painel);
+            
+        }catch(Exception err){
+
+            System.err.println(Reg.Numb(err.hashCode()));
+            System.err.println(err.getMessage());
+            System.exit(0);
+
+        }//throw
         
     }//p1m(Painel_1Multiple painel)
     
     public static void p2(Painel_2 painel){
         
-        if(w == null) w = new window();
-        w.Painel_2(painel);
+        try{
+            
+            if(w == null) w = new window();
+            w.Painel_2(painel);
+            
+        }catch(Exception err){
+
+            System.err.println(Reg.Numb(err.hashCode()));
+            System.err.println(err.getMessage());
+            System.exit(0);
+
+        }//throw
         
     }//p2(Painel_2 painel)
     

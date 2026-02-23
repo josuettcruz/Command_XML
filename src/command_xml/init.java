@@ -7,6 +7,7 @@ package command_xml;
 import file.*;
 import model.*;
 import form.controller;
+import xml_mf.GitCommit;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -529,5 +530,158 @@ public class init {
         }//if(d.CompareTo(Reg.modify) && print)
         
     }//Exec()
+    
+    public static void Commit(){
+        
+        final String[] arqv = {"code", "title", "info", "run"};
+        final String ext = ".txt";
+        
+        Hora h = new Hora(false);
+        
+        List<Read> learn = new ArrayList();
+        
+        for(String date : arqv){
+            
+            var t = date + ext;
+            
+            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
+            
+        }//for(String date : arqv) - 1
+        
+        for(String date : arqv){
+            
+            var t = date.toUpperCase() + ext;
+            
+            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
+            
+        }//for(String date : arqv) - 2
+        
+        for(String date : arqv){
+            
+            var t = date + "_" + Reg.modify.Load() + ext;
+            
+            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
+            
+        }//for(String date : arqv) - 3
+        
+        for(String date : arqv){
+            
+            var t = date + " - " + Reg.modify.Load() + ext;
+            
+            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
+            
+        }//for(String date : arqv) - 4
+        
+        for(String date : arqv){
+            
+            var t = date.toUpperCase() + " - " + Reg.modify.Load() + ext;
+            
+            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
+            
+        }//for(String date : arqv) - 5
+        
+        for(int x = h.Hour(); x >= 0; x--){
+            
+            var min = true;
+            
+            for(int y = min ? h.Min() : 59; y >= 0; y--){
+                
+                var ms = Reg.Numb(x);
+                ms += "-";
+                ms += Reg.Numb(y);
+                ms += ext;
+                
+                if(Arq.Exist(ms) && Arq.Dir(ms, false)){
+                    learn.add(new Arq(ms).Read());
+                }
+                
+                min = false;
+                
+            }//for(int y = min ? h.Min() : 59; y >= 0; y--)
+            
+        }//for(int x = h.Hour(); x >= 0; x--) - 1 - 2
+        
+        for(int x = h.Hour(); x >= 0; x--){
+            
+            var hs = Reg.modify.Load();
+            hs += ext;
+            
+            if(Arq.Exist(hs) && Arq.Dir(hs, false)){
+                
+                learn.add(new Arq(hs).Read());
+                
+            }//if(Arq.Exist(hs) && Arq.Dir(hs, false))
+            
+            for(String date : arqv){
+                
+                var t = date + "_" + hs;
+                
+                if(Arq.Exist(t) && Arq.Dir(date, false)){
+                    learn.add(new Arq(t).Read());
+                }
+                
+            }//for(String date : arqv) - 1 - 2
+            
+            for(String date : arqv){
+                
+                var t = date + " - " + hs;
+                
+                if(Arq.Exist(t) && Arq.Dir(date, false)){
+                    learn.add(new Arq(t).Read());
+                }
+                
+            }//for(String date : arqv) - 2 - 2
+            
+            var min = true;
+            
+            for(int y = min ? h.Min() : 59; y >= 0; y--){
+                
+                var m1 = Reg.modify.Load();
+                m1 += "_";
+                m1 += Reg.Numb(x);
+                m1 += "-";
+                m1 += Reg.Numb(y);
+                m1 += ext;
+                
+                if(Arq.Exist(m1) && Arq.Dir(m1, false)){
+                    
+                    learn.add(new Arq(m1).Read());
+                    
+                }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 1
+                
+                var m2 = Reg.modify.Load();
+                m2 += "-";
+                m2 += Reg.Numb(x);
+                m2 += Reg.Numb(y);
+                m2 += ext;
+                
+                if(Arq.Exist(m2) && Arq.Dir(m2, false)){
+                    
+                    learn.add(new Arq(m2).Read());
+                    
+                }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 2
+                
+                var m3 = Reg.modify.Load();
+                m3 += " - ";
+                m3 += Reg.Numb(x);
+                m3 += "h";
+                m3 += Reg.Numb(y);
+                m3 += ext;
+                
+                if(Arq.Exist(m3) && Arq.Dir(m3, false)){
+                    
+                    learn.add(new Arq(m3).Read());
+                    
+                }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 3
+                
+                min = false;
+                
+            }//for(int y = min ? h.Min() : 59; y >= 0; y--)
+            
+        }//for(int x = h.Hour(); x >= 0; x--) - 2 - 2
+        
+        new GitCommit(learn);
+        
+    }
     
 }//init
