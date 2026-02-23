@@ -40,7 +40,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     }
     
     private void Event(String ext){
-        /* 18:05 23/02/2026 ** Pendente */
+        /* 18:10 23/02/2026 ** Pendente */
     }
     
     private void Click(String run){
@@ -84,7 +84,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         List<String> tema = new ArrayList();
         
-        for(String t : this.text){
+        for(String values : this.text){
+            
+            var t = txt.arq(values);
             
             if(t.length() > 100){
                 
@@ -109,20 +111,21 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(int add = 0; add < this.text.size(); add++){
             
-            String insert;
+            var insert = txt.arq(this.text.get(add));
+            String value;
             
-            if(this.text.get(add).length() > 100){
+            if(insert.length() > 100){
                 
-                insert = this.text.get(add).substring(0, 97);
-                insert += "...";
+                value = insert.substring(0, 97);
+                value += "...";
                 
-            } else {//if(this.text.get(add).length() > 100)
+            } else {//if(insert.length() > 100)
                 
-                insert = this.text.get(add);
+                value = insert;
                 
-            }//if(this.text.get(add).length() > 100)
+            }//if(insert.length() > 100)
             
-            d.add(new Domain(add+1, insert));
+            d.add(new Domain(add+1, value));
             
         }//for(int add = 0; add < this.text.size(); add++)
         
