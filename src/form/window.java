@@ -113,7 +113,7 @@ public class window extends javax.swing.JFrame {
         
     }//Tem(int init)
     
-    public boolean Page_0(String title, String text){
+    public void Page_0(String title, List<String> text){
         
         setTitle(title);
         
@@ -123,17 +123,15 @@ public class window extends javax.swing.JFrame {
         String[] tem_0 = new String[10];
         
         for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
-        
-        var ini = txt.text(text, true).split("\n");
             
         var s = 0;
 
         do{
 
-            tem_0[s] = ini[s];
+            tem_0[s] = text.get(s);
             s++;
 
-        }while(s > 0 && s < ini.length && s < tem_0.length);
+        }while(s > 0 && s < text.size() && s < tem_0.length);
             
         ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
         ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -200,8 +198,6 @@ public class window extends javax.swing.JFrame {
         txt_10.setText(tem_0[9]);
 
         this.Tem(0);
-        
-        return ini.length <= tem_0.length;
         
     }//Page_0(String title, String text)
     
