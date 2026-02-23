@@ -393,13 +393,20 @@ public class window extends javax.swing.JFrame {
                 var selected = false;
                 var row = 0;
                 
-                do{
+                if(add == list_page1.getSelectedIndex()){
                     
-                    selected = add == select[row];
+                    selected = true;
                     
-                    row++;
+                } else {//if(add == list_page1.getSelectedIndex())
                     
-                }while(!selected && row > 0 && row < select.length);
+                    do{
+                        
+                        selected = add == select[row];
+                        row++;
+                        
+                    }while(!selected && row > 0 && row < select.length);
+                    
+                }//if(add == list_page1.getSelectedIndex())
                 
                 ad.Select(selected);
                 
@@ -1023,7 +1030,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialKeyTyped
 
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
-        //// TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_initialMouseReleased
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed

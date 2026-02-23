@@ -6,6 +6,7 @@ package xml_mf;
 
 import form.*;
 import model.*;
+import file.Arq;
 
 import form.pag1;
 import static form.pag1.*;
@@ -30,24 +31,186 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         this.text = new ArrayList();
         this.text.addAll(Arrays.asList(txt.text(text, true).split("\n")));
         
-    }
+    }//commit(String text)
     
     private commit(List<String> text, String input){
         
         this.input = input;
         this.text = text;
         
-    }
+    }//commit(List<String> text, String input)
+    
+    private String Commit(){
+        
+        Hora h = new Hora(true);
+        
+        var val = "git commit -m \"";
+        val += new Data().DataAbreviada(!h.Compare(new Hora(20,30)));
+        
+        val += h.Compare(new Hora(6,30)) ? " - " : " -- ";
+        
+        if(h.Compare(new Hora(20,30))){
+            
+            val += h.TimerGood(true);
+            
+        } else if(h.Compare(new Hora(19,30))){//h.Compare
+            
+            val += h.TimerGood(false);
+            
+        } else if(h.Compare(new Hora(6,30))){//h.Compare
+            
+            val += h.Timer();
+            
+        } else {//h.Compare
+            
+            val += h.TimerGood(false, " - ");
+            
+        }//h.Compare
+        
+        val += " -- Nesse COMMIT -> ";
+        
+        if(this.text.size() == 1){
+            
+            val += this.text.get(0);
+            
+        } else {//if(this.text.size() == 1)
+            
+            for(int d = 0; d < this.text.size(); d++){
+                
+                var quot_end_line = false;
+                
+                val += " -- ";
+                val += Reg.Numb(d+1, this.text.size(), "-");
+                val += " --> ";
+                
+                var space = false;
+                
+                for(String t : txt.phrase(this.text.get(d), space)){
+                    
+                    if(space){
+                        
+                        val += " ";
+                        
+                    } else {//if(space)
+                        
+                        space = true;
+                        
+                    }//if(space)
+                    
+                    var quot = false;
+                    var g = 0;
+                    
+                    do{
+                        
+                        quot = t.charAt(g) == '"' || t.charAt(g) == '\'';
+                        g++;
+                        
+                    }while(!quot && g > 0 && g < t.length());
+                    
+                    if(quot && t.length() > 1){
+                        
+                        if(quot_end_line){
+                            
+                            val += "'";
+                            
+                            quot_end_line = false;
+                            
+                        }//if(quot_end_line)
+                        
+                        g = 0;
+                        
+                        while(g < t.length()){
+                            
+                            switch(t.charAt(g)){
+                                
+                                case '\'', '"' ->{}
+                                
+                                default -> val += t.charAt(g);
+                                
+                            }//switch(t.charAt(g))
+                            
+                            g++; //!important
+                            
+                        }//while(g < t.length())
+                        
+                        if(!quot_end_line){//if(quot && t.length() > 1)
+                            
+                            val += "'";
+                            
+                            quot_end_line = true;
+                            
+                        }//if(!quot_end_line)
+                        
+                    } else if(t.equals("\"") || t.equals("'")){//if(quot &&...
+                        
+                        val += "\"null\"";
+                        
+                    } else {//if(quot && t.length() > 1)
+                        
+                        val += t;
+                        
+                    }//if(quot && t.length() > 1)
+                    
+                }//for(String t : txt.phrase(this.text.get(d), space))
+                
+                if(quot_end_line) val += "'";
+                
+            }//for(int d = 0; d < this.text.size(); d++)
+            
+        }//if(this.text.size() == 1)
+        
+        return val;
+        
+    }//Commit(String text)
+    
+    private void Export(String ext){
+        
+        Hora h = new Hora(true);
+        
+        var arqv = "";
+        
+        if(Reg.java) arqv += "..\\";
+        arqv += ext;
+        arqv += " - ";
+        arqv += new Data().Load();
+        arqv += " - ";
+        arqv += Reg.Numb(h.Hour());
+        arqv += "h";
+        arqv += Reg.Numb(h.Min());
+        arqv += "m";
+        
+        if(h.Sec() > 5){
+            
+            arqv += Reg.Numb(h.Sec());
+            arqv += "s";
+            
+        }//if(h.Sec() > 5)
+        
+        arqv += ".txt";
+        
+        Arq fill = new Arq(arqv);
+        
+        if(fill.create()) fill.Save(this.text); // 20:12 23/02/2026
+        
+    }//Export(String ext)
     
     private void Event(String ext){
-        /* 18:10 23/02/2026 ** Pendente */
-    }
+        
+        this.Export(ext);
+        Reg.coppy(this.Commit());
+        System.exit(0);
+        
+    }//Event(String ext)
     
     private void Click(String run){
         
         if(txt.Local(run).equals(run)){
             
             this.Event(run);
+            
+        } else if(run.trim().isBlank()){//if(txt.Local(run).equals(run))
+            
+            controller.p1s(new commit(this.text, "info"));
             
         } else {//if(txt.Local(run).equals(run))
             
