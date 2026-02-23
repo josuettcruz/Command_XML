@@ -4,39 +4,27 @@
  */
 package xml_mf;
 
-import file.Read;
-import model.txt;
-
 import form.Painel_1Single;
 import form.pag1;
 import java.awt.Font;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  *
  * @author joaot
  */
-public class GitCommit implements Painel_1Single{
+public class commit implements Painel_1Single{
     
     private final String Unsupported = "Projeto pendente de atualização!";
     
-    private List<Read> arq;
+    private List<String> text;
     
-    public GitCommit(List<Read> file){
+    public commit(List<String> text){
         
-        this.arq = new ArrayList();
+        this.text = text;
         
-        for(Read tem : file){
-            
-            var tema = txt.text(tem.Read(), true);
-            
-            if(tem.Val() && !tema.isBlank()) this.arq.add(tem);
-            
-        }//for(Read tem : file)
-        
-    }//public GitCommit(List<Read> file)
+    }//commit(List<String> text)
 
     @Override
     public String Title(boolean title) {

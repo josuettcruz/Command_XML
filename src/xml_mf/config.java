@@ -10,27 +10,12 @@ import form.Painel_1Single;
 import form.Painel_1Multiple;
 import form.Painel_2;
 import form.controller;
-import form.pag1;
-import static form.pag1.add;
-import static form.pag1.backspace;
 
-import static form.pag1.remove;
-import static form.pag1.open;
-import static form.pag1.key;
-import static form.pag1.enter;
-import static form.pag1.delet;
-import static form.pag1.delet;
-import static form.pag1.enter;
-import static form.pag1.key;
-import static form.pag1.open;
-import static form.pag1.remove;
+import form.pag1;
+import static form.pag1.*;
 
 import form.pag2;
-import static form.pag2.backspace;
-import static form.pag2.cancel;
-import static form.pag2.confirm;
-import static form.pag2.del;
-import static form.pag2.enter;
+import static form.pag2.*;
 
 import java.awt.Font;
 
