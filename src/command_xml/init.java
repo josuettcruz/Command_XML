@@ -531,7 +531,7 @@ public class init {
         
     }//Exec()
     
-    public static void Commit(){
+    public static List<Read> Commit(String folder){
         
         final String[] arqv = {"code", "title", "info", "run"};
         final String ext = ".txt";
@@ -542,7 +542,7 @@ public class init {
         
         for(String date : arqv){
             
-            var t = date + ext;
+            var t = folder + date + ext;
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
@@ -550,7 +550,7 @@ public class init {
         
         for(String date : arqv){
             
-            var t = date.toUpperCase() + ext;
+            var t = folder + date.toUpperCase() + ext;
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
@@ -558,7 +558,7 @@ public class init {
         
         for(String date : arqv){
             
-            var t = date + "_" + Reg.modify.Load() + ext;
+            var t = folder + date + "_" + Reg.modify.Load() + ext;
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
@@ -566,7 +566,7 @@ public class init {
         
         for(String date : arqv){
             
-            var t = date + " - " + Reg.modify.Load() + ext;
+            var t = folder + date + " - " + Reg.modify.Load() + ext;
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
@@ -574,7 +574,7 @@ public class init {
         
         for(String date : arqv){
             
-            var t = date.toUpperCase() + " - " + Reg.modify.Load() + ext;
+            var t = folder + date.toUpperCase() + " - " + Reg.modify.Load() + ext;
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
@@ -586,7 +586,8 @@ public class init {
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
-                var ms = Reg.Numb(x);
+                var ms = folder;
+                ms += Reg.Numb(x);
                 ms += "-";
                 ms += Reg.Numb(y);
                 ms += ext;
@@ -603,7 +604,8 @@ public class init {
         
         for(int x = h.Hour(); x >= 0; x--){
             
-            var hs = Reg.modify.Load();
+            var hs = folder;
+            hs += Reg.modify.Load();
             hs += ext;
             
             if(Arq.Exist(hs) && Arq.Dir(hs, false)){
@@ -624,7 +626,7 @@ public class init {
             
             for(String date : arqv){
                 
-                var t = date + " - " + hs;
+                var t = folder + date + " - " + hs;
                 
                 if(Arq.Exist(t) && Arq.Dir(date, false)){
                     learn.add(new Arq(t).Read());
@@ -636,7 +638,8 @@ public class init {
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
-                var m1 = Reg.modify.Load();
+                var m1 = folder;
+                m1 += Reg.modify.Load();
                 m1 += "_";
                 m1 += Reg.Numb(x);
                 m1 += "-";
@@ -649,7 +652,8 @@ public class init {
                     
                 }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 1
                 
-                var m2 = Reg.modify.Load();
+                var m2 = folder;
+                m2 += Reg.modify.Load();
                 m2 += "-";
                 m2 += Reg.Numb(x);
                 m2 += Reg.Numb(y);
@@ -661,7 +665,8 @@ public class init {
                     
                 }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 2
                 
-                var m3 = Reg.modify.Load();
+                var m3 = folder;
+                m3 += Reg.modify.Load();
                 m3 += " - ";
                 m3 += Reg.Numb(x);
                 m3 += "h";
@@ -680,7 +685,7 @@ public class init {
             
         }//for(int x = h.Hour(); x >= 0; x--) - 2 - 2
         
-        new GitCommit(learn);
+        return learn;
         
     }
     
