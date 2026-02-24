@@ -190,8 +190,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         }//if(!ext.equals("info"))
         
-
-        
         arqv += ".txt";
         
         return arqv;
@@ -207,7 +205,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(String t : tem){
             
-            //code
+            /* 09:31 24/02/2026 */
             
         }//for(String t : tem)
         
