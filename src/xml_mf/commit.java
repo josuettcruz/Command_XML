@@ -163,40 +163,60 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
     }//Commit(String text)
     
-    private void Export(String ext){
+    private String Export(String ext){
         
         Hora h = new Hora(true);
         
-        var arqv = "";
+        var arqv = Reg.java ? "..\\" : "";
         
-        if(Reg.java) arqv += "..\\";
         arqv += ext;
-        arqv += " - ";
-        arqv += new Data().Load();
-        arqv += " - ";
-        arqv += Reg.Numb(h.Hour());
-        arqv += "h";
-        arqv += Reg.Numb(h.Min());
-        arqv += "m";
         
-        if(h.Sec() > 5){
+        if(!ext.equals("info")){
             
-            arqv += Reg.Numb(h.Sec());
-            arqv += "s";
+            arqv += " - ";
+            arqv += new Data().Load();
+            arqv += " - ";
+            arqv += Reg.Numb(h.Hour());
+            arqv += "h";
+            arqv += Reg.Numb(h.Min());
+            arqv += "m";
             
-        }//if(h.Sec() > 5)
+            if(h.Sec() > 5){
+                
+                arqv += Reg.Numb(h.Sec());
+                arqv += "s";
+                
+            }//if(h.Sec() > 5)
+            
+        }//if(!ext.equals("info"))
+        
+
         
         arqv += ".txt";
         
         Arq fill = new Arq(arqv);
         
-        if(fill.create()) fill.Save(this.text); // 20:12 23/02/2026
+        return arqv;
         
     }//Export(String ext)
     
     private void Event(String ext){
         
-        this.Export(ext);
+        List<String> tem = new ArrayList();
+        tem.addAll(this.text);
+        
+        this.text.clear();
+        
+        for(String t : tem){
+            
+            //code
+            
+        }//for(String t : tem)
+        
+        Arq save = new Arq(this.Export(ext));
+        
+        if(save.create()) save.Save(this.text);
+        
         Reg.coppy(this.Commit());
         System.exit(0);
         
