@@ -78,9 +78,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         } else {//if(this.text.size() == 1)
             
+            var quot_end_line = false;
+            
             for(int d = 0; d < this.text.size(); d++){
                 
-                var quot_end_line = false;
+                quot_end_line = false;
                 
                 val += d == 0 ? " --> " : " -- ";
                 val += Reg.Numb(d+1, this.text.size(), "-");
@@ -157,6 +159,93 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         return val;
         
     }//Commit(String text)
+    
+    private String Saving(){
+        
+        var val = "";
+        var line = false;
+        var quot_end_line = false;
+        
+        for(String x : this.text){
+            
+            if(line){
+                
+                val += "\n";
+                
+            } else {//if(line)
+                
+                line = true;
+                
+            }//if(line)
+            
+            quot_end_line = false;
+            
+            var space = false;
+            
+            for(String y : txt.phrase(x, true)){
+                
+                if(space){
+                    
+                    val += " ";
+                    
+                } else {//if(space)
+                    
+                    space = true;
+                    
+                }//if(space)
+                
+                var quot = false;
+                var proc = 0;
+                
+                do{
+                    
+                    var charAt = y.charAt(proc);
+                    
+                    var tema_1 = charAt == '"';
+                    var tema_2 = charAt == '\'';
+                    quot = tema_1 || tema_2;
+                    
+                    proc++;
+                    
+                }while(!quot && proc > 0 && proc < y.length());
+                
+                if(quot && y.length() > 1){
+                    
+                    quot_end_line = !quot_end_line;
+                    
+                    if(quot_end_line) val += "\"";
+                    
+                    for(int add = 0; add < y.length(); add++){
+                        
+                        var tema_1 = y.charAt(add) == '"';
+                        var tema_2 = y.charAt(add) == '\'';
+                        var tema_0 = tema_1 || tema_2;
+                        
+                        if(!tema_0) val += y.charAt(add);
+                        
+                    }//for(int add = 0; add < y.length(); add++)
+                    
+                    if(!quot_end_line) val += "\"";
+                    
+                } else if(y.equals("\"") || y.equals("'")){
+                    
+                    space = false;
+                    
+                } else {
+                    
+                    val += y;
+                    
+                }
+                
+                if(quot_end_line) val += "\"";
+                
+            }//for(String y : txt.phrase(x, true))
+            
+        }//for(String demo : this.text)
+        
+        return val;
+        
+    }//Saving()
     
     private String Export(String ext){
         
@@ -242,7 +331,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         this.text.clear();
         
         var point = true;
-        var points = false;
+        //var points = false;
         
         for(String x : tem){
             
@@ -278,7 +367,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         case '!', '?', '.' -> {
                             
                             point = true;
-                            points = false;
+                            //points = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
@@ -287,7 +376,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         case ':', ';', ',' ->{
                             
                             point = false;
-                            points = false;
+                            //points = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
@@ -296,7 +385,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         default -> {
                             
                             point = true;
-                            points = true;
+                            //points = true;
                             
                         }
                         
@@ -306,7 +395,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
             }//for(String t : txt.phrase(tema, true))
             
-            if(points) t += "!";
+            //if(points) t += "!";
             
             if(!t.isBlank()) this.text.add(t);
             
@@ -320,7 +409,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             var val_2 = ext.equalsIgnoreCase(this.base);
             var val_0 = val_1 || val_2;
             
-            if(val_0) save.Save(this.text);
+            if(val_0) save.Save(this.Saving());
             
         }//if(save.Val())
         
@@ -331,19 +420,19 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private void Click(String run){
         
-        if(txt.Local(run).equals(run)){
+        if(run.trim().isBlank()){
+            
+            controller.p1m(new commit(this.text, this.base));
+            
+        } else if(txt.Local(run).equals(run)){//if(run.trim().isBlank())
             
             this.Event(run);
             
-        } else if(run.trim().isBlank()){//if(txt.Local(run).equals(run))
+        } else {//if(run.trim().isBlank())
             
-            controller.p1s(new commit(this.text, this.base));
+            controller.p1m(new commit(this.text, txt.Local(run)));
             
-        } else {//if(txt.Local(run).equals(run))
-            
-            controller.p1s(new commit(this.text, txt.Local(run)));
-            
-        }//if(txt.Local(run).equals(run))
+        }//if(run.trim().isBlank())
         
     }//Click(String run)
     

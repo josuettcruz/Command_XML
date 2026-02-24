@@ -548,9 +548,9 @@ public class init {
             
         }//for(String date : arqv) - 3 - 3
         
+        var min = true;
+        
         for(int x = h.Hour(); x >= 0; x--){
-            
-            var min = true;
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
@@ -564,11 +564,13 @@ public class init {
                     learn.add(new Arq(ms).Read());
                 }
                 
-                min = false;
-                
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
+            min = false;
+            
         }//for(int x = h.Hour(); x >= 0; x--) - 1 - 2
+        
+        min = true;
         
         for(int x = h.Hour(); x >= 0; x--){
             
@@ -601,8 +603,6 @@ public class init {
                 }
                 
             }//for(String date : arqv) - 2 - 2
-            
-            var min = true;
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
@@ -648,6 +648,8 @@ public class init {
                 }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 3
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
+            
+            min = false;
             
         }//for(int x = h.Hour(); x >= 0; x--) - 2 - 2
         
