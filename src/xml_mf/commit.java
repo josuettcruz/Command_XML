@@ -49,17 +49,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         var val = "git commit -m \"";
         val += new Data().DataAbreviada(!h.Compare(new Hora(20,30)));
         
-        val += h.Compare(new Hora(6,30)) ? " - " : " -- ";
+        val += h.Compare(new Hora(7,30)) ? " - " : " -- ";
         
         if(h.Compare(new Hora(20,30))){
             
             val += h.TimerGood(true);
             
-        } else if(h.Compare(new Hora(19,30))){//h.Compare
+        } else if(h.Compare(new Hora(18,59))){//h.Compare
             
             val += h.TimerGood(false);
             
-        } else if(h.Compare(new Hora(6,30))){//h.Compare
+        } else if(h.Compare(new Hora(7,30))){//h.Compare
             
             val += h.Timer();
             
@@ -241,6 +241,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         this.text.clear();
         
+        var point = true;
+        var points = false;
+        
         for(String x : tem){
             
             var t = "";
@@ -257,7 +260,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(t.isBlank()){
                         
-                        t += txt.capitalize(y);
+                        t += point ? txt.capitalize(y) : y;
                         
                     } else {
                         
@@ -267,8 +270,43 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     }
                     
                 }//if(this.line(y))
+
+                if(y.length() > 1){
+                    
+                    switch(y.charAt(y.length()-1)){
+                        
+                        case '!', '?', '.' -> {
+                            
+                            point = true;
+                            points = false;
+                            if(!t.isBlank()) this.text.add(t);
+                            t = "";
+                            
+                        }//case '!', '?', '.'
+                        
+                        case ':', ';', ',' ->{
+                            
+                            point = false;
+                            points = false;
+                            if(!t.isBlank()) this.text.add(t);
+                            t = "";
+                            
+                        }
+                        
+                        default -> {
+                            
+                            point = true;
+                            points = true;
+                            
+                        }
+                        
+                    }//switch(t.charAt(t.length()-1))
+                    
+                }//if(t.length() > 1)
                 
             }//for(String t : txt.phrase(tema, true))
+            
+            if(points) t += "!";
             
             if(!t.isBlank()) this.text.add(t);
             

@@ -530,15 +530,7 @@ public class init {
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
-        }//for(String date : arqv) - 1
-        
-        for(String date : arqv){
-            
-            var t = folder + date.toUpperCase() + ext;
-            
-            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
-            
-        }//for(String date : arqv) - 2
+        }//for(String date : arqv) - 1 - 3
         
         for(String date : arqv){
             
@@ -546,7 +538,7 @@ public class init {
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
-        }//for(String date : arqv) - 3
+        }//for(String date : arqv) - 2 - 3
         
         for(String date : arqv){
             
@@ -554,15 +546,7 @@ public class init {
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
-        }//for(String date : arqv) - 4
-        
-        for(String date : arqv){
-            
-            var t = folder + date.toUpperCase() + " - " + Reg.modify.Load() + ext;
-            
-            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
-            
-        }//for(String date : arqv) - 5
+        }//for(String date : arqv) - 3 - 3
         
         for(int x = h.Hour(); x >= 0; x--){
             
