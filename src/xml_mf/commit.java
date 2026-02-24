@@ -194,8 +194,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         arqv += ".txt";
         
-        Arq fill = new Arq(arqv);
-        
         return arqv;
         
     }//Export(String ext)
