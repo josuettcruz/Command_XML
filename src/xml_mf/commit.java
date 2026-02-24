@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class commit implements Painel_1Single, Painel_1Multiple{
     
+    private final String base = "info";
+    
     private List<String> text;
     private String input;
     
@@ -165,28 +167,24 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private String Export(String ext){
         
+        var run = txt.arq(ext.toLowerCase());
+        
         Hora h = new Hora(true);
         
         var arqv = Reg.java ? "..\\" : "";
         
-        arqv += ext;
+        arqv += run;
         
-        if(!ext.equals("info")){
+        if(!run.equals(this.base)){
             
-            arqv += " - ";
+            arqv += "_";
             arqv += new Data().Load();
-            arqv += " - ";
+            arqv += "_";
             arqv += Reg.Numb(h.Hour());
-            arqv += "h";
+            arqv += "-";
             arqv += Reg.Numb(h.Min());
-            arqv += "m";
-            
-            if(h.Sec() > 5){
-                
-                arqv += Reg.Numb(h.Sec());
-                arqv += "s";
-                
-            }//if(h.Sec() > 5)
+            arqv += "-";
+            arqv += Reg.Numb(h.Sec());
             
         }//if(!ext.equals("info"))
         
@@ -246,17 +244,26 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             for(String y : txt.phrase(x, true)){
                 
-                if(this.line(y) && !t.isBlank()){
+                if(this.line(y)){
                     
-                    this.text.add(t);
+                    if(!t.isBlank()) this.text.add(t);
+                    
                     t = "";
                     
-                } else {
+                } else {//if(this.line(y))
                     
-                    if(!t.isBlank()) t += " ";
-                    t += y;
+                    if(t.isBlank()){
+                        
+                        t += txt.capitalize(y);
+                        
+                    } else {
+                        
+                        t += " ";
+                        t += y;
+                        
+                    }
                     
-                }//if(this.line(t) && !text.isBlank())
+                }//if(this.line(y))
                 
             }//for(String t : txt.phrase(tema, true))
             
@@ -281,7 +288,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         } else if(run.trim().isBlank()){//if(txt.Local(run).equals(run))
             
-            controller.p1s(new commit(this.text, "info"));
+            controller.p1s(new commit(this.text, this.base));
             
         } else {//if(txt.Local(run).equals(run))
             
