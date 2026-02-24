@@ -69,10 +69,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         }//h.Compare
         
-        val += " -- Nesse COMMIT --> ";
+        val += " -- Nesse COMMIT";
         
         if(this.text.size() == 1){
             
+            val += " --> ";
             val += this.text.get(0);
             
         } else {//if(this.text.size() == 1)
@@ -81,7 +82,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 var quot_end_line = false;
                 
-                val += " -- ";
+                val += d == 0 ? " --> " : " -- ";
                 val += Reg.Numb(d+1, this.text.size(), "-");
                 val += " --> ";
                 
