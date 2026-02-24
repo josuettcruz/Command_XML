@@ -196,6 +196,43 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
     }//Export(String ext)
     
+    private boolean line(String phrase){
+        
+        var ok = false;
+        var invalid = false;
+        var novalid = 0;
+        
+        var letter = false;
+        
+        for(int x = 0; x < phrase.length(); x++){
+            
+            switch(phrase.charAt(x)){
+                
+                case '1',
+                     '2',
+                     '3',
+                     '4',
+                     '5',
+                     '6',
+                     '7',
+                     '8',
+                     '9',
+                     '0' -> {letter = true;}
+                     
+                case '-' -> {if(letter) ok = true; novalid++;}
+                
+                default -> {invalid = true;}
+                
+            }//switch(phease.charAt(x))
+            
+        }//for(int x = 0; x < phease.length(); x++)
+        
+        if(invalid) ok = false;
+        
+        return ok && novalid == 1;
+        
+    }//line(String phrase)
+    
     private void Event(String ext){
         
         List<String> tem = new ArrayList();
@@ -203,9 +240,27 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         this.text.clear();
         
-        for(String t : tem){
+        for(String x : tem){
             
-            /* 09:31 24/02/2026 */
+            var t = "";
+            
+            for(String y : txt.phrase(x, true)){
+                
+                if(this.line(y) && !t.isBlank()){
+                    
+                    this.text.add(t);
+                    t = "";
+                    
+                } else {
+                    
+                    if(!t.isBlank()) t += " ";
+                    t += y;
+                    
+                }//if(this.line(t) && !text.isBlank())
+                
+            }//for(String t : txt.phrase(tema, true))
+            
+            if(!t.isBlank()) this.text.add(t);
             
         }//for(String t : tem)
         
