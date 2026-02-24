@@ -572,7 +572,7 @@ public class txt {
         
     }//min(String text,String less_than)
     
-    public static String Local(String loc){
+    private static String txtLocal(String loc){
         
         var txt = "";
         var i = 0;
@@ -654,6 +654,12 @@ public class txt {
             return "run";
             
         }//if(i >= 2)
+        
+    }//txtLocal(String loc)
+    
+    public static String Local(String text){
+        
+        return text.trim().isBlank() ? "" : txtLocal(text.trim());
         
     }//Local(String loc)
     

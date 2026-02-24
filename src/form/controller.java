@@ -20,13 +20,7 @@ public class controller {
     
     private static window w;
     
-    public static void Init(){
-        
-        Home();
-        
-    }//Init()
-    
-    private static void Home(){
+    public static void Home(){
         
         try{
             

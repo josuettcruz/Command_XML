@@ -252,7 +252,7 @@ public class init {
         
     }//Tem(String text)
     
-    private static boolean gitCommit(){
+    public static boolean gitCommit(){
         
         var logit = false;
         
@@ -515,22 +515,6 @@ public class init {
         
     }//gitCommit()
     
-    public static void Exec(){
-        
-        Data d = new Data();
-        
-        if(d.CompareTo(Reg.modify) && Reg.java){
-            
-            if(gitCommit()) controller.Init();
-            
-        } else {//if(d.CompareTo(Reg.modify) && print)
-            
-            controller.Init();
-            
-        }//if(d.CompareTo(Reg.modify) && print)
-        
-    }//Exec()
-    
     private static List<Read> Commit(String folder){
         
         final String[] arqv = {"code", "title", "info", "run"};
@@ -679,8 +663,6 @@ public class init {
                     
                 }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 3
                 
-                min = false;
-                
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
         }//for(int x = h.Hour(); x >= 0; x--) - 2 - 2
@@ -689,7 +671,7 @@ public class init {
         
     }//Commit(String folder)
     
-    public static void txtList(){
+    private static void Execute(){
         
         List<Read> tem = new ArrayList();
         
@@ -715,6 +697,32 @@ public class init {
             
         }
         
-    }
+    }//Execute()
+    
+    public static void Exec(){
+        
+        Data d = new Data();
+        
+        if(d.CompareTo(Reg.modify) && Reg.java){
+            
+            /* if(gitCommit()){
+                
+                controller.Home();
+                
+            } else {//if(gitCommit())
+                
+                Execute();
+                
+            }/*if(gitCommit())*/
+            
+            Execute();
+            
+        } else {//if(d.CompareTo(Reg.modify) && print)
+            
+            controller.Home();
+            
+        }//if(d.CompareTo(Reg.modify) && print)
+        
+    }//Exec()
     
 }//init

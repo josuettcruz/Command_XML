@@ -69,7 +69,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         }//h.Compare
         
-        val += " -- Nesse COMMIT -> ";
+        val += " -- Nesse COMMIT --> ";
         
         if(this.text.size() == 1){
             
@@ -111,13 +111,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(quot && t.length() > 1){
                         
-                        if(quot_end_line){
-                            
-                            val += "'";
-                            
-                            quot_end_line = false;
-                            
-                        }//if(quot_end_line)
+                        quot_end_line = !quot_end_line;
+                        
+                        if(quot_end_line) val += "'";
                         
                         g = 0;
                         
@@ -135,13 +131,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                         }//while(g < t.length())
                         
-                        if(!quot_end_line){//if(quot && t.length() > 1)
-                            
-                            val += "'";
-                            
-                            quot_end_line = true;
-                            
-                        }//if(!quot_end_line)
+                        if(!quot_end_line) val += "'";
                         
                     } else if(t.equals("\"") || t.equals("'")){//if(quot &&...
                         
@@ -161,6 +151,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         }//if(this.text.size() == 1)
         
+        val += "\"";
+        
         return val;
         
     }//Commit(String text)
@@ -175,8 +167,13 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         arqv += run;
         
-        if(!run.equals(this.base)){
+        if(run.equals(this.base)){
             
+            arqv += this.base;
+            
+        } else {//if(run.equals(this.base))
+            
+            arqv += run.toUpperCase();
             arqv += "_";
             arqv += new Data().Load();
             arqv += "_";
@@ -186,7 +183,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             arqv += "-";
             arqv += Reg.Numb(h.Sec());
             
-        }//if(!ext.equals("info"))
+        }//if(run.equals(this.base))
         
         arqv += ".txt";
         
@@ -227,7 +224,14 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         if(invalid) ok = false;
         
-        return ok && novalid == 1;
+        var cod1 = phrase.equals("--");
+        var cod2 = phrase.equals("-->");
+        var cod3 = phrase.equals("->");
+        var cod = cod1 || cod2 || cod3;
+        
+        var valid = ok && novalid == 1;
+        
+        return cod ? true : valid;
         
     }//line(String phrase)
     
@@ -304,11 +308,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             case remove, delet, backspace -> System.exit(0);
             
-            default -> this.Click(value);
+            case open, add, key, enter -> this.Click(value);
             
-        }
+        }//switch(action)
         
-    }
+    }//Submit(pag1 action, String value)
 
     @Override
     public String Title(boolean title) {

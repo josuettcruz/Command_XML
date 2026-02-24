@@ -28,6 +28,7 @@ public class GitCommit implements Painel_2{
     public GitCommit(List<Read> arq){
         
         this.lin = new ArrayList();
+        this.all_text = new ArrayList();
         
         int cod = 1;
         this.lin.add(new Domain(cod,".."));
@@ -103,6 +104,14 @@ public class GitCommit implements Painel_2{
 
     @Override
     public void Command(pag2 op, Domain value) {
+        
+        switch(op){
+            
+            case confirm, enter -> this.Action(value);
+            
+            case cancel -> System.exit(0);
+            
+        }//switch(op)
         
     }
     
