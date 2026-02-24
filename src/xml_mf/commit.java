@@ -161,19 +161,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         var run = txt.arq(ext.toLowerCase());
         
-        Hora h = new Hora(true);
-        
         var arqv = Reg.java ? "..\\" : "";
         
-        arqv += run;
-        
-        if(run.equals(this.base)){
+        if(run.equals(this.base) || run.isBlank()){
             
             arqv += this.base;
             
         } else {//if(run.equals(this.base))
             
-            arqv += run.toUpperCase();
+            Hora h = new Hora(true);
+            
+            arqv += run.equalsIgnoreCase("run") ? "run" : run.toUpperCase();
             arqv += "_";
             arqv += new Data().Load();
             arqv += "_";
@@ -277,7 +275,15 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         Arq save = new Arq(this.Export(ext));
         
-        if(save.create()) save.Save(this.text);
+        if(save.Val()){
+            
+            var val_1 = save.create();
+            var val_2 = ext.equalsIgnoreCase(this.base);
+            var val_0 = val_1 || val_2;
+            
+            if(val_0) save.Save(this.text);
+            
+        }//if(save.Val())
         
         Reg.coppy(this.Commit());
         System.exit(0);
@@ -306,7 +312,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         switch(action){
             
-            case remove, delet, backspace -> System.exit(0);
+            case remove -> System.exit(0);
             
             case open, add, key, enter -> this.Click(value);
             

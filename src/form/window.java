@@ -381,7 +381,7 @@ public class window extends javax.swing.JFrame {
         
         List<Domain> tema = new ArrayList();
         
-        if(select.length > 1){
+        if(select.length > 0){
             
             for(int add = 0; add < doc.size(); add++){
                 
@@ -393,20 +393,12 @@ public class window extends javax.swing.JFrame {
                 var selected = false;
                 var row = 0;
                 
-                if(add == list_page1.getSelectedIndex()){
+                do{
                     
-                    selected = true;
+                    selected = add == select[row];
+                    row++;
                     
-                } else {//if(add == list_page1.getSelectedIndex())
-                    
-                    do{
-                        
-                        selected = add == select[row];
-                        row++;
-                        
-                    }while(!selected && row > 0 && row < select.length);
-                    
-                }//if(add == list_page1.getSelectedIndex())
+                }while(!selected && row > 0 && row < select.length);
                 
                 ad.Select(selected);
                 
