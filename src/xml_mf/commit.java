@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class commit implements Painel_1Single, Painel_1Multiple{
     
@@ -627,4 +627,4 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         this.Submit(action, input);
     }
     
-}
+}//commit
