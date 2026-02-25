@@ -29,8 +29,10 @@ public class window extends javax.swing.JFrame {
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
     
-    private final String home_file_font_into = "Aptos Black";
-    private final String home_file_font = "Agency FB";
+    private final String home_file_font_into = "Consolas";
+    private final String home_file_font = "Tahoma";
+    
+    private boolean page1Exit;
     
     private Painel_1Single pg1s;
     private Painel_1Multiple pg1m;
@@ -61,6 +63,8 @@ public class window extends javax.swing.JFrame {
         this.domo = new ArrayList();
         
         this.pg1sm = none;
+        
+        this.page1Exit = false;
         
         setVisible(true);
         setResizable(true);
@@ -113,7 +117,9 @@ public class window extends javax.swing.JFrame {
         
     }//Tem(int init)
     
-    public void Page_0(String title, List<String> text){
+    public void Page_0(String title, List<String> text, boolean exit){
+        
+        this.page1Exit = exit;
         
         setTitle(title);
         
@@ -271,7 +277,7 @@ public class window extends javax.swing.JFrame {
             home_file.setAutoscrolls(false);
             home_file_enter.setAutoscrolls(false);
 
-            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 26));
             home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
 
             home_file.setBackground(Color.white);
@@ -298,6 +304,20 @@ public class window extends javax.swing.JFrame {
                 
             } else {//if(list_empty)
                 
+                var reg = 0;
+                
+                for(String t : this.pg1s.List()){
+                    
+                    var out = t.length();
+                    
+                    if(out > reg) reg = out;
+                    
+                }//for(String t : this.pg1s.List())
+                
+                reg++;
+                
+                if(reg > 101) reg = 101;
+                
                 for(
                     int i = 0;
                     i < this.pg1s.List().size() && i < data.length;
@@ -307,9 +327,9 @@ public class window extends javax.swing.JFrame {
                     
                     data[i] = repeat_char_list;
                     
-                    if(this.pg1s.List().get(i).length() > 200){
+                    if(this.pg1s.List().get(i).length() > 100){
                         
-                        data[i] += this.pg1s.List().get(i).substring(0,197);
+                        data[i] += this.pg1s.List().get(i).substring(0,97);
                         data[i] += "...";
                         
                     } else {
@@ -318,7 +338,10 @@ public class window extends javax.swing.JFrame {
                         
                     }
                     
-                    if(max_list) data[i] += repeat_char_list;
+                    if(max_list) data[i] += Reg.Tab(
+                        this.pg1s.List().get(i),
+                        reg
+                    );
                     
                 }//for(int i = 0; i < this.pg1.List().size() && i < data...
                 
@@ -460,7 +483,7 @@ public class window extends javax.swing.JFrame {
             home_file.setAutoscrolls(false);
             home_file_enter.setAutoscrolls(false);
 
-            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 22));
+            home_file.setFont(new java.awt.Font(this.home_file_font_into, 1, 26));
             home_file_enter.setFont(new java.awt.Font("Bernard MT Condensed", 1, 26));
 
             home_file.setBackground(Color.white);
@@ -491,6 +514,20 @@ public class window extends javax.swing.JFrame {
                 
             } else {//if(list_empty)
                 
+                var reg = 0;
+                
+                for(Domain d : this.domo){
+                    
+                    var a = d.Text(false).length();
+                    
+                    if(a > reg) reg = a;
+                    
+                }//for(Domain d : this.domo)
+                
+                reg++;
+                
+                if(reg > 100) reg = 101;
+                
                 for(
                     int i = 0;
                     i < this.domo.size() && i < data.length;
@@ -502,9 +539,9 @@ public class window extends javax.swing.JFrame {
                     
                     data[i] = repeat_char_list;
                     
-                    if(ad.length() > 200){
+                    if(ad.length() > 100){
                         
-                        data[i] += ad.substring(0,197);
+                        data[i] += ad.substring(0,97);
                         data[i] += "...";
                         
                     } else {
@@ -513,7 +550,7 @@ public class window extends javax.swing.JFrame {
                         
                     }
                     
-                    if(max_list) data[i] += repeat_char_list;
+                    if(max_list) data[i] += Reg.Tab(ad, reg);
                     
                 }//for(int i = 0; i < this.pg1.List().size() && i < data...
                 
@@ -1022,7 +1059,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialKeyTyped
 
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
-        System.exit(0);
+        if(this.page1Exit) System.exit(0);
     }//GEN-LAST:event_initialMouseReleased
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed
@@ -1121,55 +1158,55 @@ public class window extends javax.swing.JFrame {
                 if(tam <= 10){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font_into, 1, 22)
+                        new java.awt.Font(this.home_file_font_into, 1, 26)
                     );
 
                 } else if(tam <= 20){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font_into, 0, 22)
+                        new java.awt.Font(this.home_file_font_into, 0, 26)
                     );
 
                 } else if(tam <= 40){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 22)
+                        new java.awt.Font(this.home_file_font, 0, 26)
                     );
 
                 } else if(tam <= 60){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 20)
+                        new java.awt.Font(this.home_file_font, 0, 24)
                     );
 
                 } else if(tam <= 80){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 18)
+                        new java.awt.Font(this.home_file_font, 0, 22)
+                    );
+
+                } else if(tam <= 90){
+
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 20)
+                    );
+
+                } else if(tam <= 95){
+
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 2, 20)
+                    );
+
+                } else if(tam <= 98){
+
+                    home_file.setFont(
+                        new java.awt.Font(this.home_file_font, 3, 20)
                     );
 
                 } else if(tam <= 100){
 
                     home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 16)
-                    );
-
-                } else if(tam <= 140){
-
-                    home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 14)
-                    );
-
-                } else if(tam <= 180){
-
-                    home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 10)
-                    );
-
-                } else if(tam <= 195){
-
-                    home_file.setFont(
-                        new java.awt.Font(this.home_file_font, 0, 8)
+                        new java.awt.Font(this.home_file_font_into, 1, 26)
                     );
 
                 } else {

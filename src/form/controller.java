@@ -110,7 +110,7 @@ public class controller {
 
                 }//if(w == null)
 
-                w.Page_0(title, text);
+                w.Page_0(title, text, true);
 
             }catch(Exception err){
                 

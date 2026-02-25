@@ -69,7 +69,6 @@ public class Reg {
         
         var txt = before;
         txt += Tab(before, tab);
-        
         txt += after;
         
         return txt;

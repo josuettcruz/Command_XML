@@ -174,17 +174,17 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         if(val.length() > 100 && m == 1){
             
-            return Reg.Numb(m) + " letras!";
+            return Reg.Numb(val.length()) + " letras!";
             
         } else if(val.length() > 100){
             
             return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
             
-        } else if(m < 5){
+        } else if(m < 10){
             
             return txt.title(val, true);
             
-        } else if(m < 10){
+        } else if(m < 20){
             
             return txt.arq(val);
             
@@ -413,7 +413,18 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             case delet, backspace, remove ->{
                 
-                if(vol.size() > 1){
+                var page = false;
+                var out = 0;
+                
+                do{
+                    
+                    page = !vol.get(out).Select();
+                    
+                    out++;
+                    
+                }while(!page && out > 0 && out < vol.size());
+                
+                if(vol.size() > 1 && page){
                     
                     List<String> v = new ArrayList();
                     
@@ -437,11 +448,11 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                     
                     controller.p1m(new config(v, t));
                     
-                } else {//if(vol.size() > 1)
+                } else {//if(vol.size() > 1 && page)
                     
                     this.Exit();
                     
-                }//if(vol.size() > 1)
+                }//if(vol.size() > 1 && page)
                 
             }//case
             
