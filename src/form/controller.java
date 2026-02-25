@@ -57,7 +57,7 @@ public class controller {
         
     }//Home()
     
-    public static boolean Msg(String setTtitle, List<String> msg){
+    public static boolean Msg(String setTtitle, List<String> msg, boolean exit){
         
         var valid = true;
         
@@ -81,7 +81,7 @@ public class controller {
         
         for(String myText : value){
             
-            var t = txt.text(myText, true);
+            var t = txt.text(myText, exit);
             
             if(!t.isBlank()) text.add(t);
             

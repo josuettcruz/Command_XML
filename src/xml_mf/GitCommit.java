@@ -18,7 +18,7 @@ import static form.pag2.*;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class GitCommit implements Painel_2{
        

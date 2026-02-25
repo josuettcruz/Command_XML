@@ -161,7 +161,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                         var y = this.text.get(d);
                         
-                        point = y.charAt(y.length()-1) == points[view];
+                        point = y.charAt(y.length()-1) != points[view];
                         
                         view++;
                         
@@ -370,7 +370,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         this.text.clear();
         
         var point = true;
-        //var points = false;
         
         for(String x : tem){
             
@@ -406,7 +405,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         case '!', '?', '.' -> {
                             
                             point = true;
-                            //points = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
@@ -415,7 +413,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         case ':', ';', ',' ->{
                             
                             point = false;
-                            //points = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
@@ -461,7 +458,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             List<String> value = new ArrayList();
             value.addAll(Arrays.asList(coppy.split("\n")));
             
-            controller.Msg(ext, value);
+            controller.Msg(ext, value, true);
             
         }//if(coppy.isBlank())
         
