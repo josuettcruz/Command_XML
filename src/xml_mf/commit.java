@@ -248,31 +248,22 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     }//Saving()
     
     private String Export(String ext){
+            
+        Hora h = new Hora(true);
         
         var run = txt.arq(ext.toLowerCase());
         
         var arqv = Reg.java ? "..\\" : "";
-        
-        if(run.equals(this.base) || run.isBlank()){
-            
-            arqv += this.base;
-            
-        } else {//if(run.equals(this.base))
-            
-            Hora h = new Hora(true);
-            
-            arqv += run.equalsIgnoreCase("run") ? "run" : run.toUpperCase();
-            arqv += "_";
-            arqv += new Data().Load();
-            arqv += "_";
-            arqv += Reg.Numb(h.Hour());
-            arqv += "-";
-            arqv += Reg.Numb(h.Min());
-            arqv += "-";
-            arqv += Reg.Numb(h.Sec());
-            
-        }//if(run.equals(this.base))
-        
+
+        arqv += new Data().Load();
+        arqv += "_";
+        arqv += Reg.Numb(h.Hour());
+        arqv += "-";
+        arqv += Reg.Numb(h.Min());
+        arqv += "-";
+        arqv += Reg.Numb(h.Sec());
+        arqv += "_";
+        arqv += run;
         arqv += ".txt";
         
         return arqv;
@@ -401,20 +392,30 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         }//for(String t : tem)
         
-        Arq save = new Arq(this.Export(ext));
+        var test1 = ext.equalsIgnoreCase(this.base);
+        var test2 = Arq.Exist(this.Export(ext));
+        var test3 = Arq.Dir(this.Export(ext), true);
+        var test0 = test1 && test2 && test3;
         
-        if(save.Val()){
-            
-            var val_1 = save.create();
-            var val_2 = ext.equalsIgnoreCase(this.base);
-            var val_0 = val_1 || val_2;
-            
-            if(val_0) save.Save(this.Saving());
-            
-        }//if(save.Val())
+        var coppy = "";
         
-        Reg.coppy(this.Commit());
-        System.exit(0);
+        if(test0 || !ext.equalsIgnoreCase(this.base)){
+        coppy = new Arq(this.Export(ext)).Save(this.Saving()).Message();
+        }
+        
+        if(coppy.isBlank()){
+            
+            Reg.coppy(this.Commit());
+            System.exit(0);
+            
+        } else {//if(coppy.isBlank())
+            
+            List<String> value = new ArrayList();
+            value.addAll(Arrays.asList(coppy.split("\n")));
+            
+            controller.Msg(ext, value);
+            
+        }//if(coppy.isBlank())
         
     }//Event(String ext)
     

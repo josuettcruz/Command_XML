@@ -335,7 +335,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case remove, delet, backspace ->{
+            case delet, backspace ->{
                 
                 List<String> v = new ArrayList();
                 
@@ -348,6 +348,8 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 controller.p1s(new config(v, txt.title(vol.get(index), true)));
                 
             }//case
+            
+            case remove -> System.exit(0);
             
         }//switch(action)
         
@@ -407,7 +409,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case remove, delet, backspace ->{
+            case delet, backspace ->{
                 
                 List<String> v = new ArrayList();
                 
@@ -432,6 +434,8 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 controller.p1m(new config(v, t));
                 
             }//case
+            
+            case remove -> System.exit(0);
             
         }//switch(action)
         
