@@ -174,27 +174,23 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         if(val.length() > 100 && m == 1){
             
-            return Reg.Numb(m) + " letras --> " + val;
+            return Reg.Numb(m) + " letras!";
             
         } else if(val.length() > 100){
             
             return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
             
-        } else if(m == 1){
-            
-            return txt.capitalize(val);
-            
         } else if(m < 5){
             
             return txt.title(val, true);
             
-        } else if(m == 5){
+        } else if(m < 10){
             
-            return txt.text(val, true);
+            return txt.arq(val);
             
         } else {
             
-            return txt.arq(val);
+            return txt.text(val, true);
             
         }
         
@@ -323,33 +319,39 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                     
                     v.addAll(vol);
                     
-                    v.add(this.Submit(input));
+                    if(!input.trim().isBlank()) v.add(this.Submit(input));
                     
                     controller.p1s(new config(v));
                     
-                } else {
+                } else {//if(type)
                     
                     this.Exit();
                     
-                }
+                }//if(type)
                 
             }//case
             
-            case delet, backspace ->{
+            case delet, backspace, remove ->{
                 
                 List<String> v = new ArrayList();
                 
-                for(int i = 0; i < vol.size(); i++){
+                if(vol.size() > 1){
                     
-                    if(i != index) v.add(vol.get(i));
+                    for(int i = 0; i < vol.size(); i++){
+                        
+                        if(i != index) v.add(vol.get(i));
+                        
+                    }//for(int i = 0; i < vol.size(); i++)
                     
-                }
+                } else {//for(int i = 0; i < vol.size(); i++)
+                    
+                    this.Exit();
+                    
+                }//for(int i = 0; i < vol.size(); i++)
                 
                 controller.p1s(new config(v, txt.title(vol.get(index), true)));
                 
             }//case
-            
-            case remove -> System.exit(0);
             
         }//switch(action)
         
@@ -409,33 +411,39 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case delet, backspace ->{
+            case delet, backspace, remove ->{
                 
-                List<String> v = new ArrayList();
-                
-                var value = true;
-                var t = "";
-                
-                for(Domain d : vol){
+                if(vol.size() > 1){
                     
-                    if(d.Select() && value){
+                    List<String> v = new ArrayList();
+                    
+                    var value = true;
+                    var t = "";
+                    
+                    for(Domain d : vol){
                         
-                        t = d.Text(true);
-                        value = false;
+                        if(d.Select() && value){
+                            
+                            t = d.Text(true);
+                            value = false;
+                            
+                        }//if(value && d.Select())
                         
-                    }//if(value && d.Select())
+                        if(!d.Select()) v.add(d.Text(true));
+                        
+                    }//for(Domain d : vol)
                     
-                    if(!d.Select()) v.add(d.Text(true));
+                    if(!input.trim().isBlank()) v.add(this.Submit(input));
                     
-                }//for(Domain d : vol)
-                
-                if(!input.trim().isBlank()) v.add(input);
-                
-                controller.p1m(new config(v, t));
+                    controller.p1m(new config(v, t));
+                    
+                } else {//if(vol.size() > 1)
+                    
+                    this.Exit();
+                    
+                }//if(vol.size() > 1)
                 
             }//case
-            
-            case remove -> System.exit(0);
             
         }//switch(action)
         
