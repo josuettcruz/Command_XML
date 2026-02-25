@@ -78,11 +78,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         } else {//if(this.text.size() == 1)
             
-            var quot_end_line = false;
+            var point = false;
             
             for(int d = 0; d < this.text.size(); d++){
                 
-                quot_end_line = false;
+                var quot_end_line = false;
                 
                 val += d == 0 ? " --> " : " -- ";
                 val += Reg.Numb(d+1, this.text.size(), "-");
@@ -114,6 +114,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(quot && t.length() > 1){
                         
+                        point = true;
+                        
                         quot_end_line = !quot_end_line;
                         
                         if(quot_end_line) val += "'";
@@ -138,15 +140,38 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                     } else if(t.equals("\"") || t.equals("'")){//if(quot &&...
                         
-                        val += "\"null\"";
+                        space = false;
                         
                     } else {//if(quot && t.length() > 1)
                         
                         val += t;
+                        point = true;
                         
                     }//if(quot && t.length() > 1)
                     
                 }//for(String t : txt.phrase(this.text.get(d), space))
+                
+                if(point && this.text.get(d).length() > 1){
+                    
+                    char[] points = {'?','!',':',';',',','.'};
+                    
+                    var view = 0;
+                    
+                    do{
+                        
+                        var y = this.text.get(d);
+                        
+                        point = y.charAt(y.length()-1) == points[view];
+                        
+                        view++;
+                        
+                    }while(point && view > 0 && view < points.length);
+                    
+                }//if(point)
+                
+                if(point) point = this.text.get(d).length() > 1;
+                
+                if(point) val += ".";
                 
                 if(quot_end_line) val += "'";
                 
@@ -164,7 +189,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         var val = "";
         var line = false;
-        var quot_end_line = false;
+        var point = true;
         
         for(String x : this.text){
             
@@ -178,7 +203,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
             }//if(line)
             
-            quot_end_line = false;
+            var quot_end_line = false;
             
             var space = false;
             
@@ -211,6 +236,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 if(quot && y.length() > 1){
                     
+                    point = false;
+                    
                     quot_end_line = !quot_end_line;
                     
                     if(quot_end_line) val += "\"";
@@ -233,13 +260,34 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 } else {
                     
+                    point = true;
                     val += y;
                     
                 }
                 
-                if(quot_end_line) val += "\"";
-                
             }//for(String y : txt.phrase(x, true))
+                
+            if(point && x.length() > 1){
+
+                char[] points = {'?','!',':',';',',','.'};
+
+                var view = 0;
+
+                do{
+
+                    point = x.charAt(x.length()-1) != points[view];
+
+                    view++;
+
+                }while(point && view > 0 && view < points.length);
+
+            }//if(point && y.length() > 1)
+
+            if(point) point = x.length() > 1;
+
+            if(point) val += "!";
+
+            if(quot_end_line) val += "\"";
             
         }//for(String demo : this.text)
         
