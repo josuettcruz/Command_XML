@@ -81,7 +81,7 @@ public class controller {
         
         for(String myText : value){
             
-            var t = txt.text(myText, exit);
+            var t = txt.text(myText, true);
             
             if(!t.isBlank()) text.add(t);
             
@@ -110,7 +110,7 @@ public class controller {
 
                 }//if(w == null)
 
-                w.Page_0(title, text, true);
+                w.Page_0(title, text, exit);
 
             }catch(Exception err){
                 

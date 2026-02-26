@@ -28,6 +28,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private List<String> text;
     private String input;
     
+    private final char[] points = {'?','!',':',';',',','.', ')', ']', '}'};
+    
     public commit(String text){
         
         this.text = new ArrayList();
@@ -153,19 +155,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 if(point && this.text.get(d).length() > 1){
                     
-                    char[] points = {'?','!',':',';',',','.'};
-                    
                     var view = 0;
                     
                     do{
                         
                         var y = this.text.get(d);
                         
-                        point = y.charAt(y.length()-1) != points[view];
+                        point = y.charAt(y.length()-1) != this.points[view];
                         
                         view++;
                         
-                    }while(point && view > 0 && view < points.length);
+                    }while(point && view > 0 && view < this.points.length);
                     
                 }//if(point)
                 
@@ -269,17 +269,15 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
             if(point && x.length() > 1){
 
-                char[] points = {'?','!',':',';',',','.'};
-
                 var view = 0;
 
                 do{
 
-                    point = x.charAt(x.length()-1) != points[view];
+                    point = x.charAt(x.length()-1) != this.points[view];
 
                     view++;
 
-                }while(point && view > 0 && view < points.length);
+                }while(point && view > 0 && view < this.points.length);
 
             }//if(point && y.length() > 1)
 
