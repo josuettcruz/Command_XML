@@ -32,6 +32,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     public commit(String text){
         
+        this.input = "";
+        
         this.text = new ArrayList();
         this.text.addAll(Arrays.asList(txt.text(text, true).split("\n")));
         
