@@ -124,7 +124,7 @@ public class controller {
         
         return valid;
         
-    }//Msg(String setTtitle, List<String> msg)
+    }//Msg(String setTtitle, List<String> msg, boolean exit)
     
     public static void p1s(Painel_1Single painel){
         
