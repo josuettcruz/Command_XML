@@ -441,7 +441,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         var test0 = test1 && test2 && test3;
         
         var err = "";
-        var coppy = true;
+        var coppy = !ext.equalsIgnoreCase("exit");
         
         if(test0 || !ext.equalsIgnoreCase(this.base)){
             
@@ -513,7 +513,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(String values : this.text){
             
-            var t = txt.arq(values);
+            var t = txt.text(values);
             
             if(t.length() > 100){
                 
@@ -538,7 +538,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(int add = 0; add < this.text.size(); add++){
             
-            var insert = txt.arq(this.text.get(add));
+            var insert = txt.text(this.text.get(add));
             String value;
             
             if(insert.length() > 100){
@@ -569,43 +569,43 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         if(max < 10){
             
-            return new java.awt.Font("Aptos Black",0,22);
+            return new java.awt.Font("Aptos Black",0,26);
             
         } else if(max < 20){
             
-            return new java.awt.Font("Arial Black",0,22);
+            return new java.awt.Font("Arial Black",0,26);
             
         } else if(max < 30){
             
-            return new java.awt.Font("Arial",0,22);
+            return new java.awt.Font("Arial",0,26);
             
         } else if(max < 40){
             
-            return new java.awt.Font("Arial",0,18);
+            return new java.awt.Font("Arial",0,22);
             
         } else if(max < 50){
             
-            return new java.awt.Font("Times New Roman",1,18);
+            return new java.awt.Font("Times New Roman",0,22);
             
         } else if(max < 60){
             
-            return new java.awt.Font("Times New Roman",0,18);
+            return new java.awt.Font("Times New Roman",0,20);
             
         } else if(max < 70){
             
-            return new java.awt.Font("Times New Roman",0,16);
+            return new java.awt.Font("Times New Roman",0,18);
             
         } else if(max < 80){
             
-            return new java.awt.Font("Times New Roman",0,14);
+            return new java.awt.Font("Times New Roman",0,16);
             
         } else if(max < 90){
             
-            return new java.awt.Font("Times New Roman",0,12);
+            return new java.awt.Font("Times New Roman",0,14);
             
         } else {
             
-            return new java.awt.Font("Times New Roman",0,10);
+            return new java.awt.Font("Times New Roman",0,12);
             
         }
         
