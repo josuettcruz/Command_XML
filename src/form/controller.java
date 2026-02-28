@@ -18,44 +18,23 @@ import java.util.List;
  */
 public class controller {
     
-    private static window w;
+    private static window doc;
     
-    public static void Home(){
+    private static boolean position = false;
+    private static int r = 0;
+    private static int t = 0;
+    private static int w = 0;
+    private static int h = 0;
+    
+    public static void Position(int right, int top, int width, int height){
         
-        try{
-            
-            if(w == null) w = new window(100,100,600,600);
-            w.Painel_2(new config());
+        position = true;
+        r = right;
+        t = top;
+        w = width;
+        h = height;
         
-        } catch(Exception e) {
-            
-            String err = "Exception\n";
-            err += e.getMessage().replace("\"", "\n");
-            err += "\n-- ";
-            err += Reg.Numb(e.hashCode());
-            err += " --";
-            
-            if(
-                e.getLocalizedMessage() != null
-                && e.getLocalizedMessage().equalsIgnoreCase(err)
-            )
-            {
-                
-                err += e.getLocalizedMessage();
-                
-            }//if(e.getLocalizedMessage() != null && e.getLocalizedMessage()...
-            
-            if(Reg.java){
-                
-                for(String message : txt.text(err, true).split("\n")){
-                    System.err.println(message);
-                }
-                
-            }//if(println)
-            
-        }
-        
-    }//Home()
+    }//Position(int right, int top, int width, int height)
     
     public static boolean Msg(String setTtitle, List<String> msg, boolean exit){
         
@@ -63,17 +42,17 @@ public class controller {
         
         List<String> value = new ArrayList();
         
-        for(String t : msg){
+        for(String com : msg){
             
-            if(t.contains("\n")){
+            if(com.contains("\n")){
                 
-                value.addAll(Arrays.asList(t.split("\n")));
+                value.addAll(Arrays.asList(com.split("\n")));
                 
-            } else {//if(t.contains("\n"))
+            } else {//if(com.contains("\n"))
                 
-                value.add(t);
+                value.add(com);
                 
-            }//if(t.contains("\n"))
+            }//if(com.contains("\n"))
             
         }//for(String t : msg)
         
@@ -81,9 +60,9 @@ public class controller {
         
         for(String myText : value){
             
-            var t = txt.text(myText, true);
+            var com = txt.text(myText, true);
             
-            if(!t.isBlank()) text.add(t);
+            if(!com.isBlank()) text.add(com);
             
         }//for(String myText : value)
         
@@ -99,9 +78,9 @@ public class controller {
 
                 if(title.isBlank()) title = new Link(Reg.http).page(false);
 
-                if(w == null){
+                if(doc == null){
 
-                    w = new window(
+                    doc = new window(
                         400,
                         200,
                         600,
@@ -110,7 +89,7 @@ public class controller {
 
                 }//if(w == null)
 
-                w.Page_0(title, text, exit);
+                doc.Page_0(title, text, exit);
 
             }catch(Exception err){
                 
@@ -130,8 +109,21 @@ public class controller {
         
         try{
             
-            if(w == null) w = new window();
-            w.Page_1Single(painel);
+            if(doc == null && position){
+                
+                doc = new window(r, t, w, h);
+                doc.Page_1Single(painel);
+                
+            }if(doc == null){//if(doc == null && position)
+                
+                doc = new window();
+                doc.Page_1Single(painel);
+                
+            } else {//if(doc == null && position)
+                
+                doc.Page_1Single(painel);
+                
+            }//if(doc == null && position)
             
         }catch(Exception err){
 
@@ -147,8 +139,21 @@ public class controller {
         
         try{
             
-            if(w == null) w = new window();
-            w.Page_1Multiple(painel);
+            if(doc == null && position){
+                
+                doc = new window(r, t, w, h);
+                doc.Page_1Multiple(painel);
+                
+            }if(doc == null){//if(doc == null && position)
+                
+                doc = new window();
+                doc.Page_1Multiple(painel);
+                
+            } else {//if(doc == null && position)
+                
+                doc.Page_1Multiple(painel);
+                
+            }//if(doc == null && position)
             
         }catch(Exception err){
 
@@ -164,8 +169,21 @@ public class controller {
         
         try{
             
-            if(w == null) w = new window();
-            w.Painel_2(painel);
+            if(doc == null && position){
+                
+                doc = new window(r, t, w, h);
+                doc.Painel_2(painel);
+                
+            }if(doc == null){//if(doc == null && position)
+                
+                doc = new window();
+                doc.Painel_2(painel);
+                
+            } else {//if(doc == null && position)
+                
+                doc.Painel_2(painel);
+                
+            }//if(doc == null && position)
             
         }catch(Exception err){
 

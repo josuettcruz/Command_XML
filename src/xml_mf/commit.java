@@ -492,7 +492,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         switch(action){
             
-            case remove -> System.exit(0);
+            case remove, delet, backspace -> System.exit(0);
             
             case open, add, key, enter -> this.Click(value);
             
