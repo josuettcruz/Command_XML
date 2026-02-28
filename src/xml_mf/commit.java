@@ -149,7 +149,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     } else {//if(quot && t.length() > 1)
                         
                         val += t;
-                        point = true;
+                        point = t.length() > 1;
                         
                     }//if(quot && t.length() > 1)
                     
@@ -170,8 +170,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     }while(point && view > 0 && view < this.points.length);
                     
                 }//if(point)
-                
-                if(point) point = this.text.get(d).length() > 1;
                 
                 if(point) val += ".";
                 
@@ -262,7 +260,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 } else {
                     
-                    point = true;
+                    point = y.length() > 1;
                     val += y;
                     
                 }
@@ -283,8 +281,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
 
             }//if(point && y.length() > 1)
 
-            if(point) point = x.length() > 1;
-
             if(point) val += "!";
 
             if(quot_end_line) val += "\"";
@@ -299,18 +295,20 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         Hora h = new Hora(true);
         
-        var run = txt.arq(ext.toLowerCase());
+        var run = txt.arq(ext);
         
         var arqv = Reg.java ? "..\\" : "";
-
+        
+        arqv += "jar - ";
+        arqv += "_";
         arqv += new Data().Load();
-        arqv += "_";
+        arqv += " - ";
         arqv += Reg.Numb(h.Hour());
-        arqv += "-";
+        arqv += "h";
         arqv += Reg.Numb(h.Min());
-        arqv += "-";
+        arqv += "m";
         arqv += Reg.Numb(h.Sec());
-        arqv += "_";
+        arqv += "s - ";
         arqv += run;
         arqv += ".txt";
         
@@ -442,21 +440,25 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         var test3 = Arq.Dir(this.Export(ext), true);
         var test0 = test1 && test2 && test3;
         
-        var coppy = "";
+        var err = "";
+        var coppy = true;
         
         if(test0 || !ext.equalsIgnoreCase(this.base)){
-        coppy = new Arq(this.Export(ext)).Save(this.Saving()).Message();
-        }
-        
-        if(coppy.isBlank()){
             
-            Reg.coppy(this.Commit());
+            err = new Arq(this.Export(ext)).Save(this.Saving()).Message();
+            coppy = false;
+            
+        }//if(test0 || !ext.equalsIgnoreCase(this.base))
+        
+        if(err.isBlank()){
+            
+            if(coppy) Reg.coppy(this.Commit());
             System.exit(0);
             
         } else {//if(coppy.isBlank())
             
             List<String> value = new ArrayList();
-            value.addAll(Arrays.asList(coppy.split("\n")));
+            value.addAll(Arrays.asList(err.split("\n")));
             
             controller.Msg(ext, value, true);
             
