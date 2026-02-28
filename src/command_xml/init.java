@@ -18,6 +18,7 @@ import form.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  *
@@ -199,25 +200,33 @@ public class init {
         
         Data d = new Data();
         
-        if(d.CompareTo(Reg.modify) && Reg.java){
-            
-            /* if(gitCommit()){
-                
-                controller.Home();
-                
-            } else {//if(gitCommit())
-                
-                Execute();
-                
-            }/*if(gitCommit())*/
+        if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java){
             
             Execute();
             
-        } else {//if(d.CompareTo(Reg.modify) && print)
+        } else if(
+            Reg.modify.Val() && d.CompareTo(
+                Reg.modify,
+                true
+            ) && Reg.java
+        )
+        {
             
-            controller.Home();
+            controller.p1m(new config());
             
-        }//if(d.CompareTo(Reg.modify) && print)
+        } else if(Reg.modify.Val()){
+            
+            controller.p1s(new config());
+            
+        } else {
+            
+            controller.Msg(
+                "Exception",
+                Arrays.asList(Reg.modify.Error().split("\n")),
+                true
+            );
+            
+        }
         
     }//Exec()
     

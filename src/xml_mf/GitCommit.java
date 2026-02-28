@@ -49,15 +49,15 @@ public class GitCommit implements Painel_2{
         
         if(text.isBlank()){
             
-            controller.p2(new config());
+            controller.p1m(new config());
             
-        } else {
+        } else {//if(text.isBlank())
             
-            controller.p1s(new commit(text));
+            controller.p1m(new commit(text));
             
-        }
+        }//if(text.isBlank())
         
-    }
+    }//execute(String text)
     
     private void Action(Domain value){
         
@@ -77,13 +77,15 @@ public class GitCommit implements Painel_2{
             add++;
             
         }while(
-            loop && add > 0 && add < this.lin.size()
+            loop
+            && add > 0
+            && add < this.lin.size()
             && add < this.all_text.size()
         );
         
         if(loop) System.exit(0);
         
-    }
+    }//Action(Domain value)
 
     @Override
     public String Title(boolean title) {

@@ -168,7 +168,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     
     private String Submit(String input){
         
-        var val = input.replace("_", " ").replace("-", " ");
+        var val = txt.text(input);
         
         var m = txt.phrase(val, true).size();
         
@@ -176,23 +176,23 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             return Reg.Numb(val.length()) + " letras!";
             
-        } else if(val.length() > 100){
+        } else if(val.length() > 100){//if(val.length() > 100 && m == 1)
             
             return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
             
-        } else if(m < 10){
+        } else if(m < 10){//if(val.length() > 100 && m == 1)
             
             return txt.title(val, true);
             
-        } else if(m < 20){
+        } else if(m < 20){//if(val.length() > 100 && m == 1)
             
             return txt.arq(val);
             
-        } else {
+        } else {//if(val.length() > 100 && m == 1)
             
-            return txt.text(val, true);
+            return val;
             
-        }
+        }//if(val.length() > 100 && m == 1)
         
     }//Submit(String input)
 
@@ -411,7 +411,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case delet, backspace, remove ->{
+            case delet ->{
                 
                 var page = false;
                 var out = 0;
@@ -456,6 +456,8 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
+            case remove, backspace -> this.Exit();
+            
         }//switch(action)
         
     }
@@ -465,9 +467,9 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         switch(op){
             
-            case cancel -> System.exit(0);
+            case cancel, backspace -> this.Exit();
             
-            case del, backspace -> controller.p1s(new config());
+            case del -> controller.p1s(new config());
             
             case confirm, enter -> controller.p1m(new config());
             

@@ -39,12 +39,12 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
     }//commit(String text)
     
-    private commit(List<String> text, String input){
+    private commit(List<String> receive, String input){
         
         this.input = input;
-        this.text = text;
+        this.text = receive;
         
-    }//commit(List<String> text, String input)
+    }//commit(List<String> receive, String input)
     
     private String Commit(){
         
@@ -360,7 +360,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
     }//line(String phrase)
     
-    private void Event(String ext){
+    private void Event(String ext, boolean act){
         
         List<String> tem = new ArrayList();
         tem.addAll(this.text);
@@ -435,34 +435,38 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         }//for(String t : tem)
         
-        var test1 = ext.equalsIgnoreCase(this.base);
-        var test2 = Arq.Exist(this.Export(ext));
-        var test3 = Arq.Dir(this.Export(ext), true);
-        var test0 = test1 && test2 && test3;
-        
-        var err = "";
-        var coppy = !ext.equalsIgnoreCase("exit");
-        
-        if(test0 || !ext.equalsIgnoreCase(this.base)){
+        if(act){
             
-            err = new Arq(this.Export(ext)).Save(this.Saving()).Message();
-            coppy = false;
+            var test1 = ext.equalsIgnoreCase(this.base);
+            var test2 = Arq.Exist(this.Export(ext));
+            var test3 = Arq.Dir(this.Export(ext), true);
+            var test0 = test1 && test2 && test3;
             
-        }//if(test0 || !ext.equalsIgnoreCase(this.base))
-        
-        if(err.isBlank()){
+            var err = "";
+            var coppy = !ext.equalsIgnoreCase("exit");
             
-            if(coppy) Reg.coppy(this.Commit());
-            System.exit(0);
+            if(test0 || !ext.equalsIgnoreCase(this.base)){
+                
+                err = new Arq(this.Export(ext)).Save(this.Saving()).Message();
+                coppy = false;
+                
+            }//if(test0 || !ext.equalsIgnoreCase(this.base))
             
-        } else {//if(coppy.isBlank())
+            if(err.isBlank()){
+                
+                if(coppy) Reg.coppy(this.Commit());
+                System.exit(0);
+                
+            } else {//if(coppy.isBlank())
+                
+                List<String> value = new ArrayList();
+                value.addAll(Arrays.asList(err.split("\n")));
+                
+                controller.Msg(ext, value, true);
+                
+            }//if(coppy.isBlank())
             
-            List<String> value = new ArrayList();
-            value.addAll(Arrays.asList(err.split("\n")));
-            
-            controller.Msg(ext, value, true);
-            
-        }//if(coppy.isBlank())
+        }//if(act)
         
     }//Event(String ext)
     
@@ -470,11 +474,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         if(run.trim().isBlank()){
             
-            controller.p1m(new commit(this.text, this.base));
+            controller.p1s(new commit(this.text, this.base));
             
         } else if(txt.Local(run).equals(run)){//if(run.trim().isBlank())
             
-            this.Event(run);
+            this.Event(run, true);
             
         } else {//if(run.trim().isBlank())
             
@@ -534,11 +538,16 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     @Override
     public java.util.List<Domain> ListMode() {
         
+        this.Event("", false);
+        
+        List<String> receive = new ArrayList();
+        receive.addAll(Arrays.asList(this.Saving().split("\n")));
+        
         List<Domain> d = new ArrayList();
         
-        for(int add = 0; add < this.text.size(); add++){
+        for(int add = 0; add < receive.size(); add++){
             
-            var insert = txt.text(this.text.get(add));
+            var insert = txt.text(receive.get(add));
             String value;
             
             if(insert.length() > 100){
