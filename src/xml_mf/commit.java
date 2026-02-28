@@ -118,7 +118,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(quot && t.length() > 1){
                         
-                        point = true;
+                        point = false;
                         
                         quot_end_line = !quot_end_line;
                         
