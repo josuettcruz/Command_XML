@@ -295,7 +295,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
         Hora h = new Hora(true);
         
-        var run = txt.arq(ext);
+        var run = txt.Local(ext);
         
         var arqv = Reg.java ? "..\\" : "";
         
