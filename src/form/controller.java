@@ -5,8 +5,6 @@
 package form;
 
 import model.*;
-import xml_mf.config;
-
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,7 +112,7 @@ public class controller {
                 doc = new window(r, t, w, h);
                 doc.Page_1Single(painel);
                 
-            }if(doc == null){//if(doc == null && position)
+            } else if(doc == null){//if(doc == null && position)
                 
                 doc = new window();
                 doc.Page_1Single(painel);
@@ -144,7 +142,7 @@ public class controller {
                 doc = new window(r, t, w, h);
                 doc.Page_1Multiple(painel);
                 
-            }if(doc == null){//if(doc == null && position)
+            } else if(doc == null){//if(doc == null && position)
                 
                 doc = new window();
                 doc.Page_1Multiple(painel);
@@ -174,7 +172,7 @@ public class controller {
                 doc = new window(r, t, w, h);
                 doc.Painel_2(painel);
                 
-            }if(doc == null){//if(doc == null && position)
+            } else if(doc == null){//if(doc == null && position)
                 
                 doc = new window();
                 doc.Painel_2(painel);
