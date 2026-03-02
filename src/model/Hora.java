@@ -215,7 +215,7 @@ public class Hora {
         
     }//Timer(String sep)
     
-    public String TimerGood(boolean after, String space, String sep){
+    private String TimerGood(boolean after, String space, String sep){
         
         String txt = "";
         
@@ -270,6 +270,12 @@ public class Hora {
         return this.error.isBlank() ? txt : this.error;
         
     }//TimerGood(boolean print, String sep, String space)
+    
+    public String TimerGood(String space, String sep){
+        
+        return this.TimerGood(true, space, sep);
+        
+    }//TimerGood(String space, String sep)
     
     public String TimerGood(boolean after, String space){
         

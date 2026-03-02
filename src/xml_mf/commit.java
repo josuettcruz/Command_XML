@@ -53,7 +53,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         var val = "git commit -m \"";
         val += new Data().DataAbreviada(!h.Compare(new Hora(20,30)));
         
-        val += h.Compare(new Hora(7,30)) ? " - " : " -- ";
+        val += " -- ";
         
         if(h.Compare(new Hora(20,30))){
             
@@ -63,13 +63,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             val += h.TimerGood(false);
             
-        } else if(h.Compare(new Hora(7,30))){//h.Compare
-            
-            val += h.Timer();
-            
         } else {//h.Compare
             
-            val += h.TimerGood(false, " - ");
+            val += h.Timer();
             
         }//h.Compare
         
@@ -547,19 +543,10 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(int add = 0; add < receive.size(); add++){
             
-            var insert = txt.text(receive.get(add));
-            String value;
-            
-            if(insert.length() > 100){
-                
-                value = insert.substring(0, 97);
-                value += "...";
-                
-            } else {//if(insert.length() > 100)
-                
-                value = insert;
-                
-            }//if(insert.length() > 100)
+            var value = "Linha ";
+            value += Reg.Numb(add+1, receive.size(), " de ");
+            value += ": ";
+            value += txt.text(receive.get(add));
             
             d.add(new Domain(add+1, value));
             
