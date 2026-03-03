@@ -305,30 +305,24 @@ public class Data {
             
         }//if(week)
         
-        int a = this.data.getYear();
-        int m = this.data.getMonthValue();
-        int d = this.data.getDayOfMonth();
+        if(this.data.getDayOfMonth() != this.data.getMonthValue()){
+            
+            txt += Reg.Numb(this.data.getDayOfMonth());
+            txt += sep;
+            
+        }//if(this.data.getDayOfMonth() != this.data.getMonthValue())
         
-        if(d < 10){
-            txt += "0";
-        }
-        
-        txt += d;
+        txt += Reg.Numb(this.data.getMonthValue());
         txt += sep;
-        
-        if(m < 10){
-            txt += "0";
-        }
-        
-        txt += m;
-        txt += sep;
-        txt += a;
+        txt += Reg.Numb(this.data.getYear());
         
         return txt;
         
     }//DataAbreviada(String sep)
     
     private String DataCompleta(boolean week, String day_month, String month_year){
+        
+        var day = this.data.getDayOfMonth() != this.data.getMonthValue();
         
         String txt = "";
         
@@ -366,13 +360,13 @@ public class Data {
             
         }//if(semana)
         
-        txt += d;
-        
-        if(d == 1){
-            txt += "º";
-        }
-        
-        txt += " de ";
+        if(day || week){
+            
+            txt += d;
+            if(d == 1) txt += "º";
+            txt += " de ";
+            
+        }//if(day || week)
         
         switch(m){
             
