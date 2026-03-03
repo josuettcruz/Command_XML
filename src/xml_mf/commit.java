@@ -456,11 +456,13 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 if(coppy) acept = Reg.coppy(this.Commit());
                 
+                String[] col = coppy ? this.Commit().split("--") : this.Saving().split("\n");
+                
                 if(Reg.java && acept){
                     
                     final int max = 120;
                     
-                    for(String t : this.Commit().split("--")){
+                    for(String t : col){
                         
                         final char[] dem = {'"', '>'};
                         
@@ -476,7 +478,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                         }//if(p.length() > 2 && p.length() < max)
                         
-                    }//for(String t : this.Commit().split("--"))
+                    }//for(String t : col)
                     
                 }//if(Reg.java && acept)
                 
