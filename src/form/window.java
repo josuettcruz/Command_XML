@@ -372,8 +372,8 @@ public class window extends javax.swing.JFrame {
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
             home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-            home_action.setText("ABRIR");
-            home_exit.setText("APAGAR");
+            home_action.setText("CONFIRMAR");
+            home_exit.setText("CANCELAR");
 
             home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
             home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
@@ -498,8 +498,8 @@ public class window extends javax.swing.JFrame {
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
             home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-            home_action.setText("ABRIR");
-            home_exit.setText("APAGAR");
+            home_action.setText("CONFIRMAR");
+            home_exit.setText("CANCELAR");
 
             home_action.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
             home_exit.setFont(new java.awt.Font("Bernard MT Condensed", 0, 32));
@@ -1346,16 +1346,16 @@ public class window extends javax.swing.JFrame {
                 
             }
             
-            case 8, 127 ->{
+            /*case 8, 127 ->{
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    /*this.pg1s.Button(
-                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                        list_page1.getSelectedIndex(),
-                        this.pg1s.List(),
-                        home_file.getText()
-                    );*/
+                    //this.pg1s.Button(
+                    //    evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
+                    //    list_page1.getSelectedIndex(),
+                    //    this.pg1s.List(),
+                    //    home_file.getText()
+                    //);
                     
                     this.pg1s.Action(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
@@ -1367,6 +1367,65 @@ public class window extends javax.swing.JFrame {
 
                     this.pg1m.Action(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
+                        this.Pg1m(),
+                        home_file.getText()
+                    );
+
+                } else {
+                    
+                    this.Page_1(false, "APAGAR");
+                    
+                }
+                
+            }*/
+            
+            case 8 ->{
+                
+                if(this.pg1s != null && this.pg1sm == single){
+                    
+                    /*this.pg1s.Button(
+                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
+                        list_page1.getSelectedIndex(),
+                        this.pg1s.List(),
+                        home_file.getText()
+                    );*/
+                    
+                    this.pg1s.Action(
+                        pag1.delet,
+                        this.Pg1s(),
+                        home_file.getText()
+                    );
+                    
+                } else if(this.pg1m != null && this.pg1sm == multiple){
+
+                    this.pg1m.Action(
+                        pag1.delet,
+                        this.Pg1m(),
+                        home_file.getText()
+                    );
+
+                } else {
+                    
+                    this.Page_1(false, "APAGAR");
+                    
+                }
+                
+            }//case 8, 127
+            
+            case 127 ->{
+                
+                if(this.pg1s != null && this.pg1sm == single){
+                    
+                    this.pg1s.Action(
+                        pag1.backspace,
+                        this.Pg1s(),
+                        home_file.getText()
+                    );
+                    
+                } else if(this.pg1m != null && this.pg1sm == multiple){
+
+                    this.pg1m.Action(
+                        pag1.backspace,
                         this.Pg1m(),
                         home_file.getText()
                     );

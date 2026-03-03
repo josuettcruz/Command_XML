@@ -45,7 +45,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
     }//Enter()
     
-    public config(List<String> value){
+    private config(List<String> value){
         
         var form = "";
         
@@ -62,7 +62,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
     }//Enter()
     
-    public config(List<String> value, String input){
+    private config(List<String> value, String input){
         
         this.input = input;
         
@@ -180,17 +180,17 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             return Reg.Numb(m, input.length(), " palavras e ") + " letras!";
             
-        } else if(m < 10){//if(val.length() > 100 && m == 1)
+        } else if(m == 1){//if(val.length() > 100 && m == 1)
+            
+            return val.toUpperCase();
+            
+        } else if(m < 8){//if(val.length() > 100 && m == 1)
             
             return txt.title(val, true);
             
-        } else if(m < 20){//if(val.length() > 100 && m == 1)
-            
-            return txt.arq(val);
-            
         } else {//if(val.length() > 100 && m == 1)
             
-            return val;
+            return txt.arq(val);
             
         }//if(val.length() > 100 && m == 1)
         
@@ -367,7 +367,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         switch(action){
             
-            case add, enter, open, key ->{
+            case add, key ->{
                 
                 String[] cod = {"sair", "exit", "end","fim"};
                 boolean[] doc = new boolean[cod.length+1];
@@ -411,7 +411,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case delet ->{
+            case enter, open, delet, remove ->{
                 
                 var page = false;
                 var out = 0;
@@ -456,7 +456,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case remove, backspace -> this.Exit();
+            case backspace -> this.Exit();
             
         }//switch(action)
         

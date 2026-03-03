@@ -452,7 +452,34 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             if(err.isBlank()){
                 
-                if(coppy) Reg.coppy(this.Commit());
+                var acept = false;
+                
+                if(coppy) acept = Reg.coppy(this.Commit());
+                
+                if(Reg.java && acept){
+                    
+                    final int max = 120;
+                    
+                    for(String t : this.Commit().split("--")){
+                        
+                        final char[] dem = {'"', '>'};
+                        
+                        var p = txt.text(t, dem);
+                        
+                        if(p.length() > 2 && p.length() < max){
+                            
+                            System.out.println(p);
+                            
+                        } else {//if(p.length() > 2 && p.length() < max)
+                            
+                            System.out.println(p.substring(0,max-3) + "...");
+                            
+                        }//if(p.length() > 2 && p.length() < max)
+                        
+                    }//for(String t : this.Commit().split("--"))
+                    
+                }//if(Reg.java && acept)
+                
                 System.exit(0);
                 
             } else {//if(coppy.isBlank())
@@ -490,9 +517,76 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         switch(action){
             
-            case remove, delet, backspace -> System.exit(0);
+            case key, open, add -> this.Click(value);
             
-            case open, add, key, enter -> this.Click(value);
+            case enter, remove, delet, backspace -> {
+                
+                if(Reg.java){
+                    
+                    final int max = 100;
+                    
+                    boolean e = false;
+                    boolean event = false;
+                    
+                    this.Event("run", false);
+                    
+                    final int tot = this.Saving().split("\n").length;
+                    int line = 1;
+                    
+                    int par = 0;
+                    
+                    for(String tema : this.Saving().split("\n")){
+                        
+                        var t = tema.length();
+                        
+                        if(t > par && t < max) par = t;
+                        
+                    }//for(String t : this.Saving().split("\n")) - 1 - 2
+                    
+                    par++;
+                    
+                    for(String t : this.Saving().split("\n")){
+                        
+                        if(t.length() > max){
+                            
+                            if(e) System.out.println();
+                            
+                            System.out.println(
+                                "\f Linha " + Reg.Numb(line, tot, " de ")
+                            );
+                            
+                            System.out.println("\f " + t.substring(0, max) + " \f");
+                            System.out.println("\f " + t.substring(max));
+                            event = true;
+                            
+                        } else {//if(t.length() > max)
+                            
+                            var view = "\" Linha: ";
+                            view += Reg.Numb(line, tot, " de ");
+                            view += " \"";
+                            
+                            if(event){
+                                
+                                System.out.println();
+                                event = false;
+                                
+                            }//if(evt)
+                            
+                            Reg.Print(t, view, par);
+                            
+                        }//if(t.length() > max)
+                        
+                        e = true;
+                        
+                        line++;
+                        
+                    }//for(String t : this.Saving().split("\n")) - 2 - 2
+                    
+                }//if(Reg.java)
+                
+                System.exit(0);
+                
+            }
             
         }//switch(action)
         
