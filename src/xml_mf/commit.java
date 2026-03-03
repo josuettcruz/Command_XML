@@ -381,12 +381,14 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(t.isBlank()){
                         
-                        t += point ? txt.capitalize(y) : y;
+                        t += point
+                            ? txt.capitalize(y.replace("\\", "/"))
+                            : y.replace("\\", "/");
                         
                     } else {
                         
                         t += " ";
-                        t += y;
+                        t += y.replace("\\", "/");
                         
                     }
                     
