@@ -235,6 +235,112 @@ public class window extends javax.swing.JFrame {
         
     }//Page_1(boolean visible)
     
+    private List<Domain> Domo(List<Domain> view){
+        
+        List<Domain> demo = new ArrayList();
+        List<Integer> test = new ArrayList();
+        
+        for(Domain ad : view){
+            
+            boolean acept = true;
+            
+            if(test.size() > 1){
+                
+                Integer add = 0;
+                
+                do{
+                    
+                    if(test.get(add) == ad.index()) acept = false;
+                    
+                    add++;
+                    
+                }while(acept && add > 0 && add < test.size());
+                
+            }//if(test.size() > 1)
+            
+            if(ad.index() < 0) acept = false;
+            
+            if(acept){
+                
+                demo.add(new Domain(ad.index(), ad.Text(false)));
+                test.add(ad.index());
+                
+            }//if(acept)
+            
+        }//for(Domain insert : view)
+        
+        return demo;
+        
+    }//Page_1(List<Domain> view)
+    
+    public List<Domain> Pg1s(){
+        
+        int select = list_page1.getSelectedIndex();
+        
+        List<Domain> doc = this.domo;
+        
+        List<Domain> tema = new ArrayList();
+        
+        for(int i = 0; i < doc.size(); i++){
+            
+            Domain demo = new Domain(
+                doc.get(i).index(),
+                doc.get(i).Text(false)
+            );
+            
+            demo.Select(i == select);
+            
+            tema.add(demo);
+            
+        }//for(int i = 0; i < doc.size(); i++)
+        
+        return tema;
+        
+    }//Pg1s()
+    
+    public List<Domain> Pg1m(){
+        
+        int[] select = list_page1.getSelectedIndices();
+        
+        List<Domain> doc = this.domo;
+        
+        List<Domain> tema = new ArrayList();
+        
+        if(select.length > 0){
+            
+            for(int add = 0; add < doc.size(); add++){
+                
+                Domain ad = new Domain(
+                    doc.get(add).index(),
+                    doc.get(add).Text(false)
+                );
+                
+                var selected = false;
+                var row = 0;
+                
+                do{
+                    
+                    selected = add == select[row];
+                    row++;
+                    
+                }while(!selected && row > 0 && row < select.length);
+                
+                ad.Select(selected);
+                
+                tema.add(ad);
+                
+            }//for(Domain d : this.pg1m.ListMode())
+            
+        } else {//if(list_page1.getSelectedIndices().length > 1)
+            
+            tema.addAll(this.domo);
+            
+        }//if(list_page1.getSelectedIndices().length > 1)
+        
+        return tema;
+        
+    }//Pg1m()
+    
     private void Page_1Single(){
         
         if(this.pg1s != null && this.pg1sm == single){
@@ -244,11 +350,15 @@ public class window extends javax.swing.JFrame {
             );
             
             final var max_list = this.pg1s.ListColumn()
-                && this.pg1s.List().size() > 1;
+                && this.pg1s.ListMode().size() > 1;
             
-            final var list_empty = this.pg1s.List().isEmpty();
+            final var list_empty = this.pg1s.ListMode().isEmpty();
             
             final var repeat_char_list = " ".repeat(5);
+            
+            this.domo.clear();
+            
+            this.domo.addAll(this.Domo(this.pg1s.ListMode()));
 
             setTitle(this.pg1s.Title(true));
 
@@ -289,7 +399,7 @@ public class window extends javax.swing.JFrame {
             home_file.setText(this.pg1s.InputText());
             home_file_enter.setText("ADD");
             
-            String[] data = new String[list_empty ? 2 : this.pg1s.List().size()];
+            String[] data = new String[list_empty ? 2 : this.domo.size()];
             
             if(list_empty){
                 
@@ -306,9 +416,9 @@ public class window extends javax.swing.JFrame {
                 
                 var reg = 0;
                 
-                for(String t : this.pg1s.List()){
+                for(Domain t : this.pg1s.ListMode()){
                     
-                    var out = t.length();
+                    var out = t.Text(false).length();
                     
                     if(out > reg) reg = out;
                     
@@ -320,28 +430,27 @@ public class window extends javax.swing.JFrame {
                 
                 for(
                     int i = 0;
-                    i < this.pg1s.List().size() && i < data.length;
+                    i < this.pg1s.ListMode().size() && i < data.length;
                     i++
                 )
                 {
                     
+                    var t = this.pg1s.ListMode().get(i).Text(false);
+                    
                     data[i] = repeat_char_list;
                     
-                    if(this.pg1s.List().get(i).length() > 100){
+                    if(t.length() > 100){
                         
-                        data[i] += this.pg1s.List().get(i).substring(0,97);
+                        data[i] += t.substring(0,97);
                         data[i] += "...";
                         
                     } else {
                         
-                        data[i] += this.pg1s.List().get(i);
+                        data[i] += t;
                         
                     }
                     
-                    if(max_list) data[i] += Reg.Tab(
-                        this.pg1s.List().get(i),
-                        reg
-                    );
+                    if(max_list) data[i] += Reg.Tab(t,reg);
                     
                 }//for(int i = 0; i < this.pg1.List().size() && i < data...
                 
@@ -359,85 +468,6 @@ public class window extends javax.swing.JFrame {
         }//if(this.pg1 != null)
         
     }//Page_1Single()
-    
-    private List<Domain> Domo(List<Domain> view){
-        
-        List<Domain> demo = new ArrayList();
-        List<Integer> test = new ArrayList();
-        
-        for(Domain ad : view){
-            
-            boolean acept = true;
-            
-            if(test.size() > 1){
-                
-                Integer add = 0;
-                
-                do{
-                    
-                    if(test.get(add) == ad.index()) acept = false;
-                    
-                    add++;
-                    
-                }while(acept && add > 0 && add < test.size());
-                
-            }//if(test.size() > 1)
-            
-            if(ad.index() < 0) acept = false;
-            
-            if(acept){
-                
-                demo.add(new Domain(ad.index(), ad.Text(false)));
-                test.add(ad.index());
-                
-            }//if(acept)
-            
-        }//for(Domain insert : view)
-        
-        return demo;
-        
-    }//Page_1(List<Domain> view)
-    
-    public List<Domain> Pg1m(List<Domain> doc){
-        
-        int[] select = list_page1.getSelectedIndices();
-        
-        List<Domain> tema = new ArrayList();
-        
-        if(select.length > 0){
-            
-            for(int add = 0; add < doc.size(); add++){
-                
-                Domain ad = new Domain(
-                    doc.get(add).index(),
-                    doc.get(add).Text(false)
-                );
-                
-                var selected = false;
-                var row = 0;
-                
-                do{
-                    
-                    selected = add == select[row];
-                    row++;
-                    
-                }while(!selected && row > 0 && row < select.length);
-                
-                ad.Select(selected);
-                
-                tema.add(ad);
-                
-            }//for(Domain d : this.pg1m.ListMode())
-            
-        } else {//if(list_page1.getSelectedIndices().length > 1)
-            
-            tema.addAll(this.domo);
-            
-        }//if(list_page1.getSelectedIndices().length > 1)
-        
-        return tema;
-        
-    }//Pg1m()
     
     private void Page_1Multiple(){
         
@@ -596,17 +626,18 @@ public class window extends javax.swing.JFrame {
             
             case single -> {
                 
-                if(this.pg1s != null) com = this.pg1s.List().size() > 1;
+                //if(this.pg1s != null) com = this.pg1s.List().size() > 1;
+                if(this.pg1s != null) com = this.pg1s.ListMode().size() > 1;
                 
-            }
+            }//case single
             
             case multiple -> {
                 
                 if(this.pg1m != null) com = this.pg1m.ListMode().size() > 1;
                 
-            }
+            }//case multiple
             
-        }
+        }//switch(pg1sm)
         
         if(com) list_page1.setSelectedIndex(0);
         
@@ -1066,10 +1097,16 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1s.Button(
+            /*this.pg1s.Button(
                 pag1.remove,
                 list_page1.getSelectedIndex(),
                 this.pg1s.List(),
+                home_file.getText()
+            );*/
+            
+            this.pg1s.Action(
+                pag1.remove,
+                this.Pg1s(),
                 home_file.getText()
             );
             
@@ -1077,7 +1114,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1m.Action(
                 pag1.remove,
-                this.Pg1m(this.pg1m.ListMode()),
+                this.Pg1m(),
                 home_file.getText()
             );
             
@@ -1093,10 +1130,16 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1s.Button(
+            /*this.pg1s.Button(
                 pag1.open,
                 list_page1.getSelectedIndex(),
                 this.pg1s.List(),
+                home_file.getText()
+            );*/
+            
+            this.pg1s.Action(
+                pag1.open,
+                this.Pg1s(),
                 home_file.getText()
             );
             
@@ -1104,7 +1147,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1m.Action(
                 pag1.open,
-                this.Pg1m(this.pg1m.ListMode()),
+                this.Pg1m(),
                 home_file.getText()
             );
             
@@ -1128,18 +1171,24 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1s.Button(
+                    /*this.pg1s.Button(
                         pag1.key,
                         list_page1.getSelectedIndex(),
                         this.pg1s.List(),
                         home_file.getText().trim()
+                    );*/
+                    
+                    this.pg1s.Action(
+                        pag1.key,
+                        this.Pg1s(),
+                        home_file.getText()
                     );
                     
                 } else if(this.pg1m != null && this.pg1sm == multiple){
                     
                     this.pg1m.Action(
                         pag1.key,
-                        this.Pg1m(this.pg1m.ListMode()),
+                        this.Pg1m(),
                         home_file.getText()
                     );
                     
@@ -1229,10 +1278,16 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            this.pg1s.Button(
+            /*this.pg1s.Button(
                 pag1.add,
                 list_page1.getSelectedIndex(),
                 this.pg1s.List(),
+                home_file.getText()
+            );*/
+            
+            this.pg1s.Action(
+                pag1.add,
+                this.Pg1s(),
                 home_file.getText()
             );
             
@@ -1240,7 +1295,7 @@ public class window extends javax.swing.JFrame {
             
             this.pg1m.Action(
                 pag1.add,
-                this.Pg1m(this.pg1m.ListMode()),
+                this.Pg1m(),
                 home_file.getText()
             );
             
@@ -1262,10 +1317,16 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1s.Button(
+                    /*this.pg1s.Button(
                         pag1.enter,
                         list_page1.getSelectedIndex(),
                         this.pg1s.List(),
+                        home_file.getText()
+                    );*/
+
+                    this.pg1s.Action(
+                        pag1.enter,
+                        this.Pg1s(),
                         home_file.getText()
                     );
                     
@@ -1273,7 +1334,7 @@ public class window extends javax.swing.JFrame {
 
                     this.pg1m.Action(
                         pag1.enter,
-                        this.Pg1m(this.pg1m.ListMode()),
+                        this.Pg1m(),
                         home_file.getText()
                     );
 
@@ -1289,10 +1350,16 @@ public class window extends javax.swing.JFrame {
                 
                 if(this.pg1s != null && this.pg1sm == single){
                     
-                    this.pg1s.Button(
+                    /*this.pg1s.Button(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
                         list_page1.getSelectedIndex(),
                         this.pg1s.List(),
+                        home_file.getText()
+                    );*/
+                    
+                    this.pg1s.Action(
+                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
+                        this.Pg1s(),
                         home_file.getText()
                     );
                     
@@ -1300,7 +1367,7 @@ public class window extends javax.swing.JFrame {
 
                     this.pg1m.Action(
                         evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                        this.Pg1m(this.pg1m.ListMode()),
+                        this.Pg1m(),
                         home_file.getText()
                     );
 

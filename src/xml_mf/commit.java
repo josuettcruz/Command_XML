@@ -508,7 +508,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         return this.input;
     }
 
-    @Override
+    /*@Override
     public java.util.List<String> List() {
         
         List<String> tema = new ArrayList();
@@ -532,6 +532,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         return tema;
         
     }
+
+    @Override
+    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
+        this.Submit(action, input);
+    }*/
 
     @Override
     public java.util.List<Domain> ListMode() {
@@ -612,11 +617,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     @Override
     public boolean ListColumn() {
         return false;
-    }
-
-    @Override
-    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
-        this.Submit(action, input);
     }
 
     @Override

@@ -16,13 +16,13 @@ public interface Painel_1Single {
     
     public String InputText();
     
-    public List<String> List();
-    
     public java.awt.Font ListFont();
     
-    public boolean ListColumn(); //remove
+    public boolean ListColumn();
     
-    public void Button(pag1 action, int index, List<String> vol, String input); //remove
+    //public List<String> List();
+    
+    //public void Button(pag1 action, int index, List<String> vol, String input);
     
     public List<Domain> ListMode();
     

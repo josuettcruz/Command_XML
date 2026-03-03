@@ -211,11 +211,6 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public java.util.List<String> List() {
-        return this.list;
-    }
-
-    @Override
     public java.util.List<Domain> ListMode() {
         
         List<Domain> node = new ArrayList();
@@ -275,6 +270,11 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
 
     @Override
     public boolean ListColumn() {return this.list.size() > this.mode;}
+
+    /*@Override
+    public java.util.List<String> List() {
+        return this.list;
+    }
 
     @Override
     public void Button(
@@ -355,7 +355,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         }//switch(action)
         
-    }
+    }*/
 
     @Override
     public void Action(
