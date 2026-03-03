@@ -16,11 +16,11 @@ public interface Painel_1Multiple {
     
     public String InputText();
     
-    public List<Domain> ListMode();
-    
     public java.awt.Font ListFont();
     
     public boolean ListColumn();
+    
+    public List<Domain> ListMode();
     
     public void Action(pag1 action, List<Domain> vol, String input);
     

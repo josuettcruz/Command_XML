@@ -20,8 +20,12 @@ public interface Painel_1Single {
     
     public java.awt.Font ListFont();
     
-    public boolean ListColumn();
+    public boolean ListColumn(); //remove
     
-    public void Button(pag1 action, int index, List<String> vol, String input);
+    public void Button(pag1 action, int index, List<String> vol, String input); //remove
+    
+    public List<Domain> ListMode();
+    
+    public void Action(pag1 action, List<Domain> vol, String input);
     
 }//Painel_1Single
