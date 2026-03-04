@@ -94,7 +94,7 @@ public class GitCommit implements Painel_2{
 
     @Override
     public Font ListFont() {
-        return new java.awt.Font("Consolas",0,16);
+        return new java.awt.Font("Consolas",0,18);
     }
 
     @Override

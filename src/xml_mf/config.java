@@ -236,15 +236,15 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             return new java.awt.Font("Arial Black", 0, 18);
             
-        } else if(max < 20){
+        } else if(max < 50){
             
             return new java.awt.Font("Tahoma", 0, 18);
             
-        } else if(max < 40){
+        } else if(max < 60){
             
             return new java.awt.Font("Times New Roman", 0, 18);
             
-        } else if(max < 60){
+        } else if(max < 70){
             
             return new java.awt.Font("Times New Roman", 0, 16);
             
@@ -252,17 +252,13 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             return new java.awt.Font("Times New Roman", 0, 14);
             
-        } else if(max < 100){
+        } else if(max < 90){
             
-            return new java.awt.Font("Times New Roman", 0, 12);
-            
-        } else if(max < 150){
-            
-            return new java.awt.Font("Times New Roman", 0, 10);
+            return new java.awt.Font("Times New Roman", 0, 14);
             
         } else {
             
-            return new java.awt.Font("Times New Roman", 0, 8);
+            return new java.awt.Font("Times New Roman", 0, 12);
             
         }
         

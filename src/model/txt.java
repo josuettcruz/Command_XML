@@ -225,6 +225,72 @@ public class txt {
         
     }//phrase(String text, boolean remove_char)
     
+    public static List<String> phrase(String text, char[] exclude){
+        
+        var value = new ArrayList();
+        
+        if(!text.isBlank() && exclude.length > 0){
+            
+            final var space = " ";
+            
+            String val = "";
+            
+            for(int p = 0; p < text.length(); p++){
+                
+                char ds = text.charAt(p);
+                
+                if(exclude.length == 1){
+                    
+                    if(ds == exclude[0]){
+                        
+                        val += space;
+                        
+                    } else {//if(ds == exclude[0])
+                        
+                        val += ds;
+                        
+                    }//if(ds == exclude[0])
+                    
+                } else {//if(exclude.length == 1)
+                    
+                    var proc = 0;
+                    var loop = true;
+                    
+                    do{
+                        
+                        if(ds == exclude[proc]){
+                            
+                            val += space;
+                            loop = false;
+                            
+                        }//if(ds == exclude[proc])
+                        
+                        proc++;
+                        
+                    }while(loop && proc > 0 && proc < exclude.length);
+                    
+                    if(loop) val += ds;
+                    
+                }//if(exclude.length == 1)
+                
+            }//for(int p = 0; p < text.length(); p++)
+            
+            value.addAll(phrase(val, true));
+        
+        }//if(!text.isBlank())
+        
+        return value;
+        
+    }//phrase(String text, char[] exclude)
+    
+    public static List<String> phrase(String text){
+        
+        final char[] exclude = {'_','-'};
+        
+        return phrase(text, exclude);
+        
+    }//List<String> phrase(String text)
+    
     public static String capitalize(String phrase){
         
         if(phrase.trim().isBlank()) phrase = "Classe: \"TXT\"\nPacote: \"MODEL\"";

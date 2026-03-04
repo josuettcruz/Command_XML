@@ -28,7 +28,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private List<String> text;
     private String input;
     
-    private final char[] points = {'?','!',':',';',',','.', ')', ']', '}'};
+    private final char[] points = {'?','!',':',';',',','.', ')', ']', '}', '/'};
     
     public commit(String text){
         
@@ -296,7 +296,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         var arqv = Reg.java ? "..\\" : "";
         
         arqv += "jar - ";
-        arqv += "_";
         arqv += new Data().Load();
         arqv += " - ";
         arqv += Reg.Numb(h.Hour());
@@ -356,6 +355,38 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
     }//line(String phrase)
     
+    private String Tem(String txt){
+        
+        var val = "";
+        
+        var bar = 0;
+        
+        for(int i = 0; i < txt.length(); i++){
+            
+            switch(txt.charAt(i)){
+                
+                case '/', '\\' ->{
+                    
+                    if(bar < 2){val += "/";}
+                    bar++;
+                    
+                }//case '/', '\\'
+                
+                default ->{
+                    
+                    val += txt.charAt(i);
+                    bar = 0;
+                    
+                }//default
+                
+            }//switch(txt.charAt(i))
+            
+        }//for(int i = 0; i < txt.length(); i++)
+        
+        return val;
+        
+    }//Tem(String text)
+    
     private void Event(String ext, boolean act){
         
         List<String> tem = new ArrayList();
@@ -369,7 +400,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             var t = "";
             
-            for(String y : txt.phrase(x, true)){
+            for(String tema : txt.phrase(x, true)){
+                
+                var y = Tem(tema);
                 
                 if(this.line(y)){
                     
@@ -381,14 +414,12 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(t.isBlank()){
                         
-                        t += point
-                            ? txt.capitalize(y.replace("\\", "/"))
-                            : y.replace("\\", "/");
+                        t += point ? txt.capitalize(y) : y;
                         
                     } else {
                         
                         t += " ";
-                        t += y.replace("\\", "/");
+                        t += y;
                         
                     }
                     
