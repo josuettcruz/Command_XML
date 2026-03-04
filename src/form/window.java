@@ -1288,13 +1288,6 @@ public class window extends javax.swing.JFrame {
             case 10 -> {
                 
                 if(this.pg1s != null && this.pg1sm == single){
-                    
-                    /*this.pg1s.Button(
-                        pag1.enter,
-                        list_page1.getSelectedIndex(),
-                        this.pg1s.List(),
-                        home_file.getText()
-                    );*/
 
                     this.pg1s.Action(
                         pag1.enter,
@@ -1321,13 +1314,6 @@ public class window extends javax.swing.JFrame {
             case 8 ->{
                 
                 if(this.pg1s != null && this.pg1sm == single){
-                    
-                    /*this.pg1s.Button(
-                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                        list_page1.getSelectedIndex(),
-                        this.pg1s.List(),
-                        home_file.getText()
-                    );*/
                     
                     this.pg1s.Action(
                         pag1.delet,

@@ -7,6 +7,7 @@ package xml_mf;
 import form.*;
 import model.*;
 import file.Arq;
+import command_xml.init;
 
 import form.pag1;
 import static form.pag1.*;
@@ -555,9 +556,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         switch(action){
             
-            case key, open, add -> this.Click(value);
+            case key, open -> this.Click(value);
             
-            case enter, remove, delet, backspace -> {
+            case add, enter -> init.Exec();
+            
+            case remove, delet, backspace -> {
                 
                 if(Reg.java){
                     
