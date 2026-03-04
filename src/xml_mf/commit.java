@@ -487,7 +487,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 if(coppy) acept = Reg.coppy(this.Commit());
                 
-                String[] col = coppy ? this.Commit().split("--") : this.Saving().split("\n");
+                String[] col = coppy
+                    ? this.Commit().split("--")
+                    : this.Saving().split("\n");
                 
                 if(Reg.java && acept){
                     
@@ -519,7 +521,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 List<String> value = new ArrayList();
                 value.addAll(Arrays.asList(err.split("\n")));
-                
                 controller.Msg(ext, value, true);
                 
             }//if(coppy.isBlank())
@@ -594,9 +595,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                         } else {//if(t.length() > max)
                             
-                            var view = "\" Linha: ";
+                            var view = "\"Linha: ";
                             view += Reg.Numb(line, tot, " de ");
-                            view += " \"";
+                            view += "\"";
                             
                             if(event){
                                 
@@ -647,9 +648,16 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(int add = 0; add < receive.size(); add++){
             
-            var value = "Linha ";
-            value += Reg.Numb(add+1, receive.size(), " de ");
-            value += ": ";
+            var value = "";
+            
+            if(this.input.isBlank()){
+                
+                value += "Linha: ";
+                value += Reg.Numb(add+1, receive.size(), " de ");
+                value += ": ";
+                
+            }//if(this.input.isBlank())
+            
             value += txt.text(receive.get(add));
             
             d.add(new Domain(add+1, value));
@@ -667,45 +675,45 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         for(String t : this.text) if(t.length() > max) max = t.length();
         
-        if(max < 10){
-            
-            return new java.awt.Font("Aptos Black",0,26);
-            
-        } else if(max < 20){
-            
-            return new java.awt.Font("Arial Black",0,26);
-            
-        } else if(max < 30){
-            
-            return new java.awt.Font("Arial",0,26);
-            
-        } else if(max < 40){
-            
-            return new java.awt.Font("Arial",0,22);
-            
-        } else if(max < 50){
-            
-            return new java.awt.Font("Times New Roman",0,22);
-            
-        } else if(max < 60){
-            
-            return new java.awt.Font("Times New Roman",0,20);
-            
-        } else if(max < 70){
+        if(!this.input.isBlank() && max < 20){
             
             return new java.awt.Font("Times New Roman",0,18);
             
-        } else if(max < 80){
+        } else if(!this.input.isBlank() && max < 30){
             
             return new java.awt.Font("Times New Roman",0,16);
             
-        } else if(max < 90){
+        } else if(!this.input.isBlank() && max < 40){
             
             return new java.awt.Font("Times New Roman",0,14);
             
-        } else {
+        } else if(!this.input.isBlank()){
             
             return new java.awt.Font("Times New Roman",0,12);
+            
+        } else if(max < 10){
+            
+            return new java.awt.Font("Aptos Black",0,22);
+            
+        } else if(max < 20){
+            
+            return new java.awt.Font("Arial Black",0,22);
+            
+        } else if(max < 30){
+            
+            return new java.awt.Font("Arial",0,20);
+            
+        } else if(max < 40){
+            
+            return new java.awt.Font("Arial",0,18);
+            
+        } else if(max < 90){
+            
+            return new java.awt.Font("Arial",0,16);
+            
+        } else {
+            
+            return new java.awt.Font("Times New Roman",0,16);
             
         }
         
@@ -713,7 +721,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
 
     @Override
     public boolean ListColumn() {
-        return false;
+        return !this.input.isBlank();
     }
 
     @Override
