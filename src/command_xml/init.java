@@ -200,6 +200,8 @@ public class init {
         
         Data d = new Data();
         
+        controller.Position(240, 35, 585, 650);
+        
         if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java){
             
             Execute();
