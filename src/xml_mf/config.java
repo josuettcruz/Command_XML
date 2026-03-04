@@ -10,7 +10,6 @@ import form.Painel_1Single;
 import form.Painel_1Multiple;
 import form.Painel_2;
 import form.controller;
-import command_xml.init;
 
 import form.pag1;
 import static form.pag1.*;
@@ -21,6 +20,7 @@ import static form.pag2.*;
 import java.awt.Font;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,7 +42,12 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         this.week = true;
         
         this.list = new ArrayList();
-        this.list.add(new Data().DataAbreviada(true));
+        
+        this.list.addAll(
+            Arrays.asList(
+                new Data().DataCompleta(false, "#Ano de ").split("#")
+            )
+        );
         
     }//Enter()
     
