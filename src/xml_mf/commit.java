@@ -55,19 +55,19 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         val += " -- ";
         
-        if(h.Compare(new Hora(20,30))){
+        if(h.Compare(new Hora(18,58,30))){
             
-            val += h.TimerGood(true);
+            val += h.TimerGood(h.Compare(new Hora(20,30)));
             
-        } else if(h.Compare(new Hora(18,59))){//h.Compare
-            
-            val += h.TimerGood(false);
-            
-        } else {//h.Compare
+        } else if(h.Compare(new Hora(0,59,30))){//h.Compare...
             
             val += h.Timer();
             
-        }//h.Compare
+        } else {//h.Compare...
+            
+            val += h.TimerGood(false);
+            
+        }//h.Compare...
         
         val += " -- Nesse COMMIT";
         
