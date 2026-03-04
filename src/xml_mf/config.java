@@ -277,7 +277,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         switch(action){
             
-            case add, key ->{
+            case add, key, open ->{
                 
                 String[] cod = {"sair", "exit", "end","fim"};
                 boolean[] doc = new boolean[cod.length+1];
@@ -321,7 +321,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case enter, open, delet, remove ->{
+            case enter, remove ->{
                 
                 var page = false;
                 var out = 0;
@@ -366,7 +366,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case backspace -> this.Exit();
+            case delet, backspace -> this.Exit();
             
         }//switch(action)
         
@@ -377,9 +377,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         switch(op){
             
-            case cancel, backspace -> this.Exit();
-            
-            case del -> controller.p1s(new config());
+            case cancel, del, backspace -> this.Exit();
             
             case confirm, enter -> controller.p1m(new config());
             

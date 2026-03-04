@@ -204,29 +204,26 @@ public class init {
             
             Execute();
             
-        } else if(
-            Reg.modify.Val() && d.CompareTo(
-                Reg.modify,
-                true
-            ) && Reg.java
-        )
-        {
+        } else if(Reg.modify.Val() && d.CompareTo(Reg.modify,true)){//if(Reg...
             
             controller.p1m(new config());
             
-        } else if(Reg.modify.Val()){
+        } else if(Reg.modify.Val()){//if(Reg.modify.Val()...
             
             controller.p1s(new config());
             
-        } else {
+        } else {//if(Reg.modify.Val()...
             
-            controller.Msg(
-                "Exception",
-                Arrays.asList(Reg.modify.Error().split("\n")),
-                true
-            );
+            List<String> print = new ArrayList();
+            print.addAll(Arrays.asList(Reg.modify.Error().split("\n")));
             
-        }
+            var note = controller.Msg(d.DataAbreviada(true),print, true);
+            
+            if(Reg.java) for(String t : print) System.err.println(t);
+            
+            if(!note) System.exit(0);
+            
+        }//if(Reg.modify.Val()...
         
     }//Exec()
     
