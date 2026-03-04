@@ -20,10 +20,6 @@ public interface Painel_1Single {
     
     public boolean ListColumn();
     
-    //public List<String> List();
-    
-    //public void Button(pag1 action, int index, List<String> vol, String input);
-    
     public List<Domain> ListMode();
     
     public void Action(pag1 action, List<Domain> vol, String input);

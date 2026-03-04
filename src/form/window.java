@@ -1097,13 +1097,6 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            /*this.pg1s.Button(
-                pag1.remove,
-                list_page1.getSelectedIndex(),
-                this.pg1s.List(),
-                home_file.getText()
-            );*/
-            
             this.pg1s.Action(
                 pag1.remove,
                 this.Pg1s(),
@@ -1129,13 +1122,6 @@ public class window extends javax.swing.JFrame {
     private void home_actionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_actionActionPerformed
         
         if(this.pg1s != null && this.pg1sm == single){
-            
-            /*this.pg1s.Button(
-                pag1.open,
-                list_page1.getSelectedIndex(),
-                this.pg1s.List(),
-                home_file.getText()
-            );*/
             
             this.pg1s.Action(
                 pag1.open,
@@ -1170,13 +1156,6 @@ public class window extends javax.swing.JFrame {
             case 10 -> {
                 
                 if(this.pg1s != null && this.pg1sm == single){
-                    
-                    /*this.pg1s.Button(
-                        pag1.key,
-                        list_page1.getSelectedIndex(),
-                        this.pg1s.List(),
-                        home_file.getText().trim()
-                    );*/
                     
                     this.pg1s.Action(
                         pag1.key,
@@ -1278,13 +1257,6 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg1s != null && this.pg1sm == single){
             
-            /*this.pg1s.Button(
-                pag1.add,
-                list_page1.getSelectedIndex(),
-                this.pg1s.List(),
-                home_file.getText()
-            );*/
-            
             this.pg1s.Action(
                 pag1.add,
                 this.Pg1s(),
@@ -1346,39 +1318,6 @@ public class window extends javax.swing.JFrame {
                 
             }
             
-            /*case 8, 127 ->{
-                
-                if(this.pg1s != null && this.pg1sm == single){
-                    
-                    //this.pg1s.Button(
-                    //    evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                    //    list_page1.getSelectedIndex(),
-                    //    this.pg1s.List(),
-                    //    home_file.getText()
-                    //);
-                    
-                    this.pg1s.Action(
-                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                        this.Pg1s(),
-                        home_file.getText()
-                    );
-                    
-                } else if(this.pg1m != null && this.pg1sm == multiple){
-
-                    this.pg1m.Action(
-                        evt.getKeyCode() == 127 ? pag1.backspace : pag1.delet,
-                        this.Pg1m(),
-                        home_file.getText()
-                    );
-
-                } else {
-                    
-                    this.Page_1(false, "APAGAR");
-                    
-                }
-                
-            }*/
-            
             case 8 ->{
                 
                 if(this.pg1s != null && this.pg1sm == single){
@@ -1410,7 +1349,7 @@ public class window extends javax.swing.JFrame {
                     
                 }
                 
-            }//case 8, 127
+            }//case 8
             
             case 127 ->{
                 
@@ -1436,7 +1375,7 @@ public class window extends javax.swing.JFrame {
                     
                 }
                 
-            }//case 8, 127
+            }//127
             
             case 38 ->{
                 

@@ -635,36 +635,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         return this.input;
     }
 
-    /*@Override
-    public java.util.List<String> List() {
-        
-        List<String> tema = new ArrayList();
-        
-        for(String values : this.text){
-            
-            var t = txt.text(values);
-            
-            if(t.length() > 100){
-                
-                tema.add(t.substring(0, 97) + "...");
-                
-            } else {//if(t.length() > 100)
-                
-                tema.add(t);
-                
-            }//if(t.length() > 100)
-            
-        }//for(String t : this.text)
-        
-        return tema;
-        
-    }
-
-    @Override
-    public void Button(pag1 action, int index, java.util.List<String> vol, String input) {
-        this.Submit(action, input);
-    }*/
-
     @Override
     public java.util.List<Domain> ListMode() {
         
