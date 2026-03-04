@@ -10,6 +10,7 @@ import form.Painel_1Single;
 import form.Painel_1Multiple;
 import form.Painel_2;
 import form.controller;
+import command_xml.init;
 
 import form.pag1;
 import static form.pag1.*;
@@ -277,7 +278,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         switch(action){
             
-            case add, key, open ->{
+            case add, open, key, enter ->{
                 
                 String[] cod = {"sair", "exit", "end","fim"};
                 boolean[] doc = new boolean[cod.length+1];
@@ -321,7 +322,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case enter, remove ->{
+            case delet, backspace ->{
                 
                 var page = false;
                 var out = 0;
@@ -366,7 +367,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case delet, backspace -> this.Exit();
+            case remove -> this.Exit();
             
         }//switch(action)
         
