@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static form.d.*;
+
 /**
  *
  * @author josue
@@ -192,5 +194,29 @@ public class controller {
         }//throw
         
     }//p2(Painel_2 painel)
+    
+    public int Dim(d op){
+        
+        int val = -1;
+        
+        if(doc != null){
+            
+            switch(op){
+                
+                case left -> val = doc.Left();
+                
+                case top -> val = doc.Top();
+                
+                case width -> val = doc.Width();
+                
+                case height -> val = doc.Height();
+                
+            }//switch(op)
+            
+        }//if(doc != null)
+        
+        return val;
+        
+    }//Dim(d op)
     
 }//controller

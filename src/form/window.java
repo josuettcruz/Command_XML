@@ -93,6 +93,30 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
+    public int Left(){
+        
+        return this.getBounds().x;
+        
+    }//Left()
+    
+    public int Top(){
+        
+        return this.getBounds().y;
+        
+    }//Top()
+    
+    public int Width(){
+        
+        return this.getBounds().height;
+        
+    }//Width()
+    
+    public int Height(){
+        
+        return this.getBounds().height;
+        
+    }//Height()
+    
     private void Tem(int init){
         
         boolean tem[] = new boolean[3];
