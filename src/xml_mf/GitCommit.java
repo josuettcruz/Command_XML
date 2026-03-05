@@ -91,7 +91,11 @@ public class GitCommit implements Painel_2{
             this.lin.add(
                 new Domain(
                     cod,Reg.Tab(
-                        "  " + Reg.Numb(cod-1, arq.size(), " <> "),
+                        "  " + Reg.Numb(
+                            cod-1,
+                            arq.size(),
+                            " <> "
+                        ),
                         nom,
                         g
                     )
