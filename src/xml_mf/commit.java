@@ -62,9 +62,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             val += " -- ";
             
-            if(h.Compare(new Hora(18,58,30))){
+            if(h.Compare(new Hora(19,1,30))){
                 
-                val += h.TimerGood(h.Compare(new Hora(20,30)));
+                val += h.TimerGood(false);
                 
             } else {//if(h.Compare(new Hora(18,58,30)))
                 
