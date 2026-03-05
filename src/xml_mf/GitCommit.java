@@ -33,7 +33,7 @@ public class GitCommit implements Painel_2{
         
         final String[] sept = {"command","xml","commit",""};
         
-        final var g = 10;
+        final var g = 12;
         
         this.lin = new ArrayList();
         this.all_text = new ArrayList();
@@ -91,7 +91,7 @@ public class GitCommit implements Painel_2{
             this.lin.add(
                 new Domain(
                     cod,Reg.Tab(
-                        " --" + Reg.Numb(cod-1, arq.size(), "-") + "--",
+                        "  " + Reg.Numb(cod-1, arq.size(), " <> "),
                         nom,
                         g
                     )
@@ -106,7 +106,44 @@ public class GitCommit implements Painel_2{
     
     private boolean dat(String t){
         
-        return t.equalsIgnoreCase(new Data().Load());
+        final char[] d = {'-'};
+        
+        List<String> dem = txt.phrase(t, d);
+        
+        var val = true;
+        var add = 0;
+        
+        do{
+            
+            var p = dem.get(add);
+            
+            var n = new Num(p);
+            
+            if(n.Val() && n.Num() > 0){
+                
+                switch(add){
+                    
+                    case 0 -> val = n.Num() >= 2026;
+                    
+                    case 1 -> val = n.Num() > 0 && n.Num() <= 12;
+                    
+                    case 2 -> val = n.Num() > 0 && n.Num() <= 31;
+                    
+                    default -> val = false;
+                    
+                }//switch(add)
+                
+            } else {//if(n.Val() && n.Num() > 0)
+                
+                val = false;
+                
+            }//if(n.Val() && n.Num() > 0)
+            
+            add++;
+            
+        }while(val && add > 0 && add < dem.size());
+        
+        return val;
         
     }//dat(String t)
     
