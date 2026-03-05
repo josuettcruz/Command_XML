@@ -127,12 +127,9 @@ public class GitCommit implements Painel_2{
                 
                 switch(add){
                     
-                    case 0 -> val = n.Num() >= 2026;
-                    
-                    case 1 -> val = n.Num() <= 12;
-                    
-                    case 2 -> val = n.Num() <= 31;
-                    
+                    case 0  -> val = n.Num() >= 2026;
+                    case 1  -> val = n.Num() <= 12;
+                    case 2  -> val = n.Num() <= 31;
                     default -> val = false;
                     
                 }//switch(add)
