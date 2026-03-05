@@ -110,8 +110,15 @@ public class init {
     private static void Execute(){
         
         String[] folder = {
+            "_command_xml_" + new Data().Load(),
+            "command_xml_" + new Data().Load(),
+            "commit_" + new Data().Load(),
+            "commit-" + new Data().Load(),
+            new Data().Load(),
+            "_" + new Data().Load(),
             "_command_xml",
             "_commit",
+            "_git_commit",
             "commit",
             "git_commit",
             "git_commit_m"

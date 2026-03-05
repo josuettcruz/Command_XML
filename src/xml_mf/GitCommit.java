@@ -29,9 +29,9 @@ public class GitCommit implements Painel_2{
         
         final char[] c = {'\\','_', '.', ','};
         
-        final String asept = "txt";
+        final String[] asept = {"txt","git","commit"};
         
-        final String[] sept = {"command","xml",""};
+        final String[] sept = {"command","xml","commit",""};
         
         final var g = 10;
         
@@ -50,7 +50,11 @@ public class GitCommit implements Painel_2{
             
             var nom = "";
             
+            var date = true;
+            
             for(String t : txt.phrase(r.Arq(), c)){
+                
+                var dat = !this.dat(t) || date;
                 
                 if(t.equalsIgnoreCase(sept[a]) && a < sept.length){
                     
@@ -58,13 +62,27 @@ public class GitCommit implements Painel_2{
                     
                 } else {//if(t.equalsIgnoreCase(sept[a]) && a < sept.length)
                     
-                    if(!t.equalsIgnoreCase(asept)){
+                    var act = true;
+                    
+                    var view = 0;
+                    
+                    do{
+                        
+                        act = !t.equalsIgnoreCase(asept[view]);
+                        
+                        view++;
+                        
+                    }while(act && view > 0 && view < asept.length);
+                    
+                    if(act && dat){
                         
                         if(!nom.isBlank()) nom += " ";
                         
                         nom += t;
                         
-                    }//if(!t.equalsIgnoreCase(asept))
+                    }//if(act && dat)
+                    
+                    if(this.dat(t)) date = false;
                     
                 }//if(t.equalsIgnoreCase(sept[a]) && a < sept.length)
                 
@@ -85,6 +103,12 @@ public class GitCommit implements Painel_2{
         }
         
     }//GitCommit(List<Read> arq)
+    
+    private boolean dat(String t){
+        
+        return t.equalsIgnoreCase(new Data().Load());
+        
+    }//dat(String t)
     
     private void execute(String text){
         
