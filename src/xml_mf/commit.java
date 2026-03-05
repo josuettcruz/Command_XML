@@ -442,13 +442,13 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                         }//case '!', '?', '.'
                         
-                        case ':', ';', ',' ->{
+                        case ':', ';' ->{
                             
                             point = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
-                        }
+                        }//case ':', ';'
                         
                         default -> {
                             

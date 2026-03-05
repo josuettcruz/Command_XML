@@ -111,7 +111,7 @@ public class GitCommit implements Painel_2{
             
             case confirm, enter -> this.Action(value);
             
-            case cancel -> System.exit(0);
+            case cancel, del, backspace -> System.exit(0);
             
         }//switch(op)
         
