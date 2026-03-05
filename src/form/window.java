@@ -107,7 +107,7 @@ public class window extends javax.swing.JFrame {
     
     public int Width(){
         
-        return this.getBounds().height;
+        return this.getBounds().width;
         
     }//Width()
     
