@@ -27,18 +27,59 @@ public class GitCommit implements Painel_2{
     
     public GitCommit(List<Read> arq){
         
+        final char[] c = {'\\','_', '.', ','};
+        
+        final String asept = "txt";
+        
+        final String[] sept = {"command","xml",""};
+        
+        final var g = 10;
+        
         this.lin = new ArrayList();
         this.all_text = new ArrayList();
         
         int cod = 1;
-        this.lin.add(new Domain(cod,".."));
+        this.lin.add(new Domain(cod," ".repeat(g) + Hora.Good()));
         this.all_text.add("");
         
         for(Read r : arq){
             
             cod++;
             
-            this.lin.add(new Domain(cod,r.Arq()));
+            int a = 0;
+            
+            var nom = "";
+            
+            for(String t : txt.phrase(r.Arq(), c)){
+                
+                if(t.equalsIgnoreCase(sept[a]) && a < sept.length){
+                    
+                    a++;
+                    
+                } else {//if(t.equalsIgnoreCase(sept[a]) && a < sept.length)
+                    
+                    if(!t.equalsIgnoreCase(asept)){
+                        
+                        if(!nom.isBlank()) nom += " ";
+                        
+                        nom += t;
+                        
+                    }//if(!t.equalsIgnoreCase(asept))
+                    
+                }//if(t.equalsIgnoreCase(sept[a]) && a < sept.length)
+                
+            }//for(String t : txt.phrase(r.Arq(), c))
+            
+            this.lin.add(
+                new Domain(
+                    cod,Reg.Tab(
+                        " --" + Reg.Numb(cod-1, arq.size(), "-") + "--",
+                        nom,
+                        g
+                    )
+                )
+            );
+            
             this.all_text.add(r.Read());
             
         }
@@ -94,7 +135,38 @@ public class GitCommit implements Painel_2{
 
     @Override
     public Font ListFont() {
-        return new java.awt.Font("Consolas",0,18);
+        
+        var tot = this.lin.size();
+        
+        int tam;
+        
+        if(tot < 10){
+            
+            tam = 22;
+            
+        } else if(tot == 10){
+            
+            tam = 20;
+            
+        } else if(tot <= 12){
+            
+            tam = 18;
+            
+        } else if(tot < 14){
+            
+            tam = 16;
+            
+        } else if(tot < 20){
+            
+            tam = 14;
+            
+        } else {
+            
+            tam = 12;
+            
+        }
+        
+        return new java.awt.Font("Consolas", 0, tam);
     }
 
     @Override

@@ -41,23 +41,7 @@ public class init {
             
             if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
-        }//for(String date : arqv) - 1 - 3
-        
-        for(String date : arqv){
-            
-            var t = folder + date + "_" + Reg.modify.Load() + ext;
-            
-            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
-            
-        }//for(String date : arqv) - 2 - 3
-        
-        for(String date : arqv){
-            
-            var t = folder + date + " - " + Reg.modify.Load() + ext;
-            
-            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
-            
-        }//for(String date : arqv) - 3 - 3
+        }//for(String date : arqv)
         
         var min = true;
         
@@ -71,9 +55,11 @@ public class init {
                 ms += Reg.Numb(y);
                 ms += ext;
                 
-                if(Arq.Exist(ms) && Arq.Dir(ms, false)){
-                    learn.add(new Arq(ms).Read());
-                }
+                if(
+                    Arq.Exist(ms) && Arq.Dir(ms, false)
+                ) learn.add(
+                    new Arq(ms).Read()
+                );
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
@@ -95,74 +81,27 @@ public class init {
                 
             }//if(Arq.Exist(hs) && Arq.Dir(hs, false))
             
-            for(String date : arqv){
-                
-                var t = date + "_" + hs;
-                
-                if(Arq.Exist(t) && Arq.Dir(date, false)){
-                    learn.add(new Arq(t).Read());
-                }
-                
-            }//for(String date : arqv) - 1 - 2
-            
-            for(String date : arqv){
-                
-                var t = folder + date + " - " + hs;
-                
-                if(Arq.Exist(t) && Arq.Dir(date, false)){
-                    learn.add(new Arq(t).Read());
-                }
-                
-            }//for(String date : arqv) - 2 - 2
-            
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
-                var m1 = folder;
-                m1 += Reg.modify.Load();
-                m1 += "_";
-                m1 += Reg.Numb(x);
-                m1 += "-";
-                m1 += Reg.Numb(y);
-                m1 += ext;
+                var md = folder;
+                md += Reg.modify.Load();
+                md += "_";
+                md += Reg.Numb(x);
+                md += "-";
+                md += Reg.Numb(y);
+                md += ext;
                 
-                if(Arq.Exist(m1) && Arq.Dir(m1, false)){
+                if(Arq.Exist(md) && Arq.Dir(md, false)){
                     
-                    learn.add(new Arq(m1).Read());
+                    learn.add(new Arq(md).Read());
                     
-                }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 1
-                
-                var m2 = folder;
-                m2 += Reg.modify.Load();
-                m2 += "-";
-                m2 += Reg.Numb(x);
-                m2 += Reg.Numb(y);
-                m2 += ext;
-                
-                if(Arq.Exist(m2) && Arq.Dir(m2, false)){
-                    
-                    learn.add(new Arq(m2).Read());
-                    
-                }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 2
-                
-                var m3 = folder;
-                m3 += Reg.modify.Load();
-                m3 += " - ";
-                m3 += Reg.Numb(x);
-                m3 += "h";
-                m3 += Reg.Numb(y);
-                m3 += ext;
-                
-                if(Arq.Exist(m3) && Arq.Dir(m3, false)){
-                    
-                    learn.add(new Arq(m3).Read());
-                    
-                }//if(Arq.Exist(m1) && Arq.Dir(m1, false)) - 3
+                }//if(Arq.Exist(m1) && Arq.Dir(m1, false))
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
             min = false;
             
-        }//for(int x = h.Hour(); x >= 0; x--) - 2 - 2
+        }//for(int x = h.Hour(); x >= 0; x--)
         
         return learn;
         
@@ -170,19 +109,45 @@ public class init {
     
     private static void Execute(){
         
+        String[] folder = {
+            "_command_xml",
+            "_commit",
+            "commit",
+            "git_commit",
+            "git_commit_m"
+        };
+        
         List<Read> tem = new ArrayList();
         
-        for(Read r : Commit("")){
-            if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);
-        }
+        for(String j : folder){
+            
+            for(Read r : Commit("\\" + j + "\\"))
+            {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+            
+        }//for(String j : folder)
         
-        for(Read r : Commit("..\\")){
-            if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);
-        }
+        for(Read r : Commit(""))
+        {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
         
-        for(Read r : Commit("..\\..\\")){
-            if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);
-        }
+        for(String j : folder){
+            
+            for(Read r : Commit("..\\" + j + "\\"))
+            {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+            
+        }//for(String j : folder)
+        
+        for(Read r : Commit("..\\"))
+        {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+        
+        for(String j : folder){
+            
+            for(Read r : Commit("..\\..\\" + j + "\\"))
+            {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+            
+        }//for(String j : folder)
+        
+        for(Read r : Commit("..\\..\\"))
+        {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
         
         if(tem.isEmpty()){
             

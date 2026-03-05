@@ -696,11 +696,7 @@ public class window extends javax.swing.JFrame {
                 
                 String[] data = new String[m];
                 
-                for(int i = 0; i < m; i++){
-                    
-                    data[i] = domo.get(i).Text(true);
-                    
-                }
+                for(int i = 0; i < m; i++) data[i] = domo.get(i).Text(false);
                 
                 front_list.setListData(data);
                 
