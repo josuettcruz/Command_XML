@@ -41,6 +41,7 @@ public class window extends javax.swing.JFrame {
     private List<Domain> domo;
     
     private Painel_2 pg2;
+    private Painel_3 pg3;
     
     public window() {
         
@@ -119,7 +120,7 @@ public class window extends javax.swing.JFrame {
     
     private void Tem(int init){
         
-        boolean tem[] = new boolean[3];
+        boolean tem[] = new boolean[4];
         
         for(int exe = 0; exe < tem.length; exe++){
             
@@ -138,6 +139,7 @@ public class window extends javax.swing.JFrame {
         initial.setVisible(tem[0]);
         home.setVisible(tem[1]);
         front.setVisible(tem[2]);
+        form.setVisible(tem[3]);
         
     }//Tem(int init)
     
@@ -745,6 +747,27 @@ public class window extends javax.swing.JFrame {
         }//if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty())
         
     }//p2act(pag2 pg)
+    
+    public void Painel_3(){
+        
+        if(this.pg3 != null){
+            
+            setTitle(this.pg3.Title(true));
+            
+            p3_title.setText(this.pg3.Title(false));
+            
+            input_date.setFont(this.pg3.ListFont());
+            
+        }//if(this.pg3 != null)
+        
+    }//Painel_3()
+    
+    public void Painel_3(Painel_3 pg3){
+        
+        this.pg3 = pg3;
+        this.Painel_3();
+        
+    }//Painel_3(Painel_3 pg3)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -783,6 +806,10 @@ public class window extends javax.swing.JFrame {
         front_list = new javax.swing.JList<>();
         confirm = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
+        form = new javax.swing.JPanel();
+        p3_title = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        input_date = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -790,6 +817,7 @@ public class window extends javax.swing.JFrame {
 
         initial.setAlignmentX(0.0F);
         initial.setAlignmentY(0.0F);
+        initial.setCursor(new java.awt.Cursor(java.awt.Cursor.S_RESIZE_CURSOR));
         initial.setDoubleBuffered(false);
         initial.setEnabled(false);
         initial.setMaximumSize(new java.awt.Dimension(600, 600));
@@ -966,28 +994,27 @@ public class window extends javax.swing.JFrame {
         homeLayout.setHorizontalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, homeLayout.createSequentialGroup()
-                        .addComponent(home_file)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(home_file_enter))
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, homeLayout.createSequentialGroup()
-                        .addComponent(home_action, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(home_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(home_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(homeLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, homeLayout.createSequentialGroup()
+                                .addComponent(home_file)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(home_file_enter))
+                            .addComponent(jScrollPane1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, homeLayout.createSequentialGroup()
+                                .addComponent(home_action, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(home_exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(17, 17, 17))
-            .addGroup(homeLayout.createSequentialGroup()
-                .addComponent(home_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         homeLayout.setVerticalGroup(
             homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homeLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(home_title, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(home_file)
                     .addComponent(home_file_enter, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
@@ -1003,6 +1030,7 @@ public class window extends javax.swing.JFrame {
         front_title.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         front_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         front_title.setText("Front Title");
+        front_title.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         front_title.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         front_list.setModel(new javax.swing.AbstractListModel<String>() {
@@ -1047,40 +1075,75 @@ public class window extends javax.swing.JFrame {
         front.setLayout(frontLayout);
         frontLayout.setHorizontalGroup(
             frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(frontLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frontLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, frontLayout.createSequentialGroup()
-                        .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(front_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(frontLayout.createSequentialGroup()
+                        .addComponent(confirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
         frontLayout.setVerticalGroup(
             frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(frontLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(front_title, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(frontLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(confirm, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                    .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
+        );
+
+        form.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        form.setMaximumSize(new java.awt.Dimension(600, 600));
+        form.setMinimumSize(new java.awt.Dimension(600, 600));
+
+        p3_title.setFont(new java.awt.Font("Impact", 0, 18)); // NOI18N
+        p3_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p3_title.setText("Title(false)");
+
+        input_date.setColumns(20);
+        input_date.setRows(5);
+        jScrollPane3.setViewportView(input_date);
+
+        javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form);
+        form.setLayout(formLayout);
+        formLayout.setHorizontalGroup(
+            formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(p3_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        formLayout.setVerticalGroup(
+            formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(formLayout.createSequentialGroup()
+                .addComponent(p3_title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 286, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-            .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addComponent(initial, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
+            .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(front, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(front, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1091,7 +1154,9 @@ public class window extends javax.swing.JFrame {
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(front, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(form, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -1470,6 +1535,7 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
     private javax.swing.JButton confirm;
+    private javax.swing.JPanel form;
     private javax.swing.JPanel front;
     private javax.swing.JList<String> front_list;
     private javax.swing.JLabel front_title;
@@ -1481,9 +1547,12 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel home_title;
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
+    private javax.swing.JTextArea input_date;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> list_page1;
+    private javax.swing.JLabel p3_title;
     private javax.swing.JLabel txt_1;
     private javax.swing.JLabel txt_10;
     private javax.swing.JLabel txt_2;
