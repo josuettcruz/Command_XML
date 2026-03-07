@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.event.ListDataListener;
 
 /**
  *
@@ -748,15 +750,120 @@ public class window extends javax.swing.JFrame {
         
     }//p2act(pag2 pg)
     
+    private List<Domain> Pg3(){
+        
+        List<Domain> demo = new ArrayList();
+        
+        if(this.pg3.Mode().length > 1){
+            
+            Domain[] dom = this.pg3.Mode();
+            
+            List<Integer> note = new ArrayList();
+            
+            for(Domain d : dom){
+                
+                Domain k = new Domain(d.index(0),d.Text(false));
+                
+                if(note.isEmpty()){
+                    
+                    demo.add(k);
+                    note.add(k.index());
+                    
+                } else if(note.size() == 1){//if(note.isEmpty())
+                    
+                    if(d.index() != note.get(0)) demo.add(k);
+                    
+                } else {//if(note.isEmpty())
+                    
+                    var proc = 0;
+                    var loop = true;
+                    
+                    do{
+                        
+                        loop = d.index() != note.get(proc);
+                        
+                        proc++;
+                        
+                    }while(loop && proc > 0 && proc < note.size());
+                    
+                    if(loop) demo.add(k);
+                    
+                }//if(note.isEmpty())
+                
+            }//for(Domain d : dom)
+            
+        }//if(this.Domain_pg3())
+        
+        return demo;
+        
+    }//Pg1m()
+    
     public void Painel_3(){
         
         if(this.pg3 != null){
+            
+            var combo = this.Pg3().isEmpty() && this.Pg3().size() <= 10;
             
             setTitle(this.pg3.Title(true));
             
             p3_title.setText(this.pg3.Title(false));
             
             input_date.setFont(this.pg3.ListFont());
+            
+            especial_caracter.setVisible(combo);
+            
+            if(combo){
+                
+                var OptionFont = true;
+                
+                final var max = 30;
+                
+                String[] date = new String[this.Pg3().size()];
+                
+                for(int ad = 0; ad < this.Pg3().size(); ad++){
+                    
+                    var t = this.Pg3().get(ad).Text(true);
+                    
+                    date[ad] = " ".repeat(5);
+                    
+                    if(t.isBlank()){
+                        
+                        OptionFont = false;
+                        
+                        date[ad] += "-- ";
+                        date[ad] += Reg.Numb(ad+1, this.Pg3().size(), " -- ");
+                        date[ad] += " --";
+                        
+                    } else if(t.length() > max){//if(t.isBlank())
+                        
+                        date[ad] += t.substring(0, max-3);
+                        date[ad] += "...";
+                        
+                    } else {//if(t.isBlank())
+                        
+                        date[ad] += t;
+                        
+                    }//if(t.isBlank())
+                    
+                }//for(int ad = 0; ad < this.Pg3().size(); ad++)
+                
+                especial_caracter.setFont(
+                    new java.awt.Font(
+                        OptionFont ? "Arial Narrow" : "Consolas",
+                        OptionFont ? 0 : 1,
+                        18
+                    )
+                );
+                
+                especial_caracter.setMaximumRowCount(this.Pg3().size());
+                
+                especial_caracter.setModel(
+                    new javax.swing.DefaultComboBoxModel<>(date)
+                );
+                
+            }//if(combo)
+            
+            this.Tem(3);
             
         }//if(this.pg3 != null)
         
@@ -778,6 +885,8 @@ public class window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         initial = new javax.swing.JPanel();
         ide = new javax.swing.JLabel();
         categories = new javax.swing.JLabel();
@@ -810,6 +919,7 @@ public class window extends javax.swing.JFrame {
         p3_title = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         input_date = new javax.swing.JTextArea();
+        especial_caracter = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1111,15 +1221,23 @@ public class window extends javax.swing.JFrame {
         input_date.setRows(5);
         jScrollPane3.setViewportView(input_date);
 
+        especial_caracter.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        especial_caracter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" }));
+
         javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form);
         form.setLayout(formLayout);
         formLayout.setHorizontalGroup(
             formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(p3_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(formLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(especial_caracter, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(p3_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         formLayout.setVerticalGroup(
@@ -1128,7 +1246,9 @@ public class window extends javax.swing.JFrame {
                 .addComponent(p3_title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 286, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(especial_caracter, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 230, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1531,10 +1651,13 @@ public class window extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton cancel;
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
     private javax.swing.JButton confirm;
+    private javax.swing.JComboBox<String> especial_caracter;
     private javax.swing.JPanel form;
     private javax.swing.JPanel front;
     private javax.swing.JList<String> front_list;

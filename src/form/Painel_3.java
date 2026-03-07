@@ -12,6 +12,8 @@ public interface Painel_3 {
     
     public String Title(boolean title);
     
+    public Domain[] Mode();
+    
     public java.awt.Font ListFont();
     
 }
