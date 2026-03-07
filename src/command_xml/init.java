@@ -120,30 +120,6 @@ public class init {
                     
                 }//for(String ms : arqv)
                 
-                for(int z = 59; z >= 0; z--){
-                    
-                    var m4 = folder;
-                    m4 += "jar - ";
-                    m4 += Reg.modify.Load();
-                    m4 += " - ";
-                    m4 += Reg.Numb(x);
-                    m4 += "h";
-                    m4 += Reg.Numb(y);
-                    m4 += "m";
-                    m4 += Reg.Numb(z);
-                    m4 += "s - ";
-                    
-                    for(String document : arqv){
-                        
-                        var m = m4 + document + ext;
-                        
-                        //if(Arq.Exist(m) && Arq.Dir(m, false))
-                        //{learn.add(new Arq(m).Read());}
-                        
-                    }//for(String document : arqv)
-                    
-                }//for(int z = 59; z >= 0; z--)
-                
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
             min = false;

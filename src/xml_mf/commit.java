@@ -7,7 +7,6 @@ package xml_mf;
 import form.*;
 import model.*;
 import file.Arq;
-import command_xml.init;
 
 import form.pag1;
 import static form.pag1.*;
@@ -41,7 +40,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         '}',
         '/',
         '"',
-        '\''};
+        '\''
+    };
     
     public commit(String text){
         
@@ -311,20 +311,38 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         var run = txt.Local(ext);
         
         var arqv = Reg.java ? "..\\" : "";
-        
         arqv += "jar - ";
         arqv += new Data().Load();
         arqv += " - ";
         arqv += Reg.Numb(h.Hour());
         arqv += "h";
         arqv += Reg.Numb(h.Min());
-        arqv += "m";
-        arqv += Reg.Numb(h.Sec());
-        arqv += "s - ";
+        arqv += "m - ";
         arqv += run;
         arqv += ".txt";
         
-        return arqv;
+        if(Arq.Exist(arqv) && Arq.Dir(arqv, false)){
+            
+            var arqa = Reg.java ? "..\\" : "";
+            arqa += "jar - ";
+            arqa += new Data().Load();
+            arqa += " - ";
+            arqa += Reg.Numb(h.Hour());
+            arqa += "h";
+            arqa += Reg.Numb(h.Min());
+            arqa += "m";
+            arqa += Reg.Numb(h.Sec());
+            arqa += "s - ";
+            arqa += run;
+            arqa += ".txt";
+            
+            return arqa;
+            
+        } else {
+            
+            return arqv;
+            
+        }
         
     }//Export(String ext)
     
@@ -429,9 +447,14 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 } else {//if(this.line(y))
                     
+                    var velod = true;
+                    
+                    if(!tema.isBlank())
+                    {velod = tema.charAt(0) != '"' && tema.charAt(0) != '\'';}
+                    
                     if(t.isBlank()){
                         
-                        t += point ? txt.capitalize(y) : y;
+                        t += point && velod ? txt.capitalize(y) : y;
                         
                     } else {
                         
@@ -568,9 +591,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         switch(action){
             
-            case key, open -> this.Click(value);
-            
-            case add, enter -> init.Exec();
+            case key, open, add -> this.Click(value);
             
             case remove, delet, backspace -> {
                 
@@ -646,14 +667,12 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     }//Submit(pag1 action, String value)
 
     @Override
-    public String Title(boolean title) {
-        return new Link(Reg.http).page(!title);
-    }
+    public String Title(boolean title)
+    {return new Link(Reg.http).page(!title);}
 
     @Override
-    public String InputText() {
-        return this.input;
-    }
+    public String InputText()
+    {return this.input;}
 
     @Override
     public java.util.List<Domain> ListMode() {
@@ -739,13 +758,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     }
 
     @Override
-    public boolean ListColumn() {
-        return !this.input.isBlank();
-    }
+    public boolean ListColumn()
+    {return !this.input.isBlank();}
 
     @Override
-    public void Action(pag1 action, java.util.List<Domain> vol, String input) {
-        this.Submit(action, input);
-    }
+    public void Action(pag1 action, java.util.List<Domain> vol, String input)
+    {this.Submit(action, input);}
     
 }//commit
