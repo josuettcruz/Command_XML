@@ -83,19 +83,53 @@ public class init {
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
-                var md = folder;
-                md += Reg.modify.Load();
-                md += "_";
-                md += Reg.Numb(x);
-                md += "-";
-                md += Reg.Numb(y);
-                md += ext;
+                var m1 = folder;
+                m1 += Reg.modify.Load();
+                m1 += "_";
+                m1 += Reg.Numb(x);
+                m1 += "-";
+                m1 += Reg.Numb(y);
+                m1 += ext;
                 
-                if(Arq.Exist(md) && Arq.Dir(md, false)){
+                if(Arq.Exist(m1) && Arq.Dir(m1, false)){
                     
-                    learn.add(new Arq(md).Read());
+                    learn.add(new Arq(m1).Read());
                     
                 }//if(Arq.Exist(m1) && Arq.Dir(m1, false))
+                
+                var m2 = folder;
+                m2 += Reg.modify.Load();
+                m2 += "-";
+                m2 += Reg.Numb(x);
+                m2 += "-";
+                m2 += Reg.Numb(y);
+                m2 += ext;
+                
+                if(Arq.Exist(m2) && Arq.Dir(m2, false)){
+                    
+                    learn.add(new Arq(m2).Read());
+                    
+                }//if(Arq.Exist(m2) && Arq.Dir(m2, false))
+                
+                for(String ms : arqv){
+                    
+                    var m3 = folder;
+                    m3 += "jar - ";
+                    m3 += Reg.modify.Load();
+                    m3 += " - ";
+                    m3 += Reg.Numb(x);
+                    m3 += "h";
+                    m3 += Reg.Numb(y);
+                    m3 += "m - ";
+                    m3 += ms;
+                    
+                    if(Arq.Exist(m3) && Arq.Dir(m3, false)){
+                        
+                        learn.add(new Arq(m3).Read());
+                        
+                    }//if(Arq.Exist(m3) && Arq.Dir(m3, false))
+                    
+                }//for(String ms : arqv)
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
@@ -110,15 +144,18 @@ public class init {
     private static void Execute(){
         
         String[] folder = {
-            "_command_xml_" + new Data().Load(),
-            "command_xml_" + new Data().Load(),
-            "commit_" + new Data().Load(),
-            "commit-" + new Data().Load(),
-            new Data().Load(),
-            "_" + new Data().Load(),
-            "_command_xml",
-            "_commit",
-            "_git_commit",
+            "_" + Reg.modify.Load(),
+            "_command_xml_" + Reg.modify.Load(),
+            "_commit_" + Reg.modify.Load(),
+            "_commit-" + Reg.modify.Load(),
+            "_git_commit" + Reg.modify.Load(),
+            "_git_commit_m" + Reg.modify.Load(),
+            "command_xml_" + Reg.modify.Load(),
+            "commit_" + Reg.modify.Load(),
+            "commit-" + Reg.modify.Load(),
+            "git_commit" + Reg.modify.Load(),
+            "git_commit_m" + Reg.modify.Load(),
+            Reg.modify.Load(),
             "commit",
             "git_commit",
             "git_commit_m"
