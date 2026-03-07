@@ -45,7 +45,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         this.list.addAll(
             Arrays.asList(
-                new Data().DataCompleta(false, "#Ano de ").split("#")
+                new Data().DataCompleta("#", "#Ano de ").split("#")
             )
         );
         
