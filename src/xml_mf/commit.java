@@ -29,7 +29,19 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private List<String> text;
     private String input;
     
-    private final char[] points = {'?','!',':',';',',','.', ')', ']', '}', '/'};
+    private final char[] points = {
+        '?',
+        '!',
+        ':',
+        ';',
+        ',',
+        '.',
+        ')',
+        ']',
+        '}',
+        '/',
+        '"',
+        '\''};
     
     public commit(String text){
         
