@@ -55,11 +55,8 @@ public class init {
                 ms += Reg.Numb(y);
                 ms += ext;
                 
-                if(
-                    Arq.Exist(ms) && Arq.Dir(ms, false)
-                ) learn.add(
-                    new Arq(ms).Read()
-                );
+                if(Arq.Exist(ms) && Arq.Dir(ms, false))
+                {learn.add(new Arq(ms).Read());}
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
@@ -75,11 +72,8 @@ public class init {
             hs += Reg.modify.Load();
             hs += ext;
             
-            if(Arq.Exist(hs) && Arq.Dir(hs, false)){
-                
-                learn.add(new Arq(hs).Read());
-                
-            }//if(Arq.Exist(hs) && Arq.Dir(hs, false))
+            if(Arq.Exist(hs) && Arq.Dir(hs, false))
+            {learn.add(new Arq(hs).Read());}
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
                 
@@ -91,11 +85,8 @@ public class init {
                 m1 += Reg.Numb(y);
                 m1 += ext;
                 
-                if(Arq.Exist(m1) && Arq.Dir(m1, false)){
-                    
-                    learn.add(new Arq(m1).Read());
-                    
-                }//if(Arq.Exist(m1) && Arq.Dir(m1, false))
+                if(Arq.Exist(m1) && Arq.Dir(m1, false))
+                {learn.add(new Arq(m1).Read());}
                 
                 var m2 = folder;
                 m2 += Reg.modify.Load();
@@ -123,11 +114,8 @@ public class init {
                     m3 += "m - ";
                     m3 += ms;
                     
-                    if(Arq.Exist(m3) && Arq.Dir(m3, false)){
-                        
-                        learn.add(new Arq(m3).Read());
-                        
-                    }//if(Arq.Exist(m3) && Arq.Dir(m3, false))
+                    if(Arq.Exist(m3) && Arq.Dir(m3, false))
+                    {learn.add(new Arq(m3).Read());}
                     
                 }//for(String ms : arqv)
                 
@@ -166,42 +154,37 @@ public class init {
         for(String j : folder){
             
             for(Read r : Commit("\\" + j + "\\"))
-            {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+            {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
             
         }//for(String j : folder)
         
         for(Read r : Commit(""))
-        {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+        {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
         for(String j : folder){
             
             for(Read r : Commit("..\\" + j + "\\"))
-            {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+            {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
             
         }//for(String j : folder)
         
         for(Read r : Commit("..\\"))
-        {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+        {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
         for(String j : folder){
             
             for(Read r : Commit("..\\..\\" + j + "\\"))
-            {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+            {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
             
         }//for(String j : folder)
         
         for(Read r : Commit("..\\..\\"))
-        {if(r.Val() && !r.Read().trim().isBlank()) tem.add(r);}
+        {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
-        if(tem.isEmpty()){
-            
-            controller.p2(new config());
-            
-        } else {
-            
-            controller.p2(new GitCommit(tem));
-            
-        }
+        if(tem.isEmpty())
+        {controller.p2(new config());}
+        else
+        {controller.p2(new GitCommit(tem));}
         
     }//Execute()
     
