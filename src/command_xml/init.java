@@ -31,7 +31,7 @@ public class init {
         final String[] arqv = {"code", "title", "info", "run"};
         final String ext = ".txt";
         
-        Hora h = new Hora(false);
+        Hora h = new Hora(true);
         
         List<Read> learn = new ArrayList();
         
@@ -113,9 +113,34 @@ public class init {
                     m3 += Reg.Numb(y);
                     m3 += "m - ";
                     m3 += ms;
+                    m3 += ext;
                     
                     if(Arq.Exist(m3) && Arq.Dir(m3, false))
                     {learn.add(new Arq(m3).Read());}
+                    
+                    var sec = true;
+                    
+                    /*for(int j = sec ? h.Sec() : 59; j >= 0; j--){
+                        
+                        var mm3 = folder;
+                        mm3 += "jar - ";
+                        mm3 += Reg.modify.Load();
+                        mm3 += " - ";
+                        mm3 += Reg.Numb(x);
+                        mm3 += "h";
+                        mm3 += Reg.Numb(y);
+                        mm3 += "m";
+                        mm3 += Reg.Numb(j);
+                        mm3 += "s - ";
+                        mm3 += ms;
+                        mm3 += ext;
+                        
+                        if(Arq.Exist(mm3) && Arq.Dir(mm3, false))
+                        {learn.add(new Arq(mm3).Read());}
+                        
+                        sec = false;
+                        
+                    }//for(int j = sec ? h.Sec() : 59; j >= 0; j--)*/
                     
                 }//for(String ms : arqv)
                 
