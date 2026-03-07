@@ -210,11 +210,11 @@ public class GitCommit implements Painel_2{
             
             tam = 20;
             
-        } else if(tot <= 12){
+        } else if(tot == 11 || tot == 12){
             
             tam = 18;
             
-        } else if(tot < 14){
+        } else if(tot == 13){
             
             tam = 16;
             
@@ -232,11 +232,7 @@ public class GitCommit implements Painel_2{
     }
 
     @Override
-    public java.util.List<Domain> ListMode() {
-        
-        return this.lin;
-        
-    }
+    public java.util.List<Domain> ListMode() {return this.lin;}
 
     @Override
     public void Command(pag2 op, Domain value) {

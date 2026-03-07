@@ -338,11 +338,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             return arqa;
             
-        } else {
+        } else {//if(Arq.Exist(arqv) && Arq.Dir(arqv, false))
             
             return arqv;
             
-        }
+        }//if(Arq.Exist(arqv) && Arq.Dir(arqv, false))
         
     }//Export(String ext)
     
@@ -402,7 +402,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 case '/', '\\' ->{
                     
-                    if(bar < 2){val += "/";}
+                    if(bar < 2) val += "/";
+                    
                     bar++;
                     
                 }//case '/', '\\'
@@ -626,11 +627,21 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             if(e) System.out.println();
                             
                             System.out.println(
-                                "\f Linha " + Reg.Numb(line, tot, " de ")
+                                "\f Linha "
+                                + Reg.Numb(line, tot, " de ")
                             );
                             
-                            System.out.println("\f " + t.substring(0, max) + " \f");
-                            System.out.println("\f " + t.substring(max));
+                            System.out.println(
+                                "\f "
+                                + t.substring(0, max)
+                                + " \f"
+                            );
+                            
+                            System.out.println(
+                                "\f "
+                                + t.substring(max)
+                            );
+                            
                             event = true;
                             
                         } else {//if(t.length() > max)
