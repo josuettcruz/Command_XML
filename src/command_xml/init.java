@@ -28,7 +28,19 @@ public class init {
     
     private static List<Read> Commit(String folder){
         
-        final String[] arqv = {"code", "title", "info", "run"};
+        final String[] arqv = {
+            "run",
+            "code",
+            "title",
+            "info",
+            "doc",
+            "arq",
+            "arquivo",
+            "projeto",
+            "documento",
+            "document"
+        };
+        
         final String ext = ".txt";
         
         Hora h = new Hora(true);
