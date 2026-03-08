@@ -327,7 +327,7 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 
             }//case
             
-            case delet, backspace ->{
+            case remove, delet, backspace ->{
                 
                 var page = false;
                 var out = 0;
@@ -371,8 +371,6 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
                 }//if(vol.size() > 1 && page)
                 
             }//case
-            
-            case remove -> this.Exit();
             
         }//switch(action)
         
