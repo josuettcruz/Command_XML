@@ -510,15 +510,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="especial_caracter" min="-2" pref="565" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="p3_title" max="32767" attributes="0"/>
                               <Component id="jScrollPane3" pref="571" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="pg3_confirm" min="-2" pref="309" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="pg3_cancel" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="pag3_menu" pref="565" max="32767" attributes="0"/>
+                              <Component id="pag3_menu_enter" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -532,9 +540,16 @@
                   <Component id="p3_title" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="310" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="pg3_confirm" pref="53" max="32767" attributes="0"/>
+                      <Component id="pg3_cancel" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="pag3_menu" min="-2" pref="44" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="especial_caracter" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="230" max="32767" attributes="0"/>
+                  <Component id="pag3_menu_enter" min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -564,7 +579,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JComboBox" name="especial_caracter">
+        <Component class="javax.swing.JComboBox" name="pag3_menu">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Narrow" size="18" style="0"/>
@@ -582,6 +597,21 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="pg3_confirm">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CONFIRMAR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="pg3_cancel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="CANCELAR"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="pag3_menu_enter">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="List Action"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

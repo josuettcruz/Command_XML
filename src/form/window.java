@@ -806,15 +806,19 @@ public class window extends javax.swing.JFrame {
             
             p3_title.setText(this.pg3.Title(false));
             
-            input_date.setFont(this.pg3.ListFont());
+            p3_title.setFont(this.pg3.Font(true));
+            input_date.setFont(this.pg3.Font(false));
             
-            especial_caracter.setVisible(combo);
+            pag3_menu.setVisible(combo);
+            pag3_menu_enter.setVisible(
+                combo ? pag3_menu.getSelectedIndex() >= 0 : false
+            );
             
             if(combo){
                 
-                var OptionFont = true;
+                var sf = "Arial Narrow";
                 
-                final var max = 30;
+                final var max = 20;
                 
                 String[] date = new String[this.Pg3().size()];
                 
@@ -826,7 +830,7 @@ public class window extends javax.swing.JFrame {
                     
                     if(t.isBlank()){
                         
-                        OptionFont = false;
+                        sf = "Consolas";
                         
                         date[ad] += "-- ";
                         date[ad] += Reg.Numb(ad+1, this.Pg3().size(), " -- ");
@@ -845,17 +849,11 @@ public class window extends javax.swing.JFrame {
                     
                 }//for(int ad = 0; ad < this.Pg3().size(); ad++)
                 
-                especial_caracter.setFont(
-                    new java.awt.Font(
-                        OptionFont ? "Arial Narrow" : "Consolas",
-                        OptionFont ? 0 : 1,
-                        18
-                    )
-                );
+                pag3_menu.setFont(new java.awt.Font(sf,0,18));
                 
-                especial_caracter.setMaximumRowCount(this.Pg3().size());
+                pag3_menu.setMaximumRowCount(this.Pg3().size());
                 
-                especial_caracter.setModel(
+                pag3_menu.setModel(
                     new javax.swing.DefaultComboBoxModel<>(date)
                 );
                 
@@ -866,6 +864,13 @@ public class window extends javax.swing.JFrame {
         }//if(this.pg3 != null)
         
     }//Painel_3()
+    
+    private void P3Action(pag3 op){
+        
+        //15:55 08/03/2026
+        //Pendente
+        
+    }//P3Action(pag3 op)    
     
     public void Painel_3(Painel_3 pg3){
         
@@ -917,7 +922,10 @@ public class window extends javax.swing.JFrame {
         p3_title = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         input_date = new javax.swing.JTextArea();
-        especial_caracter = new javax.swing.JComboBox<>();
+        pag3_menu = new javax.swing.JComboBox<>();
+        pg3_confirm = new javax.swing.JButton();
+        pg3_cancel = new javax.swing.JButton();
+        pag3_menu_enter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1219,8 +1227,14 @@ public class window extends javax.swing.JFrame {
         input_date.setRows(5);
         jScrollPane3.setViewportView(input_date);
 
-        especial_caracter.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
-        especial_caracter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" }));
+        pag3_menu.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
+        pag3_menu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" }));
+
+        pg3_confirm.setText("CONFIRMAR");
+
+        pg3_cancel.setText("CANCELAR");
+
+        pag3_menu_enter.setText("List Action");
 
         javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form);
         form.setLayout(formLayout);
@@ -1228,14 +1242,20 @@ public class window extends javax.swing.JFrame {
             formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formLayout.createSequentialGroup()
                 .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(formLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(especial_caracter, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(p3_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                            .addGroup(formLayout.createSequentialGroup()
+                                .addComponent(pg3_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(formLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pag3_menu, 0, 565, Short.MAX_VALUE)
+                            .addComponent(pag3_menu_enter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         formLayout.setVerticalGroup(
@@ -1244,9 +1264,15 @@ public class window extends javax.swing.JFrame {
                 .addComponent(p3_title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pg3_confirm, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                    .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(pag3_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(especial_caracter, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 230, Short.MAX_VALUE))
+                .addComponent(pag3_menu_enter, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 101, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1655,7 +1681,6 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel categories;
     private javax.swing.JLabel choose;
     private javax.swing.JButton confirm;
-    private javax.swing.JComboBox<String> especial_caracter;
     private javax.swing.JPanel form;
     private javax.swing.JPanel front;
     private javax.swing.JList<String> front_list;
@@ -1674,6 +1699,10 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> list_page1;
     private javax.swing.JLabel p3_title;
+    private javax.swing.JComboBox<String> pag3_menu;
+    private javax.swing.JButton pag3_menu_enter;
+    private javax.swing.JButton pg3_cancel;
+    private javax.swing.JButton pg3_confirm;
     private javax.swing.JLabel txt_1;
     private javax.swing.JLabel txt_10;
     private javax.swing.JLabel txt_2;
