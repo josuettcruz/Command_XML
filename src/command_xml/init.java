@@ -18,13 +18,18 @@ import form.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
 
 /**
  *
  * @author josue
  */
 public class init {
+    
+    private static void Play(){
+        
+        controller.p1m(new config());
+        
+    }//Play()
     
     private static List<Read> Commit(String folder){
         
@@ -194,10 +199,7 @@ public class init {
         for(Read r : Commit("..\\..\\"))
         {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
-        if(tem.isEmpty())
-        {controller.p2(new config());}
-        else
-        {controller.p2(new GitCommit(tem));}
+        if(tem.isEmpty()) {Play();} else {controller.p2(new GitCommit(tem));}
         
     }//Execute()
     
@@ -211,26 +213,11 @@ public class init {
             
             Execute();
             
-        } else if(Reg.modify.Val() && d.CompareTo(Reg.modify,true)){//if(Reg...
+        } else {
             
-            controller.p1m(new config());
+            Play();
             
-        } else if(Reg.modify.Val()){//if(Reg.modify.Val()...
-            
-            controller.p1s(new config());
-            
-        } else {//if(Reg.modify.Val()...
-            
-            List<String> print = new ArrayList();
-            print.addAll(Arrays.asList(Reg.modify.Error().split("\n")));
-            
-            var note = controller.Msg(d.DataAbreviada(true),print, true);
-            
-            if(Reg.java) for(String t : print) System.err.println(t);
-            
-            if(!note) System.exit(0);
-            
-        }//if(Reg.modify.Val()...
+        }
         
     }//Exec()
     

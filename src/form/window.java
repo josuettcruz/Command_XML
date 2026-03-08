@@ -13,8 +13,6 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ComboBoxModel;
-import javax.swing.event.ListDataListener;
 
 /**
  *
@@ -802,7 +800,7 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg3 != null){
             
-            var combo = this.Pg3().isEmpty() && this.Pg3().size() <= 10;
+            var combo = this.Pg3().size() > 2 && this.Pg3().size() <= 10;
             
             setTitle(this.pg3.Title(true));
             
