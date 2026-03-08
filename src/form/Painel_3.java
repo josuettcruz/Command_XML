@@ -18,13 +18,11 @@ public interface Painel_3 {
     
     public java.awt.Font Font(boolean title);
     
-    //15:55 08/03/2026
     public List<Domain> Painel3(
         pag3 op,
-        List<Domain> menu,
+        Domain[] menu,
         List<String> text,
-        int col,
-        int row
-    );//Pendente
+        int cursor
+    );
     
 }

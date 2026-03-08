@@ -12,6 +12,7 @@ import model.*;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,7 +42,11 @@ public class window extends javax.swing.JFrame {
     private List<Domain> domo;
     
     private Painel_2 pg2;
+    private int key_code_count;
+    
     private Painel_3 pg3;
+    private boolean ctrl;
+    private boolean alt;
     
     public window() {
         
@@ -66,6 +71,11 @@ public class window extends javax.swing.JFrame {
         this.pg1sm = none;
         
         this.page1Exit = false;
+        
+        this.key_code_count = 1;
+        
+        this.ctrl = false;
+        this.alt = false;
         
         setVisible(true);
         setResizable(true);
@@ -93,6 +103,42 @@ public class window extends javax.swing.JFrame {
         setBounds(r, t, w, h);
         
     }//Enter(String title, int r, int l, int w, int h)
+    
+    public void Println(int key_code, char key_char, int extendedkeycode){
+        
+        final int max = 10;
+        
+        if(Reg.java && this.key_code_count <= max && key_code != 10){
+            
+            var println = "Impressão ";
+            println += Reg.Numb(this.key_code_count, max, " de ");
+            println += ": \"";
+            println += Reg.Numb(key_code, 100);
+            println += "\"";
+            
+            if(key_char != '￿'){
+                
+                println += "\" -- '";
+                println += key_char;
+                println += "'";
+                
+            }//if(evt.getKeyChar() != '￿')
+            
+            if(key_code != extendedkeycode){
+                
+                println += " -- [";
+                println += Reg.Numb(extendedkeycode, 1000);
+                println += "]";
+                
+            }//if(evt.getKeyCode() != evt.getExtendedKeyCode())
+            
+            System.out.println(println);
+            
+            this.key_code_count++;
+            
+        }//if(Reg.java && this.key_code_count <= max && key_code != 10)
+        
+    }//Println(int key_code, char key_char, int extendedkeycode)
     
     public int Left(){
         
@@ -867,10 +913,40 @@ public class window extends javax.swing.JFrame {
     
     private void P3Action(pag3 op){
         
-        //15:55 08/03/2026
-        //Pendente
+        var dom = this.Pg3().size() > 2;
         
-    }//P3Action(pag3 op)    
+        Domain[] my_list = new Domain[dom ? this.Pg3().size() : 2];
+        
+        if(dom){
+            
+            List<Domain> dem = this.Pg3();
+            
+            for(int c = 0; c < dem.size(); c++){
+                
+                my_list[c] = new Domain(
+                    dem.get(c).index(0),
+                    dem.get(c).Text(false)
+                );
+                
+                my_list[c].Select(c == pag3_menu.getSelectedIndex());
+                
+            }//for(int c = 0; c < this.Pg3().size(); c++)
+            
+        } else {//if(dom)
+            
+            for(int c = 0; c < my_list.length; c++)
+            {my_list[c] = new Domain(c+1,"Item " + Reg.Numb(c));}
+            
+        }//if(dom)
+        
+        this.pg3.Painel3(
+            op,
+            my_list,
+            Arrays.asList(input_date.getText().split("\n")),
+            input_date.getCaretPosition()
+        );
+        
+    }//P3Action(pag3 op)
     
     public void Painel_3(Painel_3 pg3){
         
@@ -1225,16 +1301,44 @@ public class window extends javax.swing.JFrame {
 
         input_date.setColumns(20);
         input_date.setRows(5);
+        input_date.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                input_dateKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                input_dateKeyReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(input_date);
 
         pag3_menu.setFont(new java.awt.Font("Arial Narrow", 0, 18)); // NOI18N
         pag3_menu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" }));
+        pag3_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pag3_menuActionPerformed(evt);
+            }
+        });
 
         pg3_confirm.setText("CONFIRMAR");
+        pg3_confirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pg3_confirmActionPerformed(evt);
+            }
+        });
 
         pg3_cancel.setText("CANCELAR");
+        pg3_cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pg3_cancelActionPerformed(evt);
+            }
+        });
 
         pag3_menu_enter.setText("List Action");
+        pag3_menu_enter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pag3_menu_enterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form);
         form.setLayout(formLayout);
@@ -1510,6 +1614,12 @@ public class window extends javax.swing.JFrame {
 
     private void list_page1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page1KeyReleased
         
+        this.Println(
+            evt.getKeyCode(),
+            evt.getKeyChar(),
+            evt.getExtendedKeyCode()
+        );
+        
         this.Page_1(list_page1.getSelectedIndex() >= 0);
         
         switch(evt.getKeyCode()){
@@ -1633,6 +1743,12 @@ public class window extends javax.swing.JFrame {
 
     private void front_listKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_front_listKeyReleased
         
+        this.Println(
+            evt.getKeyCode(),
+            evt.getKeyChar(),
+            evt.getExtendedKeyCode()
+        );
+        
         switch(evt.getKeyCode()){
             
             case 8 -> this.p2act(pag2.del);
@@ -1648,6 +1764,76 @@ public class window extends javax.swing.JFrame {
     private void front_listMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_front_listMousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_front_listMousePressed
+
+    private void pg3_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pg3_confirmActionPerformed
+        this.P3Action(pag3.confirm);
+    }//GEN-LAST:event_pg3_confirmActionPerformed
+
+    private void pg3_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pg3_cancelActionPerformed
+        this.P3Action(pag3.cancel);
+    }//GEN-LAST:event_pg3_cancelActionPerformed
+
+    private void pag3_menu_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pag3_menu_enterActionPerformed
+        this.P3Action(pag3.button_list);
+    }//GEN-LAST:event_pag3_menu_enterActionPerformed
+
+    private void pag3_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pag3_menuActionPerformed
+        this.P3Action(pag3.list_closer);
+    }//GEN-LAST:event_pag3_menuActionPerformed
+
+    private void input_dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyPressed
+        
+        switch(evt.getKeyCode()){
+            
+            case 17 -> {
+                
+                this.ctrl = true;
+                this.alt = false;
+                
+            }//case 17
+            
+            case 18 -> {
+                
+                this.ctrl = false;
+                this.alt = true;
+                
+            }//case 18
+            
+            default -> {
+                
+                this.ctrl = false;
+                this.alt = false;
+                
+            }//default
+            
+        }//switch(evt.getKeyCode())
+        
+    }//GEN-LAST:event_input_dateKeyPressed
+
+    private void input_dateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyReleased
+        
+        if(this.ctrl){
+            
+            switch(evt.getKeyCode()){
+                
+                case 10 -> this.P3Action(pag3.ctrl_enter);
+                
+            }//switch(evt.getKeyCode())
+            
+        } else if(this.alt){//if(this.ctrl)
+            
+            switch(evt.getKeyCode()){
+                
+                case 10 -> this.P3Action(pag3.alt_enter);
+                
+            }//switch(evt.getKeyCode())
+            
+        }//if(this.ctrl)
+        
+        this.ctrl = false;
+        this.alt = false;
+        
+    }//GEN-LAST:event_input_dateKeyReleased
 
     /**
      * @param args the command line arguments

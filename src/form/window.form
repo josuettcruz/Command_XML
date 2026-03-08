@@ -576,6 +576,10 @@
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="input_dateKeyPressed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="input_dateKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -594,6 +598,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pag3_menuActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -602,16 +609,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="CONFIRMAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pg3_confirmActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="pg3_cancel">
           <Properties>
             <Property name="text" type="java.lang.String" value="CANCELAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pg3_cancelActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="pag3_menu_enter">
           <Properties>
             <Property name="text" type="java.lang.String" value="List Action"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pag3_menu_enterActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

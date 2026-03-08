@@ -150,11 +150,11 @@ public class init {
     private static void Execute(){
         
         String[] folder = {
+            "_command_xml",
             "_" + Reg.modify.Load(),
             Reg.modify.Load(),
-            "commit_" + Reg.modify.Load(),
-            "git_commit",
-            "git-commit"
+            "git_commit_" + Reg.modify.Load(),
+            "git_commit"
         };
         
         List<Read> tem = new ArrayList();
