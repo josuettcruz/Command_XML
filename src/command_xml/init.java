@@ -151,20 +151,10 @@ public class init {
         
         String[] folder = {
             "_" + Reg.modify.Load(),
-            "_command_xml_" + Reg.modify.Load(),
-            "_commit_" + Reg.modify.Load(),
-            "_commit-" + Reg.modify.Load(),
-            "_git_commit" + Reg.modify.Load(),
-            "_git_commit_m" + Reg.modify.Load(),
-            "command_xml_" + Reg.modify.Load(),
-            "commit_" + Reg.modify.Load(),
-            "commit-" + Reg.modify.Load(),
-            "git_commit" + Reg.modify.Load(),
-            "git_commit_m" + Reg.modify.Load(),
             Reg.modify.Load(),
-            "commit",
+            "commit_" + Reg.modify.Load(),
             "git_commit",
-            "git_commit_m"
+            "git-commit"
         };
         
         List<Read> tem = new ArrayList();

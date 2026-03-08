@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public interface Painel_3 {
     
