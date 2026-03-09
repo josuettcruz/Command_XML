@@ -908,7 +908,7 @@ public class window extends javax.swing.JFrame {
         
     }//Painel_3()
     
-    private void P3Action(pag3 op){
+    private Domain[] P3Action(){
         
         var dom = this.Pg3().size() > 2;
         
@@ -936,9 +936,15 @@ public class window extends javax.swing.JFrame {
             
         }//if(dom)
         
+        return my_list;
+        
+    }//P3Action(pag3 op)
+    
+    private void P3Action(pag3 op){
+        
         this.pg3.Painel3(
             op,
-            my_list,
+            this.P3Action(),
             Arrays.asList(input_date.getText().split("\n")),
             input_date.getCaretPosition()
         );
@@ -947,36 +953,10 @@ public class window extends javax.swing.JFrame {
     
     private void P3Action(int key_code, char key_char){
         
-        var dom = this.Pg3().size() > 2;
-        
-        Domain[] my_list = new Domain[dom ? this.Pg3().size() : 2];
-        
-        if(dom){
-            
-            List<Domain> dem = this.Pg3();
-            
-            for(int c = 0; c < dem.size(); c++){
-                
-                my_list[c] = new Domain(
-                    dem.get(c).index(0),
-                    dem.get(c).Text(false)
-                );
-                
-                my_list[c].Select(c == pag3_menu.getSelectedIndex());
-                
-            }//for(int c = 0; c < this.Pg3().size(); c++)
-            
-        } else {//if(dom)
-            
-            for(int c = 0; c < my_list.length; c++)
-            {my_list[c] = new Domain(c+1,"Item " + Reg.Numb(c));}
-            
-        }//if(dom)
-        
         this.pg3.Painel3(
             key_code,
             key_char,
-            my_list,
+            this.P3Action(),
             Arrays.asList(input_date.getText().split("\n")),
             input_date.getCaretPosition()
         );
