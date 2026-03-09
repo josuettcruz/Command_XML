@@ -1798,17 +1798,17 @@ public class window extends javax.swing.JFrame {
             
             this.P3Action(pag3.alt_key);
             
-        } else if(this.text_area == ctrl && evt.getKeyCode() == 10){
+        } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
             
             this.P3Action(pag3.ctrl_enter);
             
-        } else {
+        } else {//if(this.text_area == alt)
             
-            //code
+            //code;
             
-        }
+        }//if(this.text_area == alt)
         
-        //this.P3Action(pag3.ctrl_enter);
+        this.text_area = other;
         
     }//GEN-LAST:event_input_dateKeyReleased
 
