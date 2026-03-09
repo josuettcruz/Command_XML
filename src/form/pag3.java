@@ -10,6 +10,6 @@ package form;
  */
 public enum pag3 {
     
-    confirm, cancel, button_list, list_closer, ctrl_enter, alt_key;
+    confirm, cancel, button_list, list_closer, ctrl_enter;
     
 }

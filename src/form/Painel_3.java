@@ -19,6 +19,14 @@ public interface Painel_3 {
     public java.awt.Font Font(boolean title);
     
     public List<Domain> Painel3(
+        int key_code,
+        char key_char,
+        Domain[] menu,
+        List<String> text,
+        int cursor
+    );
+    
+    public List<Domain> Painel3(
         pag3 op,
         Domain[] menu,
         List<String> text,

@@ -72,7 +72,7 @@ public class window extends javax.swing.JFrame {
         
         this.key_code_count = 1;
         
-        this.text_area = init;
+        this.text_area = user;
         
         setVisible(true);
         setResizable(true);
@@ -945,6 +945,44 @@ public class window extends javax.swing.JFrame {
         
     }//P3Action(pag3 op)
     
+    private void P3Action(int key_code, char key_char){
+        
+        var dom = this.Pg3().size() > 2;
+        
+        Domain[] my_list = new Domain[dom ? this.Pg3().size() : 2];
+        
+        if(dom){
+            
+            List<Domain> dem = this.Pg3();
+            
+            for(int c = 0; c < dem.size(); c++){
+                
+                my_list[c] = new Domain(
+                    dem.get(c).index(0),
+                    dem.get(c).Text(false)
+                );
+                
+                my_list[c].Select(c == pag3_menu.getSelectedIndex());
+                
+            }//for(int c = 0; c < this.Pg3().size(); c++)
+            
+        } else {//if(dom)
+            
+            for(int c = 0; c < my_list.length; c++)
+            {my_list[c] = new Domain(c+1,"Item " + Reg.Numb(c));}
+            
+        }//if(dom)
+        
+        this.pg3.Painel3(
+            key_code,
+            key_char,
+            my_list,
+            Arrays.asList(input_date.getText().split("\n")),
+            input_date.getCaretPosition()
+        );
+        
+    }//P3Action(pag3 op)
+    
     public void Painel_3(Painel_3 pg3){
         
         this.pg3 = pg3;
@@ -1782,11 +1820,9 @@ public class window extends javax.swing.JFrame {
         
         switch(evt.getKeyCode()){
             
-            case 17 -> this.text_area = ctrl;
+            case 17 -> {if(this.text_area == user) {this.text_area = ctrl;}}
             
-            case 18 -> this.text_area = alt;
-            
-            default -> this.text_area = other;
+            case 18 -> {if(this.text_area == user) {this.text_area = alt;}}
             
         }//switch(evt.getKeyCode())
         
@@ -1796,19 +1832,19 @@ public class window extends javax.swing.JFrame {
         
         if(this.text_area == alt){
             
-            this.P3Action(pag3.alt_key);
+            this.P3Action(evt.getKeyCode(), evt.getKeyChar());
+            this.text_area = user;
             
         } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
             
             this.P3Action(pag3.ctrl_enter);
+            this.text_area = user;
             
         } else {//if(this.text_area == alt)
             
-            //code;
+            this.text_area = user;
             
         }//if(this.text_area == alt)
-        
-        this.text_area = other;
         
     }//GEN-LAST:event_input_dateKeyReleased
 

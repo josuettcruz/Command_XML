@@ -10,6 +10,6 @@ package form;
  */
 public enum key {
     
-    init, user, ctrl, alt, other;
+    user, ctrl, alt;
     
 }
