@@ -1817,17 +1817,18 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_front_listKeyReleased
 
     private void front_listMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_front_listMousePressed
-        // TODO add your handling code here: (Painel 2)
+        // TODO add your handling code here:
+        //Painel 2
     }//GEN-LAST:event_front_listMousePressed
 
     private void pg3_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pg3_confirmActionPerformed
         
         this.pg3.Painel3(
-            pag3.confirm,
-            this.P3Action(),
-            this.P3(),
-            this.P3(true),
-            this.P3(false)
+            pag3.confirm,    // return enum
+            this.P3Action(), // return Domain[]     -- "Lista de OPÇÕES"
+            this.P3(),       // return List<String> -- "Texto do TEXT ÁREA"
+            this.P3(true),   // return int          -- "Posição do cursor - ROW"
+            this.P3(false)   // return int          -- "Posição do cursor - COL"
         );
         
     }//GEN-LAST:event_pg3_confirmActionPerformed
@@ -1837,9 +1838,9 @@ public class window extends javax.swing.JFrame {
         this.pg3.Painel3(
             pag3.cancel,     // return enum
             this.P3Action(), // return Domain[]     -- "Lista de OPÇÕES"
-            this.P3(),       // return List<String> -- "Texto do TEX ÁREA"
+            this.P3(),       // return List<String> -- "Texto do TEXT ÁREA"
             this.P3(true),   // return int          -- "Posição do cursor - ROW"
-            this.P3(false)   // return int          -- "Posição do cursor - COL" 
+            this.P3(false)   // return int          -- "Posição do cursor - COL"
         );
         
     }//GEN-LAST:event_pg3_cancelActionPerformed
@@ -1850,9 +1851,9 @@ public class window extends javax.swing.JFrame {
         this.pg3.Painel3(
             pag3.button_list, // return enum
             this.P3Action(),  // return Domain[]     -- "Lista de OPÇÕES"
-            this.P3(),        // return List<String> -- "Texto do TEX ÁREA"
+            this.P3(),        // return List<String> -- "Texto do TEXT ÁREA"
             this.P3(true),    // return int          -- "Posição do cursor - ROW"
-            this.P3(false)    // return int          -- "Posição do cursor - COL" 
+            this.P3(false)    // return int          -- "Posição do cursor - COL"
         );
         
     }//GEN-LAST:event_pag3_menu_enterActionPerformed
@@ -1862,10 +1863,11 @@ public class window extends javax.swing.JFrame {
         this.pg3.Painel3(
             pag3.list_closer, // return enum
             this.P3Action(),  // return Somain[]     -- "Lista de OPÇÕES"
-            this.P3(),        // return List<String> -- "Texto do TEX ÁREA"
+            this.P3(),        // return List<String> -- "Texto do TEXT ÁREA"
             this.P3(true),    // return int          -- "Posição do cursor - ROW"
-            this.P3(false)    // return int          -- "Posição do cursor - COL" 
+            this.P3(false)    // return int          -- "Posição do cursor - COL"
         );
+        
     }//GEN-LAST:event_pag3_menuActionPerformed
 
     private void input_dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyPressed
@@ -1890,9 +1892,9 @@ public class window extends javax.swing.JFrame {
                 evt.getKeyCode(), // return char
                 evt.getKeyChar(), // return int
                 this.P3Action(),  // return Domain[]     -- "Lista de OPÇÕES"
-                this.P3(),        // return List<String> -- "Texto do TEX ÁREA"
+                this.P3(),        // return List<String> -- "Texto do TEXT ÁREA"
                 this.P3(true),    // return int          -- "Posição do cursor - ROW"
-                this.P3(false)    // return int          -- "Posição do cursor - COL" 
+                this.P3(false)    // return int          -- "Posição do cursor - COL"
             )){this.text_area = other;}
             
         } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
@@ -1900,9 +1902,9 @@ public class window extends javax.swing.JFrame {
             this.pg3.Painel3(
                 pag3.ctrl_enter, // return enum
                 this.P3Action(), // return Domain[]     -- "Lista de OPÇÕES"
-                this.P3(),       // return List<String> -- "Texto do TEX ÁREA"
+                this.P3(),       // return List<String> -- "Texto do TEXT ÁREA"
                 this.P3(true),   // return int          -- "Posição do cursor - ROW"
-                this.P3(false)   // return int          -- "Posição do cursor - COL" 
+                this.P3(false)   // return int          -- "Posição do cursor - COL"
             );
             
             this.text_area = other;

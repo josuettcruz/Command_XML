@@ -150,7 +150,6 @@ public class init {
     private static void Execute(){
         
         String[] folder = {
-            "_command_xml",
             "_" + Reg.modify.Load(),
             Reg.modify.Load(),
             "git_commit_" + Reg.modify.Load(),
