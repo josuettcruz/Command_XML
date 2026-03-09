@@ -521,7 +521,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             if(test0 || !ext.equalsIgnoreCase(this.base)){
                 
-                err = new Arq(this.Export(ext)).Save(this.Saving()).Message();
+                if(!ext.equalsIgnoreCase("exit"))
+                {err = new Arq(this.Export(ext)).Save(this.Saving()).Message();}
+                
                 coppy = false;
                 
             }//if(test0 || !ext.equalsIgnoreCase(this.base))

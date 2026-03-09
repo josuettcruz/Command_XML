@@ -940,35 +940,77 @@ public class window extends javax.swing.JFrame {
         
     }//P3Action()
     
-    private int P3Position(boolean row_col){
+    private List<String> P3(){
+        
+        List<String> code = new ArrayList();
+        code.addAll(Arrays.asList(input_date.getText().split("\n")));
+        
+        return code;
+        
+    }//P3()
+    
+    private int P3(boolean row_col){
         
         int pos = input_date.getCaretPosition();
+        
+        int[] com = new int[this.P3().size()];
+        
+        for(int c = 0; c < com.length; c++) com[c] = this.P3().get(c).length();
         
         int row = 0;
         int col = 0;
         
         if(pos > 0){
             
-            for(int sum = 0; sum < input_date.getCaretPosition(); sum++){
+            var sum = 0;
+            var out = false;
+            
+            do{
                 
-                //code;
+                if(row < com.length){
+                    
+                    if(col < com[row]){
+                        
+                        col++;
+                        
+                    } else {//if(col < com[row])
+                        
+                        col = 0;
+                        row++;
+                        
+                    }//if(col < com[row])
+                    
+                } else {//if(row < com.length)
+                    
+                    out = true;
+                    
+                }//if(row < com.length)
                 
-            }//for(int sum = 0; sum < input_date.getCaretPosition(); sum++)
+                sum++;
+                
+            }while(!out && sum > 0 && sum < pos);
+            
+            if(out){
+                
+                row = -1;
+                col = -1;
+                
+            }//if(out)
             
         }//if(pos > 0)
         
         return row_col ? row : col;
         
-    }//P3Position(boolean row_col)
+    }//P3(boolean row_col)
     
     private void P3Action(pag3 op){
         
         this.pg3.Painel3(
             op,
             this.P3Action(),
-            Arrays.asList(input_date.getText().split("\n")),
-            this.P3Position(true),
-            this.P3Position(false)
+            this.P3(),
+            this.P3(true),
+            this.P3(false)
         );
         
     }//P3Action(pag3 op)
@@ -979,9 +1021,9 @@ public class window extends javax.swing.JFrame {
             key_code,
             key_char,
             this.P3Action(),
-            Arrays.asList(input_date.getText().split("\n")),
-            this.P3Position(true),
-            this.P3Position(false)
+            this.P3(),
+            this.P3(true),
+            this.P3(false)
         );
         
     }//P3Action(int key_code, char key_char)
