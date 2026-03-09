@@ -4,10 +4,9 @@
  */
 package form;
 
-import static form.pg1sm.none;
-import static form.pg1sm.multiple;
-import static form.pg1sm.single;
 import model.*;
+import static form.pg1sm.*;
+import static form.key.*;
 
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -45,8 +44,7 @@ public class window extends javax.swing.JFrame {
     private int key_code_count;
     
     private Painel_3 pg3;
-    private boolean ctrl;
-    private boolean alt;
+    private key text_area;
     
     public window() {
         
@@ -74,8 +72,7 @@ public class window extends javax.swing.JFrame {
         
         this.key_code_count = 1;
         
-        this.ctrl = false;
-        this.alt = false;
+        this.text_area = init;
         
         setVisible(true);
         setResizable(true);
@@ -1785,26 +1782,11 @@ public class window extends javax.swing.JFrame {
         
         switch(evt.getKeyCode()){
             
-            case 17 -> {
-                
-                this.ctrl = true;
-                this.alt = false;
-                
-            }//case 17
+            case 17 -> this.text_area = ctrl;
             
-            case 18 -> {
-                
-                this.ctrl = false;
-                this.alt = true;
-                
-            }//case 18
+            case 18 -> this.text_area = alt;
             
-            default -> {
-                
-                this.ctrl = false;
-                this.alt = false;
-                
-            }//default
+            default -> this.text_area = other;
             
         }//switch(evt.getKeyCode())
         
@@ -1812,26 +1794,21 @@ public class window extends javax.swing.JFrame {
 
     private void input_dateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyReleased
         
-        if(this.ctrl){
+        if(this.text_area == alt){
             
-            switch(evt.getKeyCode()){
-                
-                case 10 -> this.P3Action(pag3.ctrl_enter);
-                
-            }//switch(evt.getKeyCode())
+            this.P3Action(pag3.alt_key);
             
-        } else if(this.alt){//if(this.ctrl)
+        } else if(this.text_area == ctrl && evt.getKeyCode() == 10){
             
-            switch(evt.getKeyCode()){
-                
-                case 10 -> this.P3Action(pag3.alt_enter);
-                
-            }//switch(evt.getKeyCode())
+            this.P3Action(pag3.ctrl_enter);
             
-        }//if(this.ctrl)
+        } else {
+            
+            //code
+            
+        }
         
-        this.ctrl = false;
-        this.alt = false;
+        //this.P3Action(pag3.ctrl_enter);
         
     }//GEN-LAST:event_input_dateKeyReleased
 

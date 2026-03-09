@@ -8,8 +8,8 @@ package form;
  *
  * @author joaot
  */
-public enum pag3 {
+public enum key {
     
-    confirm, cancel, button_list, list_closer, ctrl_enter, alt_key;
+    init, ctrl, alt, other;
     
 }
