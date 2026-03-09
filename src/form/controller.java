@@ -36,6 +36,30 @@ public class controller {
         
     }//Position(int right, int top, int width, int height)
     
+    public int Dim(d op){
+        
+        int val = -1;
+        
+        if(doc != null){
+            
+            switch(op){
+                
+                case left -> val = doc.Left();
+                
+                case top -> val = doc.Top();
+                
+                case width -> val = doc.Width();
+                
+                case height -> val = doc.Height();
+                
+            }//switch(op)
+            
+        }//if(doc != null)
+        
+        return val;
+        
+    }//Dim(d op)
+    
     public static boolean Msg(String setTtitle, List<String> msg, boolean exit){
         
         var valid = true;
@@ -195,28 +219,34 @@ public class controller {
         
     }//p2(Painel_2 painel)
     
-    public int Dim(d op){
+    public static void p3(Painel_3 painel){
         
-        int val = -1;
-        
-        if(doc != null){
+        try{
             
-            switch(op){
+            if(doc == null && position){
                 
-                case left -> val = doc.Left();
+                doc = new window(r, t, w, h);
+                doc.Painel_3(painel);
                 
-                case top -> val = doc.Top();
+            } else if(doc == null){//if(doc == null && position)
                 
-                case width -> val = doc.Width();
+                doc = new window();
+                doc.Painel_3(painel);
                 
-                case height -> val = doc.Height();
+            } else {//if(doc == null && position)
                 
-            }//switch(op)
+                doc.Painel_3(painel);
+                
+            }//if(doc == null && position)
             
-        }//if(doc != null)
+        }catch(Exception err){
+            
+            System.err.println(Reg.Numb(err.hashCode()));
+            System.err.println(err.getMessage());
+            System.exit(0);
+
+        }//throw
         
-        return val;
-        
-    }//Dim(d op)
+    }//p2(Painel_2 painel)
     
 }//controller

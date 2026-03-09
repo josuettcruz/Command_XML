@@ -837,7 +837,7 @@ public class window extends javax.swing.JFrame {
         
         return demo;
         
-    }//Pg1m()
+    }//Pg3()
     
     public void Painel_3(){
         
@@ -907,6 +907,13 @@ public class window extends javax.swing.JFrame {
         }//if(this.pg3 != null)
         
     }//Painel_3()
+    
+    public void Painel_3(Painel_3 pg3){
+        
+        this.pg3 = pg3;
+        this.Painel_3();
+        
+    }//Painel_3(Painel_3 pg3)
     
     private Domain[] P3Action(){
         
@@ -1002,38 +1009,6 @@ public class window extends javax.swing.JFrame {
         return row_col ? row : col;
         
     }//P3(boolean row_col)
-    
-    private void P3Action(pag3 op){
-        
-        this.pg3.Painel3(
-            op,
-            this.P3Action(),
-            this.P3(),
-            this.P3(true),
-            this.P3(false)
-        );
-        
-    }//P3Action(pag3 op)
-    
-    private void P3Action(int key_code, char key_char){
-        
-        this.pg3.Painel3(
-            key_code,
-            key_char,
-            this.P3Action(),
-            this.P3(),
-            this.P3(true),
-            this.P3(false)
-        );
-        
-    }//P3Action(int key_code, char key_char)
-    
-    public void Painel_3(Painel_3 pg3){
-        
-        this.pg3 = pg3;
-        this.Painel_3();
-        
-    }//Painel_3(Painel_3 pg3)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1842,32 +1817,66 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_front_listKeyReleased
 
     private void front_listMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_front_listMousePressed
-        // TODO add your handling code here:
+        // TODO add your handling code here: (Painel 2)
     }//GEN-LAST:event_front_listMousePressed
 
     private void pg3_confirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pg3_confirmActionPerformed
-        this.P3Action(pag3.confirm);
+        
+        this.pg3.Painel3(
+            pag3.confirm,
+            this.P3Action(),
+            this.P3(),
+            this.P3(true),
+            this.P3(false)
+        );
+        
     }//GEN-LAST:event_pg3_confirmActionPerformed
 
     private void pg3_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pg3_cancelActionPerformed
-        this.P3Action(pag3.cancel);
+        
+        this.pg3.Painel3(
+            pag3.cancel,
+            this.P3Action(),
+            this.P3(),
+            this.P3(true),
+            this.P3(false)
+        );
+        
     }//GEN-LAST:event_pg3_cancelActionPerformed
 
     private void pag3_menu_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pag3_menu_enterActionPerformed
-        this.P3Action(pag3.button_list);
+        //this.P3Action(pag3.button_list);
+        
+        this.pg3.Painel3(
+            pag3.button_list,
+            this.P3Action(),
+            this.P3(),
+            this.P3(true),
+            this.P3(false)
+        );
+        
     }//GEN-LAST:event_pag3_menu_enterActionPerformed
 
     private void pag3_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pag3_menuActionPerformed
-        this.P3Action(pag3.list_closer);
+        
+        this.pg3.Painel3(
+            pag3.list_closer,
+            this.P3Action(),
+            this.P3(),
+            this.P3(true),
+            this.P3(false)
+        );
     }//GEN-LAST:event_pag3_menuActionPerformed
 
     private void input_dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyPressed
         
         switch(evt.getKeyCode()){
             
-            case 17 -> {if(this.text_area == user) {this.text_area = ctrl;}}
+            case 17 -> {if(this.text_area == user) this.text_area = ctrl;}
             
-            case 18 -> {if(this.text_area == user) {this.text_area = alt;}}
+            case 18 -> {if(this.text_area == user) this.text_area = alt;}
+            
+            default -> this.text_area = other;
             
         }//switch(evt.getKeyCode())
         
@@ -1877,13 +1886,26 @@ public class window extends javax.swing.JFrame {
         
         if(this.text_area == alt){
             
-            this.P3Action(evt.getKeyCode(), evt.getKeyChar());
-            this.text_area = user;
+            if(this.pg3.Painel3(
+                evt.getKeyCode(),
+                evt.getKeyChar(),
+                this.P3Action(),
+                this.P3(),
+                this.P3(true),
+                this.P3(false)
+            )){this.text_area = other;}
             
         } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
             
-            this.P3Action(pag3.ctrl_enter);
-            this.text_area = user;
+            this.pg3.Painel3(
+                pag3.ctrl_enter,
+                this.P3Action(),
+                this.P3(),
+                this.P3(true),
+                this.P3(false)
+            );
+            
+            this.text_area = other;
             
         } else {//if(this.text_area == alt)
             

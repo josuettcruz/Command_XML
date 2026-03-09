@@ -18,7 +18,7 @@ public interface Painel_3 {
     
     public java.awt.Font Font(boolean title);
     
-    public List<Domain> Painel3(
+    public boolean Painel3(
         int key_code,
         char key_char,
         Domain[] menu,
@@ -27,7 +27,7 @@ public interface Painel_3 {
         int col
     );
     
-    public List<Domain> Painel3(
+    public void Painel3(
         pag3 op,
         Domain[] menu,
         List<String> text,
