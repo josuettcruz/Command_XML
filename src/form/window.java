@@ -938,7 +938,28 @@ public class window extends javax.swing.JFrame {
         
         return my_list;
         
-    }//P3Action(pag3 op)
+    }//P3Action()
+    
+    private int P3Position(boolean row_col){
+        
+        int pos = input_date.getCaretPosition();
+        
+        int row = 0;
+        int col = 0;
+        
+        if(pos > 0){
+            
+            for(int sum = 0; sum < input_date.getCaretPosition(); sum++){
+                
+                //code;
+                
+            }//for(int sum = 0; sum < input_date.getCaretPosition(); sum++)
+            
+        }//if(pos > 0)
+        
+        return row_col ? row : col;
+        
+    }//P3Position(boolean row_col)
     
     private void P3Action(pag3 op){
         
@@ -946,7 +967,8 @@ public class window extends javax.swing.JFrame {
             op,
             this.P3Action(),
             Arrays.asList(input_date.getText().split("\n")),
-            input_date.getCaretPosition()
+            this.P3Position(true),
+            this.P3Position(false)
         );
         
     }//P3Action(pag3 op)
@@ -958,10 +980,11 @@ public class window extends javax.swing.JFrame {
             key_char,
             this.P3Action(),
             Arrays.asList(input_date.getText().split("\n")),
-            input_date.getCaretPosition()
+            this.P3Position(true),
+            this.P3Position(false)
         );
         
-    }//P3Action(pag3 op)
+    }//P3Action(int key_code, char key_char)
     
     public void Painel_3(Painel_3 pg3){
         

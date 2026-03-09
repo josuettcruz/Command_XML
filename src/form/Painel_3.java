@@ -23,14 +23,16 @@ public interface Painel_3 {
         char key_char,
         Domain[] menu,
         List<String> text,
-        int cursor
+        int row,
+        int col
     );
     
     public List<Domain> Painel3(
         pag3 op,
         Domain[] menu,
         List<String> text,
-        int cursor
+        int row,
+        int col
     );
     
 }
