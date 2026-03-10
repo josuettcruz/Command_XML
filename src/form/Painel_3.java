@@ -21,8 +21,7 @@ public interface Painel_3 {
     
     public List<String> TextArea();
     
-    // https://docs.oracle.com/javase/8/docs/api/javax/swing/text/Caret.html
-    public Caret TextCursor();
+    public TextCursor TexAreaCursor();
     
     public Domain[] Mode();
     

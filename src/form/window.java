@@ -891,7 +891,11 @@ public class window extends javax.swing.JFrame {
                 
             }//if(!this.pg3.TextArea().isEmpty())
             
-            input_date.setCaret(this.pg3.TextCursor());
+            if(this.pg3.TexAreaCursor().getUser()){
+                
+                input_date.setCaretPosition(0);
+                
+            }//if(this.pg3.TexAreaCursor().getUser())
             
             pag3_menu.setVisible(combo);
             pag3_menu_enter.setVisible(
