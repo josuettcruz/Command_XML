@@ -11,7 +11,6 @@ import static form.key.*;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -126,7 +125,7 @@ public class window extends javax.swing.JFrame {
             println += Reg.Numb(key_code, 100);
             println += "\"";
             
-            if(key_char != '￿'){
+            if(key_char != '￿' && key_char != ''){
                 
                 println += "\" -- '";
                 println += key_char;
@@ -902,7 +901,12 @@ public class window extends javax.swing.JFrame {
                 
                 var tot = 0;
                 
-                for(String tem : t) tot += tem.length();
+                for(String tem : t){
+                    
+                    tot += tem.length();
+                    tot++;
+                
+                }//for(String tem : t)
                 
                 var pos = 0;
                 
@@ -914,6 +918,7 @@ public class window extends javax.swing.JFrame {
                     if(r < t.size()){
                         
                         pos += t.get(r).length();
+                        pos++;
                     
                     } else {//if(r < t.size())
                         
@@ -1880,12 +1885,17 @@ public class window extends javax.swing.JFrame {
             
             default ->{
                 
-                if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿'){
+                if(
+                    evt.getKeyChar() != '\f'
+                    && evt.getKeyChar() != '￿'
+                    && evt.getKeyChar() != ''
+                )
+                {
                     
                     home_file.setText(home_file.getText() + evt.getKeyChar());
                     this.Pg1_select(true);
                     
-                }//if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿')
+                }//if(evt.getKeyChar() != '\f' && evt.getKeyChar() != '￿' &&...
                 
             }//default
             

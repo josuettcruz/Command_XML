@@ -32,7 +32,7 @@ public class txt {
                     
                 }//case ' '
                 
-                case '\t', '\f', '￿' ->{
+                case '\t', '\f', '￿', '' ->{
                     
                     if(remove_char){
                         
@@ -45,7 +45,7 @@ public class txt {
                         
                     }//if(remove_char)
                     
-                }//case '\t', '\f', '￿'
+                }//case '\t', '\f', '￿', ''
                 
                 case '\n' ->{
                     
@@ -183,7 +183,7 @@ public class txt {
                         
                     }//case '\n', ' '
                     
-                    case '\t', '\f', '￿' ->{
+                    case '\t', '\f', '￿', '' ->{
                         
                         if(remove_char){
                             
@@ -202,7 +202,7 @@ public class txt {
                             
                         }//if(remove_char)
                         
-                    }//case '\t', '\f', '￿'
+                    }//case '\t', '\f', '￿', ''
                     
                     default ->{
                         
@@ -338,7 +338,7 @@ public class txt {
                             '-',
                             '_' -> txt += phrase.charAt(p);
                             
-                        case '￿' -> {}
+                        case '￿', '' -> {}
                         
                         default ->{
                             
@@ -579,7 +579,8 @@ public class txt {
                          '}',
                          '(',
                          ')',
-                         '￿' -> {
+                         '￿',
+                         '' -> {
                         
                         if(i > 0 && i < p.length()-1) txt += "_";
                         demo = false;
@@ -645,7 +646,8 @@ public class txt {
             'y',
             'x',
             'z',
-            '￿'
+            '￿',
+            ''
         };
         
         for(int smaller = 0; smaller < text.length(); smaller++){
