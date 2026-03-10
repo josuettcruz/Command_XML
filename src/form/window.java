@@ -933,10 +933,7 @@ public class window extends javax.swing.JFrame {
                 
             }//if(this.pg3.TexAreaCursor().getUser() && !this.pg3.TextArea()...
             
-            pag3_menu_enter.setVisible(
-                combo ? pag3_menu.getSelectedIndex() >= 0 : false
-            );
-            
+            pag3_menu_enter.setVisible(combo);
             pag3_menu.setVisible(combo);
             
             if(combo){
