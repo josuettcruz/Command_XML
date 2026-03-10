@@ -45,7 +45,13 @@ public class config implements
     private String input;
     private boolean week;
     
+    private boolean key_code_char;
+    private int key_code_count;
+    
     public config(){
+        
+        this.key_code_char = false;
+        this.key_code_count = 1;
         
         this.input = "";
         
@@ -63,6 +69,9 @@ public class config implements
     
     private config(List<String> value){
         
+        this.key_code_char = false;
+        this.key_code_count = 1;
+        
         var form = "";
         
         this.week = false;
@@ -79,6 +88,9 @@ public class config implements
     }//Enter()
     
     private config(List<String> value, String input){
+        
+        this.key_code_char = false;
+        this.key_code_count = 1;
         
         this.input = input;
         
@@ -425,8 +437,45 @@ public class config implements
     }
 
     @Override
-    public void Painel3(int key_code, char key_char, Domain[] menu, List<String> text, int row, int col) {
-        //code
+    public void Painel3(
+        int key_code,
+        char key_char,
+       Domain[] menu,
+       List<String> text,
+       int row,
+       int col
+    )
+    {
+        
+        final int max = 10;
+        
+        if(
+            this.key_code_char             // A impressão deve ser ativada!
+            && this.key_code_count <= max  // Só imprimir 10 vezes!
+            && key_code != 10              // A tecla digitada não dever ser "Enter"
+        )
+        {
+            
+            var println = "Impressão ";
+            println += Reg.Numb(this.key_code_count, max, " de ");
+            println += ": \"";
+            println += Reg.Numb(key_code, 100);
+            println += "\"";
+            
+            if(key_char != '￿' && key_char != ''){
+                
+                println += "\" -- '";
+                println += key_char;
+                println += "'";
+                
+            }//if(evt.getKeyChar() != '￿' && key_char != '')
+            
+            System.out.println(println);
+            
+            this.key_code_count++;
+            
+        }//if(Reg.java && this.key_code_char && this.key_code_count <= max &&...
+        
     }
 
     @Override

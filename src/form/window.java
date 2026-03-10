@@ -26,6 +26,7 @@ public class window extends javax.swing.JFrame {
      */
     
     private boolean key_code_char;
+    private int key_code_count;
     
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
@@ -42,7 +43,6 @@ public class window extends javax.swing.JFrame {
     private List<Domain> domo;
     
     private Painel_2 pg2;
-    private int key_code_count;
     
     private Painel_3 pg3;
     private key text_area;
@@ -131,7 +131,7 @@ public class window extends javax.swing.JFrame {
                 println += key_char;
                 println += "'";
                 
-            }//if(evt.getKeyChar() != '￿')
+            }//if(evt.getKeyChar() != '￿' && key_char != '')
             
             if(key_code != extendedkeycode){
                 
