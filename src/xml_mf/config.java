@@ -329,11 +329,11 @@ public class config implements
                     
                     controller.p1m(new config(v));
                     
-                } else {
+                } else {//if(type)
                     
                     this.Exit();
                     
-                }
+                }//if(type)
                 
             }//case
             
