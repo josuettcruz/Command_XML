@@ -9,6 +9,8 @@ import form.Domain;
 import form.Painel_1Single;
 import form.Painel_1Multiple;
 import form.Painel_2;
+import form.Painel_3;
+import form.TextCursor;
 import form.controller;
 
 import form.pag1;
@@ -16,6 +18,9 @@ import static form.pag1.*;
 
 import form.pag2;
 import static form.pag2.*;
+
+import form.pag3;
+import static form.pag3.*;
 
 import java.awt.Font;
 
@@ -27,7 +32,12 @@ import java.util.List;
  *
  * @author josue
  */
-public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
+public class config implements
+        Painel_1Single,
+        Painel_1Multiple,
+        Painel_2,
+        Painel_3
+    {
     
     private final int mode = 15;
     
@@ -387,6 +397,41 @@ public class config implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         }//switch(op)
         
+    }
+
+    @Override
+    public Font FontTitle() {
+        throw new UnsupportedOperationException("Aguanrdando código!");
+    }
+
+    @Override
+    public Font TextAreaFont() {
+        throw new UnsupportedOperationException("Aguanrdando código!");
+    }
+
+    @Override
+    public List<String> TextArea() {
+        return this.list;
+    }
+
+    @Override
+    public TextCursor TexAreaCursor() {
+        throw new UnsupportedOperationException("Aguanrdando código!");
+    }
+
+    @Override
+    public Domain[] Mode() {
+        throw new UnsupportedOperationException("Aguanrdando código!");
+    }
+
+    @Override
+    public void Painel3(int key_code, char key_char, Domain[] menu, List<String> text, int row, int col) {
+        //code
+    }
+
+    @Override
+    public void Painel3(pag3 op, Domain[] menu, List<String> text, int row, int col) {
+        //code
     }
     
 }//config

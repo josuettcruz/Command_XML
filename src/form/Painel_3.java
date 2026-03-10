@@ -13,19 +13,19 @@ import javax.swing.text.Caret;
  */
 public interface Painel_3 {
     
-    public String Title();
+    public String Title(boolean title);
     
     public java.awt.Font FontTitle();
     
-    public java.awt.Font TextAreaFont();
-    
     public List<String> TextArea();
+    
+    public java.awt.Font TextAreaFont();
     
     public TextCursor TexAreaCursor();
     
     public Domain[] Mode();
     
-    public boolean Painel3(
+    public void Painel3(
         int key_code,
         char key_char,
         Domain[] menu,

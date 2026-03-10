@@ -857,9 +857,9 @@ public class window extends javax.swing.JFrame {
             
             var combo = this.Pg3().size() > 2 && this.Pg3().size() <= 10;
             
-            setTitle(this.pg3.Title());
+            setTitle(this.pg3.Title(true));
             
-            p3_title.setText(this.pg3.Title());
+            p3_title.setText(this.pg3.Title(false));
             p3_title.setFont(this.pg3.FontTitle());
             
             input_date.setFont(this.pg3.TextAreaFont());
@@ -2011,14 +2011,14 @@ public class window extends javax.swing.JFrame {
         
         if(this.text_area == alt){
             
-            if(this.pg3.Painel3(
+            this.pg3.Painel3(
                 evt.getKeyCode(), // return char
                 evt.getKeyChar(), // return int
                 this.P3Action(),  // return Domain[]     -- "Lista de OPÇÕES"
                 this.P3(),        // return List<String> -- "Texto do TEXT ÁREA"
                 this.P3(true),    // return int          -- "Posição do cursor - ROW"
                 this.P3(false)    // return int          -- "Posição do cursor - COL"
-            )){this.text_area = user;}
+            );
             
         } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
             
@@ -2030,13 +2030,9 @@ public class window extends javax.swing.JFrame {
                 this.P3(false)   // return int          -- "Posição do cursor - COL"
             );
             
-            this.text_area = user;
-            
-        } else {//if(this.text_area == alt)
-            
-            this.text_area = user;
-            
         }//if(this.text_area == alt)
+        
+        this.text_area = user;
         
     }//GEN-LAST:event_input_dateKeyReleased
 
