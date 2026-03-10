@@ -48,10 +48,15 @@ public class config implements
     private boolean key_code_char;
     private int key_code_count;
     
+    private TextCursor cur;
+    private int user_area;
+    
     public config(){
         
-        this.key_code_char = false;
+        this.key_code_char = true;
         this.key_code_count = 1;
+        this.cur = new TextCursor();
+        this.user_area = 0;
         
         this.input = "";
         
@@ -65,12 +70,14 @@ public class config implements
             )
         );
         
-    }//Enter()
+    }//config()
     
     private config(List<String> value){
         
         this.key_code_char = false;
         this.key_code_count = 1;
+        this.cur = new TextCursor();
+        this.user_area = 0;
         
         var form = "";
         
@@ -85,12 +92,14 @@ public class config implements
         this.list = new ArrayList();
         this.list.addAll(value);
         
-    }//Enter()
+    }//config(List<String> value)
     
     private config(List<String> value, String input){
         
         this.key_code_char = false;
         this.key_code_count = 1;
+        this.cur = new TextCursor();
+        this.user_area = 0;
         
         this.input = input;
         
@@ -99,7 +108,24 @@ public class config implements
         this.list = new ArrayList();
         this.list.addAll(value);
         
-    }//Enter()
+    }//config(List<String> value, String input)
+    
+    private config(List<String> value, int row, int col, int area){
+        
+        this.key_code_char = false;
+        this.key_code_count = 1;
+        this.cur = new TextCursor();
+        this.cur.Cursor(row, col);
+        this.user_area = area+1;
+        
+        this.input = "";
+        
+        this.week = true;
+        
+        this.list = new ArrayList();
+        this.list.addAll(value);
+        
+    }//config(List<String> value, TextCursor cur)
     
     private void Exit(){
         
@@ -343,7 +369,8 @@ public class config implements
                     
                 } else {//if(type)
                     
-                    this.Exit();
+                    //this.Exit();
+                    controller.p3(new config(this.list));
                     
                 }//if(type)
                 
@@ -413,12 +440,12 @@ public class config implements
 
     @Override
     public Font FontTitle() {
-        throw new UnsupportedOperationException("Aguanrdando código!");
+        return new java.awt.Font("Arial Black", 0, 18);
     }
 
     @Override
     public Font TextAreaFont() {
-        throw new UnsupportedOperationException("Aguanrdando código!");
+        return new java.awt.Font("Arial", 0, 16);
     }
 
     @Override
@@ -428,22 +455,38 @@ public class config implements
 
     @Override
     public TextCursor TexAreaCursor() {
-        throw new UnsupportedOperationException("Aguanrdando código!");
+        return this.cur;
     }
 
     @Override
     public Domain[] Mode() {
-        throw new UnsupportedOperationException("Aguanrdando código!");
+            
+            Domain[] demo = new Domain[10];
+            
+            for(int d = 0; d < demo.length; d++){
+                
+                var txt = "Item ";
+                txt += Reg.Numb(d+1, demo.length, " de ");
+                txt += "!";
+                
+                Domain dem = new Domain(d+1,txt);
+                
+                demo[d] = dem;
+                
+            }//for(int d = 0; d < demo.length; d++)
+            
+            return demo;
+            
     }
 
     @Override
     public void Painel3(
         int key_code,
         char key_char,
-       Domain[] menu,
-       List<String> text,
-       int row,
-       int col
+        Domain[] menu,
+        List<String> text,
+        int row,
+        int col
     )
     {
         
@@ -476,11 +519,85 @@ public class config implements
             
         }//if(Reg.java && this.key_code_char && this.key_code_count <= max &&...
         
+        if(key_code == 10){
+            
+            if(this.key_code_count > 1) System.out.println();
+            
+            this.Exit();
+        
+        }//if(key_code == 10)
+        
     }
 
     @Override
-    public void Painel3(pag3 op, Domain[] menu, List<String> text, int row, int col) {
-        //code
+    public void Painel3(
+        pag3 op,
+        Domain[] menu,
+        List<String> text,
+        int row,
+        int col
+    )
+    {
+        
+        switch(op){
+            
+            case confirm, button_list, ctrl_enter -> {
+                
+                TextCursor cursor = new TextCursor();
+                cursor.Cursor(row, col);
+                
+                List<String> none = new ArrayList();
+                
+                for(int g = 0; g < this.list.size(); g++){
+                    
+                    if(this.cur.getUser() && this.cur.row_col(true) == g){
+                        
+                        var insert = this.list.get(g).substring(
+                            0,
+                            this.cur.row_col(false)
+                        );
+                        
+                        if(this.cur.row_col(false) > 0) insert += " ";
+                        
+                        insert += "<código>";
+                        
+                        if(this.cur.row_col(false) < this.list.get(g).length())
+                        {insert += " ";}
+                        
+                        insert += this.list.get(g).substring(
+                            this.cur.row_col(false)
+                        );
+                        
+                        none.add(insert);
+                        
+                    } else {//if(this.cur.getUser() && this.cur.row_col(true)...
+                        
+                        none.add(this.list.get(g));
+                        
+                    }//if(this.cur.getUser() && this.cur.row_col(true) == g)
+                    
+                }//for(int g = 0; g < this.list.size(); g++)
+                
+                var sum = 0;
+                
+                for(String t : text) sum += t.length();
+                
+                if(this.user_area < 10 && sum < 1000){
+                    
+                    controller.p3(new config(none,row, col, this.user_area));
+                    
+                } else {//if(this.user_area < 10 && sum < 1000)
+                    
+                    this.Exit();
+                    
+                }//if(this.user_area < 10 && sum < 1000)
+                
+            }//case confirm, button_list, ctrl_enter 
+            
+            case cancel -> this.Exit();
+            
+        }//switch(op)
+        
     }
     
 }//config

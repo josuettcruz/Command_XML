@@ -442,7 +442,7 @@ public class txt {
                             
                             default -> node += p.toLowerCase().charAt(i);
                             
-                        }
+                        }//switch(p.toLowerCase().charAt(i))
                         
                     }//for(int i = 0; i < p.length(); i++)
                     
@@ -645,9 +645,7 @@ public class txt {
             'w',
             'y',
             'x',
-            'z',
-            '￿',
-            ''
+            'z'
         };
         
         for(int smaller = 0; smaller < text.length(); smaller++){
@@ -750,7 +748,9 @@ public class txt {
                      'ª',
                      'º',
                      '\'',
-                     '"' -> {
+                     '"',
+                     '￿',
+                     '' -> {
                     
                     if(l >= 2){
                         
