@@ -12,11 +12,15 @@ import java.util.List;
  */
 public interface Painel_3 {
     
-    public String Title(boolean title);
+    public String Title();
+    
+    public java.awt.Font FontTitle();
+    
+    public java.awt.Font TextAreaFont();
+    
+    public List<String> TextArea();
     
     public Domain[] Mode();
-    
-    public java.awt.Font Font(boolean title);
     
     public boolean Painel3(
         int key_code,

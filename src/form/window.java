@@ -117,7 +117,7 @@ public class window extends javax.swing.JFrame {
             Reg.java
             && this.key_code_char
             && this.key_code_count <= max
-            && key_code <= 10
+            && key_code != 10
         )
         {
             
@@ -859,12 +859,38 @@ public class window extends javax.swing.JFrame {
             
             var combo = this.Pg3().size() > 2 && this.Pg3().size() <= 10;
             
-            setTitle(this.pg3.Title(true));
+            setTitle(this.pg3.Title());
             
-            p3_title.setText(this.pg3.Title(false));
+            p3_title.setText(this.pg3.Title());
+            p3_title.setFont(this.pg3.FontTitle());
             
-            p3_title.setFont(this.pg3.Font(true));
-            input_date.setFont(this.pg3.Font(false));
+            input_date.setFont(this.pg3.TextAreaFont());
+            
+            if(!this.pg3.TextArea().isEmpty()){
+                
+                var input_text_area = "";
+                
+                var line = false;
+                
+                for(String txt_area : this.pg3.TextArea()){
+                    
+                    if(line){
+                        
+                        input_text_area += "\n";
+                        
+                    } else {//if(line)
+                        
+                        line = true;
+                        
+                    }//if(line)
+                    
+                    input_text_area += txt_area;
+                    
+                }//for(String t : this.pg3.TextArea())
+                
+                input_date.setText(input_text_area);
+                
+            }//if(!this.pg3.TextArea().isEmpty())
             
             pag3_menu.setVisible(combo);
             pag3_menu_enter.setVisible(
@@ -964,7 +990,41 @@ public class window extends javax.swing.JFrame {
     private List<String> P3(){
         
         List<String> code = new ArrayList();
-        code.addAll(Arrays.asList(input_date.getText().split("\n")));
+        
+        for(String tem : input_date.getText().split("\n")){
+            
+            var insert = "";
+            
+            for(int p = 0; p < tem.length(); p++){
+                
+                switch(tem.charAt(p)){
+                    
+                    case '\t', '\f' -> {
+                        
+                        code.add(insert);
+                        insert = "";
+                        
+                    }//case '\t', '\f'
+                    
+                    case '￿' -> {
+                        
+                        if(!insert.isBlank()) insert += " ";
+                        
+                    }//case '￿'
+                    
+                    default -> {
+                        
+                        insert += tem.charAt(p);
+                    
+                    }//default
+                    
+                }//switch(tem.charAt(p))
+                
+            }//for(int p = 0; p < tem.length(); p++)
+            
+            code.add(insert);
+            
+        }//for(String tem : input_date.getText().split("\n"))
         
         return code;
         
@@ -996,7 +1056,7 @@ public class window extends javax.swing.JFrame {
                         
                     } else {//if(col < com[row])
                         
-                        col = 0;
+                        col = 1;
                         row++;
                         
                     }//if(col < com[row])

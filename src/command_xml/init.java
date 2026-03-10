@@ -29,11 +29,6 @@ public class init {
         
         controller.p1m(new config());
         
-        if(controller.PrintKey())
-        {System.out.println("Vai mostrar a tecla digitada!");}
-        else
-        {System.err.println("Não vai mostrar a tecla digitada!");}
-        
     }//Play()
     
     private static List<Read> Commit(String folder){
@@ -185,7 +180,15 @@ public class init {
         for(Read r : Commit("..\\..\\"))
         {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
-        if(tem.isEmpty()) {Play();} else {controller.p2(new GitCommit(tem));}
+        if(tem.isEmpty()){
+            
+            Play();
+        
+        } else {
+            
+            controller.p2(new GitCommit(tem));
+        
+        }
         
     }//Execute()
     
@@ -198,6 +201,11 @@ public class init {
         if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java){
             
             Execute();
+            
+            if(controller.PrintKey())
+            {System.out.println("Vai mostrar a tecla digitada!");}
+            else
+            {System.err.println("Não vai mostrar a tecla digitada!");}
             
         } else {//if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java)
             
