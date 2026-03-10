@@ -891,16 +891,53 @@ public class window extends javax.swing.JFrame {
                 
             }//if(!this.pg3.TextArea().isEmpty())
             
-            if(this.pg3.TexAreaCursor().getUser()){
+            if(
+                this.pg3.TexAreaCursor().getUser()
+                && !this.pg3.TextArea().isEmpty()
+            )
+            {
                 
-                input_date.setCaretPosition(0);
+                TextCursor d = this.pg3.TexAreaCursor();
+                List<String> t = this.pg3.TextArea();
                 
-            }//if(this.pg3.TexAreaCursor().getUser())
+                var tot = 0;
+                
+                for(String tem : t) tot += tem.length();
+                
+                var pos = 0;
+                
+                var err = false;
+                var r = 0;
+                
+                do{
+                    
+                    if(r < t.size()){
+                        
+                        pos += t.get(r).length();
+                    
+                    } else {//if(r < t.size())
+                        
+                        err = true;
+                    
+                    }//if(r < t.size())
+                    
+                    r++;
+                    
+                }while(!err && r > 0 && r < d.row_col(true));
+                
+                pos += d.row_col(false);
+                
+                if(err) pos = 0;
+                
+                input_date.setCaretPosition(pos < tot ? pos : tot);
+                
+            }//if(this.pg3.TexAreaCursor().getUser() && !this.pg3.TextArea()...
             
-            pag3_menu.setVisible(combo);
             pag3_menu_enter.setVisible(
                 combo ? pag3_menu.getSelectedIndex() >= 0 : false
             );
+            
+            pag3_menu.setVisible(combo);
             
             if(combo){
                 
