@@ -29,6 +29,11 @@ public class init {
         
         controller.p1m(new config());
         
+        if(controller.PrintKey())
+        {System.out.println("Vai mostrar a tecla digitada!");}
+        else
+        {System.err.println("Não vai mostrar a tecla digitada!");}
+        
     }//Play()
     
     private static List<Read> Commit(String folder){
@@ -36,14 +41,7 @@ public class init {
         final String[] arqv = {
             "run",
             "code",
-            "title",
-            "info",
-            "doc",
-            "arq",
-            "arquivo",
-            "projeto",
-            "documento",
-            "document"
+            "info"
         };
         
         final String ext = ".txt";
@@ -151,7 +149,6 @@ public class init {
         
         String[] folder = {
             "_" + Reg.modify.Load(),
-            Reg.modify.Load(),
             "git_commit_" + Reg.modify.Load(),
             "git_commit"
         };
@@ -202,11 +199,11 @@ public class init {
             
             Execute();
             
-        } else {
+        } else {//if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java)
             
             Play();
             
-        }
+        }//if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java)
         
     }//Exec()
     

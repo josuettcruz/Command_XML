@@ -26,6 +26,8 @@ public class window extends javax.swing.JFrame {
      * Creates new form window
      */
     
+    private boolean key_code_char;
+    
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
     
@@ -64,6 +66,8 @@ public class window extends javax.swing.JFrame {
     
     private void Enter(int r, int t, int w, int h){
         
+        this.key_code_char = false;
+        
         this.domo = new ArrayList();
         
         this.pg1sm = none;
@@ -101,11 +105,21 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void Println(int key_code, char key_char, int extendedkeycode){
+    public void PrintKey(){
+        this.key_code_char = true;
+    }
+    
+    private void Println(int key_code, char key_char, int extendedkeycode){
         
         final int max = 10;
         
-        if(Reg.java && this.key_code_count <= max && key_code != 10){
+        if(
+            Reg.java
+            && this.key_code_char
+            && this.key_code_count <= max
+            && key_code <= 10
+        )
+        {
             
             var println = "Impressão ";
             println += Reg.Numb(this.key_code_count, max, " de ");
@@ -133,7 +147,7 @@ public class window extends javax.swing.JFrame {
             
             this.key_code_count++;
             
-        }//if(Reg.java && this.key_code_count <= max && key_code != 10)
+        }//if(Reg.java && this.key_code_char && this.key_code_count <= max &&...
         
     }//Println(int key_code, char key_char, int extendedkeycode)
     

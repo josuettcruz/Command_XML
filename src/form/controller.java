@@ -60,6 +60,24 @@ public class controller {
         
     }//Dim(d op)
     
+    public static boolean PrintKey(){
+        
+        boolean acept = true;
+        
+        if(doc == null){
+            
+            acept = false;
+            
+        } else {//if(doc == null)
+            
+            doc.PrintKey();
+            
+        }//if(doc == null)
+        
+        return acept;
+        
+    }//PrintKey()
+    
     public static boolean Msg(String setTtitle, List<String> msg, boolean exit){
         
         var valid = true;
