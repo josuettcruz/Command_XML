@@ -6,7 +6,7 @@ package form;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class TextCursor {
     
@@ -34,4 +34,4 @@ public class TextCursor {
     
     public int row_col(boolean row){return row ? this.row : this.col;}
     
-}
+}//TextCursor

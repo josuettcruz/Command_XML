@@ -6,10 +6,6 @@ package form;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
-public enum key {
-    
-    user, ctrl, alt, other;
-    
-}
+public enum key {user, ctrl, alt, other;}

@@ -9,8 +9,4 @@ package form;
  *
  * @author josue
  */
-public enum d {
-    
-    left, top, height, width;
-    
-}
+public enum d {left, top, height, width;}

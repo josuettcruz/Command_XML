@@ -8,8 +8,4 @@ package form;
  *
  * @author josue
  */
-public enum pag2 {
-    
-    confirm, cancel, enter, del, backspace;
-    
-}
+public enum pag2 {confirm, cancel, enter, del, backspace;}

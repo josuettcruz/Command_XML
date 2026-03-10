@@ -6,10 +6,6 @@ package form;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
-public enum pag3 {
-    
-    confirm, cancel, button_list, list_closer, ctrl_enter;
-    
-}
+public enum pag3 {confirm, cancel, button_list, list_closer, ctrl_enter;}

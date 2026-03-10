@@ -5,7 +5,6 @@
 package form;
 
 import java.util.List;
-import javax.swing.text.Caret;
 
 /**
  *
@@ -42,4 +41,4 @@ public interface Painel_3 {
         int col
     );
     
-}
+}//Painel_3

@@ -8,8 +8,4 @@ package form;
  *
  * @author josue
  */
-public enum pag1 {
-    
-    add, remove, open, key, enter, delet, backspace;
-    
-}
+public enum pag1 {add, remove, open, key, enter, delet, backspace;}

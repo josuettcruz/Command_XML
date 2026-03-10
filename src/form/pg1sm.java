@@ -8,8 +8,4 @@ package form;
  *
  * @author josue
  */
-public enum pg1sm {
-    
-    none, single, multiple;
-    
-}
+public enum pg1sm {none, single, multiple;}
