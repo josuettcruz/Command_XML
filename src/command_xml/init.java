@@ -202,11 +202,6 @@ public class init {
             
             Execute();
             
-            if(controller.PrintKey())
-            {System.out.println("Vai mostrar a tecla digitada!");}
-            else
-            {System.err.println("Não vai mostrar a tecla digitada!");}
-            
         } else {//if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java)
             
             Play();
