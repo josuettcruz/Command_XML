@@ -5,6 +5,7 @@
 package form;
 
 import java.util.List;
+import javax.swing.text.Caret;
 
 /**
  *
@@ -19,6 +20,9 @@ public interface Painel_3 {
     public java.awt.Font TextAreaFont();
     
     public List<String> TextArea();
+    
+    // https://docs.oracle.com/javase/8/docs/api/javax/swing/text/Caret.html
+    public Caret TextCursor();
     
     public Domain[] Mode();
     

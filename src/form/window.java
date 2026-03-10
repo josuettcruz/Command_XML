@@ -891,6 +891,8 @@ public class window extends javax.swing.JFrame {
                 
             }//if(!this.pg3.TextArea().isEmpty())
             
+            input_date.setCaret(this.pg3.TextCursor());
+            
             pag3_menu.setVisible(combo);
             pag3_menu_enter.setVisible(
                 combo ? pag3_menu.getSelectedIndex() >= 0 : false
