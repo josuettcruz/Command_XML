@@ -114,10 +114,9 @@ public class window extends javax.swing.JFrame {
         final int max = 10;
         
         if(
-            Reg.java
-            && this.key_code_char
-            && this.key_code_count <= max
-            && key_code != 10
+            this.key_code_char             // A impressão deve ser ativada!
+            && this.key_code_count <= max  // Só imprimir 10 vezes!
+            && key_code != 10              // A tecla digitada não dever ser "Enter"
         )
         {
             

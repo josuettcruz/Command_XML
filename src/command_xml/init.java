@@ -184,11 +184,11 @@ public class init {
             
             Play();
         
-        } else {
+        } else {//if(tem.isEmpty())
             
             controller.p2(new GitCommit(tem));
         
-        }
+        }//if(tem.isEmpty())
         
     }//Execute()
     
