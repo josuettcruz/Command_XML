@@ -1836,7 +1836,7 @@ public class window extends javax.swing.JFrame {
                 
             }//case 38
             
-            case 32 -> this.Pg1_select(true);
+            case 32 -> {this.Pg1_select(true);}
             
             default ->{
                 
@@ -1968,7 +1968,7 @@ public class window extends javax.swing.JFrame {
                 this.P3(),        // return List<String> -- "Texto do TEXT ÁREA"
                 this.P3(true),    // return int          -- "Posição do cursor - ROW"
                 this.P3(false)    // return int          -- "Posição do cursor - COL"
-            )){this.text_area = other;}
+            )){this.text_area = user;}
             
         } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
             
@@ -1980,7 +1980,7 @@ public class window extends javax.swing.JFrame {
                 this.P3(false)   // return int          -- "Posição do cursor - COL"
             );
             
-            this.text_area = other;
+            this.text_area = user;
             
         } else {//if(this.text_area == alt)
             
