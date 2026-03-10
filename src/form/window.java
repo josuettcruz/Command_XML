@@ -46,6 +46,7 @@ public class window extends javax.swing.JFrame {
     
     private Painel_3 pg3;
     private key text_area;
+    private int position_cur;
     
     public window() {
         
@@ -76,6 +77,8 @@ public class window extends javax.swing.JFrame {
         this.key_code_count = 1;
         
         this.text_area = user;
+        
+        this.position_cur = 0;
         
         setVisible(true);
         setResizable(true);
@@ -707,7 +710,6 @@ public class window extends javax.swing.JFrame {
             
             case single -> {
                 
-                //if(this.pg1s != null) com = this.pg1s.List().size() > 1;
                 if(this.pg1s != null) com = this.pg1s.ListMode().size() > 1;
                 
             }//case single
@@ -824,7 +826,12 @@ public class window extends javax.swing.JFrame {
                     
                 } else if(note.size() == 1){//if(note.isEmpty())
                     
-                    if(d.index() != note.get(0)) demo.add(k);
+                    if(d.index() != note.get(0)){
+                        
+                        demo.add(k);
+                        note.add(k.index());
+                    
+                    }//if(d.index() != note.get(0))
                     
                 } else {//if(note.isEmpty())
                     
@@ -839,7 +846,12 @@ public class window extends javax.swing.JFrame {
                         
                     }while(loop && proc > 0 && proc < note.size());
                     
-                    if(loop) demo.add(k);
+                    if(loop){
+                        
+                        demo.add(k);
+                        note.add(k.index());
+                        
+                    }//if(loop)
                     
                 }//if(note.isEmpty())
                 
@@ -1087,7 +1099,7 @@ public class window extends javax.swing.JFrame {
     
     private int P3(boolean row_col){
         
-        int pos = input_date.getCaretPosition();
+        int pos = this.position_cur;
         
         int[] com = new int[this.P3().size()];
         
@@ -1485,6 +1497,11 @@ public class window extends javax.swing.JFrame {
 
         input_date.setColumns(20);
         input_date.setRows(5);
+        input_date.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                input_dateMouseReleased(evt);
+            }
+        });
         input_date.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 input_dateKeyPressed(evt);
@@ -1999,19 +2016,21 @@ public class window extends javax.swing.JFrame {
 
     private void input_dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyPressed
         
+        this.position_cur = input_date.getCaretPosition();
+        
         switch(evt.getKeyCode()){
             
             case 17 -> {if(this.text_area == user) this.text_area = ctrl;}
             
             case 18 -> {if(this.text_area == user) this.text_area = alt;}
             
-            default -> this.text_area = other;
-            
         }//switch(evt.getKeyCode())
         
     }//GEN-LAST:event_input_dateKeyPressed
 
     private void input_dateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyReleased
+        
+        this.position_cur = input_date.getCaretPosition();
         
         if(this.text_area == alt){
             
@@ -2039,6 +2058,12 @@ public class window extends javax.swing.JFrame {
         this.text_area = user;
         
     }//GEN-LAST:event_input_dateKeyReleased
+
+    private void input_dateMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_input_dateMouseReleased
+        
+        this.position_cur = input_date.getCaretPosition();
+        
+    }//GEN-LAST:event_input_dateMouseReleased
 
     /**
      * @param args the command line arguments
