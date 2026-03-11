@@ -1982,7 +1982,7 @@ public class window extends javax.swing.JFrame {
             
             case 18 -> {if(this.text_area == user) this.text_area = alt;}
             
-            default -> {if(this.text_area == user) this.text_area = alt;}
+            default -> {if(this.text_area == user) this.text_area = other;}
             
         }//switch(evt.getKeyCode())
         
