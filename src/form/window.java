@@ -874,11 +874,15 @@ public class window extends javax.swing.JFrame {
             p3_title.setText(this.pg3.Title(false));
             p3_title.setFont(this.pg3.FontTitle());
             
+            input_title.setFont(new java.awt.Font(this.home_file_font_into, 1, 26));
+            input_title.setText(this.pg3.InputText());
+            input_title.requestFocus();
+            
             input_date.setFont(this.pg3.TextAreaFont());
             
+            var input_text_area = "";
+            
             if(!this.pg3.TextArea().isEmpty()){
-                
-                var input_text_area = "";
                 
                 var line = false;
                 
@@ -898,68 +902,9 @@ public class window extends javax.swing.JFrame {
                     
                 }//for(String t : this.pg3.TextArea())
                 
-                input_date.setText(input_text_area);
-                
             }//if(!this.pg3.TextArea().isEmpty())
             
-            if(
-                this.pg3.TexAreaCursor().getUser()
-                && !this.pg3.TextArea().isEmpty()
-            )
-            {
-                
-                TextCursor d = this.pg3.TexAreaCursor();
-                List<String> t = this.pg3.TextArea();
-                
-                var tot = 0;
-                
-                for(String tem : t){
-                    
-                    tot += tem.length();
-                
-                }//for(String tem : t)
-                
-                var pos = 0;
-                
-                var err = false;
-                var r = 0;
-                
-                do{
-                    
-                    if(r < t.size()){
-                        
-                        pos += t.get(r).length();
-                        pos++;
-                    
-                    } else {//if(r < t.size())
-                        
-                        err = true;
-                    
-                    }//if(r < t.size())
-                    
-                    r++;
-                    
-                }while(!err && r > 0 && r < d.row_col(true));
-                
-                pos += d.row_col(false);
-                
-                if(err) pos = 0;
-                
-                if(err || tot >= pos){
-                    
-                    input_date.setCaretPosition(pos);
-                    
-                } else {//if(err || tot >= pos)
-                    
-                    input_date.requestFocus();
-                    
-                }//if(err || tot >= pos)
-                
-            } else {//if(this.pg3.TexAreaCursor().getUser() && !this.pg3...
-                
-                input_date.requestFocus();
-                
-            }//if(this.pg3.TexAreaCursor().getUser() && !this.pg3.TextArea()...
+            input_date.setText(input_text_area);
             
             pag3_menu_enter.setVisible(combo);
             pag3_menu.setVisible(combo);
@@ -1192,6 +1137,7 @@ public class window extends javax.swing.JFrame {
         pg3_confirm = new javax.swing.JButton();
         pg3_cancel = new javax.swing.JButton();
         pag3_menu_enter = new javax.swing.JButton();
+        input_title = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1490,7 +1436,9 @@ public class window extends javax.swing.JFrame {
         p3_title.setText("Title(false)");
 
         input_date.setColumns(20);
+        input_date.setLineWrap(true);
         input_date.setRows(5);
+        input_date.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         input_date.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 input_dateMouseReleased(evt);
@@ -1502,6 +1450,9 @@ public class window extends javax.swing.JFrame {
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 input_dateKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                input_dateKeyTyped(evt);
             }
         });
         jScrollPane3.setViewportView(input_date);
@@ -1535,38 +1486,49 @@ public class window extends javax.swing.JFrame {
             }
         });
 
+        input_title.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        input_title.setText("jTextField1");
+        input_title.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                input_titleKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout formLayout = new javax.swing.GroupLayout(form);
         form.setLayout(formLayout);
         formLayout.setHorizontalGroup(
             formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(p3_title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(formLayout.createSequentialGroup()
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(input_title)
+                    .addComponent(p3_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formLayout.createSequentialGroup()
                         .addComponent(pg3_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pag3_menu_enter, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(pag3_menu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                    .addComponent(pag3_menu, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(38, 38, 38))
         );
         formLayout.setVerticalGroup(
             formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(formLayout.createSequentialGroup()
                 .addComponent(p3_title, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pg3_confirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pag3_menu_enter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pag3_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 207, Short.MAX_VALUE))
+                .addComponent(input_title, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pg3_confirm)
+                    .addComponent(pag3_menu_enter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pg3_cancel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pag3_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2010,13 +1972,13 @@ public class window extends javax.swing.JFrame {
 
     private void input_dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyPressed
         
-        this.position_cur = input_date.getCaretPosition();
-        
         switch(evt.getKeyCode()){
             
             case 17 -> {if(this.text_area == user) this.text_area = ctrl;}
             
             case 18 -> {if(this.text_area == user) this.text_area = alt;}
+            
+            default -> {if(this.text_area == user) this.text_area = alt;}
             
         }//switch(evt.getKeyCode())
         
@@ -2024,9 +1986,11 @@ public class window extends javax.swing.JFrame {
 
     private void input_dateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyReleased
         
-        this.position_cur = input_date.getCaretPosition();
-        
-        if(this.text_area == alt){
+        if(this.text_area == ctrl && evt.getKeyCode() == 38){
+            
+            input_title.requestFocus();
+            
+        } else if(this.text_area == alt){
             
             this.pg3.Painel3(
                 evt.getKeyCode(), // return char
@@ -2037,7 +2001,7 @@ public class window extends javax.swing.JFrame {
                 this.P3(false)    // return int          -- "Posição do cursor - COL"
             );
             
-        } else if(this.text_area == ctrl && evt.getKeyCode() == 10){//if(this...
+        } else if(this.text_area == ctrl && evt.getKeyCode() == 10){
             
             this.pg3.Painel3(
                 pag3.ctrl_enter, // return enum
@@ -2047,17 +2011,115 @@ public class window extends javax.swing.JFrame {
                 this.P3(false)   // return int          -- "Posição do cursor - COL"
             );
             
-        }//if(this.text_area == alt)
+        }
         
         this.text_area = user;
         
     }//GEN-LAST:event_input_dateKeyReleased
 
     private void input_dateMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_input_dateMouseReleased
-        
         this.position_cur = input_date.getCaretPosition();
-        
     }//GEN-LAST:event_input_dateMouseReleased
+
+    private void input_dateKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyTyped
+        this.position_cur = input_date.getCaretPosition();
+    }//GEN-LAST:event_input_dateKeyTyped
+
+    private void input_titleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_titleKeyReleased
+
+        var tam = input_title.getText().length();
+        
+        switch(evt.getKeyCode()){
+
+            case 10 -> {
+                
+                if(this.pg3 != null){
+                    
+                    this.pg3.Painel3(
+                        pag3.enter, // return enum
+                        this.P3Action(), // return Domain[]     -- "Lista de OPÇÕES"
+                        this.P3(),       // return List<String> -- "Texto do TEXT ÁREA"
+                        this.P3(true),   // return int          -- "Posição do cursor - ROW"
+                        this.P3(false)   // return int          -- "Posição do cursor - COL"
+                    );
+                    
+                }
+                
+            }//case 10
+
+            case 40 -> input_date.requestFocus();
+            
+            default -> {
+
+                if(tam <= 10){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font_into, 1, 26)
+                    );
+
+                } else if(tam <= 20){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font_into, 0, 26)
+                    );
+
+                } else if(tam <= 40){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 26)
+                    );
+
+                } else if(tam <= 60){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 24)
+                    );
+
+                } else if(tam <= 80){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 22)
+                    );
+
+                } else if(tam <= 90){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font, 0, 20)
+                    );
+
+                } else if(tam <= 95){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font, 2, 20)
+                    );
+
+                } else if(tam <= 98){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font, 3, 20)
+                    );
+
+                } else if(tam <= 100){
+
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font_into, 1, 26)
+                    );
+
+                } else {
+
+                    input_title.setText("");
+                    
+                    input_title.setFont(
+                        new java.awt.Font(this.home_file_font_into, 1, 22)
+                    );
+
+                }
+
+            }//default
+
+        }//switch(evt.getKeyCode())
+        
+    }//GEN-LAST:event_input_titleKeyReleased
 
     /**
      * @param args the command line arguments
@@ -2104,6 +2166,7 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel ide;
     private javax.swing.JPanel initial;
     private javax.swing.JTextArea input_date;
+    private javax.swing.JTextField input_title;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

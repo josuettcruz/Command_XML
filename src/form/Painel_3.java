@@ -14,13 +14,15 @@ public interface Painel_3 {
     
     public String Title(boolean title);
     
+    public String InputText();
+    
     public java.awt.Font FontTitle();
     
     public List<String> TextArea();
     
     public java.awt.Font TextAreaFont();
     
-    public TextCursor TexAreaCursor();
+    //public TextCursor TexAreaCursor();
     
     public Domain[] Mode();
     

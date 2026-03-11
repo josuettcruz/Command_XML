@@ -48,14 +48,14 @@ public class config implements
     private boolean key_code_char;
     private int key_code_count;
     
-    private TextCursor cur;
+    //private TextCursor cur;
     private int user_area;
     
     public config(){
         
         this.key_code_char = true;
         this.key_code_count = 1;
-        this.cur = new TextCursor();
+        //this.cur = new TextCursor();
         this.user_area = 0;
         
         this.input = "";
@@ -76,7 +76,7 @@ public class config implements
         
         this.key_code_char = false;
         this.key_code_count = 1;
-        this.cur = new TextCursor();
+        //this.cur = new TextCursor();
         this.user_area = 0;
         
         var form = "";
@@ -98,7 +98,7 @@ public class config implements
         
         this.key_code_char = false;
         this.key_code_count = 1;
-        this.cur = new TextCursor();
+        //this.cur = new TextCursor();
         this.user_area = 0;
         
         this.input = input;
@@ -110,12 +110,12 @@ public class config implements
         
     }//config(List<String> value, String input)
     
-    private config(List<String> value, int row, int col, int area){
+    private config(List<String> value,/* int row, int col, */int area){
         
         this.key_code_char = false;
         this.key_code_count = 1;
-        this.cur = new TextCursor();
-        this.cur.Cursor(row, col);
+        //this.cur = new TextCursor();
+        //this.cur.Cursor(row, col);
         this.user_area = area+1;
         
         this.input = "";
@@ -453,10 +453,10 @@ public class config implements
         return this.list;
     }
 
-    @Override
+    /*@Override
     public TextCursor TexAreaCursor() {
         return this.cur;
-    }
+    }*/
 
     @Override
     public Domain[] Mode() {
@@ -492,12 +492,13 @@ public class config implements
         
         final int max = 10;
         
-        if(
-            this.key_code_char             // A impressão deve ser ativada!
-            && this.key_code_count <= max  // Só imprimir 10 vezes!
-            && key_code != 10              // A tecla digitada não dever ser "Enter"
-        )
-        {
+        if(key_code == 10){
+            
+            if(this.key_code_count > 1) System.out.println();
+            
+            this.Exit();
+        
+        } else if(this.key_code_count <= max && key_code != 10){//if(key_code...
             
             var println = "Impressão ";
             println += Reg.Numb(this.key_code_count, max, " de ");
@@ -517,14 +518,6 @@ public class config implements
             
             this.key_code_count++;
             
-        }//if(Reg.java && this.key_code_char && this.key_code_count <= max &&...
-        
-        if(key_code == 10){
-            
-            if(this.key_code_count > 1) System.out.println();
-            
-            this.Exit();
-        
         }//if(key_code == 10)
         
     }
@@ -541,50 +534,27 @@ public class config implements
         
         switch(op){
             
-            case confirm, button_list, ctrl_enter -> {
-                
-                TextCursor cursor = new TextCursor();
-                cursor.Cursor(row, col);
+            case confirm, button_list, list_closer, enter -> {
                 
                 List<String> none = new ArrayList();
                 
-                for(int g = 0; g < this.list.size(); g++){
+                for(int add = 0; add < text.size(); add++){
                     
-                    if(this.cur.getUser() && this.cur.row_col(true) == g){
-                        
-                        var insert = this.list.get(g).substring(
-                            0,
-                            this.cur.row_col(false)
-                        );
-                        
-                        if(this.cur.row_col(false) > 0) insert += " ";
-                        
-                        insert += "<código>";
-                        
-                        if(this.cur.row_col(false) < this.list.get(g).length())
-                        {insert += " ";}
-                        
-                        insert += this.list.get(g).substring(
-                            this.cur.row_col(false)
-                        );
-                        
-                        none.add(insert);
-                        
-                    } else {//if(this.cur.getUser() && this.cur.row_col(true)...
-                        
-                        none.add(this.list.get(g));
-                        
-                    }//if(this.cur.getUser() && this.cur.row_col(true) == g)
+                    var insert = text.get(add);
                     
-                }//for(int g = 0; g < this.list.size(); g++)
+                    if(add == row) insert = txt.arq(insert);
+                    
+                    none.add(insert);
+                    
+                }//for(int add = 0; add < text.size(); add++)
                 
                 var sum = 0;
                 
                 for(String t : text) sum += t.length();
                 
-                if(this.user_area < 10 && sum < 1000){
+                if(this.user_area <= 10 && sum < 1000){
                     
-                    controller.p3(new config(none,row, col, this.user_area));
+                    controller.p3(new config(none,this.user_area));
                     
                 } else {//if(this.user_area < 10 && sum < 1000)
                     
@@ -594,7 +564,7 @@ public class config implements
                 
             }//case confirm, button_list, ctrl_enter 
             
-            case cancel -> this.Exit();
+            case cancel, ctrl_enter -> this.Exit();
             
         }//switch(op)
         
