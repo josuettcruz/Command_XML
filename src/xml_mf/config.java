@@ -10,7 +10,6 @@ import form.Painel_1Single;
 import form.Painel_1Multiple;
 import form.Painel_2;
 import form.Painel_3;
-import form.TextCursor;
 import form.controller;
 
 import form.pag1;
@@ -45,17 +44,12 @@ public class config implements
     private String input;
     private boolean week;
     
-    private boolean key_code_char;
     private int key_code_count;
-    
-    //private TextCursor cur;
     private int user_area;
     
     public config(){
         
-        this.key_code_char = true;
         this.key_code_count = 1;
-        //this.cur = new TextCursor();
         this.user_area = 0;
         
         this.input = "";
@@ -74,9 +68,7 @@ public class config implements
     
     private config(List<String> value){
         
-        this.key_code_char = false;
         this.key_code_count = 1;
-        //this.cur = new TextCursor();
         this.user_area = 0;
         
         var form = "";
@@ -96,9 +88,7 @@ public class config implements
     
     private config(List<String> value, String input){
         
-        this.key_code_char = false;
         this.key_code_count = 1;
-        //this.cur = new TextCursor();
         this.user_area = 0;
         
         this.input = input;
@@ -110,12 +100,9 @@ public class config implements
         
     }//config(List<String> value, String input)
     
-    private config(List<String> value,/* int row, int col, */int area){
+    private config(List<String> value, int area){
         
-        this.key_code_char = false;
         this.key_code_count = 1;
-        //this.cur = new TextCursor();
-        //this.cur.Cursor(row, col);
         this.user_area = area+1;
         
         this.input = "";
@@ -453,30 +440,21 @@ public class config implements
         return this.list;
     }
 
-    /*@Override
-    public TextCursor TexAreaCursor() {
-        return this.cur;
-    }*/
-
     @Override
     public Domain[] Mode() {
+        
+        Domain[] demo = new Domain[10];
+        
+        for(int d = 0; d < demo.length; d++){
             
-            Domain[] demo = new Domain[10];
+            Domain dem = new Domain(d+1,Reg.Numb(d+1, demo.length, " --- "));
             
-            for(int d = 0; d < demo.length; d++){
-                
-                var txt = "Item ";
-                txt += Reg.Numb(d+1, demo.length, " de ");
-                txt += "!";
-                
-                Domain dem = new Domain(d+1,txt);
-                
-                demo[d] = dem;
-                
-            }//for(int d = 0; d < demo.length; d++)
+            demo[d] = dem;
             
-            return demo;
-            
+        }//for(int d = 0; d < demo.length; d++)
+        
+        return demo;
+        
     }
 
     @Override
