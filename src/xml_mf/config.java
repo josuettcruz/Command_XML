@@ -530,7 +530,7 @@ public class config implements
                 
                 for(String t : text) sum += t.length();
                 
-                if(this.user_area <= 10 && sum < 1000){
+                if(this.user_area <= 100 && sum < 1000){
                     
                     controller.p3(new config(none,this.user_area));
                     
