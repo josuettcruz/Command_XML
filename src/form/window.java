@@ -947,11 +947,11 @@ public class window extends javax.swing.JFrame {
                 
                 if(err || tot >= pos){
                     
-                    input_date.requestFocus();
+                    input_date.setCaretPosition(pos);
                     
                 } else {//if(err || tot >= pos)
                     
-                    input_date.setCaretPosition(pos);
+                    input_date.requestFocus();
                     
                 }//if(err || tot >= pos)
                 
@@ -1072,12 +1072,6 @@ public class window extends javax.swing.JFrame {
                         insert = "";
                         
                     }//case '\t', '\f'
-                    
-                    case '￿' -> {
-                        
-                        if(!insert.isBlank()) insert += " ";
-                        
-                    }//case '￿'
                     
                     default -> {
                         
