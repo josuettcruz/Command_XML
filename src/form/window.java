@@ -874,10 +874,13 @@ public class window extends javax.swing.JFrame {
             p3_title.setText(this.pg3.Title(false));
             p3_title.setFont(this.pg3.FontTitle());
             
+            input_title.setBackground(Color.white);
+            input_title.setForeground(Color.black);
             input_title.setFont(new java.awt.Font(this.home_file_font_into, 1, 26));
             input_title.setText(this.pg3.InputText());
-            input_title.requestFocus();
             
+            input_date.setBackground(Color.white);
+            input_date.setForeground(Color.black);
             input_date.setFont(this.pg3.TextAreaFont());
             
             var input_text_area = "";
@@ -964,6 +967,7 @@ public class window extends javax.swing.JFrame {
         
         this.pg3 = pg3;
         this.Painel_3();
+        input_title.requestFocus();
         
     }//Painel_3(Painel_3 pg3)
     
