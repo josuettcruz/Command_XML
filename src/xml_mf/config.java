@@ -462,6 +462,7 @@ public class config implements
         int key_code,
         char key_char,
         Domain[] menu,
+        String input,
         List<String> text,
         int row,
         int col
@@ -504,6 +505,7 @@ public class config implements
     public void Painel3(
         pag3 op,
         Domain[] menu,
+        String input,
         List<String> text,
         int row,
         int col
@@ -518,9 +520,9 @@ public class config implements
                 
                 for(int add = 0; add < text.size(); add++){
                     
-                    var insert = text.get(add);
+                    var insert = txt.text(text.get(add));
                     
-                    if(add == row) insert = txt.arq(insert);
+                    if(add == row) insert = txt.title(insert, true);
                     
                     none.add(insert);
                     
@@ -540,7 +542,27 @@ public class config implements
                     
                 }//if(this.user_area < 10 && sum < 1000)
                 
-            }//case confirm, button_list, ctrl_enter 
+            }//case confirm, button_list, list_closer
+            
+            case enter ->{
+                
+                var doc = txt.text(input);
+                
+                if(doc.isBlank() || doc.equalsIgnoreCase("exit")){
+                    
+                    this.Exit();
+                    
+                } else {//if(doc.isBlank() || doc.equalsIgnoreCase("exit"))
+                    
+                    List<String> none = new ArrayList();
+                    none.addAll(this.list);
+                    none.add(doc);
+                    
+                    controller.p3(new config(none,this.user_area));
+                    
+                }//if(doc.isBlank() || doc.equalsIgnoreCase("exit"))
+                
+            }//case enter
             
             case cancel, ctrl_enter -> this.Exit();
             

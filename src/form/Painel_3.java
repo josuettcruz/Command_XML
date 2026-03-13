@@ -30,6 +30,7 @@ public interface Painel_3 {
         int key_code,
         char key_char,
         Domain[] menu,
+        String input,
         List<String> text,
         int row,
         int col
@@ -38,6 +39,7 @@ public interface Painel_3 {
     public void Painel3(
         pag3 op,
         Domain[] menu,
+        String input,
         List<String> text,
         int row,
         int col
