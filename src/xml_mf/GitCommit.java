@@ -152,7 +152,7 @@ public class GitCommit implements Painel_2{
         
         if(text.isBlank()){
             
-            controller.p1m(new config());
+            controller.p1s(new config());
             
         } else {//if(text.isBlank())
             
@@ -229,6 +229,7 @@ public class GitCommit implements Painel_2{
         }
         
         return new java.awt.Font("Consolas", 0, tam);
+        
     }
 
     @Override

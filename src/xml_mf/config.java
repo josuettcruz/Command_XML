@@ -512,7 +512,7 @@ public class config implements
         
         switch(op){
             
-            case confirm, button_list, list_closer, enter -> {
+            case confirm, button_list, list_closer -> {
                 
                 List<String> none = new ArrayList();
                 

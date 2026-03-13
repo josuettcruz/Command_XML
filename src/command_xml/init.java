@@ -27,6 +27,13 @@ public class init {
     
     private static void Play(){
         
+        if(Reg.java){
+            
+            System.out.println(new Data().DataAbreviada(true));
+            System.out.println(new Hora(true).TimerGood(false," ".repeat(5)));
+            
+        }//if(Reg.java)
+        
         controller.p1m(new config());
         
     }//Play()
