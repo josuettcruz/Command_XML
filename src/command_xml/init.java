@@ -34,6 +34,7 @@ public class init {
             
         }//if(Reg.java)
         
+        controller.Position(100, 100, 600, 600);
         controller.p1m(new config());
         
     }//Play()
@@ -193,6 +194,7 @@ public class init {
         
         } else {//if(tem.isEmpty())
             
+            controller.Position(250, 70, 600, 600);
             controller.p2(new GitCommit(tem));
         
         }//if(tem.isEmpty())
