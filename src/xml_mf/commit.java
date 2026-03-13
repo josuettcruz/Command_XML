@@ -298,7 +298,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
 
             }//if(point && y.length() > 1)
 
-            if(point) val += "!";
+            //if(point) val += "!";
 
             if(quot_end_line) val += "\"";
             
