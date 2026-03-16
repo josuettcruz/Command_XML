@@ -11,6 +11,7 @@ import static form.key.*;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -867,7 +868,7 @@ public class window extends javax.swing.JFrame {
         
         if(this.pg3 != null){
             
-            var combo = this.Pg3().size() > 2 && this.Pg3().size() <= 10;
+            var combo = this.Pg3().size() >= 2 && this.Pg3().size() <= 10;
             
             setTitle(this.pg3.Title(true));
             
@@ -1005,38 +1006,7 @@ public class window extends javax.swing.JFrame {
     
     private List<String> P3(){
         
-        List<String> code = new ArrayList();
-        
-        for(String tem : input_date.getText().split("\n")){
-            
-            var insert = "";
-            
-            for(int p = 0; p < tem.length(); p++){
-                
-                switch(tem.charAt(p)){
-                    
-                    case '\t', '\f' -> {
-                        
-                        code.add(insert);
-                        insert = "";
-                        
-                    }//case '\t', '\f'
-                    
-                    default -> {
-                        
-                        insert += tem.charAt(p);
-                    
-                    }//default
-                    
-                }//switch(tem.charAt(p))
-                
-            }//for(int p = 0; p < tem.length(); p++)
-            
-            code.add(insert);
-            
-        }//for(String tem : input_date.getText().split("\n"))
-        
-        return code;
+        return Arrays.asList(input_date.getText().split("\n"));
         
     }//P3()
     
