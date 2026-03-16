@@ -47,6 +47,18 @@ public class config implements
     private int key_code_count;
     private int user_area;
     
+    private final char[] exclude_char = {
+        '_',
+        '-',
+        '.',
+        '!',
+        '"',
+        '\'',
+        '\\',
+        '´',
+        '`'
+    };
+    
     public config(){
         
         this.key_code_count = 1;
@@ -207,9 +219,25 @@ public class config implements
         
     }//Exit()
     
+    private List<String> Println(List<String> value){
+        
+        List<String> val = new ArrayList();
+        
+        for(String string : value){
+            
+            var tema = txt.text(string, this.exclude_char);
+            
+            if(!tema.isBlank()) val.add(tema);
+            
+        }//for(String string : value)
+        
+        return val;
+        
+    }//Println(List<String> value)
+    
     private String Submit(String input){
         
-        var val = txt.text(input);
+        var val = txt.text(input, this.exclude_char);
         
         var m = txt.phrase(val, true).size();
         
@@ -244,11 +272,6 @@ public class config implements
         
         return title ? d.DataAbreviada(this.week) : d.DataCompleta(this.week);
         
-    }
-
-    @Override
-    public String InputText() {
-        return this.input;
     }
 
     @Override
@@ -306,7 +329,36 @@ public class config implements
     }
 
     @Override
+    public Domain[] Mode() {
+        
+        Domain[] demo = new Domain[10];
+        
+        for(int d = 0; d < demo.length; d++){
+            
+            Domain dem = new Domain(d+1,Reg.Numb(d+1, demo.length, " --- "));
+            
+            demo[d] = dem;
+            
+        }//for(int d = 0; d < demo.length; d++)
+        
+        return demo;
+        
+    }
+
+    @Override
+    public String InputText() {return this.input;}
+
+    @Override
     public boolean ListColumn() {return this.list.size() > this.mode;}
+
+    @Override
+    public Font FontTitle() {return new java.awt.Font("Arial Black", 0, 18);}
+
+    @Override
+    public Font TextAreaFont() {return new java.awt.Font("Arial", 0, 16);}
+
+    @Override
+    public List<String> TextArea() {return this.list;}
 
     @Override
     public void Action(
@@ -426,38 +478,6 @@ public class config implements
     }
 
     @Override
-    public Font FontTitle() {
-        return new java.awt.Font("Arial Black", 0, 18);
-    }
-
-    @Override
-    public Font TextAreaFont() {
-        return new java.awt.Font("Arial", 0, 16);
-    }
-
-    @Override
-    public List<String> TextArea() {
-        return this.list;
-    }
-
-    @Override
-    public Domain[] Mode() {
-        
-        Domain[] demo = new Domain[10];
-        
-        for(int d = 0; d < demo.length; d++){
-            
-            Domain dem = new Domain(d+1,Reg.Numb(d+1, demo.length, " --- "));
-            
-            demo[d] = dem;
-            
-        }//for(int d = 0; d < demo.length; d++)
-        
-        return demo;
-        
-    }
-
-    @Override
     public void Painel3(
         int key_code,
         char key_char,
@@ -474,6 +494,9 @@ public class config implements
         if(key_code == 10){
             
             if(this.key_code_count > 1) System.out.println();
+            
+            this.list.clear();
+            this.list.addAll(this.Println(text));
             
             this.Exit();
         
@@ -520,7 +543,7 @@ public class config implements
                 
                 for(int add = 0; add < text.size(); add++){
                     
-                    var insert = txt.text(text.get(add));
+                    var insert = txt.text(text.get(add), this.exclude_char);
                     
                     if(add == row) insert = txt.title(insert, true);
                     
@@ -531,6 +554,9 @@ public class config implements
                 var sum = 0;
                 
                 for(String t : text) sum += t.length();
+
+                this.list.clear();
+                this.list.addAll(this.Println(text));
                 
                 if(this.user_area <= 100 && sum < 1000){
                     
@@ -555,8 +581,8 @@ public class config implements
                 } else {//if(doc.isBlank() || doc.equalsIgnoreCase("exit"))
                     
                     List<String> none = new ArrayList();
-                    none.addAll(this.list);
-                    none.add(doc);
+                    none.addAll(this.Println(text));
+                    none.add(txt.text(doc, this.exclude_char));
                     
                     controller.p3(new config(none,this.user_area));
                     
