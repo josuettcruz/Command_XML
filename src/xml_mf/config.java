@@ -535,15 +535,31 @@ public class config implements
     )
     {
         
+        final char[] tem = {
+            '_',
+            '-',
+            '\'',
+            '"',
+            '\\',
+            '/',
+            '|',
+            '{',
+            '}',
+            '[',
+            ']',
+            '(',
+            ')'
+        };
+        
         switch(op){
             
-            case confirm, button_list, list_closer -> {
+            case button_list, list_closer -> {
                 
                 List<String> none = new ArrayList();
                 
                 for(int add = 0; add < text.size(); add++){
                     
-                    var insert = txt.text(text.get(add), this.exclude_char);
+                    var insert = txt.text(text.get(add), tem);
                     
                     if(add == row) insert = txt.title(insert, true);
                     
@@ -570,15 +586,32 @@ public class config implements
                 
             }//case confirm, button_list, list_closer
             
-            case enter ->{
+            case enter, confirm ->{
                 
-                var doc = txt.text(input);
+                var doc = txt.text(input, tem);
                 
-                if(doc.isBlank() || doc.equalsIgnoreCase("exit")){
+                final String[] cod = {"exit","sair","finalizar","encerrar"};
+                
+                var out = false;
+                
+                var cont = 0;
+                
+                do{
+                    var note = "";
+                    
+                    for(String t : txt.phrase(input, tem)) note += t;
+                    
+                    out = note.equalsIgnoreCase(cod[cont]);
+                    
+                    cont++;
+                    
+                }while(!out && cont > 0 && cont < cod.length);
+                
+                if(doc.isBlank() || out){
                     
                     this.Exit();
                     
-                } else {//if(doc.isBlank() || doc.equalsIgnoreCase("exit"))
+                } else {//if(doc.isBlank() || out)
                     
                     List<String> none = new ArrayList();
                     none.addAll(this.Println(text));
@@ -586,7 +619,7 @@ public class config implements
                     
                     controller.p3(new config(none,this.user_area));
                     
-                }//if(doc.isBlank() || doc.equalsIgnoreCase("exit"))
+                }//if(doc.isBlank() || out)
                 
             }//case enter
             
