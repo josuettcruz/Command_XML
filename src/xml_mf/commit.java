@@ -28,6 +28,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private List<String> text;
     private String input;
     
+    final char[] ten = {'"','\'','\\','/','|','[',']','{','}','(',')'};
+    final String[] notpad = {"exit","sair","encerrar","finalizar","out","exc"};
+    
     private final char[] points = {
         '?',
         '!',
@@ -508,18 +511,51 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         if(act){
             
+            var document = false;
+            var cont = 0;
+            
+            do{
+                
+                var note = "";
+                for(String t : txt.phrase(ext, this.ten)) note += t;
+                document = note.equalsIgnoreCase(this.notpad[cont]);
+                cont++;
+                
+            }while(!document && cont > 0 && cont < notpad.length);
+            
             var test1 = ext.equalsIgnoreCase(this.base);
             var test2 = Arq.Exist(this.Export(ext));
             var test3 = Arq.Dir(this.Export(ext), true);
             var test0 = test1 && test2 && test3;
             
             var err = "";
-            var coppy = !ext.equalsIgnoreCase("exit");
+            var coppy = !document;
             
             if(test0 || !ext.equalsIgnoreCase(this.base)){
                 
-                if(!ext.equalsIgnoreCase("exit"))
-                {err = new Arq(this.Export(ext)).Save(this.Saving()).Message();}
+                if(!document){
+                    
+                    err = new Arq(this.Export(ext)).Save(this.Saving()).Message();
+                    
+                    System.out.print(this.Export(ext));
+                    System.out.println(".txt");
+                    
+                    var sum = this.Saving().split("\n");
+                    
+                    for(int i = 0; i < sum.length; i++){
+                        
+                        System.out.print(Reg.Numb(i+1, sum.length));
+                        System.out.print(" - ");
+                        System.out.println(sum[i]);
+                        
+                    }//for(int i = 0; i < sum.length; i++)
+                    
+                } else {
+                    
+                    System.out.println("Sessão encerrada!");
+                    System.out.println(new Hora(true).TimerGood(true));
+                    
+                }
                 
                 coppy = false;
                 
@@ -575,19 +611,23 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private void Click(String run){
         
-        if(run.trim().isBlank()){
+        var note = "";
+        
+        for(String t : txt.phrase(run, this.ten)) note += t;
+        
+        if(note.isBlank()){
             
             controller.p1s(new commit(this.text, this.base));
             
-        } else if(txt.Local(run).equals(run)){//if(run.trim().isBlank())
+        } else if(txt.Local(note).equalsIgnoreCase(note)){//if(note.isBlank())
             
             this.Event(run, true);
             
-        } else {//if(run.trim().isBlank())
+        } else {//if(note.isBlank())
             
             controller.p1m(new commit(this.text, txt.Local(run)));
             
-        }//if(run.trim().isBlank())
+        }//if(note.isBlank())
         
     }//Click(String run)
     
