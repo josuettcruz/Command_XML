@@ -485,13 +485,13 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                         }//case '!', '?', '.'
                         
-                        case ';' ->{
+                        case ';', ':' ->{
                             
                             point = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
-                        }//case ';'
+                        }//case ';', ':'
                         
                         case ',', '"', '\'' -> point = false;
                         
@@ -523,7 +523,10 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
             }while(!document && cont > 0 && cont < notpad.length);
             
-            var test1 = ext.equalsIgnoreCase(this.base);
+            var bas = "";
+            for(String t : txt.phrase(ext, this.ten)) bas += t;
+            
+            var test1 = bas.equalsIgnoreCase(this.base);
             var test2 = Arq.Exist(this.Export(ext));
             var test3 = Arq.Dir(this.Export(ext), true);
             var test0 = test1 && test2 && test3;
@@ -531,14 +534,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             var err = "";
             var coppy = !document;
             
-            if(test0 || !ext.equalsIgnoreCase(this.base)){
+            if(test0 || !bas.equalsIgnoreCase(this.base)){
                 
                 if(!document){
                     
-                    err = new Arq(this.Export(ext)).Save(this.Saving()).Message();
+                    var note = "";
                     
-                    System.out.print(this.Export(ext));
-                    System.out.println(".txt");
+                    for(String t : txt.phrase(ext, this.ten)) note += t;
+                    
+                    err = new Arq(this.Export(note)).Save(this.Saving()).Message();
+                    
+                    System.out.print(this.Export(note));
                     
                     var sum = this.Saving().split("\n");
                     
