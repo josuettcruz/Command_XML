@@ -374,6 +374,22 @@ public class config implements
     )
     {
         
+        final char[] tem = {
+            '_',
+            '-',
+            '\'',
+            '"',
+            '\\',
+            '/',
+            '|',
+            '{',
+            '}',
+            '[',
+            ']',
+            '(',
+            ')'
+        };
+        
         switch(action){
             
             case add, open, key, enter ->{
@@ -381,10 +397,13 @@ public class config implements
                 String[] cod = {"sair", "exit", "end","fim"};
                 boolean[] doc = new boolean[cod.length+1];
                 
-                for(int i = 0; i < cod.length; i++)
-                {doc[i] = input.trim().equalsIgnoreCase(cod[i]);}
+                var dol = "";
+                for(String t : txt.phrase(input, tem)) dol += t;
                 
-                doc[cod.length] = input.trim().isBlank();
+                for(int i = 0; i < cod.length; i++)
+                {doc[i] = dol.equalsIgnoreCase(cod[i]);}
+                
+                doc[cod.length] = dol.isBlank();
                 
                 var type = true;
                 
@@ -539,12 +558,11 @@ public class config implements
     {
         
         final char[] tem = {
-            '_',
-            '-',
+            '\\',
             '\'',
             '"',
-            '\\',
-            '/',
+            '_',
+            '-',
             '|',
             '{',
             '}',
