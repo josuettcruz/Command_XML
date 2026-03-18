@@ -30,7 +30,8 @@ public class Reg {
     
     public final static Data modify = new Data(2026, 3, 18);
     
-    public final static boolean java = Arq.Exist("manifest.mf");
+    public final static boolean java = Arq.Exist("manifest.mf")
+            && Arq.Dir("manifest.mf", true);
     
     private final static int result = 28;
     

@@ -7,6 +7,7 @@ package xml_mf;
 import file.Read;
 import model.*;
 import form.*;
+import command_xml.init;
 
 import java.awt.Font;
 
@@ -152,7 +153,7 @@ public class GitCommit implements Painel_2{
         
         if(text.isBlank()){
             
-            controller.p1s(new config());
+            init.Play();
             
         } else {//if(text.isBlank())
             

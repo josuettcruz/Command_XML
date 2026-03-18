@@ -25,17 +25,17 @@ import java.util.List;
  */
 public class init {
     
-    private static void Play(){
+    public static void Play(){
         
         if(Reg.java){
             
             System.out.println(new Data().DataAbreviada(true));
-            System.out.println(new Hora(true).TimerGood(false," ".repeat(5)));
+            System.out.println(new Hora(true).TimerGood(false," ".repeat(3)));
+            System.out.println();
             
         }//if(Reg.java)
         
-        controller.Position(100, 100, 600, 600);
-        controller.p1m(new config());
+        controller.p1s(new config());
         
     }//Play()
     
@@ -188,13 +188,14 @@ public class init {
         for(Read r : Commit("..\\..\\"))
         {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
+        if(Reg.java) controller.Position(250, 70, 600, 600);
+        
         if(tem.isEmpty()){
             
             Play();
         
         } else {//if(tem.isEmpty())
             
-            controller.Position(250, 70, 600, 600);
             controller.p2(new GitCommit(tem));
         
         }//if(tem.isEmpty())
