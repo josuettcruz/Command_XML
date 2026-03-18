@@ -48,15 +48,20 @@ public class config implements
     private int user_area;
     
     private final char[] exclude_char = {
+        '\\',
+        '\'',
+        '"',
+        '´',
+        '`',
         '_',
         '-',
-        '.',
-        '!',
-        '"',
-        '\'',
-        '\\',
-        '´',
-        '`'
+        '|',
+        '[',
+        ']',
+        '{',
+        '}',
+        '(',
+        ')'
     };
     
     public config(){
@@ -227,7 +232,8 @@ public class config implements
             
             var tema = txt.text(string, this.exclude_char);
             
-            if(!tema.isBlank()) val.add(tema);
+            if(!tema.isBlank())
+            {val.add(tema);}
             
         }//for(String string : value)
         
@@ -375,11 +381,8 @@ public class config implements
                 String[] cod = {"sair", "exit", "end","fim"};
                 boolean[] doc = new boolean[cod.length+1];
                 
-                for(int i = 0; i < cod.length; i++){
-                    
-                    doc[i] = input.trim().equalsIgnoreCase(cod[i]);
-                    
-                }
+                for(int i = 0; i < cod.length; i++)
+                {doc[i] = input.trim().equalsIgnoreCase(cod[i]);}
                 
                 doc[cod.length] = input.trim().isBlank();
                 
@@ -400,7 +403,8 @@ public class config implements
                     
                     List<String> v = new ArrayList();
                     
-                    for(Domain d : vol) v.add(this.Submit(d.Text(true)));
+                    for(Domain d : vol)
+                    {v.add(this.Submit(d.Text(true)));}
                     
                     v.add(this.Submit(input));
                     
@@ -408,7 +412,6 @@ public class config implements
                     
                 } else {//if(type)
                     
-                    //this.Exit();
                     controller.p3(new config(this.list));
                     
                 }//if(type)
@@ -561,7 +564,7 @@ public class config implements
                     
                     var insert = txt.text(text.get(add), tem);
                     
-                    if(add == row) insert = txt.title(insert, true);
+                    if(add == row) insert = txt.arq(insert);
                     
                     none.add(insert);
                     
