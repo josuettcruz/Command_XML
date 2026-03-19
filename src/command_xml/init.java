@@ -167,7 +167,11 @@ public class init {
             '"'
         };
         
-        return !txt.text(t.Read(), exclude).isBlank() && t.Val();
+        var sum = 0;
+        
+        for(String p : txt.phrase(t.Read(), exclude)) sum += p.length();
+        
+        return sum >= 5 && t.Val();
         
     }//exe(Read t)
     
@@ -186,30 +190,25 @@ public class init {
         
         for(String j : folder){
             
-            for(Read r : Commit("\\" + j + "\\"))
-            {if(exe(r)) tem.add(r);}
+            for(Read r : Commit("\\" + j + "\\")) if(exe(r)) tem.add(r);
             
         }//for(String j : folder)
         
         for(String j : folder){
             
-            for(Read r : Commit("..\\" + j + "\\"))
-            {if(exe(r)) tem.add(r);}
+            for(Read r : Commit("..\\" + j + "\\")) if(exe(r)) tem.add(r);
             
         }//for(String j : folder)
         
-        for(Read r : Commit("..\\"))
-        {if(exe(r)) tem.add(r);}
+        for(Read r : Commit("..\\")) if(exe(r)) tem.add(r);
         
         for(String j : folder){
             
-            for(Read r : Commit("..\\..\\" + j + "\\"))
-            {if(exe(r)) tem.add(r);}
+            for(Read r : Commit("..\\..\\" + j + "\\")) if(exe(r)) tem.add(r);
             
         }//for(String j : folder)
         
-        for(Read r : Commit("..\\..\\"))
-        {if(exe(r)) tem.add(r);}
+        for(Read r : Commit("..\\..\\")) if(exe(r)) tem.add(r);
         
         if(Reg.java) controller.Position(250, 70, 600, 600);
         
