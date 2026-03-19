@@ -9,6 +9,7 @@ import file.Read;
 
 import model.Data;
 import model.Hora;
+import model.txt;
 import model.Reg;
 
 import xml_mf.config;
@@ -148,6 +149,28 @@ public class init {
         
     }//Commit(String folder)
     
+    private static boolean exe(Read t){
+        
+        final char[] exclude = {
+            '_',
+            '-',
+            '[',
+            ']',
+            '{',
+            '}',
+            '(',
+            ')',
+            '|',
+            '/',
+            '\\',
+            '\'',
+            '"'
+        };
+        
+        return !txt.text(t.Read(), exclude).isBlank() && t.Val();
+        
+    }//exe(Read t)
+    
     private static void Execute(){
         
         String[] folder = {
@@ -158,35 +181,35 @@ public class init {
         
         List<Read> tem = new ArrayList();
         
+        for(Read r : Commit(""))
+        {if(exe(r)) tem.add(r);}
+        
         for(String j : folder){
             
             for(Read r : Commit("\\" + j + "\\"))
-            {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
+            {if(exe(r)) tem.add(r);}
             
         }//for(String j : folder)
-        
-        for(Read r : Commit(""))
-        {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
         
         for(String j : folder){
             
             for(Read r : Commit("..\\" + j + "\\"))
-            {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
+            {if(exe(r)) tem.add(r);}
             
         }//for(String j : folder)
         
         for(Read r : Commit("..\\"))
-        {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
+        {if(exe(r)) tem.add(r);}
         
         for(String j : folder){
             
             for(Read r : Commit("..\\..\\" + j + "\\"))
-            {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
+            {if(exe(r)) tem.add(r);}
             
         }//for(String j : folder)
         
         for(Read r : Commit("..\\..\\"))
-        {if(r.Val() && !r.Read().trim().isBlank()) {tem.add(r);}}
+        {if(exe(r)) tem.add(r);}
         
         if(Reg.java) controller.Position(250, 70, 600, 600);
         
