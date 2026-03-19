@@ -44,8 +44,7 @@ public class init {
         
         final String[] arqv = {
             "run",
-            "code",
-            "info"
+            "code"
         };
         
         final String ext = ".txt";
@@ -210,8 +209,6 @@ public class init {
         
         for(Read r : Commit("..\\..\\")) if(exe(r)) tem.add(r);
         
-        if(Reg.java) controller.Position(250, 70, 600, 600);
-        
         if(tem.isEmpty()){
             
             Play();
@@ -226,9 +223,9 @@ public class init {
     
     public static void Exec(){
         
-        Data d = new Data();
+        controller.Position(256, 72, 600, 600);
         
-        //controller.Position(240, 35, 585, 650);
+        Data d = new Data();
         
         if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java){
             
