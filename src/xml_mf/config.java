@@ -5,12 +5,8 @@
 package xml_mf;
 
 import model.*;
-import form.Domain;
-import form.Painel_1Single;
-import form.Painel_1Multiple;
-import form.Painel_2;
-import form.Painel_3;
-import form.controller;
+import form.*;
+import command_xml.init;
 
 import form.pag1;
 import static form.pag1.*;
@@ -219,6 +215,8 @@ public class config implements
             }//for(int g = 0; g < this.list.size(); g++)
             
         }//if(this.list.isEmpty())
+        
+        init.Println();
         
         System.exit(0);
         

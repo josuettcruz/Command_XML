@@ -158,6 +158,7 @@ public class GitCommit implements Painel_2{
         } else {//if(text.isBlank())
             
             controller.p1m(new commit(text));
+            init.Println();
             
         }//if(text.isBlank())
         

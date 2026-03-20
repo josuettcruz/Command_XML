@@ -7,10 +7,7 @@ package command_xml;
 import file.Arq;
 import file.Read;
 
-import model.Data;
-import model.Hora;
-import model.txt;
-import model.Reg;
+import model.*;
 
 import xml_mf.config;
 import xml_mf.GitCommit;
@@ -28,17 +25,116 @@ public class init {
     
     public static void Play(){
         
-        if(Reg.java){
-            
-            System.out.println(new Data().DataAbreviada(true));
-            System.out.println(new Hora(true).TimerGood(false," ".repeat(3)));
-            System.out.println();
-            
-        }//if(Reg.java)
-        
         controller.p1s(new config());
         
     }//Play()
+    
+    private static String dat(String text){
+        
+        var val = "";
+        
+        var sum = 0;
+        var loop = true;
+        var tem = false;
+        
+        do{
+            
+            switch(text.charAt(sum)){
+                
+                case '.' ->{
+                    
+                    if(tem){
+                        
+                        loop = false;
+                        
+                    } else {//if(tem)
+                        
+                        tem = true;
+                        
+                    }//if(tem)
+                    
+                }//case '.'
+                
+                default -> {
+                    
+                    if(tem) val += text.toUpperCase().charAt(sum);
+                
+                }//default
+                
+            }//switch(ds)
+            
+            sum++;
+            
+        }while(loop && sum > 0 && sum < text.length());
+        
+        return val;
+        
+    }
+    
+    private static void Println(boolean into){
+        
+        final var max = 22;
+        
+        if(into){
+            
+            var d = new Data();
+            
+            var dm = d.DataCompleta("#");
+            var dn = dm.indexOf("#");
+            
+            Reg.Print(dm.substring(0, dn) + ",", dm.substring(dn+1), max);
+            
+        } else {//if(into)
+            
+            System.out.println();
+            
+        }//if(into)
+        
+        System.out.println(
+            new Hora(true).TimerGood(
+                false,
+                Reg.Tab("--", max)
+            )
+        );
+        
+        System.out.println();
+        
+        Reg.Print("class", "carregarFonte", max);
+        Reg.Print("package", "model", max);
+        
+        if(into) System.out.println();
+        
+        Reg.Print(
+            dat(carregarFonte.StackOverflow().page(true)),
+            carregarFonte.StackOverflow().getLink(),
+            max
+        );
+        
+        if(into) System.out.println();
+        
+        Reg.Print(
+            dat(carregarFonte.Reddit().page(true)),
+            carregarFonte.Reddit().getLink(),
+            max
+        );
+        
+        if(into){
+            
+            System.out.println();
+            
+            Reg.Print(
+                "Pesquisa Google",
+                carregarFonte.PesquisaGoogle().getLink(),
+                max
+            );
+            
+        }//if(into)
+        
+        System.out.println();
+        
+    }//Println(boolean into)
+    
+    public static void Println(){init.Println(false);}
     
     private static List<Read> Commit(String folder){
         
@@ -222,6 +318,8 @@ public class init {
     }//Execute()
     
     public static void Exec(){
+        
+        if(Reg.java) Println(true);
         
         controller.Position(256, 72, 600, 600);
         

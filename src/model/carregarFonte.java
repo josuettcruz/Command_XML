@@ -7,7 +7,8 @@ package model;
 import java.awt.Font;
 
 import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
+//import java.awt.GraphicsEnvironment;
+import java.io.File;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,19 +24,20 @@ public class carregarFonte {
     
     private Font minhaFonte;
     private List<String> msg;
-    private boolean valid;
     
-    public void carregarFonte(String caminho_da_font){
-        
-        this.valid = false;
+    public void carregarFonte(String caminho_da_font, int font_type, int font_size){
         
         this.msg = new ArrayList();
         
         try {
             
-            this.valid = true;
+            var plain = font_type >= 0 && font_type <= 3 ? font_type : 0;
+            
+            var size = font_size >= 0 && font_size <= 72 ? font_size : 12;
             
             this.msg.add(caminho_da_font);
+            this.msg.add(Reg.Numb(plain));
+            this.msg.add(Reg.Numb(size));
             
             // Localize o caminho do arquivo dentro do seu pacote
             InputStream is = getClass().getResourceAsStream(caminho_da_font);
@@ -43,11 +45,16 @@ public class carregarFonte {
             // Cria a fonte a partir do stream
             this.minhaFonte = Font.createFont(Font.TRUETYPE_FONT, is);
             
-            // Registra a fonte no sistema para que ela possa ser usada pelo nome
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(this.minhaFonte);
+            this.minhaFonte = Font.createFont(
+                Font.TRUETYPE_FONT,
+                new File(caminho_da_font)
+            ).deriveFont(plain, size);
             
-        } catch (FontFormatException e) {
+            // Registra a fonte no sistema para que ela possa ser usada pelo nome
+            // GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            // ge.registerFont(this.minhaFonte);
+            
+        } catch (FontFormatException e) {//throws
             
             this.msg.add("\"" + e.hashCode() + "\"");
             this.msg.add("FontFormatException");
@@ -56,7 +63,7 @@ public class carregarFonte {
             if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMessage()))
             {this.msg.add(e.getLocalizedMessage());}
             
-        } catch (IOException e) {
+        } catch (IOException e) {//throws
             
             this.msg.add("\"" + e.hashCode() + "\"");
             this.msg.add("IOException");
@@ -65,7 +72,7 @@ public class carregarFonte {
             if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMessage()))
             {this.msg.add(e.getLocalizedMessage());}
             
-        } catch (Exception e) {
+        } catch (Exception e) {//throws
             
             this.msg.add("\"" + e.hashCode() + "\"");
             this.msg.add("Exception");
@@ -74,11 +81,26 @@ public class carregarFonte {
             if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMessage()))
             {this.msg.add(e.getLocalizedMessage());}
             
-        }
+        }//throws
         
     }//carregarFonte(String caminho_da_font)
     
-    public boolean Val(){return this.valid;}
+    public Font Font(){
+        
+        if(this.minhaFonte == null)
+        {return new java.awt.Font("Times New Roman",0,18);}
+        else
+        {return this.minhaFonte;}
+        
+    }//Font()
+    
+    public Font Font(Font f){
+        
+        return this.minhaFonte == null ? f : this.minhaFonte;
+        
+    }//Font(Font f)
+    
+    public boolean Val(){return this.minhaFonte != null;}
     
     public List<String> msg(){return this.msg;}
     
@@ -103,7 +125,7 @@ public class carregarFonte {
         
     }//Reddit()
     
-    public static String PesquisaGoogle(){
+    public static Link PesquisaGoogle(){
         
         var par = "https:";
         par += "//www.google.com";
@@ -123,7 +145,7 @@ public class carregarFonte {
         par += "DU0Zy32K3aTTeWY5YIXGDuoOQiQ&csuir=1&mtid=wq69ab67Ifqu1sQP1fCIi";
         par += "AY";
         
-        return par;
+        return new Link(par);
         
     }//PesquisaGoogle()
     
