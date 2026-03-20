@@ -38,6 +38,21 @@ public class folder_xml implements
     }//folder_xml()
 
     @Override
+    public Font ListFont() {
+        return new java.awt.Font("Times New Roman",0,18);
+    }
+
+    @Override
+    public Font FontTitle() {
+        return new java.awt.Font("Times New Roman",0,18);
+    }
+
+    @Override
+    public Font TextAreaFont() {
+        return new java.awt.Font("Times New Roman",0,18);
+    }
+
+    @Override
     public String Title(boolean title) {
         return "Sem Título";
     }
@@ -45,11 +60,6 @@ public class folder_xml implements
     @Override
     public String InputText() {
         return "";
-    }
-
-    @Override
-    public Font ListFont() {
-        return new java.awt.Font("Times New Roman",0,18);
     }
 
     @Override
@@ -79,11 +89,6 @@ public class folder_xml implements
     }
 
     @Override
-    public Font FontTitle() {
-        return new java.awt.Font("Times New Roman",0,18);
-    }
-
-    @Override
     public List<String> TextArea() {
         
         var max = 10;
@@ -102,11 +107,6 @@ public class folder_xml implements
         
         return tem;
         
-    }
-
-    @Override
-    public Font TextAreaFont() {
-        return new java.awt.Font("Times New Roman",0,18);
     }
 
     @Override
