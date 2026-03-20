@@ -4,6 +4,7 @@
  */
 package xml_mf;
 
+import command_xml.init;
 import form.*;
 import model.*;
 import file.Arq;
@@ -511,17 +512,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         if(act){
             
-            var document = false;
+            var document = true;
             var cont = 0;
             
             do{
                 
                 var note = "";
                 for(String t : txt.phrase(ext, this.ten)) note += t;
-                document = note.equalsIgnoreCase(this.notpad[cont]);
+                document = !note.equalsIgnoreCase(this.notpad[cont]);
                 cont++;
                 
-            }while(!document && cont > 0 && cont < notpad.length);
+            }while(document && cont > 0 && cont < notpad.length);
             
             var bas = "";
             for(String t : txt.phrase(ext, this.ten)) bas += t;
@@ -532,11 +533,11 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             var test0 = test1 && test2 && test3;
             
             var err = "";
-            var coppy = !document;
+            var coppy = document;
             
             if(test0 || !bas.equalsIgnoreCase(this.base)){
                 
-                if(!document){
+                if(document){
                     
                     var note = "";
                     
@@ -544,7 +545,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     err = new Arq(this.Export(note)).Save(this.Saving()).Message();
                     
-                    System.out.print(this.Export(note));
+                    System.out.println(this.Export(note));
                     
                     var sum = this.Saving().split("\n");
                     
@@ -556,12 +557,12 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                     }//for(int i = 0; i < sum.length; i++)
                     
-                } else {
+                } else {//if(!document)
                     
                     System.out.println("Sessão encerrada!");
-                    System.out.println(new Hora(true).TimerGood(true));
+                    init.Println();
                     
-                }
+                }//if(!document)
                 
                 coppy = false;
                 
@@ -716,11 +717,14 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                     }//for(String t : this.Saving().split("\n")) - 2 - 2
                     
+                    System.out.println();
+                    init.Println();
+                    
                 }//if(Reg.java)
                 
                 System.exit(0);
                 
-            }
+            }//case remove, delet, backspace
             
         }//switch(action)
         

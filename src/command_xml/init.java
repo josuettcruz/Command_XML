@@ -29,9 +29,9 @@ public class init {
         
     }//Play()
     
-    private static String dat(String text){
+    private static String dat(String text, boolean into){
         
-        var val = "";
+        var val = into ? "\"" : "";
         
         var sum = 0;
         var loop = true;
@@ -67,26 +67,25 @@ public class init {
             
         }while(loop && sum > 0 && sum < text.length());
         
+        if(into) val += "\"";
+        
         return val;
         
-    }
+    }//dat(String text, boolean into)
     
     private static void Println(boolean into){
         
-        final var max = 22;
+        var d = new Data();
+        
+        var max = Reg.ide.length();
+        max += 1;
         
         if(into){
-            
-            var d = new Data();
             
             var dm = d.DataCompleta("#");
             var dn = dm.indexOf("#");
             
-            Reg.Print(dm.substring(0, dn) + ",", dm.substring(dn+1), max);
-            
-        } else {//if(into)
-            
-            System.out.println();
+            Reg.Print(dm.substring(0, dn) + ",", dm.substring(dn+1) + "!", max);
             
         }//if(into)
         
@@ -97,23 +96,53 @@ public class init {
             )
         );
         
-        System.out.println();
+        if(into){
+            
+            var note = !d.CompareTo(Reg.modify);
+            
+            if(note) Reg.Print("", "", max);
+            
+            Reg.Print(Reg.categories, Reg.choose, max);
+            
+            var Reg_create = "Esse projeto começou ";
+            Reg_create += Reg.create.DataCompleta(true);
+            
+            Reg.Print(Reg.ide, Reg_create, max);
+            
+            Reg.Print("", "", max);
+            
+            if(note){
+                
+                var Reg_modify = "A última atualização desse projeto foi ";
+                Reg_modify += Reg.modify.DataCompleta(true);
+                
+                Reg.Print(
+                    new Link(Reg.http).page(true),
+                    Reg_modify,
+                    max
+                );
+                
+                Reg.Print("", "", max);
+                
+            }//if(!d.CompareTo(Reg.modify))
+            
+        }//if(into)
         
         Reg.Print("class", "carregarFonte", max);
         Reg.Print("package", "model", max);
         
-        if(into) System.out.println();
+        if(into) Reg.Print("", "", max);
         
         Reg.Print(
-            dat(carregarFonte.StackOverflow().page(true)),
+            dat(carregarFonte.StackOverflow().page(true), into),
             carregarFonte.StackOverflow().getLink(),
             max
         );
         
-        if(into) System.out.println();
+        if(into) Reg.Print("", "", max);
         
         Reg.Print(
-            dat(carregarFonte.Reddit().page(true)),
+            dat(carregarFonte.Reddit().page(true), into),
             carregarFonte.Reddit().getLink(),
             max
         );
