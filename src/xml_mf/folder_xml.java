@@ -31,9 +31,23 @@ public class folder_xml implements
         Painel_3
     {
     
+    private List<Domain> tema;
+    
     public folder_xml(){
         
-        //code
+        var max = 10;
+        
+        this.tema = new ArrayList();
+        
+        for(int a = 1; a <= max; a++){
+            
+            var par = "Item ";
+            par += Reg.Numb(a+1, max, " de ");
+            par += "!";
+            
+            this.tema.add(new Domain(a+1, par));
+            
+        }//for(int a = 1; a <= max; a++)
         
     }//folder_xml()
 
@@ -70,40 +84,16 @@ public class folder_xml implements
     @Override
     public List<Domain> ListMode() {
         
-        var max = 10;
-        
-        List<Domain> dem = new ArrayList();
-        
-        for(int a = 1; a <= max; a++){
-            
-            var par = "Item ";
-            par += Reg.Numb(a, max, " de ");
-            par += "!";
-            
-            dem.add(new Domain(a,par));
-            
-        }//for(int a = 1; a <= 10; a++)
-        
-        return dem;
+        return this.tema;
         
     }
 
     @Override
     public List<String> TextArea() {
         
-        var max = 10;
-        
         List<String> tem = new ArrayList();
         
-        for(int a = 1; a <= max; a++){
-            
-            var par = "Item ";
-            par += Reg.Numb(a, max, " de ");
-            par += "!";
-            
-            tem.add(par);
-            
-        }//for(int a = 1; a <= max; a++)
+        for(Domain d : this.tema) tem.add(d.Text(false));
         
         return tem;
         
