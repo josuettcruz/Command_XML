@@ -125,28 +125,4 @@ public class carregarFonte {
         
     }//Reddit()
     
-    public static Link PesquisaGoogle(){
-        
-        var par = "https:";
-        par += "//www.google.com";
-        par += "/search?q=como+importar+uma+fonte+externa+para+o+java+netbeans";
-        par += "&sca_esv=ae2767497e191e28&sxsrf=ANbL-n6ztHrFcANwGS5uvoQ1nu";
-        par += "_FZ2fDUQ%3A1774038720420&udm=50&source=hp&fbs=ADc_l-acAb_3MMOA";
-        par += "Ux0zmbUpgBqRlDhz5X-HV8KrktiKRKTkK4wzt7DrFKmOiUvaI8jyOAzd58ZcXb";
-        par += "4LHWiRdLb3TbrpH5AZLmQbW5EUUMSbDwCeWbkAfpuCGBNUwVPPToPbKmB5bxQ2";
-        par += "RUOc0SLht41-o1mdtTvCNMXrP9j0kVpa3CuSpiDsROg9Ges10D7y-qr8vE_aDp";
-        par += "0l7goNGqD2axnsqMeU2tLKUg&aep=1&ntc=1&sa=X&ved=2ahUKEwjWiP6dqa-";
-        par += "TAxU2lZUCHQa8J0YQ2J8OegQIFBAE&biw=1488&bih=695&dpr=1.25&mstk=A";
-        par += "UtExfCo_ACGEJHar71cw9uvYR1pc_3RflyFgizOn8Lq_PXsNhDsIkFB9A2NWmj";
-        par += "IBMfcc1Bx89QoOnIfosE61cTNTtRn1blqq6xnKS0grku1CDPtJNuWa81Yxt1PE";
-        par += "07p91u76heB_Rs1SRzuNoJao-w-Ow2VXk6PwIaHEEY86zXb1Im32zCwtqDMgZ8";
-        par += "xFojr7DLYHiE7LLpEAEUB8zZV31CAXekvh9dGNIG9JEVF02b8NNmVOP7z7URYI";
-        par += "WskIoDjRQH-hGfEQtPk5Zyd7dTanwIYNyL1ujbNffL5ea9OQO6cDstZ_yBMSJW";
-        par += "DU0Zy32K3aTTeWY5YIXGDuoOQiQ&csuir=1&mtid=wq69ab67Ifqu1sQP1fCIi";
-        par += "AY";
-        
-        return new Link(par);
-        
-    }//PesquisaGoogle()
-    
 }//carregarFonte

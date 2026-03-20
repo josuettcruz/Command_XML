@@ -118,18 +118,6 @@ public class init {
             max
         );
         
-        if(into){
-            
-            System.out.println();
-            
-            Reg.Print(
-                "Pesquisa Google",
-                carregarFonte.PesquisaGoogle().getLink(),
-                max
-            );
-            
-        }//if(into)
-        
         System.out.println();
         
     }//Println(boolean into)
