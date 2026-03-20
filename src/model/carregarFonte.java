@@ -33,7 +33,6 @@ public class carregarFonte {
         try {
             
             this.msg.add(caminho_da_font);
-            this.msg.add("https://www.google.com/search?q=como+importar+uma+fonte+externa+para+o+java+netbeans&sca_esv=ae2767497e191e28&sxsrf=ANbL-n6ztHrFcANwGS5uvoQ1nu_FZ2fDUQ%3A1774038720420&udm=50&source=hp&fbs=ADc_l-acAb_3MMOAUx0zmbUpgBqRlDhz5X-HV8KrktiKRKTkK4wzt7DrFKmOiUvaI8jyOAzd58ZcXb4LHWiRdLb3TbrpH5AZLmQbW5EUUMSbDwCeWbkAfpuCGBNUwVPPToPbKmB5bxQ2RUOc0SLht41-o1mdtTvCNMXrP9j0kVpa3CuSpiDsROg9Ges10D7y-qr8vE_aDp0l7goNGqD2axnsqMeU2tLKUg&aep=1&ntc=1&sa=X&ved=2ahUKEwjWiP6dqa-TAxU2lZUCHQa8J0YQ2J8OegQIFBAE&biw=1488&bih=695&dpr=1.25&mstk=AUtExfCo_ACGEJHar71cw9uvYR1pc_3RflyFgizOn8Lq_PXsNhDsIkFB9A2NWmjIBMfcc1Bx89QoOnIfosE61cTNTtRn1blqq6xnKS0grku1CDPtJNuWa81Yxt1PE07p91u76heB_Rs1SRzuNoJao-w-Ow2VXk6PwIaHEEY86zXb1Im32zCwtqDMgZ8xFojr7DLYHiE7LLpEAEUB8zZV31CAXekvh9dGNIG9JEVF02b8NNmVOP7z7URYIWskIoDjRQH-hGfEQtPk5Zyd7dTanwIYNyL1ujbNffL5ea9OQO6cDstZ_yBMSJWDU0Zy32K3aTTeWY5YIXGDuoOQiQ&csuir=1&mtid=wq69ab67Ifqu1sQP1fCIiAY");
             
             // Localize o caminho do arquivo dentro do seu pacote
             InputStream is = getClass().getResourceAsStream(caminho_da_font);
