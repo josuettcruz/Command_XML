@@ -1779,7 +1779,7 @@ public class window extends javax.swing.JFrame {
                 if(this.pg1s != null && this.pg1sm == single){
                     
                     this.pg1s.Action(
-                        pag1.delet,
+                        pag1.backspace,
                         this.Pg1s(),
                         home_file.getText()
                     );
@@ -1787,7 +1787,7 @@ public class window extends javax.swing.JFrame {
                 } else if(this.pg1m != null && this.pg1sm == multiple){
 
                     this.pg1m.Action(
-                        pag1.delet,
+                        pag1.backspace,
                         this.Pg1m(),
                         home_file.getText()
                     );
@@ -1805,7 +1805,7 @@ public class window extends javax.swing.JFrame {
                 if(this.pg1s != null && this.pg1sm == single){
                     
                     this.pg1s.Action(
-                        pag1.backspace,
+                        pag1.delet,
                         this.Pg1s(),
                         home_file.getText()
                     );
@@ -1813,7 +1813,7 @@ public class window extends javax.swing.JFrame {
                 } else if(this.pg1m != null && this.pg1sm == multiple){
 
                     this.pg1m.Action(
-                        pag1.backspace,
+                        pag1.delet,
                         this.Pg1m(),
                         home_file.getText()
                     );
@@ -1880,11 +1880,11 @@ public class window extends javax.swing.JFrame {
         
         switch(evt.getKeyCode()){
             
-            case 8 -> this.p2act(pag2.del);
+            case 8 -> this.p2act(pag2.backspace);
             
             case 10 -> this.p2act(pag2.enter);
             
-            case 127 -> this.p2act(pag2.backspace);
+            case 127 -> this.p2act(pag2.del);
             
         }//switch(evt.getKeyCode())
         
