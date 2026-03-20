@@ -4,8 +4,6 @@
  */
 package model;
 
-import model.Link;
-
 import java.awt.Font;
 
 import java.awt.FontFormatException;
@@ -25,12 +23,17 @@ public class carregarFonte {
     
     private Font minhaFonte;
     private List<String> msg;
+    private boolean valid;
     
-    public void carregarFonte(String caminho_da_font) {
+    public void carregarFonte(String caminho_da_font){
+        
+        this.valid = false;
         
         this.msg = new ArrayList();
         
         try {
+            
+            this.valid = true;
             
             this.msg.add(caminho_da_font);
             
@@ -73,7 +76,11 @@ public class carregarFonte {
             
         }
         
-    }
+    }//carregarFonte(String caminho_da_font)
+    
+    public boolean Val(){return this.valid;}
+    
+    public List<String> msg(){return this.msg;}
     
     public static Link StackOverflow(){
         
@@ -94,9 +101,9 @@ public class carregarFonte {
         
         return new Link(par);
         
-    }//StackOverflow()
+    }//Reddit()
     
-    public static Link PesquisaGoogle(){
+    public static String PesquisaGoogle(){
         
         var par = "https:";
         par += "//www.google.com";
@@ -116,8 +123,8 @@ public class carregarFonte {
         par += "DU0Zy32K3aTTeWY5YIXGDuoOQiQ&csuir=1&mtid=wq69ab67Ifqu1sQP1fCIi";
         par += "AY";
         
-        return new Link(par);
+        return par;
         
-    }//StackOverflow()
+    }//PesquisaGoogle()
     
 }//carregarFonte
