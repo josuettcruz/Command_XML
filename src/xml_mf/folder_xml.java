@@ -33,9 +33,15 @@ public class folder_xml implements
     
     private java.awt.Font my_font;
     
-    public folder_xml(){
+    private void Enter(){
         
         this.my_font = new java.awt.Font("Times New Roman",0,18);
+        
+    }//Enter()
+    
+    public folder_xml(){
+        
+        this.Enter();
         
     }//folder_xml()
 
