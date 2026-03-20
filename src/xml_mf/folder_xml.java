@@ -31,17 +31,9 @@ public class folder_xml implements
         Painel_3
     {
     
-    private java.awt.Font my_font;
-    
-    private void Enter(){
-        
-        this.my_font = new java.awt.Font("Times New Roman",0,18);
-        
-    }//Enter()
-    
     public folder_xml(){
         
-        this.Enter();
+        //code
         
     }//folder_xml()
 
@@ -57,7 +49,7 @@ public class folder_xml implements
 
     @Override
     public Font ListFont() {
-        return this.my_font;
+        return new java.awt.Font("Times New Roman",0,18);
     }
 
     @Override
@@ -88,7 +80,7 @@ public class folder_xml implements
 
     @Override
     public Font FontTitle() {
-        return this.my_font;
+        return new java.awt.Font("Times New Roman",0,18);
     }
 
     @Override
@@ -114,7 +106,7 @@ public class folder_xml implements
 
     @Override
     public Font TextAreaFont() {
-        return this.my_font;
+        return new java.awt.Font("Times New Roman",0,18);
     }
 
     @Override
