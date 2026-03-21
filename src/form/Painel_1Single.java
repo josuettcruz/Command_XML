@@ -14,6 +14,8 @@ public interface Painel_1Single {
     
     public String Title(boolean title);
     
+    public java.awt.Font FontTitle();
+    
     public String InputText();
     
     public java.awt.Font ListFont();

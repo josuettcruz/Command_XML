@@ -14,6 +14,8 @@ public interface Painel_2 {
     
     public String Title(boolean title);
     
+    public java.awt.Font FontTitle();
+    
     public java.awt.Font ListFont();
     
     public List<Domain> ListMode();

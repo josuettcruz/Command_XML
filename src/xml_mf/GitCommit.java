@@ -249,5 +249,8 @@ public class GitCommit implements Painel_2{
         }//switch(op)
         
     }
+
+    @Override
+    public Font FontTitle() {return new java.awt.Font("Impact", 0, 18);}
     
 }//GitCommit

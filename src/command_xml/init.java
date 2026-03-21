@@ -170,7 +170,7 @@ public class init {
             
             var t = folder + date + ext;
             
-            if(Arq.Exist(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
+            if(Arq.Dir(t) && Arq.Dir(t, false)) learn.add(new Arq(t).Read());
             
         }//for(String date : arqv)
         
@@ -186,7 +186,7 @@ public class init {
                 ms += Reg.Numb(y);
                 ms += ext;
                 
-                if(Arq.Exist(ms) && Arq.Dir(ms, false))
+                if(Arq.Dir(ms) && Arq.Dir(ms, false))
                 {learn.add(new Arq(ms).Read());}
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
@@ -203,7 +203,7 @@ public class init {
             hs += Reg.modify.Load();
             hs += ext;
             
-            if(Arq.Exist(hs) && Arq.Dir(hs, false))
+            if(Arq.Dir(hs) && Arq.Dir(hs, false))
             {learn.add(new Arq(hs).Read());}
             
             for(int y = min ? h.Min() : 59; y >= 0; y--){
@@ -216,7 +216,7 @@ public class init {
                 m1 += Reg.Numb(y);
                 m1 += ext;
                 
-                if(Arq.Exist(m1) && Arq.Dir(m1, false))
+                if(Arq.Dir(m1) && Arq.Dir(m1, false))
                 {learn.add(new Arq(m1).Read());}
                 
                 var m2 = folder;
@@ -227,7 +227,7 @@ public class init {
                 m2 += Reg.Numb(y);
                 m2 += ext;
                 
-                if(Arq.Exist(m2) && Arq.Dir(m2, false)){
+                if(Arq.Dir(m2) && Arq.Dir(m2, false)){
                     
                     learn.add(new Arq(m2).Read());
                     
@@ -246,7 +246,7 @@ public class init {
                     m3 += ms;
                     m3 += ext;
                     
-                    if(Arq.Exist(m3) && Arq.Dir(m3, false))
+                    if(Arq.Dir(m3) && Arq.Dir(m3, false))
                     {learn.add(new Arq(m3).Read());}
                     
                 }//for(String ms : arqv)

@@ -329,7 +329,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         arqv += run;
         arqv += ".txt";
         
-        if(Arq.Exist(arqv) && Arq.Dir(arqv, false)){
+        if(Arq.Dir(arqv, false)){
             
             var arqa = Reg.java ? "..\\" : "";
             arqa += "jar - ";
@@ -528,9 +528,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             for(String t : txt.phrase(ext, this.ten)) bas += t;
             
             var test1 = bas.equalsIgnoreCase(this.base);
-            var test2 = Arq.Exist(this.Export(ext));
-            var test3 = Arq.Dir(this.Export(ext), true);
-            var test0 = test1 && test2 && test3;
+            var test2 = Arq.Dir(this.Export(ext), true);
+            var test0 = test1 && test2;
             
             var err = "";
             var coppy = document;
@@ -828,5 +827,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     @Override
     public void Action(pag1 action, java.util.List<Domain> vol, String input)
     {this.Submit(action, input);}
+
+    @Override
+    public Font FontTitle() {return new java.awt.Font("Impact", 0, 18);}
     
 }//commit

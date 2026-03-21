@@ -326,30 +326,6 @@ public class Arq {
         
     }//Read()
     
-    public static boolean Dir(String file, boolean write){
-        
-        try{
-            
-            File menu = new File(file);
-            
-            if(write){
-                
-                return menu.canRead() && menu.canWrite();
-                
-            } else {//if(write)
-                
-                return menu.canRead();
-                
-            }//if(write)
-
-        }catch(Exception e){
-            
-            return false;
-            
-        }
-        
-    }//Dir(String file, boolean write)
-    
     public static long Tam(String file){
         
         long date = 0L;
@@ -388,11 +364,35 @@ public class Arq {
         
     }//Tam(String file, long init)
     
-    public static boolean Exist(String diretory){
+    public static boolean Dir(String file, boolean write){
+        
+        try{
+            
+            File menu = new File(file);
+            
+            if(write){
+                
+                return menu.canRead() && menu.canWrite();
+                
+            } else {//if(write)
+                
+                return menu.canRead();
+                
+            }//if(write)
+
+        }catch(Exception e){
+            
+            return false;
+            
+        }
+        
+    }//Dir(String file, boolean write)
+    
+    public static boolean Dir(String diretory){
         
         return new File(diretory).exists();
         
-    }//Exist(String diretory)
+    }//Dir(String diretory)
     
     public static List<String> Folder(String diretory){
         

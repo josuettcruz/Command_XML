@@ -452,7 +452,7 @@ public class window extends javax.swing.JFrame {
 
             home_title.setText(this.pg1s.Title(false));
             home_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            home_title.setFont(new java.awt.Font("Impact", 0, 22));
+            home_title.setFont(this.pg1s.FontTitle());
 
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
             home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -578,7 +578,7 @@ public class window extends javax.swing.JFrame {
 
             home_title.setText(this.pg1m.Title(false));
             home_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            home_title.setFont(new java.awt.Font("Impact", 0, 22));
+            home_title.setFont(this.pg1m.FontTitle());
 
             home_action.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);        
             home_exit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -741,6 +741,7 @@ public class window extends javax.swing.JFrame {
             this.setTitle(pg2.Title(true));
             
             front_title.setText(pg2.Title(false));
+            front_title.setFont(this.pg2.FontTitle());
             
             front_list.setFont(pg2.ListFont());
             
