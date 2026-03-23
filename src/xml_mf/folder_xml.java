@@ -135,7 +135,10 @@ public class folder_xml implements
 
     @Override
     public void Painel3(pag3 op, Domain[] menu, String input, List<String> text, int row, int col) {
-        if(op != list_closer) controller.p3(new folder_xml());
+        if(op != ComboBox) controller.p3(new folder_xml());
     }
+
+    @Override
+    public boolean JComboBox() {return false;}
     
 }//folder_xml

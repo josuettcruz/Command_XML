@@ -911,8 +911,7 @@ public class window extends javax.swing.JFrame {
             
             input_date.setText(input_text_area);
             
-            pag3_menu_enter.setVisible(combo);
-            pag3_menu.setVisible(combo);
+            pag3_menu.setVisible(combo && pg3.JComboBox());
             
             if(combo){
                 
@@ -1111,7 +1110,6 @@ public class window extends javax.swing.JFrame {
         pag3_menu = new javax.swing.JComboBox<>();
         pg3_confirm = new javax.swing.JButton();
         pg3_cancel = new javax.swing.JButton();
-        pag3_menu_enter = new javax.swing.JButton();
         input_title = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1440,6 +1438,9 @@ public class window extends javax.swing.JFrame {
             }
         });
 
+        pg3_confirm.setBackground(new java.awt.Color(0, 102, 102));
+        pg3_confirm.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        pg3_confirm.setForeground(new java.awt.Color(255, 255, 255));
         pg3_confirm.setText("CONFIRMAR");
         pg3_confirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1447,17 +1448,13 @@ public class window extends javax.swing.JFrame {
             }
         });
 
+        pg3_cancel.setBackground(new java.awt.Color(102, 0, 0));
+        pg3_cancel.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        pg3_cancel.setForeground(new java.awt.Color(255, 255, 255));
         pg3_cancel.setText("CANCELAR");
         pg3_cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pg3_cancelActionPerformed(evt);
-            }
-        });
-
-        pag3_menu_enter.setText("List Action");
-        pag3_menu_enter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pag3_menu_enterActionPerformed(evt);
             }
         });
 
@@ -1479,13 +1476,11 @@ public class window extends javax.swing.JFrame {
                     .addComponent(input_title)
                     .addComponent(p3_title, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, formLayout.createSequentialGroup()
-                        .addComponent(pg3_confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pag3_menu_enter, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))
+                        .addComponent(pg3_confirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pg3_cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pag3_menu, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE))
                 .addGap(38, 38, 38))
         );
         formLayout.setVerticalGroup(
@@ -1497,10 +1492,9 @@ public class window extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pg3_confirm)
-                    .addComponent(pag3_menu_enter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pg3_cancel))
+                .addGroup(formLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pg3_confirm, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(pg3_cancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pag3_menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1922,24 +1916,10 @@ public class window extends javax.swing.JFrame {
         
     }//GEN-LAST:event_pg3_cancelActionPerformed
 
-    private void pag3_menu_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pag3_menu_enterActionPerformed
-        //this.P3Action(pag3.button_list);
-        
-        this.pg3.Painel3(
-            pag3.button_list,      // return enum
-            this.P3Action(),       // return Domain[]     -- "Lista de OPÇÕES"
-            input_title.getText(), // return String
-            this.P3(),             // return List<String> -- "Texto do TEXT ÁREA"
-            this.P3(true),         // return int          -- "Posição do cursor - ROW"
-            this.P3(false)         // return int          -- "Posição do cursor - COL"
-        );
-        
-    }//GEN-LAST:event_pag3_menu_enterActionPerformed
-
     private void pag3_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pag3_menuActionPerformed
         
         this.pg3.Painel3(
-            pag3.list_closer,      // return enum
+            pag3.ComboBox,      // return enum
             this.P3Action(),       // return Somain[]     -- "Lista de OPÇÕES"
             input_title.getText(), // return String
             this.P3(),             // return List<String> -- "Texto do TEXT ÁREA"
@@ -2155,7 +2135,6 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JList<String> list_page1;
     private javax.swing.JLabel p3_title;
     private javax.swing.JComboBox<String> pag3_menu;
-    private javax.swing.JButton pag3_menu_enter;
     private javax.swing.JButton pg3_cancel;
     private javax.swing.JButton pg3_confirm;
     private javax.swing.JLabel txt_1;

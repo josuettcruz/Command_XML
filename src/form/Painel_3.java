@@ -22,7 +22,7 @@ public interface Painel_3 {
     
     public java.awt.Font TextAreaFont();
     
-    //public TextCursor TexAreaCursor();
+    public boolean JComboBox();
     
     public Domain[] Mode();
     

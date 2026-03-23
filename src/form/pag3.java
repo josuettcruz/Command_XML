@@ -8,4 +8,4 @@ package form;
  *
  * @author josue
  */
-public enum pag3 {confirm, cancel, button_list, list_closer, ctrl_enter, enter;}
+public enum pag3 {confirm, cancel, ctrl_enter, enter, ComboBox;}

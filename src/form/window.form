@@ -511,14 +511,12 @@
                       <Component id="input_title" max="32767" attributes="0"/>
                       <Component id="p3_title" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="pg3_confirm" min="-2" pref="274" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="pag3_menu_enter" min="-2" pref="140" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="pg3_cancel" pref="120" max="32767" attributes="0"/>
+                          <Component id="pg3_confirm" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="pg3_cancel" min="-2" pref="208" max="-2" attributes="0"/>
                       </Group>
                       <Component id="pag3_menu" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" alignment="0" pref="552" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
@@ -533,10 +531,9 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jScrollPane3" min="-2" pref="272" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="pg3_confirm" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="pag3_menu_enter" alignment="3" max="32767" attributes="0"/>
-                      <Component id="pg3_cancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="pg3_confirm" pref="39" max="32767" attributes="0"/>
+                      <Component id="pg3_cancel" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="pag3_menu" min="-2" max="-2" attributes="0"/>
@@ -604,6 +601,15 @@
         </Component>
         <Component class="javax.swing.JButton" name="pg3_confirm">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Black" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="CONFIRMAR"/>
           </Properties>
           <Events>
@@ -612,18 +618,19 @@
         </Component>
         <Component class="javax.swing.JButton" name="pg3_cancel">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="66" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Black" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="CANCELAR"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pg3_cancelActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="pag3_menu_enter">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="List Action"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pag3_menu_enterActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="input_title">

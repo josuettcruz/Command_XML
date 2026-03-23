@@ -572,7 +572,7 @@ public class config implements
         
         switch(op){
             
-            case button_list, list_closer -> {
+            case ComboBox -> {
                 
                 List<String> none = new ArrayList();
                 
@@ -646,6 +646,11 @@ public class config implements
             
         }//switch(op)
         
+    }
+
+    @Override
+    public boolean JComboBox() {
+        return true;
     }
     
 }//config
