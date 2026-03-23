@@ -393,7 +393,7 @@ public class config implements
             case add, open, key, enter ->{
                 
                 String[] cod = {"sair", "exit", "end","fim"};
-                boolean[] doc = new boolean[cod.length+1];
+                boolean[] doc = new boolean[cod.length];
                 
                 var dol = "";
                 for(String t : txt.phrase(input, tem)) dol += t;
@@ -401,22 +401,24 @@ public class config implements
                 for(int i = 0; i < cod.length; i++)
                 {doc[i] = dol.equalsIgnoreCase(cod[i]);}
                 
-                doc[cod.length] = dol.isBlank();
-                
-                var type = true;
+                var type = false;
                 
                 for(boolean t : doc){
                     
                     if(t){
                         
-                        type = false;
+                        type = true;
                         break;
                         
                     }//if(t)
                     
                 }//for(boolean t : doc)
                 
-                if(type){
+                if(type && !dol.isBlank()){
+                    
+                    this.Exit();
+                    
+                } else if(!dol.isBlank()){//if(type)
                     
                     List<String> v = new ArrayList();
                     
