@@ -735,7 +735,9 @@ public class window extends javax.swing.JFrame {
             this.domo.addAll(this.Domo(this.pg2.ListMode()));
             
             front_list.setSelectionMode(
-                javax.swing.ListSelectionModel.SINGLE_SELECTION
+                this.pg2.SelectionMultiple() ?
+                javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION
+                : javax.swing.ListSelectionModel.SINGLE_SELECTION
             );
             
             this.setTitle(pg2.Title(true));

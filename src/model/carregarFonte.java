@@ -7,6 +7,7 @@ package model;
 import java.awt.Font;
 
 import java.awt.FontFormatException;
+// import java.awt.GraphicsEnvironment;
 import java.io.File;
 
 import java.io.IOException;
@@ -50,8 +51,8 @@ public class carregarFonte {
             ).deriveFont(plain, size);
             
             // Registra a fonte no sistema para que ela possa ser usada pelo nome
-            // GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            // ge.registerFont(this.minhaFonte);
+            /* GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(this.minhaFonte); */
             
         } catch (FontFormatException e) {//throws
             
