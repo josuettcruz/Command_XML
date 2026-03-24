@@ -487,7 +487,10 @@ public class config implements
     }
 
     @Override
-    public void Command(pag2 op, Domain value) {
+    public boolean SelectionMultiple() {return false;}
+
+    @Override
+    public void Command(pag2 op, List<Domain> value) {
         
         switch(op){
             

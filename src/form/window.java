@@ -782,9 +782,47 @@ public class window extends javax.swing.JFrame {
     
     private void p2act(pag2 pg){
         
-        var num = this.front_list.getSelectedIndex();
+        var dem = this.pg2.ListMode();
         
-        if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty()){
+        List<Domain> value = new ArrayList();
+        
+        for(int i = 0; i < dem.size(); i++){
+            
+            Domain d = dem.get(i);
+            
+            var select = false;
+            
+            if(i == this.front_list.getSelectedIndex()){
+                
+                select = true;
+                
+            } else if(this.front_list.getSelectedIndices().length > 1){//if(i...
+                
+                var num = 0;
+                
+                do{
+                    
+                    select = i == this.front_list.getSelectedIndices()[num];
+                    
+                    num++;
+                    
+                }while(
+                    !select &&
+                    num > 0 &&
+                    num < this.front_list.getSelectedIndices().length
+                );
+                
+            }//if(i == this.front_list.getSelectedIndex())
+            
+            d.Select(select);
+            
+            value.add(d);
+            
+        }//for(int i = 0; i < dem.size(); i++)
+        
+        this.pg2.Command(pg, value);
+        
+        /*if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty()){
             
             Domain d = domo.get(num);
             d.Select(true);
@@ -803,7 +841,7 @@ public class window extends javax.swing.JFrame {
             System.err.println("Erro inesperado!");
             System.exit(0);
             
-        }//if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty())
+        }//if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty())*/
         
     }//p2act(pag2 pg)
     

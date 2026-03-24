@@ -238,11 +238,34 @@ public class GitCommit implements Painel_2{
     public java.util.List<Domain> ListMode() {return this.lin;}
 
     @Override
-    public void Command(pag2 op, Domain value) {
+    public boolean SelectionMultiple() {return false;}
+
+    @Override
+    public void Command(pag2 op, List<Domain> value) {
         
         switch(op){
             
-            case confirm, enter -> this.Action(value);
+            case confirm, enter -> {
+                
+                var num = 0;
+                var loop = true;
+                
+                do{
+                    
+                    if(value.get(num).Select()){
+                        
+                        this.Action(value.get(num));
+                        loop = false;
+                        
+                    }//if(value.get(num).Select())
+                    
+                    num++;
+                    
+                }while(loop && num > 0 && num < value.size());
+                
+                if(loop) System.exit(0);
+                
+            }//case
             
             case cancel, del, backspace -> System.exit(0);
             

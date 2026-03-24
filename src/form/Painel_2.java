@@ -20,6 +20,8 @@ public interface Painel_2 {
     
     public List<Domain> ListMode();
     
-    public void Command(pag2 op, Domain value);
+    public boolean SelectionMultiple();
+    
+    public void Command(pag2 op, List<Domain> value);
     
 }//Painel_2

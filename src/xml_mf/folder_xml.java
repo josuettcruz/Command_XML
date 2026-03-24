@@ -124,7 +124,10 @@ public class folder_xml implements
     }
 
     @Override
-    public void Command(pag2 op, Domain value) {
+    public boolean SelectionMultiple() {return false;}
+
+    @Override
+    public void Command(pag2 op, List<Domain> value) {
         controller.p2(new folder_xml());
     }
 
