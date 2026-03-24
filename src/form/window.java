@@ -822,27 +822,6 @@ public class window extends javax.swing.JFrame {
         
         this.pg2.Command(pg, value);
         
-        /*if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty()){
-            
-            Domain d = domo.get(num);
-            d.Select(true);
-            
-            this.pg2.Command(pg, d);
-            
-        } else if(!this.domo.isEmpty() && num >= 0){//if(num >= 0...
-            
-            System.err.println(Reg.Tab("Valor inserido:", Reg.Numb(num+1), 16));
-            System.err.println(Reg.Tab("Valor máximo:", Reg.Numb(num+1), 16));
-            
-            System.exit(0);
-            
-        } else {//if(num >= 0 && num < this.domo.size() && !this.domo...
-            
-            System.err.println("Erro inesperado!");
-            System.exit(0);
-            
-        }//if(num >= 0 && num < this.domo.size() && !this.domo.isEmpty())*/
-        
     }//p2act(pag2 pg)
     
     private List<Domain> Pg3(){

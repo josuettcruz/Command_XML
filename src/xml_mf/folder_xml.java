@@ -119,7 +119,7 @@ public class folder_xml implements
     }
 
     @Override
-    public void Action(pag1 action, List<Domain> vol, String input) {
+    public void Action(pag1 action, List<Domain> vol, String input){
         controller.p1m(new folder_xml());
     }
 
@@ -132,16 +132,37 @@ public class folder_xml implements
     }
 
     @Override
-    public void Painel3(int key_code, char key_char, Domain[] menu, String input, List<String> text, int row, int col) {
-        if(key_code == 10) controller.p3(new folder_xml());
-    }
-
-    @Override
-    public void Painel3(pag3 op, Domain[] menu, String input, List<String> text, int row, int col) {
-        if(op != ComboBox) controller.p3(new folder_xml());
-    }
-
-    @Override
     public boolean JComboBox() {return false;}
+
+    @Override
+    public void Painel3(
+        int key_code,
+        char key_char,
+        Domain[] menu,
+        String input,
+        List<String> text,
+        int row,
+        int col
+    )
+    {
+        
+        if(key_code == 10) controller.p3(new folder_xml());
+        
+    }
+
+    @Override
+    public void Painel3(
+        pag3 op,
+        Domain[] menu,
+        String input,
+        List<String> text,
+        int row,
+        int col
+    )
+    {
+        
+        if(op != ComboBox) controller.p3(new folder_xml());
+        
+    }
     
 }//folder_xml

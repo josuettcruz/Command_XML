@@ -503,6 +503,9 @@ public class config implements
     }
 
     @Override
+    public boolean JComboBox() {return true;}
+
+    @Override
     public void Painel3(
         int key_code,
         char key_char,
@@ -651,11 +654,6 @@ public class config implements
             
         }//switch(op)
         
-    }
-
-    @Override
-    public boolean JComboBox() {
-        return true;
     }
     
 }//config
