@@ -581,6 +581,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     final int max = 120;
                     
+                    var lob = 0;
+                    
                     for(String t : col){
                         
                         final char[] dem = {'"', '>'};
@@ -591,23 +593,41 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                             if(this.line(p)) System.out.println();
                             
-                            if(p.contains(",")){
+                            if(p.contains(",") && lob == 0){
                                 
-                                for(String c : p.split(","))
-                                {System.out.println(txt.text(c));}
+                                var log = true;
                                 
-                            } else if(p.equals("Nesse COMMIT")){//if(p.contai...
+                                for(String c : p.split(",")){
+                                    
+                                    System.out.print(txt.text(c));
+                                    
+                                    if(log){
+                                        
+                                        System.out.print(",");
+                                        log = false;
+                                        
+                                    }//if(log)
+                                    
+                                    System.out.println();
+                                
+                                }//for(String c : p.split(","))
+                                
+                                lob = 1;
+                                
+                            } else if(p.equals("Nesse COMMIT") && lob == 1){//if
                                 
                                 System.out.println();
                                 System.out.println("-- Nesse COMMIT --");
                                 
-                            } else {//if(p.contains(","))
+                                lob = 2;
+                                
+                            } else {//if(p.contains(",") && lob == 0)
                                 
                                 System.out.println(txt.text(p));
                                 
-                            }////if(p.contains(","))
+                            }//if(p.contains(",") && lob == 0)
                             
-                        } else {//if(p.length() > 2 && p.length() < max)
+                        } else if(p.length() > 2){//if(p.length() > 2 && p.le...
                             
                             System.out.println(p.substring(0,max-3) + "...");
                             
