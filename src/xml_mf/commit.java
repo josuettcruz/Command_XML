@@ -598,12 +598,39 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             
                             if(p.contains(",")){
                                 
-                                for(String c : p.split(","))
-                                {System.out.println(c);}
+                                var lob = true;
+                                
+                                for(String c : p.split(",")){
+                                    
+                                    System.out.print(txt.text(c));
+                                    
+                                    if(lob){
+                                        
+                                        System.out.println(",");
+                                        lob = false;
+                                        
+                                    } else {//if(lob)
+                                        
+                                        System.out.print(" --- ");
+                                        
+                                    }//if(lob)
+                                
+                                }//for(String c : p.split(","))
                                 
                             } else {//if(p.contains(","))
                                 
-                                System.out.println(p);
+                                if(p.equals("Nesse COMMIT")){
+                                    
+                                    System.out.println();
+                                    System.out.print("---  ");
+                                    System.out.print(p);
+                                    System.out.println(" ---");
+                                
+                                } else {//if(p.equals("Nesse COMMIT"))
+                                    
+                                    System.out.println(p);
+                                    
+                                }//if(p.equals("Nesse COMMIT"))
                                 
                             }//if(p.contains(","))
                             
