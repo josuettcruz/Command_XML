@@ -28,7 +28,7 @@ public class Reg {
     
     public final static Data create = new Data(2025, 10, 27);
     
-    public final static Data modify = new Data(2026, 3, 24);
+    public final static Data modify = new Data(2026, 3, 26);
     
     public final static boolean java = Arq.Dir("manifest.mf", true);
     
@@ -47,13 +47,10 @@ public class Reg {
             clipboard.setContents(selection,null);
             
             coppy_no_user = false;
-            return true;
-            
-        } else {//if(coppy_no_user)
-            
-            return false;
             
         }//if(coppy_no_user)
+        
+        return coppy_no_user;
         
     }//coppy(String ctrl_c)
     
