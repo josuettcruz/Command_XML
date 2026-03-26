@@ -192,7 +192,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 }//if(point)
                 
-                if(point) val += ".";
+                //if(point) val += ".";
                 
                 if(quot_end_line) val += "'";
                 
@@ -589,7 +589,23 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                         if(p.length() > 2 && p.length() < max){
                             
-                            System.out.println(p);
+                            if(this.line(p)){
+                                
+                                System.out.println();
+                                System.out.println("---");
+                                
+                            }//if(this.line(p))
+                            
+                            if(p.contains(",")){
+                                
+                                for(String c : p.split(","))
+                                {System.out.println(c);}
+                                
+                            } else {//if(p.contains(","))
+                                
+                                System.out.println(p);
+                                
+                            }//if(p.contains(","))
                             
                         } else {//if(p.length() > 2 && p.length() < max)
                             

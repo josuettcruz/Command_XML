@@ -533,6 +533,9 @@ public class txt {
                          'ù',
                          'û',
                          'ü' -> txt += "u";
+                            
+                    case 'y',
+                         'ý' -> txt += "y";
                         
                     case '_',
                         '\n',

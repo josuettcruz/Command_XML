@@ -38,6 +38,8 @@ public class Reg {
     
     public static boolean coppy(String ctrl_c){
         
+        boolean value = true;
+        
         if(coppy_no_user){
             
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -48,9 +50,13 @@ public class Reg {
             
             coppy_no_user = false;
             
+        } else {//if(coppy_no_user)
+            
+            value = false;
+            
         }//if(coppy_no_user)
         
-        return coppy_no_user;
+        return value;
         
     }//coppy(String ctrl_c)
     
