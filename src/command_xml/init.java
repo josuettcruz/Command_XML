@@ -109,8 +109,6 @@ public class init {
             
             Reg.Print(Reg.ide, Reg_create, max);
             
-            Reg.Print("", "", max);
-            
             if(note){
                 
                 var Reg_modify = "A última atualização desse projeto foi ";
@@ -122,9 +120,9 @@ public class init {
                     max
                 );
                 
-                Reg.Print("", "", max);
-                
             }//if(!d.CompareTo(Reg.modify))
+            
+            Reg.Print("", "", max);
             
         }//if(into)
         
