@@ -589,50 +589,23 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                         if(p.length() > 2 && p.length() < max){
                             
-                            if(this.line(p)){
-                                
-                                System.out.println();
-                                System.out.println("---");
-                                
-                            }//if(this.line(p))
+                            if(this.line(p)) System.out.println();
                             
                             if(p.contains(",")){
                                 
-                                var lob = true;
+                                for(String c : p.split(","))
+                                {System.out.println(txt.text(c));}
                                 
-                                for(String c : p.split(",")){
-                                    
-                                    System.out.print(txt.text(c));
-                                    
-                                    if(lob){
-                                        
-                                        System.out.println(",");
-                                        lob = false;
-                                        
-                                    } else {//if(lob)
-                                        
-                                        System.out.print(" --- ");
-                                        
-                                    }//if(lob)
+                            } else if(p.equals("Nesse COMMIT")){//if(p.contai...
                                 
-                                }//for(String c : p.split(","))
+                                System.out.println();
+                                System.out.println("-- Nesse COMMIT --");
                                 
                             } else {//if(p.contains(","))
                                 
-                                if(p.equals("Nesse COMMIT")){
-                                    
-                                    System.out.println();
-                                    System.out.print("---  ");
-                                    System.out.print(p);
-                                    System.out.println(" ---");
+                                System.out.println(txt.text(p));
                                 
-                                } else {//if(p.equals("Nesse COMMIT"))
-                                    
-                                    System.out.println(p);
-                                    
-                                }//if(p.equals("Nesse COMMIT"))
-                                
-                            }//if(p.contains(","))
+                            }////if(p.contains(","))
                             
                         } else {//if(p.length() > 2 && p.length() < max)
                             
