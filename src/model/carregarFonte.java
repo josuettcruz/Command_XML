@@ -7,7 +7,6 @@ package model;
 import java.awt.Font;
 
 import java.awt.FontFormatException;
-// import java.awt.GraphicsEnvironment;
 import java.io.File;
 
 import java.io.IOException;
@@ -25,7 +24,12 @@ public class carregarFonte {
     private Font minhaFonte;
     private List<String> msg;
     
-    public void carregarFonte(String caminho_da_font, int font_type, int font_size){
+    public void carregarFonte(
+        String caminho_da_font,
+        int font_type,
+        int font_size
+    )
+    {
         
         this.msg = new ArrayList();
         
@@ -39,20 +43,14 @@ public class carregarFonte {
             this.msg.add(Reg.Numb(plain));
             this.msg.add(Reg.Numb(size));
             
-            // Localize o caminho do arquivo dentro do seu pacote
             InputStream is = getClass().getResourceAsStream(caminho_da_font);
             
-            // Cria a fonte a partir do stream
             this.minhaFonte = Font.createFont(Font.TRUETYPE_FONT, is);
             
             this.minhaFonte = Font.createFont(
                 Font.TRUETYPE_FONT,
                 new File(caminho_da_font)
             ).deriveFont(plain, size);
-            
-            // Registra a fonte no sistema para que ela possa ser usada pelo nome
-            /* GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(this.minhaFonte); */
             
         } catch (FontFormatException e) {//throws
             
@@ -118,7 +116,8 @@ public class carregarFonte {
     public static Link Reddit(){
         
         var par = "https:";
-        par += "//www.reddit.com/r/javahelp/comments";
+        par += "//www.reddit.com";
+        par += "/r/javahelp/comments";
         par += "/16k8hem/adding_custom_font_to_java/?tl=pt-br";
         
         return new Link(par);
