@@ -83,29 +83,34 @@ public class carregarFonte {
         
     }//carregarFonte(String caminho_da_font)
     
-    public Font Font(){
-        
-        if(this.minhaFonte == null)
-        {return new java.awt.Font("Times New Roman",0,18);}
-        else
-        {return this.minhaFonte;}
-        
-    }//Font()
-    
     public Font Font(Font f){
         
         return this.minhaFonte == null ? f : this.minhaFonte;
         
     }//Font(Font f)
     
-    public boolean Val(){return this.minhaFonte != null;}
+    public Font Font(){
+        
+        return this.Font(new java.awt.Font("Times New Roman",0,18));
+        
+    }//Font()
     
-    public List<String> msg(){return this.msg;}
+    public boolean Val(){
+        
+        return this.minhaFonte != null;
+    
+    }//Val()
+    
+    public List<String> msg(){
+        
+        return this.msg;
+    
+    }//msg()
     
     public static Link StackOverflow(){
         
-        var par = "https:";
-        par += "//pt.stackoverflow.com";
+        var par = "https:/";
+        par += "/pt.stackoverflow.com";
         par += "/questions/77337";
         par += "/como-definir-uma-fonte-nova-fonteexterna-para-um-jtextpane";
         
@@ -115,8 +120,8 @@ public class carregarFonte {
     
     public static Link Reddit(){
         
-        var par = "https:";
-        par += "//www.reddit.com";
+        var par = "https:/";
+        par += "/www.reddit.com";
         par += "/r/javahelp/comments";
         par += "/16k8hem/adding_custom_font_to_java/?tl=pt-br";
         
