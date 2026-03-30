@@ -347,7 +347,7 @@ public class window extends javax.swing.JFrame {
             
             if(acept){
                 
-                demo.add(new Domain(ad.index(), ad.Text(false)));
+                demo.add(new Domain(ad.index(), ad.Text(), false));
                 test.add(ad.index());
                 
             }//if(acept)
@@ -368,14 +368,11 @@ public class window extends javax.swing.JFrame {
         
         for(int i = 0; i < doc.size(); i++){
             
-            Domain demo = new Domain(
+            tema.add(new Domain(
                 doc.get(i).index(),
-                doc.get(i).Text(false)
-            );
-            
-            demo.Select(i == select);
-            
-            tema.add(demo);
+                doc.get(i).Text(),
+                i == select
+            ));
             
         }//for(int i = 0; i < doc.size(); i++)
         
@@ -395,11 +392,6 @@ public class window extends javax.swing.JFrame {
             
             for(int add = 0; add < doc.size(); add++){
                 
-                Domain ad = new Domain(
-                    doc.get(add).index(),
-                    doc.get(add).Text(false)
-                );
-                
                 var selected = false;
                 var row = 0;
                 
@@ -410,9 +402,12 @@ public class window extends javax.swing.JFrame {
                     
                 }while(!selected && row > 0 && row < select.length);
                 
-                ad.Select(selected);
-                
-                tema.add(ad);
+                tema.add(new Domain(
+                        doc.get(add).index(),
+                        doc.get(add).Text(),
+                        selected
+                    )
+                );
                 
             }//for(Domain d : this.pg1m.ListMode())
             
@@ -503,7 +498,7 @@ public class window extends javax.swing.JFrame {
                 
                 for(Domain t : this.pg1s.ListMode()){
                     
-                    var out = t.Text(false).length();
+                    var out = t.Text().length();
                     
                     if(out > reg) reg = out;
                     
@@ -520,7 +515,7 @@ public class window extends javax.swing.JFrame {
                 )
                 {
                     
-                    var t = this.pg1s.ListMode().get(i).Text(false);
+                    var t = this.pg1s.ListMode().get(i).Text();
                     
                     data[i] = repeat_char_list;
                     
@@ -633,7 +628,7 @@ public class window extends javax.swing.JFrame {
                 
                 for(Domain d : this.domo){
                     
-                    var a = d.Text(false).length();
+                    var a = d.Text().length();
                     
                     if(a > reg) reg = a;
                     
@@ -650,7 +645,7 @@ public class window extends javax.swing.JFrame {
                 )
                 {
                     
-                    var ad = this.domo.get(i).Text(false);
+                    var ad = this.domo.get(i).Text();
                     
                     data[i] = repeat_char_list;
                     
@@ -759,7 +754,7 @@ public class window extends javax.swing.JFrame {
                 
                 String[] data = new String[m];
                 
-                for(int i = 0; i < m; i++) data[i] = domo.get(i).Text(false);
+                for(int i = 0; i < m; i++) data[i] = domo.get(i).Text();
                 
                 front_list.setListData(data);
                 
@@ -790,8 +785,6 @@ public class window extends javax.swing.JFrame {
         
         for(int i = 0; i < dem.size(); i++){
             
-            Domain d = dem.get(i);
-            
             var select = false;
             
             if(i == this.front_list.getSelectedIndex()){
@@ -816,9 +809,13 @@ public class window extends javax.swing.JFrame {
                 
             }//if(i == this.front_list.getSelectedIndex())
             
-            d.Select(select);
-            
-            value.add(d);
+            value.add(
+                new Domain(
+                    dem.get(i).index(),
+                    dem.get(i).Text(),
+                    select
+                )
+            );
             
         }//for(int i = 0; i < dem.size(); i++)
         
@@ -838,7 +835,7 @@ public class window extends javax.swing.JFrame {
             
             for(Domain d : dom){
                 
-                Domain k = new Domain(d.index(0),d.Text(false));
+                Domain k = new Domain(d.index(),d.Text(), false);
                 
                 if(note.isEmpty()){
                     
@@ -942,7 +939,7 @@ public class window extends javax.swing.JFrame {
                 
                 for(int ad = 0; ad < this.Pg3().size(); ad++){
                     
-                    var t = this.Pg3().get(ad).Text(true);
+                    var t = this.Pg3().get(ad).Text();
                     
                     date[ad] = " ".repeat(5);
                     
@@ -993,7 +990,7 @@ public class window extends javax.swing.JFrame {
     
     private Domain[] P3Action(){
         
-        var dom = this.Pg3().size() > 2;
+        var dom = this.Pg3().size() >= 2;
         
         Domain[] my_list = new Domain[dom ? this.Pg3().size() : 2];
         
@@ -1004,18 +1001,17 @@ public class window extends javax.swing.JFrame {
             for(int c = 0; c < dem.size(); c++){
                 
                 my_list[c] = new Domain(
-                    dem.get(c).index(0),
-                    dem.get(c).Text(false)
+                    dem.get(c).index(),
+                    dem.get(c).Text(),
+                    c == pag3_menu.getSelectedIndex()
                 );
-                
-                my_list[c].Select(c == pag3_menu.getSelectedIndex());
                 
             }//for(int c = 0; c < this.Pg3().size(); c++)
             
         } else {//if(dom)
             
             for(int c = 0; c < my_list.length; c++)
-            {my_list[c] = new Domain(c+1,"Item " + Reg.Numb(c));}
+            {my_list[c] = new Domain(c+1,"Item " + Reg.Numb(c), false);}
             
         }//if(dom)
         

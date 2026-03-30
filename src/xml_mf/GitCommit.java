@@ -41,6 +41,7 @@ public class GitCommit implements Painel_2{
         
         int cod = 1;
         this.lin.add(new Domain(cod," ".repeat(g) + Hora.Good()));
+        
         this.all_text.add("");
         
         for(Read r : arq){
@@ -89,23 +90,13 @@ public class GitCommit implements Painel_2{
                 
             }//for(String t : txt.phrase(r.Arq(), c))
             
-            this.lin.add(
-                new Domain(
-                    cod,Reg.Tab(
-                        "  " + Reg.Numb(
-                            cod-1,
-                            arq.size(),
-                            " <> "
-                        ),
-                        nom,
-                        g
-                    )
-                )
-            );
+            var text = Reg.Tab("  " + Reg.Numb(cod-1,arq.size()," <> "),nom,g);
+            
+            this.lin.add(new Domain(cod, text, false));
             
             this.all_text.add(r.Read());
             
-        }
+        }//for(Read r : arq)
         
     }//GitCommit(List<Read> arq)
     

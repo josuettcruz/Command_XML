@@ -12,34 +12,30 @@ import model.txt;
  */
 public class Domain {
     
-    private boolean selected;
     private String text;
     private int index;
+    private boolean selected;
     
     public Domain(int index, String text){
         
-        this.selected = false;
         this.index = index;
         this.text = text;
+        this.selected = false;
         
     }//Domain(int index, String text)
     
-    public void Select(boolean select){this.selected = select;}
+    public Domain(int index, String text, boolean selected){
+        
+        this.index = index;
+        this.text = text;
+        this.selected = selected;
+        
+    }//Domain(int index, String text, boolean selected)
     
     public boolean Select(){return this.selected;}
     
     public int index(){return this.index;}
     
-    public String Text(boolean sample){
-        
-        return sample ? txt.text(text, true) : this.text;
-        
-    }//Text(boolean sample)
-    
-    public int index(int min){
-        
-        return this.index >= 0 ? this.index : min;
-    
-    }
+    public String Text(){return this.text;}
     
 }//Domain

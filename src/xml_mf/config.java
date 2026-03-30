@@ -423,7 +423,7 @@ public class config implements
                     List<String> v = new ArrayList();
                     
                     for(Domain d : vol)
-                    {v.add(this.Submit(d.Text(true)));}
+                    {v.add(this.Submit(d.Text()));}
                     
                     v.add(this.Submit(input));
                     
@@ -461,12 +461,12 @@ public class config implements
                         
                         if(d.Select() && value){
                             
-                            t = d.Text(true);
+                            t = d.Text();
                             value = false;
                             
                         }//if(value && d.Select())
                         
-                        if(!d.Select()) v.add(d.Text(true));
+                        if(!d.Select()) v.add(d.Text());
                         
                     }//for(Domain d : vol)
                     
