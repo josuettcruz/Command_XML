@@ -4,8 +4,6 @@
  */
 package form;
 
-import model.txt;
-
 /**
  *
  * @author josue
