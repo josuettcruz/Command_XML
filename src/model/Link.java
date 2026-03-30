@@ -128,7 +128,6 @@ public class Link {
                 }//for(String p : this.url.split("/"))
                 
             }//if(this.lnk.size() > 2)
-                
             
         } else {
             

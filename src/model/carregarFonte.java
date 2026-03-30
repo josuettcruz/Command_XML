@@ -23,6 +23,7 @@ public class carregarFonte {
     
     private Font minhaFonte;
     private List<String> msg;
+    private List<Link> lnk;
     
     public void carregarFonte(
         String caminho_da_font,
@@ -32,6 +33,7 @@ public class carregarFonte {
     {
         
         this.msg = new ArrayList();
+        this.lnk = new ArrayList();
         
         try {
             
@@ -107,12 +109,78 @@ public class carregarFonte {
     
     }//msg()
     
+    public boolean Page(String page){
+        
+        Link l = new Link(page);
+        
+        if(l.Val()){
+            
+            this.lnk.add(l);
+            
+            return true;
+            
+        } else {//if(l.Val())
+            
+            return false;
+            
+        }//if(l.Val())
+        
+    }//Page(String page)
+    
+    public Link lnk(int get){
+        
+        int num;
+        
+        if(get == 0){
+            
+            num = 1;
+            
+        } else if(get < 0){//if(get == 0)
+            
+            num = get - (get*2);
+            num--;
+            
+        } else {//if(get == 0)
+            
+            num = get-1;
+            
+        }//if(get == 0)
+        
+        if(this.lnk.isEmpty()){
+            
+            return new Link("Lista Vazia!");
+            
+        } else if(num > this.lnk.size()){//if
+            
+            return new Link(Reg.Numb(num) + "\n" + Reg.Numb(this.lnk.size()));
+            
+        } else if(num == 0){//if
+            
+            return new Link("invalid");
+            
+        } else {//if
+            
+            return this.lnk.get(num);
+            
+        }//if
+        
+    }
+    
+    public int Max(){
+        
+        return this.lnk.isEmpty() ? 0 : this.lnk.size();
+    
+    }//Max()
+    
     public static Link StackOverflow(){
         
         var par = "https:/";
         par += "/pt.stackoverflow.com";
         par += "/questions/77337";
-        par += "/como-definir-uma-fonte-nova-fonteexterna-para-um-jtextpane";
+        par += "/como-definir-um";
+        par += "a-fonte-nova-fon";
+        par += "teexterna-para-";
+        par += "um-jtextpane";
         
         return new Link(par);
         
@@ -123,7 +191,9 @@ public class carregarFonte {
         var par = "https:/";
         par += "/www.reddit.com";
         par += "/r/javahelp/comments";
-        par += "/16k8hem/adding_custom_font_to_java/?tl=pt-br";
+        par += "/16k8hem/adding_cust";
+        par += "om_font_to_java/";
+        par += "?tl=pt-br";
         
         return new Link(par);
         
