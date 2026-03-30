@@ -21,15 +21,18 @@ public class Link {
     private List<String> lnk;
     
     private List<String> open_err;
+    private boolean open_val;
     
     public Link(String link){
         
         this.url = "";
         
         this.lnk = new ArrayList();
+        this.open_val = true;
         
         this.open_err = new ArrayList();
         this.open_err.add("No User");
+        this.open_err.add("public boolean Open()");
         
         if(link.contains("\n") || link.contains("\t")){
             
@@ -370,16 +373,20 @@ public class Link {
         boolean valid = true;
         
         this.open_err.clear();
+        this.open_err.add(new Data().DataAbreviada(false));
+        this.open_err.add(new Hora(true).TimerGood(false));
         
-        if(this.Val()){
+        if(this.Val() && this.open_val){
             
-            try {
+            try {//throw
+                
+                this.open_val = false;
                 
                 this.open_err.add("BUILD SUCCESSFUL");
                 
                 Desktop.getDesktop().browse(new URI(this.url));
                 
-            } catch (IOException e) {
+            } catch (IOException e) {//throw
                 
                 valid = false;
                 
@@ -413,7 +420,7 @@ public class Link {
                     
                 }//if(Reg.java)
                 
-            } catch (Exception e) {
+            } catch (Exception e) {//throw
                 
                 valid = false;
                 
@@ -447,18 +454,28 @@ public class Link {
                     
                 }//if(Reg.java)
                 
-            }
+            }//throw
             
-        } else {//if(this.Val())
+        } else {//if(this.Val() && this.open_val)
             
             valid = false;
             
-        }//if(this.Val())
+            if(this.Val()){
+                
+                var val = new Hora(true).TimerGood(false);
+                val += " --> O recurso de abrir link, ";
+                val += "só pode ser usado uma vez por classe!";
+                
+                this.open_err.add(val);
+                
+            }//if(this.Val())
+            
+        }//if(this.Val() && this.open_val)
         
         return valid;
         
     }//Open()
     
-    public List<String> OpenErr(){return this.open_err;}
+    public List<String> OpenMsg(){return this.open_err;}
     
 }//Link
