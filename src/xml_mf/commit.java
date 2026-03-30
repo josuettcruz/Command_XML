@@ -99,7 +99,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         if(this.text.size() == 1){
             
             val += " --> ";
-            val += this.text.get(0);
+            val += this.text.get(0).replace("\"", "'");
             
         } else {//if(this.text.size() == 1)
             
