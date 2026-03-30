@@ -7,6 +7,10 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.awt.Desktop;
+import java.net.URI;
+import java.io.IOException;
+
 /**
  *
  * @author josue
@@ -16,11 +20,16 @@ public class Link {
     private String url;
     private List<String> lnk;
     
+    private List<String> open_err;
+    
     public Link(String link){
         
         this.url = "";
         
         this.lnk = new ArrayList();
+        
+        this.open_err = new ArrayList();
+        this.open_err.add("No User");
         
         if(link.contains("\n") || link.contains("\t")){
             
@@ -355,5 +364,101 @@ public class Link {
         return !this.page(contain).isBlank();
         
     }//WebVal(String contain, boolean initial)
+    
+    public boolean Open(){
+        
+        boolean valid = true;
+        
+        this.open_err.clear();
+        
+        if(this.Val()){
+            
+            try {
+                
+                this.open_err.add("BUILD SUCCESSFUL");
+                
+                Desktop.getDesktop().browse(new URI(this.url));
+                
+            } catch (IOException e) {
+                
+                valid = false;
+                
+                this.open_err.add("IOException");
+                this.open_err.add(Reg.Numb(e.hashCode()));
+                this.open_err.add(e.getMessage());
+                
+                if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMessage()))
+                {this.open_err.add(e.getLocalizedMessage());}
+                
+                if(Reg.java){
+                    
+                    System.err.println("Exception");
+                    System.err.println(e.hashCode());
+                    System.err.println(e.getMessage());
+                    
+                    if(
+                        !e.getMessage().equalsIgnoreCase(
+                            e.getLocalizedMessage()
+                        )
+                    )
+                    {
+                        
+                        System.err.println(e.getLocalizedMessage());
+                        
+                    }//if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMess...
+                    
+                } else {//if(Reg.java)
+                    
+                    e.printStackTrace();
+                    
+                }//if(Reg.java)
+                
+            } catch (Exception e) {
+                
+                valid = false;
+                
+                this.open_err.add("Exception");
+                this.open_err.add(Reg.Numb(e.hashCode()));
+                this.open_err.add(e.getMessage());
+                
+                if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMessage()))
+                {this.open_err.add(e.getLocalizedMessage());}
+                
+                if(Reg.java){
+                    
+                    System.err.println("Exception");
+                    System.err.println(e.hashCode());
+                    System.err.println(e.getMessage());
+                    
+                    if(
+                        !e.getMessage().equalsIgnoreCase(
+                            e.getLocalizedMessage()
+                        )
+                    )
+                    {
+                        
+                        System.err.println(e.getLocalizedMessage());
+                        
+                    }//if(!e.getMessage().equalsIgnoreCase(e.getLocalizedMess...
+                    
+                } else {//if(Reg.java)
+                    
+                    e.printStackTrace();
+                    
+                }//if(Reg.java)
+                
+            }
+            
+        } else {//if(this.Val())
+            
+            valid = false;
+            
+        }//if(this.Val())
+        
+        return valid;
+        
+    }//Open()
+    
+    public List<String> OpenErr(){return this.open_err;}
     
 }//Link
