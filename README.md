@@ -1,13 +1,24 @@
+# IDE
+
+> Apache NetBeans IDE 27
+> Java with Ant
+> Java Application
+
+_Esse projeto começou_
+_Segunda-feira,_
+_dia 27 de Outubro de 2025!_
+
 # Command_xml
 
 ## Este é um projeto que permite ler arquivos XML e guardá-los em uma classe correspondente.
 
 ### Leitura do XML
 
-Nesse projeto, a classe fica dentro de uma lista:
+__Nesse projeto, a classe fica dentro de uma lista:__
 > List<[nome da classe]> = new ArrayList();
 
 Colocando cada __TAG__ de um __arquivo XML__ fique dentro de uma __classe__
+
 Isso permite com que um arquivo seja lido completamente!
 
 ### TAGs do XML
