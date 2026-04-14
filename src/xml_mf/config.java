@@ -503,7 +503,7 @@ public class config implements
     }
 
     @Override
-    public boolean JComboBox() {return true;}
+    public boolean JComboBox() {return false;}
 
     @Override
     public void Painel3(
