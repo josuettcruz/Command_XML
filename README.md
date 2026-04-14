@@ -1,7 +1,9 @@
 # IDE
 
 > Apache NetBeans IDE 27
+
 > Java with Ant
+
 > Java Application
 
 _Esse projeto começou_
