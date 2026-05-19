@@ -28,7 +28,7 @@ public class Reg {
     
     public final static Data create = new Data(2025, 10, 27);
     
-    public final static Data modify = new Data(2026, 4, 14);
+    public final static Data modify = new Data(2026, 5, 19);
     
     public final static boolean java = Arq.Dir("manifest.mf", true);
     
