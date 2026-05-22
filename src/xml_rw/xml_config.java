@@ -7,6 +7,8 @@ package xml_rw;
 import java.util.ArrayList;
 import java.util.List;
 
+import file.Read;
+
 /**
  *
  * @author josue
@@ -18,6 +20,14 @@ public class xml_config {
     public xml_config(){
         
         this.list = new ArrayList();
+        
+    }//xml_config()
+    
+    public xml_config(Read arq){
+        
+        this.list = new ArrayList();
+        
+        //09:38 22/05/2026 -- Continua
         
     }//xml_config()
     
