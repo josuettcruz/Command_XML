@@ -4,7 +4,7 @@
  */
 package xml_rw;
 
-import file.Read;
+import file.*;
 import execute.*;
 
 import java.util.ArrayList;
@@ -24,19 +24,147 @@ public class xml_config {
         
     }//xml_config()
     
-    public xml_config(Read arq){
+    public void xml(Read arq){
         
-        this.list = new ArrayList();
-        
-        //11:52 22/05/2026 -- Continua
+        for(Tag t : new xml(arq.Read()).Tag()){
+            
+            switch(t.Value()){
+                
+                case "txt" ->{
+                    
+                    // no acion
+                
+                }//case "txt"
+                
+                case "tag" ->{
+                    
+                    // no acion
+                
+                }//case "tag"
+                
+                case "attr" ->{
+                    
+                    // no acion
+                
+                }//case "attr"
+                
+                case "val" ->{
+                    
+                    // no acion
+                
+                }//case "val"
+                
+            }//switch(t.Value())
+            
+        }//for(Tag t : new xml(arq.Read()).Tag())
         
     }//xml_config()
     
-    public void Add(xml_config_one insert){
+    public Exec Save(Arq save){
+        
+        List<String> arq = new ArrayList();
+        
+        arq.add("O arquivo ainda não está pronto!");
+        arq.add("Ainda falta muita coisa.");
+        
+        return save.Save(arq);
+        
+    }//Save(Arq save)
+    
+    public void Insert(xml_config_one insert){
         
         this.list.add(insert);
         
-    }//Add(xml_config_one insert)
+    }//Insert(xml_config_one insert)
+    
+    public void Insert(xml_config_one insert, int position){
+        
+        if(position >= 0 && position < this.list.size()){
+            
+            List<xml_config_one> done = new ArrayList();
+            
+            done.addAll(this.list);
+            
+            this.list.clear();
+            
+            for(int i = 0; i < position; i++){this.list.add(done.get(i));}
+            
+            this.list.add(insert);
+            
+            for(int i = position; i < done.size(); i++)
+            {this.list.add(done.get(i));}
+            
+        }//if(position >= 0 && position < this.list.size())
+        
+    }//Insert(xml_config_one insert, int position)
+    
+    public void Insert(List<xml_config_one> insert, int position){
+        
+        if(position >= 0 && position < this.list.size()){
+            
+            List<xml_config_one> done = new ArrayList();
+            
+            done.addAll(this.list);
+            
+            this.list.clear();
+            
+            for(int i = 0; i < position; i++){this.list.add(done.get(i));}
+            
+            this.list.addAll(insert);
+            
+            for(int i = position; i < done.size(); i++)
+            {this.list.add(done.get(i));}
+            
+        }//if(position >= 0 && position < this.list.size())
+        
+    }//Insert(List<xml_config_one> insert, int position)
+    
+    public void remove(int position){
+        
+        if(position >= 0 && position < this.list.size()){
+            
+            List<xml_config_one> done = new ArrayList();
+            
+            done.addAll(this.list);
+            
+            this.list.clear();
+            
+            for(int i = 0; i < done.size(); i++){
+                
+                if(i != position){this.list.add(done.get(i));}
+                
+            }//for(int i = 0; i < done.size(); i++)
+            
+        }//if(position >= 0 && position < this.list.size())
+        
+    }//remove(int position)
+    
+    public void remove(int min, int max){
+        
+        if(
+            min >= 0 &&
+            max >= 0 &&
+            min < this.list.size() &&
+            max < this.list.size() &&
+            min < max
+        )
+        {
+            
+            List<xml_config_one> done = new ArrayList();
+            
+            done.addAll(this.list);
+            
+            this.list.clear();
+            
+            for(int i = 0; i < done.size(); i++){
+                
+                if(i < min && i > max){this.list.add(done.get(i));}
+                
+            }//for(int i = 0; i < done.size(); i++)
+            
+        }//if(min >= 0 && max >= 0 && min < this.list.size() && max < this...
+        
+    }//remove(int min, int max)
     
     public List<xml_config_one> learn(){
         
