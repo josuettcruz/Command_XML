@@ -4,10 +4,11 @@
  */
 package xml_rw;
 
+import file.Read;
+import execute.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import file.Read;
 
 /**
  *
@@ -27,7 +28,7 @@ public class xml_config {
         
         this.list = new ArrayList();
         
-        //09:38 22/05/2026 -- Continua
+        //11:52 22/05/2026 -- Continua
         
     }//xml_config()
     
