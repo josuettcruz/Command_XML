@@ -203,7 +203,7 @@ public class xml_config {
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
-                var a = "<fifle exist=\"";
+                var a = "<file exist=\"";
                 a += doc.Arq().Val() ? "True" : "False";
                 a += "\">";
                 a += doc.Arq().Arq();
