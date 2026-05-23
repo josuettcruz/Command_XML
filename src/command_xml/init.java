@@ -288,9 +288,9 @@ public class init {
     private static void Execute(){
         
         String[] folder = {
-            "_git_commit",
-            "git_commit_",
-            "git_commit" + Reg.modify.Load()
+            "git-commit",
+            "git-commit_" + Reg.modify.Load(),
+            Reg.modify.Load()
         };
         
         List<Read> tem = new ArrayList();
