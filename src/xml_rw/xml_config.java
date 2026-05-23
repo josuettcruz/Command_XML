@@ -19,10 +19,18 @@ public class xml_config {
     
     private List<xml_config_one> list;
     private Integer tab_space;
+    private String[] local;
     
     private final String[]_exist = {"acept","read_only", "not_found"};
     
     private void init(Read arq, Integer tab){
+        
+        final List<String> l = Arq.Folder(arq.Arq());
+        
+        this.local = new String[l.size()];
+        
+        for(int position = 0; position < l.size(); position++)
+        {this.local[position] = l.get(position);}
         
         this.list = new ArrayList();
         
@@ -145,7 +153,7 @@ public class xml_config {
             
         }
         /* for(Tag t : new xml(arq.Read()).Tag()) **
-        ** line "31"                              **
+        ** line "45"                              **
         ** Tudo vai ficar como comentário!        */
         
     }//xml_config()
@@ -170,7 +178,7 @@ public class xml_config {
             
             var repeat = tab-1;
             
-            value += " ".repeat(repeat*2);
+            value += " ".repeat(repeat*this.tab_space);
             
         }//if(tab > 1)
         
