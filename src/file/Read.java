@@ -30,7 +30,7 @@ public class Read {
         
         this.exec = false;
         
-    }//Read(String type, String msg)
+    }//Read()
     
     public Read(String type, String msg){
         
