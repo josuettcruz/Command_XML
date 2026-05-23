@@ -19,14 +19,18 @@ public class Read {
     private String name;
     private boolean exec;
     
-    public Read(List <String> read, String arq){
+    public Read(){
         
-        this.text = read;
-        this.name = arq;
+        String msg = "void";
         
-        this.exec = true;
+        this.text = new ArrayList();
+        this.text.add(msg);
+        this.text.add("Nenhuma ação para ser executada!");
+        this.name = msg;
         
-    }//Read(List <String> text)
+        this.exec = false;
+        
+    }//Read(String type, String msg)
     
     public Read(String type, String msg){
         
@@ -39,11 +43,16 @@ public class Read {
         
     }//Read(String type, String msg)
     
-    public String Arq(){
+    public Read(List <String> read, String arq){
         
-        return this.name;
+        this.text = read;
+        this.name = arq;
         
-    }
+        this.exec = true;
+        
+    }//Read(List <String> text)
+    
+    public String Arq(){return this.name;}
     
     public String Read(){
         
