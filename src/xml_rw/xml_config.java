@@ -18,18 +18,13 @@ import java.util.List;
 public class xml_config {
     
     private List<xml_config_one> list;
-    private List<String> export_xml;
+    private Integer tab_space;
     
-    private void init(){
+    private void init(Read arq, Integer tab){
         
         this.list = new ArrayList();
-        this.export_xml = new ArrayList();
         
-    }//init()
-    
-    public xml_config(Read arq){
-        
-        this.init();
+        this.tab_space = tab;
         
         String receive[] = new String[2];
         
@@ -148,13 +143,25 @@ public class xml_config {
             
         }
         /* for(Tag t : new xml(arq.Read()).Tag()) **
-        ** line "40"                              **
-        ** Tudo vai ficar como comentário!        **
-        ** 23/05/2026 - 08:03                     */
+        ** line "31"                              **
+        ** 23/05/2026 - 16:00                     **
+        ** Tudo vai ficar como comentário!        */
         
     }//xml_config()
     
-    private void Tab(int tab, String tema){
+    public xml_config(Read arq, Integer tab){
+        
+        this.init(arq, tab);
+        
+    }//xml_config(Read arq, Integer tab)
+    
+    public xml_config(Read arq){
+        
+        this.init(arq, 3);
+        
+    }//xml_config(Read arq)
+    
+    private String Tab(int tab, String tema){
         
         var value = "";
         
@@ -168,33 +175,203 @@ public class xml_config {
         
         value += tema;
         
-        this.export_xml.add(value);
+        return value;
     
     }//Tab(int tab, String tema)
     
     public Exec Save(Arq save){
         
-        this.export_xml.clear(); //!important
+        List<String> exp = new ArrayList();
         
-        this.Tab(1,"<root>");
-        this.Tab(2,"<Temp>");
-        this.Tab(3,"<msg>O projeto ainda não está pronto.</msg>");
-        this.Tab(3,"<msg>Ainda falta muita coisa para terminar.</msg>");
+        exp.add(this.Tab(1, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
+        // https://www.w3schools.com/xml/xml_usedfor.asp
         
-        this.Tab(
-            3,
-            "<obs>Esse exboço deve ser alterado e não vale para a futura funçã"
-                    + "o dessa classe</obs>"
-        );
+        exp.add(this.Tab(1, "<root>"));
         
-        this.Tab(2,"</Temp>");
-        this.Tab(2,"<DateTime>");
-        this.Tab(3,"<Date>" + new Data().Load() + "</Date>");
-        this.Tab(3,"<Hour>" + new Hora(true).Timer() + "</Hour>");
-        this.Tab(2,"</DateTime>");
-        this.Tab(1,"</root>");
+        if(this.list.isEmpty()){
+            
+            exp.add(this.Tab(2, "<document></document>"));
+            
+        } else {//if(this.list.isEmpty())
+            
+            for(xml_config_one doc : this.list){
+                
+                exp.add(this.Tab(2, "<document>"));
+                
+                var dt = !doc.InsertData().CompareTo(doc.ModifyData());
+                var ht = doc.InsertHora().getHora() != doc.ModifyHora().getHora();
+                
+                exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
+                
+                var a = "<fifle exist=\"";
+                a += doc.Arq().Val() ? "True" : "False";
+                a += "\">";
+                a += doc.Arq().Arq();
+                a += "</file>";
+                
+                exp.add(this.Tab(3, a));
+                
+                exp.add(this.Tab(3, "</create>"));
+                
+                exp.add(this.Tab(4, "<date>"));
+                
+                exp.add(
+                    this.Tab(
+                        5,
+                        "<year>"
+                        + doc.InsertData().getDate().getYear()
+                        + "</year>"
+                    )
+                );
+                
+                exp.add(
+                    this.Tab(
+                        5,
+                        "<month>"
+                        + doc.InsertData().getDate().getMonthValue()
+                        + "</month>"
+                    )
+                );
+                
+                exp.add(
+                    this.Tab(
+                        5,
+                        "<day>"
+                        + doc.InsertData().getDate().getDayOfMonth()
+                        + "</day>"
+                    )
+                );
+                
+                exp.add(this.Tab(4, "</date>"));
+                
+                exp.add(this.Tab(4, "<time>"));
+                
+                exp.add(
+                    this.Tab(
+                        5,
+                        "<hour>"
+                        + doc.InsertHora().Hour()
+                        + "</hour>"
+                    )
+                );
+                
+                exp.add(
+                    this.Tab(
+                        5,
+                        "<minute>"
+                        + doc.InsertHora().Min()
+                        + "</minute>"
+                    )
+                );
+                
+                if(doc.InsertHora().Sec() > 0){
+                    
+                    exp.add(
+                        this.Tab(
+                            5,
+                            "<second>"
+                            + doc.InsertHora().Sec()
+                            + "</second>"
+                        )
+                    );
+                    
+                }//if(doc.Hora().Sec() > 0)
+                
+                exp.add(this.Tab(4, "</time>"));
+                
+                exp.add(this.Tab(3, "</create>"));
+                
+                if(dt || ht){
+                    
+                    exp.add(this.Tab(3, "<modify>"));
+                    
+                    if(dt){
+                        
+                        exp.add(this.Tab(4, "<date>"));
+                        
+                        exp.add(
+                            this.Tab(
+                                5,
+                                "<year>"
+                                + doc.ModifyData().getDate().getYear()
+                                + "</year>"
+                            )
+                        );
+                        
+                        exp.add(
+                            this.Tab(
+                                5,
+                                "<month>"
+                                + doc.ModifyData().getDate().getMonthValue()
+                                + "</month>"
+                            )
+                        );
+                        
+                        exp.add(
+                            this.Tab(
+                                5,
+                                "<day>"
+                                + doc.ModifyData().getDate().getDayOfMonth()
+                                + "</day>"
+                            )
+                        );
+                        
+                        exp.add(this.Tab(4, "</date>"));
+                        
+                    }//if(dt)
+                    
+                    if(ht){
+                        
+                        exp.add(this.Tab(4, "<time>"));
+                        
+                        exp.add(
+                            this.Tab(
+                                5,
+                                "<hour>"
+                                + doc.ModifyHora().Hour()
+                                + "</hour>"
+                            )
+                        );
+                        
+                        exp.add(
+                            this.Tab(
+                                5,
+                                "<minute>"
+                                + doc.ModifyHora().Min()
+                                + "</minute>"
+                            )
+                        );
+                        
+                        if(doc.ModifyHora().Sec() > 0){
+                            
+                            exp.add(
+                                this.Tab(
+                                    5,
+                                    "<second>"
+                                    + doc.ModifyHora().Sec()
+                                    + "</second>"
+                                )
+                            );
+                            
+                        }//if(doc.Hora().Sec() > 0)
+                        
+                        exp.add(this.Tab(4, "</time>"));
+                        
+                    }//if(ht)
+                    
+                    exp.add(this.Tab(3, "</modify>"));
+                    
+                }//if(dt || ht)
+                
+                exp.add(this.Tab(2, "</document>"));
+                
+            }//for(xml_config_one d : this.list)
+            
+        }//if(this.list.isEmpty())
         
-        return save.Save(this.export_xml);
+        exp.add(this.Tab(1, "</root>"));
+        
+        return save.Save(exp);
         
     }//Save(Arq save)
     
