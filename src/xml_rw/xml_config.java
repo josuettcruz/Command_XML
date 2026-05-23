@@ -6,9 +6,7 @@ package xml_rw;
 
 import file.*;
 import execute.*;
-
-import model.Data;
-import model.Hora;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,56 +18,143 @@ import java.util.List;
 public class xml_config {
     
     private List<xml_config_one> list;
+    private List<String> export_xml;
     
-    public xml_config(){
+    private void init(){
         
         this.list = new ArrayList();
+        this.export_xml = new ArrayList();
         
-    }//xml_config()
+    }//init()
     
-    public void xml(Read arq){
+    public xml_config(Read arq){
+        
+        this.init();
+        
+        String receive[] = new String[2];
+        
+        for(int i = 0; i < receive.length; i++) receive[i] = "null";
+        
+        var left = 0;
         
         for(Tag t : new xml(arq.Read()).Tag()){
             
             switch(t.Value()){
                 
-                case "txt" ->{
+                case "txt", "val" -> {
                     
-                    // no acion
-                
-                }//case "txt"
+                    var tem = t.txt();
+                    
+                    switch(left){
+                        
+                        case 1 ->{
+                            
+                            switch(receive[0]){
+                                
+                                case "document" ->{
+                                    
+                                    System.out.print("Documento: \"");
+                                    System.out.print(tem);
+                                    System.out.println("\"");
+                                    
+                                }//case "document"
+                                
+                            }//switch(receive[0])
+                            
+                        }//case 1
+                        
+                        case 2 ->{
+                            
+                            switch(receive[0]){
+                                
+                                case "arquivo" ->{
+                                    
+                                    switch(receive[1]){
+                                        
+                                        case "date" -> {
+                                            
+                                            Data d = new Data(tem);
+                                            
+                                            if(d.Val()){
+                                                
+                                                System.out.println(
+                                                    d.DataCompleta(true)
+                                                );
+                                                
+                                            }//if(d.Val())
+                                            
+                                        }//case "date"
+                                        
+                                        case "hour" -> {
+                                            
+                                            Hora h = new Hora(tem);
+                                            
+                                            if(h.Val()){
+                                                
+                                                System.out.println(
+                                                    h.TimerGood(false)
+                                                );
+                                                
+                                            }//if(h.Val())
+                                            
+                                        }//case "hour"
+                                        
+                                    }//switch(receive[1])
+                                    
+                                }//case "document"
+                                
+                            }//switch(receive[0])
+                            
+                        }//case 2
+                        
+                    }//switch(left)
+                    
+                }//case "txt", "val"
                 
                 case "tag" ->{
                     
-                    // no acion
+                    if(t.txt().equalsIgnoreCase("root"))
+                    {left = 1;}
+                    
+                    if(left > 0) receive[0] = t.txt().toLowerCase();
                 
                 }//case "tag"
                 
                 case "attr" ->{
                     
-                    // no acion
+                    if(t.txt().equalsIgnoreCase("/")){
+                        
+                        left--;
+                    
+                    } else {//if(t.txt().equalsIgnoreCase("/"))
+                        
+                        receive[1] = t.txt().toLowerCase();
+                        
+                    }//if(t.txt().equalsIgnoreCase("/"))
                 
                 }//case "attr"
                 
-                case "val" ->{
-                    
-                    // no acion
-                
-                }//case "val"
-                
                 default ->{
                     
-                    //Error
+                    System.exit(0);
                     
                 }//default
                 
             }//switch(t.Value())
             
-        }//for(Tag t : new xml(arq.Read()).Tag())
+            if(t.OpenTag() && left > 0) left++;
+            
+            if(t.CloseTag() && left > 0) left--;
+            
+        }//
+        /* for(Tag t : new xml(arq.Read()).Tag()) **
+        ** line "40"                              **
+        ** Tudo vai ficar como comentário!        **
+        ** 23/05/2026 - 08:02                     */
         
     }//xml_config()
     
-    private String Tab(int tab, String tema){
+    private void Tab(int tab, String tema){
         
         var value = "";
         
@@ -83,30 +168,33 @@ public class xml_config {
         
         value += tema;
         
-        return value;
+        this.export_xml.add(value);
     
     }//Tab(int tab, String tema)
     
     public Exec Save(Arq save){
         
-        List<String> arq = new ArrayList();
+        this.export_xml.clear(); //!important
         
-        arq.add(Tab(1,"<root>"));
-        arq.add(Tab(2,"<Temp>"));
-        arq.add(Tab(3,"<msg>O projeto ainda não está pronto.</msg>"));
-        arq.add(Tab(3,"<msg>Ainda falta muita coisa para terminar.</msg>"));
+        this.Tab(1,"<root>");
+        this.Tab(2,"<Temp>");
+        this.Tab(3,"<msg>O projeto ainda não está pronto.</msg>");
+        this.Tab(3,"<msg>Ainda falta muita coisa para terminar.</msg>");
         
-        arq.add(Tab(3,"<obs>Esse exboço deve ser alterado e não vale para a fu"
-                + "tura função dessa classe</obs>"));
+        this.Tab(
+            3,
+            "<obs>Esse exboço deve ser alterado e não vale para a futura funçã"
+                    + "o dessa classe</obs>"
+        );
         
-        arq.add(Tab(2,"</Temp>"));
-        arq.add(Tab(2,"<DateTime>"));
-        arq.add(Tab(3,"<Date>" + new Data().Load() + "</Date>"));
-        arq.add(Tab(3,"<Hour>" + new Hora(true).Timer() + "</Hour>"));
-        arq.add(Tab(2,"</DateTime>"));
-        arq.add(Tab(1,"</root>"));
+        this.Tab(2,"</Temp>");
+        this.Tab(2,"<DateTime>");
+        this.Tab(3,"<Date>" + new Data().Load() + "</Date>");
+        this.Tab(3,"<Hour>" + new Hora(true).Timer() + "</Hour>");
+        this.Tab(2,"</DateTime>");
+        this.Tab(1,"</root>");
         
-        return save.Save(arq);
+        return save.Save(this.export_xml);
         
     }//Save(Arq save)
     
