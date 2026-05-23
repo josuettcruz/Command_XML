@@ -7,8 +7,6 @@ package xml_rw;
 import file.*;
 import execute.*;
 
-//Save(Arq save)
-//LINE "84"
 import model.Data;
 import model.Hora;
 
