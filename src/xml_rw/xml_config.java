@@ -7,6 +7,11 @@ package xml_rw;
 import file.*;
 import execute.*;
 
+//Save(Arq save)
+//LINE "84"
+import model.Data;
+import model.Hora;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,18 +59,54 @@ public class xml_config {
                 
                 }//case "val"
                 
+                default ->{
+                    
+                    //Error
+                    
+                }//default
+                
             }//switch(t.Value())
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
     }//xml_config()
     
+    private String Tab(int tab, String tema){
+        
+        var value = "";
+        
+        if(tab > 1){
+            
+            var repeat = tab-1;
+            
+            value += " ".repeat(repeat*2);
+            
+        }//if(tab > 1)
+        
+        value += tema;
+        
+        return value;
+    
+    }//Tab(int tab, String tema)
+    
     public Exec Save(Arq save){
         
         List<String> arq = new ArrayList();
         
-        arq.add("O arquivo ainda não está pronto!");
-        arq.add("Ainda falta muita coisa.");
+        arq.add(Tab(1,"<root>"));
+        arq.add(Tab(2,"<Temp>"));
+        arq.add(Tab(3,"<msg>O projeto ainda não está pronto.</msg>"));
+        arq.add(Tab(3,"<msg>Ainda falta muita coisa para terminar.</msg>"));
+        
+        arq.add(Tab(3,"<obs>Esse exboço deve ser alterado e não vale para a fu"
+                + "tura função dessa classe</obs>"));
+        
+        arq.add(Tab(2,"</Temp>"));
+        arq.add(Tab(2,"<DateTime>"));
+        arq.add(Tab(3,"<Date>" + new Data().Load() + "</Date>"));
+        arq.add(Tab(3,"<Hour>" + new Hora(true).Timer() + "</Hour>"));
+        arq.add(Tab(2,"</DateTime>"));
+        arq.add(Tab(1,"</root>"));
         
         return save.Save(arq);
         
@@ -87,12 +128,13 @@ public class xml_config {
             
             this.list.clear();
             
-            for(int i = 0; i < position; i++){this.list.add(done.get(i));}
-            
-            this.list.add(insert);
-            
-            for(int i = position; i < done.size(); i++)
-            {this.list.add(done.get(i));}
+            for(int i = 0; i < done.size(); i++){
+                
+                if(i == position) this.list.add(insert);
+                
+                this.list.add(done.get(i));
+                
+            }//for(int i = 0; i < done.size(); i++)
             
         }//if(position >= 0 && position < this.list.size())
         
@@ -108,12 +150,13 @@ public class xml_config {
             
             this.list.clear();
             
-            for(int i = 0; i < position; i++){this.list.add(done.get(i));}
-            
-            this.list.addAll(insert);
-            
-            for(int i = position; i < done.size(); i++)
-            {this.list.add(done.get(i));}
+            for(int i = 0; i < done.size(); i++){
+                
+                if(i == position) this.list.addAll(insert);
+                
+                this.list.add(done.get(i));
+                
+            }//for(int i = 0; i < done.size(); i++)
             
         }//if(position >= 0 && position < this.list.size())
         
