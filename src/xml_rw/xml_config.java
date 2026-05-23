@@ -20,6 +20,8 @@ public class xml_config {
     private List<xml_config_one> list;
     private Integer tab_space;
     
+    private final String[]_exist = {"acept","read_only", "not_found"};
+    
     private void init(Read arq, Integer tab){
         
         this.list = new ArrayList();
@@ -202,8 +204,8 @@ public class xml_config {
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
-                var a = "<file exist=\"";
-                a += doc.Arq().Val() ? "True" : "False";
+                var a = "<file acept=\"";
+                a += doc.Cond().Val();
                 a += "\">";
                 a += doc.Arq().Arq();
                 a += "</file>";
