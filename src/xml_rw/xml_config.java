@@ -144,7 +144,6 @@ public class xml_config {
         }
         /* for(Tag t : new xml(arq.Read()).Tag()) **
         ** line "31"                              **
-        ** 23/05/2026 - 16:00                     **
         ** Tudo vai ficar como comentário!        */
         
     }//xml_config()
@@ -211,7 +210,7 @@ public class xml_config {
                 
                 exp.add(this.Tab(3, a));
                 
-                exp.add(this.Tab(3, "</create>"));
+                exp.add(this.Tab(3, "<create>"));
                 
                 exp.add(this.Tab(4, "<date>"));
                 
