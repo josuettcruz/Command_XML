@@ -146,11 +146,11 @@ public class xml_config {
             
             if(t.CloseTag() && left > 0) left--;
             
-        }//
+        }
         /* for(Tag t : new xml(arq.Read()).Tag()) **
         ** line "40"                              **
         ** Tudo vai ficar como comentário!        **
-        ** 23/05/2026 - 08:02                     */
+        ** 23/05/2026 - 08:03                     */
         
     }//xml_config()
     
