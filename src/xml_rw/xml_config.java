@@ -42,7 +42,7 @@ public class xml_config {
         
         var left = 0;
         
-        for(Tag t : new xml(arq.Read()).Tag()){
+        /*for(Tag t : new xml(arq.Read()).Tag()){
             
             switch(t.Value()){
                 
@@ -151,10 +151,56 @@ public class xml_config {
             
             if(t.CloseTag() && left > 0) left--;
             
-        }
-        /* for(Tag t : new xml(arq.Read()).Tag()) **
-        ** line "45"                              **
-        ** Tudo vai ficar como comentário!        */
+        }/* for(Tag t : new xml(arq.Read()).Tag()) */
+        
+        boolean date_create = false;
+        boolean date_modify = false;
+        
+        final String[] xml_const = {
+            "document",
+            "title",
+            "file",
+            "create",
+            "modify",
+            "date",
+            "year",
+            "month",
+            "day",
+            "time",
+            "hour",
+            "minute",
+            "second"
+        };
+        
+        var xml_var = "null";
+        
+        for(Tag t : new xml(arq.Read()).Tag()){
+            
+            if(t.OpenTag()){
+                
+                var col = 0;
+                var loop = true;
+                
+                do{
+                    
+                    if(t.txt().equalsIgnoreCase(xml_const[col])){
+                        
+                        xml_var = xml_const[col];
+                        loop = false;
+                        
+                    }//if(t.txt().equalsIgnoreCase(xml_const[col]))
+                    
+                    col++; //!important
+                    
+                }while(loop && col > 0 && col < xml_const.length);
+                
+                if(loop) xml_var = "null";
+                
+            }//if(t.OpenTag())
+            
+            ////if(t.Value() && )
+            
+        }//for(Tag t : new xml(arq.Read()).Tag())
         
     }//xml_config()
     
