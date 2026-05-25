@@ -476,6 +476,54 @@ public class Link {
         
     }//Open()
     
+    
+    
+    public String dat(boolean into){
+        
+        var text = this.page_true();
+        
+        var val = into ? "\"" : "";
+        
+        var sum = 0;
+        var loop = true;
+        var tem = false;
+        
+        do{
+            
+            switch(text.charAt(sum)){
+                
+                case '.' ->{
+                    
+                    if(tem){
+                        
+                        loop = false;
+                        
+                    } else {//if(tem)
+                        
+                        tem = true;
+                        
+                    }//if(tem)
+                    
+                }//case '.'
+                
+                default -> {
+                    
+                    if(tem) val += text.toUpperCase().charAt(sum);
+                
+                }//default
+                
+            }//switch(ds)
+            
+            sum++;
+            
+        }while(loop && sum > 0 && sum < text.length());
+        
+        if(into) val += "\"";
+        
+        return val;
+        
+    }//dat(String text, boolean into)
+    
     public List<String> OpenMsg(){return this.open_err;}
     
 }//Link

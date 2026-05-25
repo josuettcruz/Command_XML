@@ -29,50 +29,6 @@ public class init {
         
     }//Play()
     
-    private static String dat(String text, boolean into){
-        
-        var val = into ? "\"" : "";
-        
-        var sum = 0;
-        var loop = true;
-        var tem = false;
-        
-        do{
-            
-            switch(text.charAt(sum)){
-                
-                case '.' ->{
-                    
-                    if(tem){
-                        
-                        loop = false;
-                        
-                    } else {//if(tem)
-                        
-                        tem = true;
-                        
-                    }//if(tem)
-                    
-                }//case '.'
-                
-                default -> {
-                    
-                    if(tem) val += text.toUpperCase().charAt(sum);
-                
-                }//default
-                
-            }//switch(ds)
-            
-            sum++;
-            
-        }while(loop && sum > 0 && sum < text.length());
-        
-        if(into) val += "\"";
-        
-        return val;
-        
-    }//dat(String text, boolean into)
-    
     private static void Println(boolean into){
         
         var d = new Data();
@@ -132,7 +88,7 @@ public class init {
         if(into) Reg.Print("", "", max);
         
         Reg.Print(
-            dat(carregarFonte.StackOverflow().page(true), into),
+            carregarFonte.StackOverflow().dat(into),
             carregarFonte.StackOverflow().getLink(),
             max
         );
@@ -140,7 +96,7 @@ public class init {
         if(into) Reg.Print("", "", max);
         
         Reg.Print(
-            dat(carregarFonte.Reddit().page(true), into),
+            carregarFonte.Reddit().dat(into),
             carregarFonte.Reddit().getLink(),
             max
         );
