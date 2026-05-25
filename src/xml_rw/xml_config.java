@@ -23,24 +23,32 @@ public class xml_config {
     
     public xml_config(Read arq, Integer tab){
         
-        final List<String> l = Arq.Folder(arq.Arq());
-        
-        this.local = new String[l.size()];
-        
-        for(int position = 0; position < l.size(); position++)
-        {this.local[position] = l.get(position);}
-        
         this.list = new ArrayList();
         
         this.tab_space = tab;
         
+        this.local = new String[Arq.Folder(arq.Arq()).size()];
+        
+        for(int i = 0; i < Arq.Folder(arq.Arq()).size(); i++)
+        {this.local[i] = Arq.Folder(arq.Arq()).get(i);}
+        
+        var tag = "null";
+        
         for(Tag t : new xml(arq.Read()).Tag()){
             
-            if(t.CloseTag()){
+            if(t.OpenTag()){
                 
-                //code
+                tag = t.txt();
                 
-            }//if(t.CloseTag())
+            } else if(t.CloseTag()){//if(t.OpenTag())
+                
+                tag = "null";
+                
+            } else {//if(t.OpenTag())
+                
+                //code this
+                
+            }//if(t.OpenTag())
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
