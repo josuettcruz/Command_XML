@@ -21,9 +21,7 @@ public class xml_config {
     private Integer tab_space;
     private String[] local;
     
-    private final String[]_exist = {"acept","read_only", "not_found"};
-    
-    private void init(Read arq, Integer tab){
+    public xml_config(Read arq, Integer tab){
         
         final List<String> l = Arq.Folder(arq.Arq());
         
@@ -36,31 +34,17 @@ public class xml_config {
         
         this.tab_space = tab;
         
-        String receive[] = new String[2];
-        
-        for(int i = 0; i < receive.length; i++) receive[i] = "null";
-        
-        var left = 0;
-        
         for(Tag t : new xml(arq.Read()).Tag()){
             
-            //code
+            if(t.CloseTag()){
+                
+                //code
+                
+            }//if(t.CloseTag())
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
-    }//xml_config()
-    
-    public xml_config(Read arq, Integer tab){
-        
-        this.init(arq, tab);
-        
-    }//xml_config(Read arq, Integer tab)
-    
-    public xml_config(Read arq){
-        
-        this.init(arq, 3);
-        
-    }//xml_config(Read arq)
+    }//xml_config(Read arq, Integer tab
     
     private String Tab(int tab, String tema){
         

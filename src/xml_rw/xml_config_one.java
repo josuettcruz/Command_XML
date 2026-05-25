@@ -4,9 +4,12 @@
  */
 package xml_rw;
 
-import file.Read;
 import model.Data;
 import model.Hora;
+
+import file.Arq;
+import file.Read;
+import static xml_rw.xml_config_file_cond.*;
 
 /**
  *
@@ -26,7 +29,6 @@ public class xml_config_one {
     
     public xml_config_one(
         String title,
-        xml_config_file_cond cond,
         Read cmd,
         Data insert_d,
         Hora insert_h,
@@ -36,7 +38,6 @@ public class xml_config_one {
     {
         
         this.title = title;
-        this.cond = cond;
         this.cmd = cmd;
         
         this.insert_d = insert_d;
@@ -44,6 +45,20 @@ public class xml_config_one {
         
         this.modify_d = modify_d;
         this.modify_h = modify_h;
+        
+        if(cmd.Val() && Arq.Dir(cmd.Arq(), true)){
+            
+            this.cond = write;
+            
+        } else if(cmd.Val() && Arq.Dir(cmd.Arq(), false)){//if(cmd.Val() && Arq.Dir...
+            
+            this.cond = readonly;
+            
+        } else {//if(cmd.Val() && Arq.Dir...
+            
+            this.cond = not;
+            
+        }//if(cmd.Val() && Arq.Dir...
         
     }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
     
