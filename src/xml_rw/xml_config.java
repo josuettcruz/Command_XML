@@ -20,12 +20,14 @@ public class xml_config {
     private List<xml_config_one> list;
     private Integer tab_space;
     private String[] local;
+    private String user;
     
     public xml_config(Read arq, Integer tab){
         
         this.list = new ArrayList();
         
         this.tab_space = tab;
+        this.user = "";
         
         this.local = new String[Arq.Folder(arq.Arq()).size()];
         
@@ -58,6 +60,35 @@ public class xml_config {
     }//xml_config(Read arq, Integer tab)
     
     private void Event(Read arq){
+        
+        var l_val = 0;
+        var l_cont = 0;
+        var l_loop = true;
+        
+        do{
+            
+            var node = txt.arq(this.local[l_cont]);
+            
+            if(l_val == 2){
+                
+                this.user = node;
+                
+                l_val = 0;
+                l_loop = false;
+                
+            }//if(l_val == 2)
+            
+            switch(node){
+                
+                case "c:" ->{if(l_val == 0) l_val = 1;}
+                
+                case "users", "user" ->{if(l_val == 1) l_val = 2;}
+                
+            }//switch(node)
+            
+            l_cont++;
+            
+        }while(l_loop && l_cont > 0 && l_cont < this.local.length);
         
         var tag = "null";
         
@@ -324,6 +355,50 @@ public class xml_config {
         
         var root = "<root url=\"";
         root += Reg.http;
+        root += "\" local=\"";
+        
+        for(var cont = 0; cont < this.local.length-1; cont++){
+            
+            var t = this.local[cont];
+            
+            var cond = true;
+            
+            if(t.contains(".")){
+                
+                var text = "";
+                
+                for(int c = 0; c < t.length(); c++){
+                    
+                    switch(t.charAt(c)){
+                        
+                        case '.' -> text = "";
+                        
+                        default -> text += t.charAt(c);
+                        
+                    }//switch(t.charAt(c))
+                    
+                }//for(int c = 0; c < t.length(); c++)
+                
+                cond = !txt.arq(text).equals(".xml");
+                
+            }//if(text.contains("."))
+            
+            if(cond){
+                
+                if(cont > 0) root += "/";
+                
+                root += t;
+                
+            }//if(cond)
+            
+        }//for(var cont = 0; cont < this.local.length-1; cont++)
+        
+        if(!this.user.isBlank()){
+            
+            root += "\" ";
+            root += this.local;
+            
+        }//if(!this.user.isBlank())
         
         if(this.list.size() > 1){
             
@@ -341,17 +416,6 @@ public class xml_config {
             exp.add(this.Tab(2, "<document></document>"));
             
         } else {//if(this.list.isEmpty())
-            
-            exp.add(
-                this.Tab(
-                    1,
-                    "<root url=\"" +
-                    Reg.http +
-                    "\" count=\"" +
-                    this.list.size() +
-                    "\">"
-                )
-            );
             
             int cont = 1;
             
