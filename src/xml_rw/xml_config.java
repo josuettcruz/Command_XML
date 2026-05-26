@@ -364,40 +364,18 @@ public class xml_config {
             
             var t = this.local[root_cont];
             
-            var exit = true;
-            
-            if(t.contains(".")){
-                
-                var text = "";
-                
-                for(int c = 0; c < t.length(); c++){
-                    
-                    switch(t.charAt(c)){
-                        
-                        case '.' -> text = "";
-                        
-                        default -> text += t.charAt(c);
-                        
-                    }//switch(t.charAt(c))
-                    
-                }//for(int c = 0; c < t.length(); c++)
-                
-                exit = txt.arq(text).equals("xml");
-                
-            }//if(text.contains("."))
-            
-            if(exit){
+            if(t.equalsIgnoreCase(save.Read().Arq())){
                 
                 root += "/";
                 root_loop = false;
                 
-            } else {
+            } else {//if(t.equalsIgnoreCase(save.Read().Arq()))
                 
                 if(root_cont > 0) root += "/";
                 
                 root += t;
                 
-            }
+            }//if(t.equalsIgnoreCase(save.Read().Arq()))
             
             root_cont++;
             
