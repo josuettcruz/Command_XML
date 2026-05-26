@@ -32,6 +32,25 @@ public class xml_config {
         for(int i = 0; i < Arq.Folder(arq.Arq()).size(); i++)
         {this.local[i] = Arq.Folder(arq.Arq()).get(i);}
         
+        var proc = 0;
+        var valid = false;
+        
+        do{
+            
+            var validate = arq.Read(proc);
+            
+            valid = Reg.xmls.equalsIgnoreCase(validate);
+            
+            proc++;
+            
+        }while(!valid && proc > 0 && proc < arq.Max());
+        
+        if(valid) this.Event(arq);
+        
+    }//xml_config(Read arq, Integer tab)
+    
+    private void Event(Read arq){
+        
         var tag = "null";
         
         var title = "";
@@ -267,7 +286,7 @@ public class xml_config {
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
-    }//xml_config(Read arq, Integer tab
+    }//Event(Read arq)
     
     private String Tab(int tab, String tema){
         
