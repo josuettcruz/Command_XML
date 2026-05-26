@@ -30,6 +30,15 @@ public class Reg {
     
     public final static Data modify = new Data(2026, 5, 26);
     
+    public final static String xmls = "<?xml version=\"1.0\" " +
+            "encoding=\"UTF-8\"?>";
+    
+    public final static Link xml_learn = new Link(
+        "https:" +
+        "//www.w3schools.com" +
+        "/xml/xml_usedfor.asp"
+    );
+    
     public final static boolean java = Arq.Dir("manifest.mf", true);
     
     private final static int result = 28;

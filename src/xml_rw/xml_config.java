@@ -291,8 +291,7 @@ public class xml_config {
         
         List<String> exp = new ArrayList();
         
-        // https://www.w3schools.com/xml/xml_usedfor.asp
-        exp.add(this.Tab(1, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
+        exp.add(this.Tab(1, Reg.xmls));
         
         if(this.list.isEmpty()){
             
