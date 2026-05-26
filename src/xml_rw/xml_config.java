@@ -90,6 +90,8 @@ public class xml_config {
             
         }while(l_loop && l_cont > 0 && l_cont < this.local.length);
         
+        var xml_user = 0;
+        
         var tag = "null";
         
         var title = "";
@@ -112,6 +114,35 @@ public class xml_config {
         var modify_second = 0;
         
         for(Tag t : new xml(arq.Read()).Tag()){
+            
+            if(this.user.isBlank()){
+                
+                var g = txt.text(this.user, true);
+                
+                if(t.OpenTag() && t.txt().equalsIgnoreCase("root")){
+                    
+                    xml_user = 1;
+                    
+                } else if(
+                    t.Value().equalsIgnoreCase("attr") &&
+                    t.txt().equalsIgnoreCase("user") &&
+                    xml_user == 1
+                )
+                {
+                    
+                    xml_user = 2;
+                    
+                } else if(
+                    t.Value().equalsIgnoreCase("val") &&
+                    xml_user == 2
+                )
+                {
+                    
+                    this.user = txt.text(t.txt(), true);
+                    
+                }//if -- if(this.user.isBlank())
+                
+            }//if(this.user.isBlank())
             
             if(
                 t.txt().equalsIgnoreCase("document") &&
@@ -356,11 +387,16 @@ public class xml_config {
         var root = "<root url=\"";
         root += Reg.http;
         
+        if(!txt.text(this.user, true).isBlank()){
+            
+            root += "\" user=\"";
+            root += txt.text(this.user, true);
+            
+        }//if(!this.user.trim().isBlank())
+        
         var col = "";
         
         for(var i = 0; i < save.Read().Arq().length(); i++){
-            
-            var ds = save.Read().Arq().charAt(i);
             
             switch(save.Read().Arq().charAt(i)){
                 
@@ -653,6 +689,10 @@ public class xml_config {
         }//for(int repeat = 0; repeat < tot; repeat++)
         
     }//Order()
+    
+    public String getUser(){return this.user;}
+    
+    public void setUser(String user){this.user = user;}
     
     public boolean Update(Data d, Hora h, int pos){
         
