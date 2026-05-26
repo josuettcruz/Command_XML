@@ -90,7 +90,7 @@ public class GitCommit implements Painel_2{
                 
             }//for(String t : txt.phrase(r.Arq(), c))
             
-            var text = Reg.Tab("  " + Reg.Numb(cod-1,arq.size()," <> "),nom,g);
+            var text = Reg.Tab(" " + Reg.Numb(cod-1,arq.size()," <> "),nom,g);
             
             this.lin.add(new Domain(cod, text, false));
             

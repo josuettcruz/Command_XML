@@ -245,7 +245,9 @@ public class init {
         
         String[] folder = {
             "git-commit",
-            "git-commit_" + Reg.modify.Load(),
+            "commit",
+            "commit_" + Reg.modify.Load(),
+            "git-" + Reg.modify.Load(),
             Reg.modify.Load()
         };
         
