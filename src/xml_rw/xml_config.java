@@ -355,45 +355,49 @@ public class xml_config {
         
         var root = "<root url=\"";
         root += Reg.http;
-        root += "\" folder=\"";
         
-        var root_cont = 0;
-        var root_loop = true;
+        var col = "";
         
-        do{
+        for(var i = 0; i < save.Read().Arq().length(); i++){
             
-            var t = this.local[root_cont];
+            var ds = save.Read().Arq().charAt(i);
             
-            if(t.equalsIgnoreCase(save.Read().Arq())){
+            switch(save.Read().Arq().charAt(i)){
                 
-                root += "/";
-                root_loop = false;
+                case '\'', '/' -> col = "";
                 
-            } else {//if(t.equalsIgnoreCase(save.Read().Arq()))
+                default -> col += save.Read().Arq().charAt(i);
                 
-                if(root_cont > 0) root += "/";
-                
-                root += t;
-                
-            }//if(t.equalsIgnoreCase(save.Read().Arq()))
+            }//switch(save.Read().Arq().charAt(i))
             
-            root_cont++;
-            
-        }while(root_loop && root_cont > 0 && root_cont < this.local.length);
+        }//for(var i = 0; i < save.Read().Arq().length(); i++)
         
-        if(!this.user.isBlank()){
+        if(this.local.length > 1){//avoid error
             
-            root += "\" ";
-            root += this.local;
+            root += "\" folder=\"";
             
-        }//if(!this.user.isBlank())
-        
-        if(this.list.size() > 1){
+            if(col.equalsIgnoreCase(this.local[this.local.length-1])){
+                
+                for(var i = 0; i < this.local.length-1; i++){
+                    
+                    root += this.local[i];
+                    root += "/";
+                    
+                }//for(var i = 0; i < this.local.length; i++)
+                
+            } else {//if(col.equalsIgnoreCase(this.local[this.local.length-1]))
+                
+                for(var i = 0; i < this.local.length; i++){
+                    
+                    if(i > 0) root += "/";
+                    
+                    root += this.local[i];
+                    
+                }//for(var i = 0; i < this.local.length; i++)
+                
+            }//if(col.equalsIgnoreCase(this.local[this.local.length-1]))
             
-            root += " \"";
-            root += this.list.size();
-            
-        }//if(this.list.size() > 1)
+        }//avoid error
         
         root += "\">";
         
