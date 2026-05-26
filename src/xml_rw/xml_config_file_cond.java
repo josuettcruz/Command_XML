@@ -14,10 +14,10 @@ public enum xml_config_file_cond {
     readonly("ready only"),
     not("not found");
     
-    private String value;
+    private String text;
     
-    private xml_config_file_cond(String value){this.value = value;}
+    private xml_config_file_cond(String text){this.text = text;}
     
-    public String Val(){return this.value;}
+    public String Desc(){return this.text;}
     
 }

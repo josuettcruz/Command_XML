@@ -62,11 +62,24 @@ public class xml_config_one {
         
     }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
     
+    public void modify(Data d, Hora h){
+        
+        this.modify_d = d;
+        this.modify_h = h;
+        
+    }// modify(Data d, Hora h)
+    
+    public void modify(Hora h){
+        
+        this.modify_h = h;
+        
+    }// modify(Data d, Hora h)
+    
     public String Title(){return this.title;}
     
     public xml_config_file_cond Cond(){return this.cond;}
     
-    public Read Arq(){return this.cmd;}
+    public Read File(){return this.cmd;}
     
     public Data InsertData(){return this.insert_d;}
     
