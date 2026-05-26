@@ -38,7 +38,6 @@ public class xml_config {
         var file = "";
         
         var create = false;
-        var create_data = false;
         var create_year = new Data().getDate().getYear();
         var create_month = 1;
         var create_day = 1;
@@ -47,7 +46,6 @@ public class xml_config {
         var create_second = 0;
         
         var modify = false;
-        var modify_data = false;
         var modify_year = new Data().getDate().getYear();
         var modify_month = 1;
         var modify_day = 1;
@@ -80,7 +78,6 @@ public class xml_config {
                 file = "";
 
                 create = false;
-                create_data = false;
                 create_year = 1972;
                 create_month = 1;
                 create_day = 1;
@@ -89,7 +86,6 @@ public class xml_config {
                 create_second = 0;
 
                 modify = false;
-                modify_data = false;
                 modify_year = 1972;
                 modify_month = 1;
                 modify_day = 1;
