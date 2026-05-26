@@ -484,17 +484,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
-                        }//case '!', '?', '.'
+                        }//case
                         
-                        case ';', ':' ->{
+                        case ';', '"', '\'' ->{
                             
                             point = false;
                             if(!t.isBlank()) this.text.add(t);
                             t = "";
                             
-                        }//case ';', ':'
+                        }//case
                         
-                        case ',', '"', '\'' -> point = false;
+                        case ',', ':' -> point = false;
                         
                         default -> point = true;
                         
