@@ -37,9 +37,17 @@ public class xml_config {
         
         do{
             
-            var validate = arq.Read(proc);
+            var compare = "";
             
-            valid = Reg.xmls.equalsIgnoreCase(validate);
+            for(String t : txt.phrase(Reg.xmls))
+            {compare += t.toLowerCase();}
+            
+            var validate = "";
+            
+            for(String t : txt.phrase(arq.Read(proc)))
+            {validate += t.toLowerCase();}
+            
+            valid = compare.equals(validate);
             
             proc++;
             
@@ -97,7 +105,7 @@ public class xml_config {
                 file = "";
 
                 create = false;
-                create_year = 1972;
+                create_year = new Data().getDate().getYear();
                 create_month = 1;
                 create_day = 1;
                 create_hour = 0;
@@ -105,7 +113,7 @@ public class xml_config {
                 create_second = 0;
 
                 modify = false;
-                modify_year = 1972;
+                modify_year = new Data().getDate().getYear();
                 modify_month = 1;
                 modify_day = 1;
                 modify_hour = 0;
@@ -286,6 +294,8 @@ public class xml_config {
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
+        this.Order();
+        
     }//Event(Read arq)
     
     private String Tab(int tab, String tema){
@@ -312,9 +322,22 @@ public class xml_config {
         
         exp.add(this.Tab(1, Reg.xmls));
         
+        var root = "<root url=\"";
+        root += Reg.http;
+        
+        if(this.list.size() > 1){
+            
+            root += " \"";
+            root += this.list.size();
+            
+        }//if(this.list.size() > 1)
+        
+        root += "\">";
+        
+        exp.add(this.Tab(1, root));
+        
         if(this.list.isEmpty()){
             
-            exp.add(this.Tab(1, "<root url=\"" + Reg.http + "\">"));
             exp.add(this.Tab(2, "<document></document>"));
             
         } else {//if(this.list.isEmpty())
@@ -348,7 +371,7 @@ public class xml_config {
                 
                 var dt = !doc.InsertData().CompareTo(doc.ModifyData());
                 var ht = doc.InsertHora().getHora()
-                        != doc.ModifyHora().getHora();
+                      != doc.ModifyHora().getHora();
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
@@ -524,6 +547,57 @@ public class xml_config {
         
     }//Save(Arq save)
     
+    private void Order(){
+        
+        var tot = this.list.size();
+        
+        xml_config_one document[] = new xml_config_one[tot];
+        String doc[] = new String[tot];
+        boolean cod[] = new boolean[tot];
+        
+        for(int i = 0; i < tot; i++){
+            
+            document[i] = this.list.get(i);
+            doc[i] = txt.text(this.list.get(i).Title().toLowerCase());
+            cod[i] = true;
+            
+        }//for(int i = 0; i < tot; i++)
+        
+        this.list.clear();
+        
+        var compare = doc[0];
+        
+        for(int repeat = 0; repeat < tot; repeat++){
+            
+            var i = 0;
+            var loop = true;
+            
+            do{
+                
+                if(cod[i]){
+                    
+                    if(txt.min(doc[i], compare)){
+                        
+                        this.list.add(document[i]);
+                        
+                        compare = doc[i];
+                        
+                        cod[i] = false;
+                        
+                        loop = false;
+                        
+                    }//if(txt.min(doc[i], compare))
+                    
+                }//if(cod[y])
+                
+                i++;
+                
+            }while(loop && i > 0 && i < tot);
+            
+        }//for(int repeat = 0; repeat < tot; repeat++)
+        
+    }//Order()
+    
     public boolean Update(Data d, Hora h, int pos){
         
         if(pos >= 0 && pos < this.list.size()){
@@ -568,98 +642,9 @@ public class xml_config {
         
         this.list.add(insert);
         
+        this.Order();
+        
     }//Insert(xml_config_one insert)
-    
-    public void Insert(xml_config_one insert, int position){
-        
-        if(position >= 0 && position < this.list.size()){
-            
-            List<xml_config_one> done = new ArrayList();
-            
-            done.addAll(this.list);
-            
-            this.list.clear();
-            
-            for(int i = 0; i < done.size(); i++){
-                
-                if(i == position) this.list.add(insert);
-                
-                this.list.add(done.get(i));
-                
-            }//for(int i = 0; i < done.size(); i++)
-            
-        }//if(position >= 0 && position < this.list.size())
-        
-    }//Insert(xml_config_one insert, int position)
-    
-    public void Insert(List<xml_config_one> insert, int position){
-        
-        if(position >= 0 && position < this.list.size()){
-            
-            List<xml_config_one> done = new ArrayList();
-            
-            done.addAll(this.list);
-            
-            this.list.clear();
-            
-            for(int i = 0; i < done.size(); i++){
-                
-                if(i == position) this.list.addAll(insert);
-                
-                this.list.add(done.get(i));
-                
-            }//for(int i = 0; i < done.size(); i++)
-            
-        }//if(position >= 0 && position < this.list.size())
-        
-    }//Insert(List<xml_config_one> insert, int position)
-    
-    public void remove(int position){
-        
-        if(position >= 0 && position < this.list.size()){
-            
-            List<xml_config_one> done = new ArrayList();
-            
-            done.addAll(this.list);
-            
-            this.list.clear();
-            
-            for(int i = 0; i < done.size(); i++){
-                
-                if(i != position){this.list.add(done.get(i));}
-                
-            }//for(int i = 0; i < done.size(); i++)
-            
-        }//if(position >= 0 && position < this.list.size())
-        
-    }//remove(int position)
-    
-    public void remove(int min, int max){
-        
-        if(
-            min >= 0 &&
-            max >= 0 &&
-            min < this.list.size() &&
-            max < this.list.size() &&
-            min < max
-        )
-        {
-            
-            List<xml_config_one> done = new ArrayList();
-            
-            done.addAll(this.list);
-            
-            this.list.clear();
-            
-            for(int i = 0; i < done.size(); i++){
-                
-                if(i < min && i > max){this.list.add(done.get(i));}
-                
-            }//for(int i = 0; i < done.size(); i++)
-            
-        }//if(min >= 0 && max >= 0 && min < this.list.size() && max < this...
-        
-    }//remove(int min, int max)
     
     public List<xml_config_one> learn(){
         
