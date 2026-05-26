@@ -355,13 +355,16 @@ public class xml_config {
         
         var root = "<root url=\"";
         root += Reg.http;
-        root += "\" local=\"";
+        root += "\" folder=\"";
         
-        for(var cont = 0; cont < this.local.length-1; cont++){
+        var root_cont = 0;
+        var root_loop = true;
+        
+        do{
             
-            var t = this.local[cont];
+            var t = this.local[root_cont];
             
-            var cond = true;
+            var exit = true;
             
             if(t.contains(".")){
                 
@@ -379,19 +382,26 @@ public class xml_config {
                     
                 }//for(int c = 0; c < t.length(); c++)
                 
-                cond = !txt.arq(text).equals(".xml");
+                exit = txt.arq(text).equals("xml");
                 
             }//if(text.contains("."))
             
-            if(cond){
+            if(exit){
                 
-                if(cont > 0) root += "/";
+                root += "/";
+                root_loop = false;
+                
+            } else {
+                
+                if(root_cont > 0) root += "/";
                 
                 root += t;
                 
-            }//if(cond)
+            }
             
-        }//for(var cont = 0; cont < this.local.length-1; cont++)
+            root_cont++;
+            
+        }while(root_loop && root_cont > 0 && root_cont < this.local.length);
         
         if(!this.user.isBlank()){
             
