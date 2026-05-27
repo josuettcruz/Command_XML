@@ -142,8 +142,8 @@ public class xml_config {
             }//if(this.user.isBlank())
             
             if(
-                t.txt().equalsIgnoreCase("document") &&
                 t.Value().equalsIgnoreCase("tag") &&
+                t.txt().equalsIgnoreCase("document") &&
                 !title.isEmpty() &&
                 !file.isEmpty()
             )
@@ -459,7 +459,7 @@ public class xml_config {
                 );
                 
                 var dt = doc.InsertData().CompareTo(doc.ModifyData(), false);
-                var ht = !doc.InsertHora().Compare(doc.ModifyHora());
+                var ht = doc.InsertHora().Compare(doc.ModifyHora()) == false;
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
