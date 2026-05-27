@@ -769,7 +769,7 @@ public class xml_config {
         
         this.list.add(insert);
         
-        this.Order();
+        if(!this.list.isEmpty()) this.Order();
         
     }//Insert(xml_config_one insert)
     
