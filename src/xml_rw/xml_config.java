@@ -21,6 +21,7 @@ public class xml_config {
     private Integer tab_space;
     private String[] local;
     private String user;
+    private boolean user_in;
     
     public xml_config(Read arq, Integer tab){
         
@@ -28,6 +29,7 @@ public class xml_config {
         
         this.tab_space = tab;
         this.user = "";
+        this.user_in = false;
         
         this.local = new String[Arq.Folder(arq.Arq()).size()];
         
@@ -72,6 +74,7 @@ public class xml_config {
             if(l_val == 2){
                 
                 this.user = node;
+                this.user_in = true;
                 
                 l_val = 0;
                 l_loop = false;
@@ -116,8 +119,6 @@ public class xml_config {
         for(Tag t : new xml(arq.Read()).Tag()){
             
             if(this.user.isBlank()){
-                
-                var g = txt.text(this.user, true);
                 
                 if(t.OpenTag() && t.txt().equalsIgnoreCase("root")){
                     
@@ -690,9 +691,44 @@ public class xml_config {
         
     }//Order()
     
+    public boolean setUser(String user){
+        
+        if(this.user_in){//setUser(String user)
+            
+            return false;
+            
+        } else {//setUser(String user)
+            
+            this.user = user;
+            
+            return true;
+            
+        }//setUser(String user)
+    
+    }//setUser(String user)
+    
     public String getUser(){return this.user;}
     
-    public void setUser(String user){this.user = user;}
+    public boolean Windows(){return this.user_in;}
+    
+    public Exec Documents(Read d, String file_name){
+        
+        if(user_in){
+            
+            var val = "C:\\Users\\";
+            val += this.user;
+            val += "\\Documents\\";
+            val += file_name;
+            
+            return new Arq(val).Save(d.Read());
+            
+        } else {//if(user_in)
+            
+            return new Arq(file_name).Save(d.Read());
+            
+        }//if(user_in)
+        
+    }//Documents(Read d, String file_name)
     
     public boolean Update(Data d, Hora h, int pos){
         
