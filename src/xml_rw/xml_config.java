@@ -68,8 +68,6 @@ public class xml_config {
         
         do{
             
-            var node = this.local[l_cont].toLowerCase();
-            
             if(l_val == 2 && !this.local[l_cont].equalsIgnoreCase("one-drive")){
                 
                 this.user = this.local[l_cont];
