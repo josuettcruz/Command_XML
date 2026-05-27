@@ -458,7 +458,7 @@ public class xml_config {
                     )
                 );
                 
-                var dt = !doc.InsertData().CompareTo(doc.ModifyData(), true);
+                var dt = doc.InsertData().CompareTo(doc.ModifyData(), false);
                 var ht = doc.ModifyHora().Compare(doc.InsertHora());
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
