@@ -585,7 +585,7 @@ public class txt {
                          '￿',
                          '' -> {
                         
-                        if(i > 0 && i < p.length()-1) txt += "_";
+                        if(i > 0 && i < p.length()-1 && demo) txt += "_";
                         demo = false;
                         
                     }

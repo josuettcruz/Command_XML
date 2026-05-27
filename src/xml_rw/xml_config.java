@@ -65,33 +65,31 @@ public class xml_config {
         
         var l_val = 0;
         var l_cont = 0;
-        var l_loop = true;
         
         do{
             
-            var node = txt.arq(this.local[l_cont]);
+            var node = this.local[l_cont].toLowerCase();
             
-            if(l_val == 2){
+            if(l_val == 2 && !this.local[l_cont].equalsIgnoreCase("one-drive")){
                 
-                this.user = node;
+                this.user = this.local[l_cont];
                 this.user_in = true;
                 
-                l_val = 0;
-                l_loop = false;
+                l_val = -1;
                 
             }//if(l_val == 2)
             
-            switch(node){
+            switch(this.local[l_cont].toLowerCase()){
                 
-                case "c:" ->{if(l_val == 0) l_val = 1;}
+                case "c:" -> {if(l_val == 0) {l_val = 1;}}
                 
-                case "users", "user" ->{if(l_val == 1) l_val = 2;}
+                case "users", "user" -> {if(l_val == 1) {l_val = 2;}}
                 
             }//switch(node)
             
             l_cont++;
             
-        }while(l_loop && l_cont > 0 && l_cont < this.local.length);
+        }while(l_val >= 0 && l_cont > 0 && l_cont < this.local.length);
         
         var xml_user = 0;
         
