@@ -384,13 +384,6 @@ public class xml_config {
         var root = "<root url=\"";
         root += Reg.http;
         
-        if(!txt.text(this.user, true).isBlank()){
-            
-            root += "\" user=\"";
-            root += txt.text(this.user, true);
-            
-        }//if(!this.user.trim().isBlank())
-        
         var col = "";
         
         for(var i = 0; i < save.Read().Arq().length(); i++){
@@ -432,6 +425,13 @@ public class xml_config {
             
         }//avoid error
         
+        if(!txt.text(this.user, true).isBlank()){
+            
+            root += "\" user=\"";
+            root += txt.text(this.user, true);
+            
+        }//if(!this.user.trim().isBlank())
+        
         root += "\">";
         
         exp.add(this.Tab(1, root));
@@ -458,9 +458,8 @@ public class xml_config {
                     )
                 );
                 
-                var dt = !doc.InsertData().CompareTo(doc.ModifyData());
-                var ht = doc.InsertHora().getHora()
-                      != doc.ModifyHora().getHora();
+                var dt = !doc.InsertData().CompareTo(doc.ModifyData(), true);
+                var ht = doc.ModifyHora().Compare(doc.InsertHora());
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
