@@ -459,7 +459,7 @@ public class xml_config {
                 );
                 
                 var dt = doc.InsertData().CompareTo(doc.ModifyData(), false);
-                var ht = doc.ModifyHora().Compare(doc.InsertHora());
+                var ht = !doc.InsertHora().Compare(doc.ModifyHora());
                 
                 exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
