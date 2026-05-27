@@ -25,8 +25,6 @@ public class xml_config {
     
     public xml_config(Read arq, Integer tab){
         
-        this.list = new ArrayList();
-        
         this.tab_space = tab;
         this.user = "";
         this.user_in = false;
@@ -62,6 +60,8 @@ public class xml_config {
     }//xml_config(Read arq, Integer tab)
     
     private void Event(Read arq){
+        
+        var o = new Order<xml_config_one>();
         
         var l_val = 0;
         var l_cont = 0;
@@ -149,7 +149,7 @@ public class xml_config {
             )
             {//if(t.OpenTag())
                 
-                this.list.add(
+                o.Add(
                     new xml_config_one(
                         title,
                         new Arq(file).Read(),
@@ -157,7 +157,8 @@ public class xml_config {
                         new Hora(create_hour, create_minute, create_second),
                         new Data(modify_year, modify_month, modify_day),
                         new Hora(modify_hour, modify_minute, modify_second)
-                    )
+                    ),
+                    title
                 );
 
                 title = "";
@@ -353,7 +354,8 @@ public class xml_config {
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
-        this.Order();
+        this.list = new ArrayList();
+        this.list.addAll(o.Return());
         
     }//Event(Read arq)
     
@@ -635,57 +637,6 @@ public class xml_config {
         
     }//Save(Arq save)
     
-    private void Order(){
-        
-        var tot = this.list.size();
-        
-        xml_config_one document[] = new xml_config_one[tot];
-        String doc[] = new String[tot];
-        boolean cod[] = new boolean[tot];
-        
-        for(int i = 0; i < tot; i++){
-            
-            document[i] = this.list.get(i);
-            doc[i] = txt.text(this.list.get(i).Title().toLowerCase());
-            cod[i] = true;
-            
-        }//for(int i = 0; i < tot; i++)
-        
-        this.list.clear();
-        
-        var compare = doc[0];
-        
-        for(int repeat = 0; repeat < tot; repeat++){
-            
-            var i = 0;
-            var loop = true;
-            
-            do{
-                
-                if(cod[i]){
-                    
-                    if(txt.min(doc[i], compare)){
-                        
-                        this.list.add(document[i]);
-                        
-                        compare = doc[i];
-                        
-                        cod[i] = false;
-                        
-                        loop = false;
-                        
-                    }//if(txt.min(doc[i], compare))
-                    
-                }//if(cod[y])
-                
-                i++;
-                
-            }while(loop && i > 0 && i < tot);
-            
-        }//for(int repeat = 0; repeat < tot; repeat++)
-        
-    }//Order()
-    
     public boolean setUser(String user){
         
         if(this.user_in){//setUser(String user)
@@ -765,13 +716,27 @@ public class xml_config {
         
     }//Update(Hora h, int pos)
     
-    public void Insert(xml_config_one insert){
+    public boolean Add(xml_config_one demo){
         
-        this.list.add(insert);
+        Order o = new Order<xml_config_one>();
         
-        if(!this.list.isEmpty()) this.Order();
+        for(xml_config_one d : this.list)
+        {o.Add(d, d.Title());}
         
-    }//Insert(xml_config_one insert)
+        var valid = o.Add(demo, demo.Title());
+        
+        if(valid){
+            
+            this.list.clear();
+            this.list.addAll(o.Return());
+            
+            return true;
+            
+        }//if(valid)
+        
+        return valid;
+        
+    }//Add(xml_document_one demo)
     
     public List<xml_config_one> learn(){
         

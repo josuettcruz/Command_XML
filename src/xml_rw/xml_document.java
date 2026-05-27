@@ -39,64 +39,27 @@ public class xml_document {
         
     }//xml_document(String title, Read document)
     
-    private void Order(){
+    public boolean Add(xml_document_one demo){
         
-        var tot = this.list.size();
+        Order o = new Order<xml_document_one>();
         
-        xml_document_one document[] = new xml_document_one[tot];
-        String doc[] = new String[tot];
-        boolean cod[] = new boolean[tot];
+        for(xml_document_one d : this.list)
+        {o.Add(d, d.title());}
         
-        for(int i = 0; i < tot; i++){
+        var valid = o.Add(demo, demo.title());
+        
+        if(valid){
             
-            document[i] = this.list.get(i);
-            doc[i] = txt.text(this.list.get(i).title().toLowerCase());
-            cod[i] = true;
+            this.list.clear();
+            this.list.addAll(o.Return());
             
-        }//for(int i = 0; i < tot; i++)
-        
-        this.list.clear();
-        
-        var compare = doc[0];
-        
-        for(int repeat = 0; repeat < tot; repeat++){
+            return true;
             
-            var i = 0;
-            var loop = true;
-            
-            do{
-                
-                if(cod[i]){
-                    
-                    if(txt.min(doc[i], compare)){
-                        
-                        this.list.add(document[i]);
-                        
-                        compare = doc[i];
-                        
-                        cod[i] = false;
-                        
-                        loop = false;
-                        
-                    }//if(txt.min(doc[i], compare))
-                    
-                }//if(cod[y])
-                
-                i++;
-                
-            }while(loop && i > 0 && i < tot);
-            
-        }//for(int repeat = 0; repeat < tot; repeat++)
+        }//if(valid)
         
-    }//Order()
-    
-    public void Add(xml_document_one add){
+        return valid;
         
-        this.list.add(add);
-        
-        if(!this.list.isEmpty()) this.Order();
-        
-    }//Add(xml_document_one add)
+    }//Add(xml_document_one demo)
 
     public String Title(boolean txt_title) {return this.title;}
 
