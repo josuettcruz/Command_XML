@@ -70,7 +70,9 @@ public class Order<cmd> {
         
         var compare = this.command.get(0).Title();
         
-        for(int repeat = 0; repeat < this.command.size(); repeat++){
+        var repeat = 0;
+        
+        do{
             
             var i = 0;
             var loop = true;
@@ -91,13 +93,15 @@ public class Order<cmd> {
                         
                     }//if(txt.min(doc[i], compare))
                     
-                }//if(cod[y])
+                }//if(val[i])
                 
                 i++;
                 
             }while(loop && i > 0 && i < this.command.size());
             
-        }//for(int repeat = 0; repeat < this.command.size(); repeat++)
+            repeat++;
+            
+        }while(repeat > 0 && repeat < this.command.size());
         
         return value;
         
