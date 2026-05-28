@@ -30,6 +30,7 @@ public class xml_config_one {
     public xml_config_one(
         String title,
         Read cmd,
+        xml_config_file_cond cond,
         Data insert_d,
         Hora insert_h,
         Data modify_d,
@@ -39,26 +40,13 @@ public class xml_config_one {
         
         this.title = title;
         this.cmd = cmd;
+        this.cond = cond;
         
         this.insert_d = insert_d;
         this.insert_h = insert_h;
         
         this.modify_d = modify_d;
         this.modify_h = modify_h;
-        
-        if(cmd.Val() && Arq.Dir(cmd.Arq(), true)){
-            
-            this.cond = write;
-            
-        } else if(cmd.Val() && Arq.Dir(cmd.Arq(), false)){//if(cmd.Val() && Arq.Dir...
-            
-            this.cond = readonly;
-            
-        } else {//if(cmd.Val() && Arq.Dir...
-            
-            this.cond = not;
-            
-        }//if(cmd.Val() && Arq.Dir...
         
     }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
     

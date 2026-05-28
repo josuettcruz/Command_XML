@@ -206,6 +206,7 @@ public class xml_config {
                     new xml_config_one(
                         title,
                         new Arq(file).Read(),
+                        dll,
                         new Data(create_year, create_month, create_day),
                         new Hora(create_hour, create_minute, create_second),
                         new Data(modify_year, modify_month, modify_day),
