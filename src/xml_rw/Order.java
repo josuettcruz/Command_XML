@@ -15,14 +15,11 @@ import java.util.List;
  */
 public class Order<cmd> {
     
-    private List<String> title;
-    private List<cmd> command;
-    private List<Boolean> val;
+    private List<Order_one> command;
     private int position;
     
     public Order(){
         
-        this.title = new ArrayList();
         this.command = new ArrayList();
         this.position = -1;
         
@@ -41,7 +38,7 @@ public class Order<cmd> {
             
             var valid = "";
             
-            for(String t : txt.phrase(this.title.get(i))) valid += txt.arq(t);
+            for(String t : txt.phrase(this.command.get(i).Title())) valid += txt.arq(t);
             
             value = !validate.equalsIgnoreCase(valid);
             
@@ -51,8 +48,7 @@ public class Order<cmd> {
         
         if(value){
             
-            this.command.add(command);
-            this.title.add(text);
+            this.command.add(new Order_one(command, text));
             
         } else {//if(value)
             
@@ -68,13 +64,11 @@ public class Order<cmd> {
         
         List<cmd> value = new ArrayList();
         
-        var tot = this.command.size();
+        boolean val[] = new boolean[this.command.size()];
         
-        boolean cod[] = new boolean[tot];
+        for(var i = 0; i < val.length; i++) val[i] = true;
         
-        for(var i = 0; i < tot; i++) cod[i] = true;
-        
-        var compare = this.title.get(0);
+        var compare = this.command.get(0).Title();
         
         for(int repeat = 0; repeat < this.command.size(); repeat++){
             
@@ -83,15 +77,15 @@ public class Order<cmd> {
             
             do{
                 
-                if(this.val.get(i)){
+                if(val[i]){
                     
-                    if(txt.min(this.title.get(i), compare)){
+                    if(txt.min(this.command.get(i).Title(), compare)){
                         
-                        value.add(this.command.get(i));
+                        value.add((cmd) this.command.get(i).Code());
                         
-                        compare = this.title.get(i);
+                        compare = this.command.get(i).Title();
                         
-                        cod[i] = false;
+                        val[i] = false;
                         
                         loop = false;
                         
@@ -101,13 +95,13 @@ public class Order<cmd> {
                 
                 i++;
                 
-            }while(loop && i > 0 && i < tot);
+            }while(loop && i > 0 && i < this.command.size());
             
-        }//for(int repeat = 0; repeat < tot; repeat++)
+        }//for(int repeat = 0; repeat < this.command.size(); repeat++)
         
         return value;
         
-    }//Order()
+    }//Return()
     
     public static int Proc(List<String> proc, String search){
         
