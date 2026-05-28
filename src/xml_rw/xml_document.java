@@ -6,7 +6,7 @@ package xml_rw;
 
 import file.*;
 import execute.*;
-import model.*;
+import model.Reg;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,24 +20,28 @@ public class xml_document {
     private List<xml_document_one> list;
     private String title;
     
-    public xml_document(String title, Read document){
+    public xml_document(String title, Read r){
         
         this.list = new ArrayList();
         this.title = title;
         
-        Reg.Print(
-            "ÚLTIMA MODIFICAÇÃO:",
-            new Data().CompareTo(Reg.modify)
-                ? "HOJE"
-                : Reg.modify.DataCompleta(true)
-        );
-        
-        for(Tag t : new xml(document.Read()).Tag())
-        {Reg.Print(t.Detals(), t.txt());}
-        
-        Reg.Print("XML DOCUMENT", "O documento ainda não está pronto");
+        if(Reg.xml(r)) this.Event(r);
         
     }//xml_document(String title, Read document)
+    
+    public void Event(Read r){
+        
+        var o = new Order<xml_document_one>();
+        
+        for(Tag t : new xml(r.Read()).Tag()){
+            
+            //continue this
+            
+        }//for(Tag t : new xml(r.Read()).Tag())
+        
+        this.list.addAll(o.Return());
+            
+    }//Event(Read r)
     
     public int Add(xml_document_one demo){
         

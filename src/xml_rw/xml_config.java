@@ -34,28 +34,7 @@ public class xml_config {
         for(int i = 0; i < Arq.Folder(arq.Arq()).size(); i++)
         {this.local[i] = Arq.Folder(arq.Arq()).get(i);}
         
-        var proc = 0;
-        var valid = false;
-        
-        do{
-            
-            var compare = "";
-            
-            for(String t : txt.phrase(Reg.xmls))
-            {compare += t.toLowerCase();}
-            
-            var validate = "";
-            
-            for(String t : txt.phrase(arq.Read(proc)))
-            {validate += t.toLowerCase();}
-            
-            valid = compare.equals(validate);
-            
-            proc++;
-            
-        }while(!valid && proc > 0 && proc < arq.Max());
-        
-        if(valid) this.Event(arq);
+        if(Reg.xml(arq)) this.Event(arq);
         
     }//xml_config(Read arq, Integer tab)
     

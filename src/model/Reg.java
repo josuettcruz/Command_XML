@@ -5,6 +5,7 @@
 package model;
 
 import file.Arq;
+import file.Read;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -68,6 +69,33 @@ public class Reg {
         return value;
         
     }//coppy(String ctrl_c)
+    
+    public static boolean xml(Read r){
+        
+        var proc = 0;
+        var valid = false;
+        
+        do{
+            
+            var compare = "";
+            
+            for(String t : txt.phrase(Reg.xmls))
+            {compare += t.toLowerCase();}
+            
+            var validate = "";
+            
+            for(String t : txt.phrase(r.Read(proc)))
+            {validate += t.toLowerCase();}
+            
+            valid = compare.equals(validate);
+            
+            proc++;
+            
+        }while(!valid && proc > 0 && proc < r.Max());
+        
+        return valid;
+        
+    }//xml(Read r)
     
     public static String Tab(String entrada, int tab){
         
