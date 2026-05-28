@@ -395,24 +395,6 @@ public class xml_config {
         
     }//Event(Read arq)
     
-    /*private String Tab(int tab, String tema){
-        
-        var value = "";
-        
-        if(tab > 1){
-            
-            var repeat = tab-1;
-            
-            value += " ".repeat(repeat*this.tab_space);
-            
-        }//if(tab > 1)
-        
-        value += tema;
-        
-        return value;
-    
-    }/*Tab(int tab, String tema)*/
-    
     public Exec Save(Arq save){
         
         List<String> exp = new ArrayList();
