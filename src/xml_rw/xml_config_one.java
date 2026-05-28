@@ -9,7 +9,10 @@ import model.Hora;
 
 import file.Arq;
 import file.Read;
-import static xml_rw.xml_config_file_cond.*;
+
+import static xml_rw.xml_config_file_cond.write;
+import static xml_rw.xml_config_file_cond.readonly;
+import static xml_rw.xml_config_file_cond.not;
 
 /**
  *
@@ -26,6 +29,39 @@ public class xml_config_one {
     
     private Data modify_d;
     private Hora modify_h;
+    
+    public xml_config_one(
+        String title,
+        Read cmd,
+        Data insert_d,
+        Hora insert_h
+    )
+    {
+        
+        this.title = title;
+        this.cmd = cmd;
+        
+        if(Arq.Dir(cmd.Arq(), true)){
+            
+            this.cond = write;
+            
+        } else if(Arq.Dir(cmd.Arq(), false)){//if - Arq.Dir
+            
+            this.cond = readonly;
+            
+        } else {//if - Arq.Dir
+            
+            this.cond = not;
+            
+        }//if - Arq.Dir
+        
+        this.insert_d = insert_d;
+        this.insert_h = insert_h;
+        
+        this.modify_d = insert_d;
+        this.modify_h = insert_h;
+        
+    }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
     
     public xml_config_one(
         String title,
@@ -50,18 +86,12 @@ public class xml_config_one {
         
     }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
     
-    public void modify(Data d, Hora h){
+    public void Update(Data d, Hora h){
         
         this.modify_d = d;
         this.modify_h = h;
         
-    }// modify(Data d, Hora h)
-    
-    public void modify(Hora h){
-        
-        this.modify_h = h;
-        
-    }// modify(Data d, Hora h)
+    }//Update(Data d, Hora h)
     
     public String Title(){return this.title;}
     

@@ -29,10 +29,21 @@ public class xml_document_one {
         
     }//public xml document one
 
-    public String title() {return title;}
+    public String getTitle() {return title;}
 
-    public List<xml_document_link> url() {return url;}
+    public void setTitle(String title) {this.title = title;}
 
-    public xml_document_input_text text() {return form;}
+    public List<xml_document_link> getUrl() {return url;}
+
+    public void setUrl(List<xml_document_link> links){
+        
+        this.url.clear();
+        this.url.addAll(links);
+    
+    }//setUrl(List<xml_document_link> links)
+
+    public xml_document_input_text getForm() {return form;}
+
+    public void setForm(xml_document_input_text form) {this.form = form;}
     
 }

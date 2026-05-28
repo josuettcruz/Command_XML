@@ -18,14 +18,12 @@ import java.util.List;
 public class xml_config {
     
     private List<xml_config_one> list;
-    private Integer tab_space;
     private String[] local;
     private String user;
     private boolean user_in;
     
     public xml_config(Read arq, Integer tab){
         
-        this.tab_space = tab;
         this.user = "";
         this.user_in = false;
         
@@ -743,70 +741,82 @@ public class xml_config {
         
     }//SaveFile(int pos, String file_name)
     
-    public boolean Update(Data d, Hora h, int pos){
+    public int Add(String t, Read r){
         
-        if(pos >= 0 && pos < this.list.size()){
-            
-            var doc = this.list.get(pos);
-            
-            doc.modify(d, h);
-            
-            this.list.set(pos, doc);
-            
-            return true;
-            
-        } else {//if(pos >= 0 && pos < this.list.size())
-            
-            return false;
-            
-        }//if(pos >= 0 && pos < this.list.size())
+        var msg_position = -1;
         
-    }//Update(Data d, Hora h, int pos)
-    
-    public boolean Update(Hora h, int pos){
+        Order<xml_config_one> o = new Order();
         
-        if(pos >= 0 && pos < this.list.size()){
-            
-            var doc = this.list.get(pos);
-            
-            doc.modify(h);
-            
-            this.list.set(pos, doc);
-            
-            return true;
-            
-        } else {//if(pos >= 0 && pos < this.list.size())
-            
-            return false;
-            
-        }//if(pos >= 0 && pos < this.list.size())
+        for(xml_config_one x : this.list)
+        {o.Add(x, x.Title());}
         
-    }//Update(Hora h, int pos)
-    
-    public int Add(xml_config_one demo){
-        
-        Order o = new Order<xml_config_one>();
-        
-        for(xml_config_one d : this.list)
-        {o.Add(d, d.Title());}
-        
-        var valid = o.Add(demo, demo.Title());
+        var valid = o.Add(new xml_config_one(t, r, new Data(), new Hora(true)), t);
         
         if(valid){
             
             this.list.clear();
             this.list.addAll(o.Return());
             
+        } else {//if(valid)
+            
+            msg_position = o.Position();
+            
         }//if(valid)
         
-        return o.Position();
+        return msg_position;
         
-    }//Add(xml_document_one demo)
+    }//Add(String t, Read r)
     
-    public List<xml_config_one> learn(){
+    public int newTitle(int position, String title){
         
-        return this.list;
+        var valid = -2;
         
-    }//learn()
+        if(
+            position >= 0 &&
+            position < this.list.size() &&
+            !this.list.isEmpty()
+        )
+        {
+            
+            var proc = this.list.get(position);
+            proc.Update(new Data(), new Hora(true));
+            
+            Order<xml_config_one> o = new Order();
+            
+            for(int add = 0; add < this.list.size(); add++){
+                
+                if(add != position)
+                {o.Add(this.list.get(add), this.list.get(add).Title());}
+                
+            }//for(int add = 0; add < this.list.size(); add++)
+            
+            var acept = o.Add(proc, title);
+            
+            if(acept){
+                
+                this.list.clear();
+                this.list.addAll(o.Return());
+                valid = o.Position();
+                
+            }//if(acept)
+            
+        }//if - position
+        
+        return valid;
+        
+    }//newTitle(int position, String title)
+    
+    public int Proc(String title){
+        
+        List<String> tem = new ArrayList();
+        
+        for(xml_config_one x : this.list)
+        {tem.add(x.Title());}
+        
+        return Order.Proc(tem, title);
+        
+    }//Proc(String title)
+    
+    public List<xml_config_one> learn(){return this.list;}
     
 }//xml_config
