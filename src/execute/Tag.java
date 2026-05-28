@@ -4,6 +4,10 @@
  */
 package execute;
 
+import static execute.tg.attr;
+import static execute.tg.val;
+import static execute.tg.txt;
+
 /**
  *
  * @author josue
@@ -29,6 +33,14 @@ public class Tag {
         this.tag = tag;
         
     }//Tag(String txt, tg tag)
+    
+    public boolean AttrName(){return this.tag.Val(false).equals("attr");}
+    
+    public boolean AttrVal(){return this.tag.Val(false).equals("val");}
+    
+    public boolean Text(){return this.tag.Val(false).equals("txt");}
+    
+    public boolean Tag(){return this.tag.Val(false).equals("tag");}
     
     public boolean OpenTag(){
         

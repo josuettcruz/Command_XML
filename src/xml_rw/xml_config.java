@@ -103,7 +103,7 @@ public class xml_config {
                     xml_user = 1;
                     
                 } else if(
-                    t.Value().equalsIgnoreCase("attr") &&
+                    t.AttrName() &&
                     t.txt().equalsIgnoreCase("user") &&
                     xml_user == 1
                 )
@@ -112,7 +112,7 @@ public class xml_config {
                     xml_user = 2;
                     
                 } else if(
-                    t.Value().equalsIgnoreCase("val") &&
+                    t.AttrVal() &&
                     xml_user == 2
                 )
                 {
@@ -124,13 +124,13 @@ public class xml_config {
             }//if(this.user.isBlank())
             
             if(
-                t.Value().equalsIgnoreCase("tag") &&
+                t.OpenTag() &&
                 t.txt().equalsIgnoreCase("file") &&
                 set_acept == 0
             ) {set_acept = 1;}
             
             if(
-                t.Value().equalsIgnoreCase("attr") &&
+                t.AttrName() &&
                 t.txt().equalsIgnoreCase("acept") &&
                 set_acept == 1
             ) {set_acept = 2;}
@@ -143,7 +143,7 @@ public class xml_config {
             }//if(t.Value().equalsIgnoreCase("val") && set_acept == 2)
             
             if(
-                t.Value().equalsIgnoreCase("tag") &&
+                t.Tag() &&
                 t.txt().equalsIgnoreCase("document") &&
                 !title.isEmpty() &&
                 !file.isEmpty()
@@ -395,7 +395,7 @@ public class xml_config {
         
     }//Event(Read arq)
     
-    private String Tab(int tab, String tema){
+    /*private String Tab(int tab, String tema){
         
         var value = "";
         
@@ -411,13 +411,13 @@ public class xml_config {
         
         return value;
     
-    }//Tab(int tab, String tema)
+    }/*Tab(int tab, String tema)*/
     
     public Exec Save(Arq save){
         
         List<String> exp = new ArrayList();
         
-        exp.add(this.Tab(1, Reg.xmls));
+        exp.add(Order.Tab(1, Reg.xmls));
         
         var root = "<root url=\"";
         root += Reg.http;
@@ -472,11 +472,11 @@ public class xml_config {
         
         root += "\">";
         
-        exp.add(this.Tab(1, root));
+        exp.add(Order.Tab(1, root));
         
         if(this.list.isEmpty()){
             
-            exp.add(this.Tab(2, "<document></document>"));
+            exp.add(Order.Tab(2, "<document></document>"));
             
         } else {//if(this.list.isEmpty())
             
@@ -485,7 +485,7 @@ public class xml_config {
             for(xml_config_one doc : this.list){
                 
                 exp.add(
-                    this.Tab(
+                    Order.Tab(
                         2,
                         "<document id=\"" +
                         Reg.Numb(
@@ -499,7 +499,7 @@ public class xml_config {
                 var dt = doc.InsertData().CompareTo(doc.ModifyData(), false);
                 var ht = doc.InsertHora().Compare(doc.ModifyHora()) == false;
                 
-                exp.add(this.Tab(3, "<title>" + doc.Title() + "</title>"));
+                exp.add(Order.Tab(3, "<title>" + doc.Title() + "</title>"));
                 
                 var a = "<file acept=\"";
                 a += doc.Cond().Desc();
@@ -507,14 +507,14 @@ public class xml_config {
                 a += doc.File().Arq();
                 a += "</file>";
                 
-                exp.add(this.Tab(3, a));
+                exp.add(Order.Tab(3, a));
                 
-                exp.add(this.Tab(3, "<create>"));
+                exp.add(Order.Tab(3, "<create>"));
                 
-                exp.add(this.Tab(4, "<date>"));
+                exp.add(Order.Tab(4, "<date>"));
                 
                 exp.add(
-                    this.Tab(
+                    Order.Tab(
                         5,
                         "<year>"
                         + doc.InsertData().getDate().getYear()
@@ -523,7 +523,7 @@ public class xml_config {
                 );
                 
                 exp.add(
-                    this.Tab(
+                    Order.Tab(
                         5,
                         "<month>" +
                         doc.InsertData().getDate().getMonthValue() +
@@ -532,7 +532,7 @@ public class xml_config {
                 );
                 
                 exp.add(
-                    this.Tab(
+                    Order.Tab(
                         5,
                         "<day>" +
                         doc.InsertData().getDate().getDayOfMonth() +
@@ -540,12 +540,12 @@ public class xml_config {
                     )
                 );
                 
-                exp.add(this.Tab(4, "</date>"));
+                exp.add(Order.Tab(4, "</date>"));
                 
-                exp.add(this.Tab(4, "<time>"));
+                exp.add(Order.Tab(4, "<time>"));
                 
                 exp.add(
-                    this.Tab(
+                    Order.Tab(
                         5,
                         "<hour>" +
                         doc.InsertHora().Hour() +
@@ -554,7 +554,7 @@ public class xml_config {
                 );
                 
                 exp.add(
-                    this.Tab(
+                    Order.Tab(
                         5,
                         "<minute>" +
                         doc.InsertHora().Min() +
@@ -565,7 +565,7 @@ public class xml_config {
                 if(doc.InsertHora().Sec() > 0){
                     
                     exp.add(
-                        this.Tab(
+                        Order.Tab(
                             5,
                             "<second>" +
                             doc.InsertHora().Sec() +
@@ -575,20 +575,20 @@ public class xml_config {
                     
                 }//if(doc.Hora().Sec() > 0)
                 
-                exp.add(this.Tab(4, "</time>"));
+                exp.add(Order.Tab(4, "</time>"));
                 
-                exp.add(this.Tab(3, "</create>"));
+                exp.add(Order.Tab(3, "</create>"));
                 
                 if(dt || ht){
                     
-                    exp.add(this.Tab(3, "<modify>"));
+                    exp.add(Order.Tab(3, "<modify>"));
                     
                     if(dt){
                         
-                        exp.add(this.Tab(4, "<date>"));
+                        exp.add(Order.Tab(4, "<date>"));
                         
                         exp.add(
-                            this.Tab(
+                            Order.Tab(
                                 5,
                                 "<year>" +
                                 doc.ModifyData().getDate().getYear() +
@@ -597,7 +597,7 @@ public class xml_config {
                         );
                         
                         exp.add(
-                            this.Tab(
+                            Order.Tab(
                                 5,
                                 "<month>" +
                                 doc.ModifyData().getDate().getMonthValue() +
@@ -606,7 +606,7 @@ public class xml_config {
                         );
                         
                         exp.add(
-                            this.Tab(
+                            Order.Tab(
                                 5,
                                 "<day>" +
                                 doc.ModifyData().getDate().getDayOfMonth() +
@@ -614,16 +614,16 @@ public class xml_config {
                             )
                         );
                         
-                        exp.add(this.Tab(4, "</date>"));
+                        exp.add(Order.Tab(4, "</date>"));
                         
                     }//if(dt)
                     
                     if(ht){
                         
-                        exp.add(this.Tab(4, "<time>"));
+                        exp.add(Order.Tab(4, "<time>"));
                         
                         exp.add(
-                            this.Tab(
+                            Order.Tab(
                                 5,
                                 "<hour>" +
                                 doc.ModifyHora().Hour() +
@@ -632,7 +632,7 @@ public class xml_config {
                         );
                         
                         exp.add(
-                            this.Tab(
+                            Order.Tab(
                                 5,
                                 "<minute>" +
                                 doc.ModifyHora().Min() +
@@ -643,7 +643,7 @@ public class xml_config {
                         if(doc.ModifyHora().Sec() > 0){
                             
                             exp.add(
-                                this.Tab(
+                                Order.Tab(
                                     5,
                                     "<second>" +
                                     doc.ModifyHora().Sec() +
@@ -653,21 +653,21 @@ public class xml_config {
                             
                         }//if(doc.Hora().Sec() > 0)
                         
-                        exp.add(this.Tab(4, "</time>"));
+                        exp.add(Order.Tab(4, "</time>"));
                         
                     }//if(ht)
                     
-                    exp.add(this.Tab(3, "</modify>"));
+                    exp.add(Order.Tab(3, "</modify>"));
                     
                 }//if(dt || ht)
                 
-                exp.add(this.Tab(2, "</document>"));
+                exp.add(Order.Tab(2, "</document>"));
                 
             }//for(xml_config_one d : this.list)
             
         }//if(this.list.isEmpty())
         
-        exp.add(this.Tab(1, "</root>"));
+        exp.add(Order.Tab(1, "</root>"));
         
         return save.Save(exp);
         
