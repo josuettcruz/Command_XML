@@ -145,6 +145,18 @@ public class init {
                 
             }//for(int y = min ? h.Min() : 59; y >= 0; y--)
             
+            for(int y = min ? h.Min() : 59; y >= 0; y--){
+                
+                var ms = folder;
+                ms += Reg.Numb(x);
+                ms += Reg.Numb(y);
+                ms += ext;
+                
+                if(Arq.Dir(ms) && Arq.Dir(ms, false))
+                {learn.add(new Arq(ms).Read());}
+                
+            }//for(int y = min ? h.Min() : 59; y >= 0; y--)
+            
             min = false;
             
         }//for(int x = h.Hour(); x >= 0; x--) - 1 - 2
@@ -245,9 +257,7 @@ public class init {
         
         String[] folder = {
             "git-commit",
-            "commit",
-            "commit_" + Reg.modify.Load(),
-            "git-" + Reg.modify.Load(),
+            "git-commit_" + Reg.modify.Load(),
             Reg.modify.Load()
         };
         
