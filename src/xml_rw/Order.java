@@ -47,7 +47,7 @@ public class Order<cmd> {
             
             i++;
             
-        }while(value);
+        }while(value && i > 0 && i < this.command.size());
         
         if(value){
             
