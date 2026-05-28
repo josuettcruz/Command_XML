@@ -716,7 +716,12 @@ public class xml_config {
     
     public Exec Documents(Read d, String file_name){
         
-        if(user_in){
+        if(
+            this.user_in &&
+            !d.Arq().contains("\\") &&
+            !d.Arq().contains("/")
+        )
+        {
             
             var val = "C:\\Users\\";
             val += this.user;
