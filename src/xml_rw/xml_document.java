@@ -39,7 +39,7 @@ public class xml_document {
         
     }//xml_document(String title, Read document)
     
-    public boolean Add(xml_document_one demo){
+    public int Add(xml_document_one demo){
         
         Order o = new Order<xml_document_one>();
         
@@ -53,11 +53,9 @@ public class xml_document {
             this.list.clear();
             this.list.addAll(o.Return());
             
-            return true;
-            
         }//if(valid)
         
-        return valid;
+        return o.Position();
         
     }//Add(xml_document_one demo)
 

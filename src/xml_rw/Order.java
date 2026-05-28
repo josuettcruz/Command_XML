@@ -38,7 +38,8 @@ public class Order<cmd> {
             
             var valid = "";
             
-            for(String t : txt.phrase(this.command.get(i).Title())) valid += txt.arq(t);
+            for(String t : txt.phrase(this.command.get(i).Title()))
+            {valid += txt.arq(t);}
             
             value = !validate.equalsIgnoreCase(valid);
             

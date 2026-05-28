@@ -112,6 +112,9 @@ public class xml_config {
         var modify_minute = 0;
         var modify_second = 0;
         
+        var set_acept = 0;
+        var is_acept = "";
+        
         for(Tag t : new xml(arq.Read()).Tag()){
             
             if(this.user.isBlank()){
@@ -143,11 +146,61 @@ public class xml_config {
             
             if(
                 t.Value().equalsIgnoreCase("tag") &&
+                t.txt().equalsIgnoreCase("file") &&
+                set_acept == 0
+            ) {set_acept = 1;}
+            
+            if(
+                t.Value().equalsIgnoreCase("attr") &&
+                t.txt().equalsIgnoreCase("acept") &&
+                set_acept == 1
+            ) {set_acept = 2;}
+            
+            if(t.Value().equalsIgnoreCase("val") && set_acept == 2){
+                
+                set_acept = 3;
+                is_acept = t.txt();
+                
+            }//if(t.Value().equalsIgnoreCase("val") && set_acept == 2)
+            
+            if(
+                t.Value().equalsIgnoreCase("tag") &&
                 t.txt().equalsIgnoreCase("document") &&
                 !title.isEmpty() &&
                 !file.isEmpty()
             )
             {//if(t.OpenTag())
+                
+                xml_config_file_cond dll;
+                
+                if(Arq.Dir(file, true)){
+                    
+                    dll = xml_config_file_cond.write;
+                    
+                } else if(Arq.Dir(file, false)){//if(Arq.Dir(file, true))
+                    
+                    dll = xml_config_file_cond.readonly;
+                    
+                } else {//if(Arq.Dir(file, true))
+                    
+                    dll = xml_config_file_cond.not;
+                    
+                }//if(Arq.Dir(file, true))
+                
+                if(!is_acept.equalsIgnoreCase(dll.Desc()) && set_acept == 3){
+                    
+                    Data d = new Data();
+                    Hora h = new Hora(true);
+                    
+                    modify_year = d.getDate().getYear();
+                    modify_month = d.getDate().getMonthValue();
+                    modify_day = d.getDate().getDayOfMonth();
+                    
+                    modify_hour = h.Hour();
+                    modify_minute = h.Min();
+                    modify_second = h.Sec();
+                    
+                }//if(set_acept.equalsIgnoreCase(dll.Desc()))
                 
                 o.Add(
                     new xml_config_one(
@@ -179,6 +232,9 @@ public class xml_config {
                 modify_hour = 0;
                 modify_minute = 0;
                 modify_second = 0;
+                
+                set_acept = 0;
+                is_acept = "";
                 
             } else if(t.OpenTag()){//if(t.OpenTag())
                 
@@ -716,7 +772,7 @@ public class xml_config {
         
     }//Update(Hora h, int pos)
     
-    public boolean Add(xml_config_one demo){
+    public int Add(xml_config_one demo){
         
         Order o = new Order<xml_config_one>();
         
@@ -730,11 +786,9 @@ public class xml_config {
             this.list.clear();
             this.list.addAll(o.Return());
             
-            return true;
-            
         }//if(valid)
         
-        return valid;
+        return o.Position();
         
     }//Add(xml_document_one demo)
     
