@@ -714,7 +714,7 @@ public class xml_config {
     
     public boolean Windows(){return this.user_in;}
     
-    public Exec Documents(Read d, String file_name){
+    private Exec Documents(Read d, String file_name){
         
         if(
             this.user_in &&
@@ -723,10 +723,26 @@ public class xml_config {
         )
         {
             
+            var dol = "";
+            
+            for(var i = 0; i < file_name.length(); i++){
+                
+                var ds = file_name.charAt(i);
+                
+                switch(ds){
+                    
+                    case '\\', '/' -> dol = "";
+                    
+                    default -> dol += ds;
+                    
+                }//switch(ds)
+                
+            }//for(var i = 0; i < file_name.length(); i++)
+            
             var val = "C:\\Users\\";
             val += this.user;
             val += "\\Documents\\";
-            val += file_name;
+            val += dol;
             
             return new Arq(val).Save(d.Read());
             
@@ -737,6 +753,34 @@ public class xml_config {
         }//if(user_in)
         
     }//Documents(Read d, String file_name)
+    
+    public Exec SaveDocument(int pos, String file_name){
+        
+        if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty()){
+            
+            return this.Documents(this.list.get(pos).File(), file_name);
+            
+        } else {//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
+            
+            return new Exec();
+            
+        }//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
+        
+    }//SaveDocument(int pos, String file_name)
+    
+    public Exec SaveFile(int pos, String file_name){
+        
+        if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty()){
+            
+            return new Arq(file_name).Save(this.list.get(pos).File().Read());
+            
+        } else {//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
+            
+            return new Exec();
+            
+        }//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
+        
+    }//SaveFile(int pos, String file_name)
     
     public boolean Update(Data d, Hora h, int pos){
         
