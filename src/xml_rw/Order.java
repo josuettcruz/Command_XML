@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Order<cmd> {
     
-    private final static int tab_space = 3;
+    public final static int tab_space = 3;
     
     private List<Order_one> command;
     private int position;
@@ -144,23 +144,5 @@ public class Order<cmd> {
     }//Proc(List<String> proc)
 
     public int Position() {return position;}
-    
-    public static String Tab(int tab, String tema){
-        
-        var value = "";
-        
-        if(tab > 1){
-            
-            var repeat = tab-1;
-            
-            value += " ".repeat(repeat*tab_space);
-            
-        }//if(tab > 1)
-        
-        value += tema;
-        
-        return value;
-    
-    }//Tab(int tab, String tema)
     
 }
