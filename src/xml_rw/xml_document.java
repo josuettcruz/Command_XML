@@ -24,10 +24,13 @@ public class xml_document {
     private Data modify_d;
     private Hora modify_h;
     
-    public xml_document(String title, Read r, Data d, Hora h){
+    public xml_document(Read xhtml){
+        
+        Data d = new Data(1972,1,1);
+        Hora h = new Hora(0,0,0);
         
         this.list = new ArrayList();
-        this.title = title;
+        this.title = "";
         
         this.create_d = d;
         this.modify_d = d;
@@ -35,7 +38,7 @@ public class xml_document {
         this.create_h = h;
         this.modify_h = h;
         
-        if(Reg.xml(r)) this.Event(r);
+        if(Reg.xml(xhtml)) this.Event(xhtml);
         
     }//xml_document(String title, Read document)
     
@@ -52,6 +55,126 @@ public class xml_document {
         this.list.addAll(o.Return());
             
     }//Event(Read r)
+    
+    public Exec Save(Arq xmls){
+        
+        var dt = create_d.CompareTo(modify_d, false);
+        var ht = !create_h.Compare(modify_h);
+        
+        List<String> dat = new ArrayList();
+        
+        dat.add(Reg.xmls);
+        dat.add(Order.Tab(1, "<root>"));
+        dat.add(Order.Tab(2, "<create>"));
+        dat.add(Order.Tab(3, "<date>"));
+        dat.add(Order.Tab(4, "<year>" + this.create_d.getDate().getYear() + "<year>"));
+        dat.add(Order.Tab(4, "<month>" + this.create_d.getDate().getMonthValue() + "<month>"));
+        dat.add(Order.Tab(4, "<day>" + this.create_d.getDate().getDayOfMonth() + "<day>"));
+        dat.add(Order.Tab(3, "</date>"));
+        dat.add(Order.Tab(3, "<time>"));
+        dat.add(Order.Tab(4, "<hour>" + create_h.Hour() + "</hour>"));
+        dat.add(Order.Tab(4, "<minute>" + create_h.Min() + "</minute>"));
+        dat.add(Order.Tab(4, "<second>" + create_h.Sec() + "</second>"));
+        dat.add(Order.Tab(3, "</time>"));
+        dat.add(Order.Tab(2, "</create>"));
+        
+        if(dt || ht){
+            
+            dat.add(Order.Tab(2, "<modify>"));
+            
+            if(dt){
+                
+                dat.add(Order.Tab(3, "<date>"));
+                
+                dat.add(
+                    Order.Tab(
+                        4,
+                        "<year>" +
+                        this.modify_d.getDate().getYear() +
+                        "<year>"
+                    )
+                );
+                
+                dat.add(
+                    Order.Tab(
+                        4,
+                        "<month>" +
+                        this.modify_d.getDate().getMonthValue() +
+                        "<month>"
+                    )
+                );
+                
+                dat.add(
+                    Order.Tab(
+                        4,
+                        "<day>" +
+                        this.modify_d.getDate().getDayOfMonth() +
+                        "<day>"
+                    )
+                );
+                
+                dat.add(Order.Tab(3, "</date>"));
+                
+            }//if(dt)
+            
+            if(ht){
+                
+                dat.add(Order.Tab(3, "<time>"));
+                
+                dat.add(
+                    Order.Tab(
+                        4,
+                        "<hour>" +
+                        modify_h.Hour() +
+                        "</hour>"
+                    )
+                );
+                
+                dat.add(
+                    Order.Tab(
+                        4,
+                        "<minute>" +
+                        modify_h.Min() +
+                        "</minute>"
+                    )
+                );
+                
+                dat.add(
+                    Order.Tab(
+                        4,
+                        "<second>" +
+                        modify_h.Sec() +
+                        "</second>"
+                    )
+                );
+                
+                dat.add(Order.Tab(3, "</time>"));
+                
+            }//if(ht)
+            
+            dat.add(Order.Tab(2, "</modify>"));
+            
+        }//if(dt || ht)
+        
+        if(this.list.isEmpty()){
+            
+            dat.add("<document></document>");
+            
+        } else {
+            
+            for(xml_document_one t : this.list){
+                
+                //continue this
+                
+            }
+            
+        }
+        
+        dat.add(Order.Tab(1, "</root>"));
+        
+        return xmls.Save(dat);
+        
+    }//Save(Arq xmls)
     
     public int Add(xml_document_one demo){
         
