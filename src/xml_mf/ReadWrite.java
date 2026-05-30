@@ -4,6 +4,7 @@
  */
 package xml_mf;
 
+import xml_rw.*;
 import form.*;
 import model.*;
 
@@ -44,6 +45,24 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         }//for(int i = 0; i < dom.length; i++)
         
     }//ReadWrite()
+    
+    public static xml_document_link Unicode(){
+        
+        return new xml_document_link(
+            "HTML UTF-8 Characters",
+            new Link("https://www.w3schools.com/charsets/default.asp")
+        );
+        
+    }//Unicode()
+    
+    public static xml_document_link Icons(){
+        
+        return new xml_document_link(
+            "Icons Tutorial",
+            new Link("https://www.w3schools.com/icons/default.asp")
+        );
+        
+    }//Icons()
 
     @Override
     public String Title(boolean title) {

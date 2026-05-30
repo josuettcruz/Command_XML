@@ -40,16 +40,6 @@ public class Reg {
         "/xml/xml_usedfor.asp"
     );
     
-    public final static Link Unicode = new Link(
-        "https:" +
-        "//www.w3schools.com/charsets/default.asp"
-    );
-    
-    public final static Link Icons = new Link(
-        "https:" +
-        "//www.w3schools.com/icons/default.asp"
-    );
-    
     public final static boolean java = Arq.Dir("manifest.mf", true);
     
     private final static int result = 28;
