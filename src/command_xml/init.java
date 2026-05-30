@@ -90,8 +90,6 @@ public class init {
             
             Reg.Print("class", "carregarFonte", max);
             Reg.Print("package", "model", max);
-            
-            Reg.Print("", "", max);
         
         }//if(into) - 3 - 4
         
@@ -100,8 +98,6 @@ public class init {
             carregarFonte.StackOverflow().getLink(),
             max
         );
-        
-        if(into) Reg.Print("", "", max);
         
         Reg.Print(
             carregarFonte.Reddit().dat(into),
