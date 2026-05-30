@@ -14,18 +14,18 @@ public class xml_document_one {
     
     private String title;
     private List<xml_document_link> url;
-    private xml_document_input_text form;
+    private List<String> textarea;
     
     public xml_document_one(
         String title,
         List<xml_document_link> url,
-        xml_document_input_text form
+        List<String> textarea
     )
     {
         
         this.title = title;
         this.url = url;
-        this.form = form;
+        this.textarea = textarea;
         
     }//public xml document one
 
@@ -35,15 +35,10 @@ public class xml_document_one {
 
     public List<xml_document_link> getUrl() {return url;}
 
-    public void setUrl(List<xml_document_link> links){
-        
-        this.url.clear();
-        this.url.addAll(links);
-    
-    }//setUrl(List<xml_document_link> links)
+    public void setUrl(List<xml_document_link> url) {this.url = url;}
 
-    public xml_document_input_text getForm() {return form;}
+    public List<String> getText() {return textarea;}
 
-    public void setForm(xml_document_input_text form) {this.form = form;}
+    public void setText(List<String> textarea) {this.textarea = textarea;}
     
 }
