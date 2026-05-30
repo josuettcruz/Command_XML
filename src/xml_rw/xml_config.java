@@ -691,59 +691,23 @@ public class xml_config {
     
     public boolean Windows(){return this.user_in;}
     
-    private Exec Documents(Read d, String file_name){
+    public String Documents(String file_name){
         
-        if(
-            this.user_in &&
-            !d.Arq().contains("\\") &&
-            !d.Arq().contains("/")
-        )
-        {
+        var value = "";
+        
+        if(this.user_in){
             
-            var dol = "";
-            
-            for(var i = 0; i < file_name.length(); i++){
-                
-                var ds = file_name.charAt(i);
-                
-                switch(ds){
-                    
-                    case '\\', '/' -> dol = "";
-                    
-                    default -> dol += ds;
-                    
-                }//switch(ds)
-                
-            }//for(var i = 0; i < file_name.length(); i++)
-            
-            var val = "C:\\Users\\";
-            val += this.user;
-            val += "\\Documents\\";
-            val += dol;
-            
-            return new Arq(val).Save(d.Read());
-            
-        } else {//if(user_in)
-            
-            return new Arq(file_name).Save(d.Read());
+            value = "C:\\Users\\";
+            value += this.user;
+            value += "\\Documents\\";
             
         }//if(user_in)
         
+        value += file_name;
+        
+        return value;
+        
     }//Documents(Read d, String file_name)
-    
-    public Exec SaveDocument(int pos, String file_name){
-        
-        if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty()){
-            
-            return this.Documents(this.list.get(pos).File(), file_name);
-            
-        } else {//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
-            
-            return new Exec();
-            
-        }//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
-        
-    }//SaveDocument(int pos, String file_name)
     
     public Exec SaveFile(int pos, String file_name){
         
@@ -758,6 +722,14 @@ public class xml_config {
         }//if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty())
         
     }//SaveFile(int pos, String file_name)
+    
+    public Exec SaveDocument(int pos, String file_name){
+        
+        String document;
+        
+        return this.SaveFile(pos, this.Documents(file_name));
+        
+    }//SaveDocument(int pos, String file_name)
     
     public int Add(String t, Read r){
         
