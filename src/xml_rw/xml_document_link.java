@@ -13,9 +13,9 @@ import model.Link;
 public class xml_document_link {
     
     private String title;
-    private Link url;
+    private String url;
     
-    public xml_document_link(String title, Link url){
+    public xml_document_link(String title, String url){
         
         this.title = title;
         this.url = url;
@@ -24,6 +24,6 @@ public class xml_document_link {
 
     public String name() {return title;}
 
-    public Link lnk() {return url;}
+    public String lnk() {return url;}
     
 }

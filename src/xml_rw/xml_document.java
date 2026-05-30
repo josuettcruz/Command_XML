@@ -87,9 +87,37 @@ public class xml_document {
         dat.add(this.Tab(1, tab_space, "<root>"));
         dat.add(this.Tab(2, tab_space, "<create>"));
         dat.add(this.Tab(3, tab_space, "<date>"));
-        dat.add(this.Tab(4, tab_space, "<year>" + this.create_d.getDate().getYear() + "<year>"));
-        dat.add(this.Tab(4, tab_space, "<month>" + this.create_d.getDate().getMonthValue() + "<month>"));
-        dat.add(this.Tab(4, tab_space, "<day>" + this.create_d.getDate().getDayOfMonth() + "<day>"));
+        
+        dat.add(
+            this.Tab(
+                4,
+                tab_space,
+                "<year>" +
+                this.create_d.getDate().getYear() +
+                "<year>"
+            )
+        );
+        
+        dat.add(
+            this.Tab(
+                4,
+                tab_space,
+                "<month>" +
+                this.create_d.getDate().getMonthValue() +
+                "<month>"
+            )
+        );
+        
+        dat.add(
+            this.Tab(
+                4,
+                tab_space,
+                "<day>" +
+                this.create_d.getDate().getDayOfMonth() +
+                "<day>"
+            )
+        );
+        
         dat.add(this.Tab(3, tab_space, "</date>"));
         dat.add(this.Tab(3, tab_space, "<time>"));
         dat.add(this.Tab(4, tab_space, "<hour>" + create_h.Hour() + "</hour>"));
@@ -178,17 +206,47 @@ public class xml_document {
         
         if(this.list.isEmpty()){
             
-            dat.add("<document></document>");
+            dat.add(this.Tab(2, tab_space, "<document></document>"));
             
-        } else {
+        } else {//if(this.list.isEmpty())
             
             for(xml_document_one t : this.list){
                 
-                //continue this
+                dat.add(this.Tab(2, tab_space, "<document>"));
                 
-            }
+                dat.add(this.Tab(3, tab_space, "<title>" + t.getTitle() + "</title"));
+                
+                if(!t.getUrl().isEmpty()){
+                    
+                    dat.add(this.Tab(3, tab_space, "<links>"));
+                    
+                    for(xml_document_link x : t.getUrl()){
+                        
+                        dat.add(this.Tab(4, tab_space, "<page>" + x.name() + "</page>"));
+                        dat.add(this.Tab(4, tab_space, "<url>" + x.lnk() + "</url>"));
+                        
+                    }//for(xml_document_link x : t.getUrl())
+                    
+                    dat.add(this.Tab(3, tab_space, "</links>"));
+                    
+                }//if(!t.getUrl().isEmpty())
+                
+                if(!t.getText().isEmpty()){
+                    
+                    dat.add(this.Tab(3, tab_space, "<content>"));
+                    
+                    for(String x : t.getText())
+                    {dat.add(this.Tab(4, tab_space, "<text>" + x + "</text>"));}
+                    
+                    dat.add(this.Tab(3, tab_space, "</content>"));
+                    
+                }//if(!t.getText().isEmpty())
+                
+                dat.add(this.Tab(2, tab_space, "</document>"));
+                
+            }//for(xml_document_one t : this.list)
             
-        }
+        }//if(this.list.isEmpty())
         
         dat.add(this.Tab(1, tab_space, "</root>"));
         

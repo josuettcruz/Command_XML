@@ -238,12 +238,6 @@ public class Link {
         
     }//Val()
     
-    public String getLink(){
-        
-        return this.Val() ? this.url : this.Fail("\n");
-        
-    }//getLink()
-    
     public boolean http(boolean secury){
         
         final String co = this.lnk.get(0);
@@ -525,5 +519,7 @@ public class Link {
     }//dat(String text, boolean into)
     
     public List<String> OpenMsg(){return this.open_err;}
+    
+    public String getLink(){return this.url;}
     
 }//Link

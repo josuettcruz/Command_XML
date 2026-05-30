@@ -61,7 +61,7 @@ public class xml_config_one {
         this.modify_d = insert_d;
         this.modify_h = insert_h;
         
-    }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
+    }//public xml_config_one - 1 - 2
     
     public xml_config_one(
         String title,
@@ -84,7 +84,7 @@ public class xml_config_one {
         this.modify_d = modify_d;
         this.modify_h = modify_h;
         
-    }//xml_config_one(String title, Read cmd, Data insert_d, Hora insert_h...
+    }//public xml_config_one - 2 - 2
     
     public void Update(Data d, Hora h){
         
@@ -92,6 +92,8 @@ public class xml_config_one {
         this.modify_h = h;
         
     }//Update(Data d, Hora h)
+    
+    public void newTitle(String newtitle){this.title = newtitle;}
     
     public String Title(){return this.title;}
     
