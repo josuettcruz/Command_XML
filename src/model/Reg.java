@@ -105,6 +105,24 @@ public class Reg {
         
     }//Tab(boolean print, String entrada, int tab)
     
+    public static String Unicode(boolean link){
+        
+        var lnk = "https:";
+        lnk += "//www.w3schools.com/charsets/default.asp";
+        
+        return link ? lnk : "HTML UTF-8 Characters";
+        
+    }//Unicode()
+    
+    public static String Icons(boolean link){
+        
+        var lnk = "https:/";
+        lnk += "//www.w3schools.com/icons/default.asp";
+        
+        return link ? lnk : "HTML Icons";
+        
+    }//Icons()
+    
     public static String Tab(String before, String after, int tab){
         
         var txt = before;

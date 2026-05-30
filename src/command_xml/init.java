@@ -43,7 +43,11 @@ public class init {
             
             Reg.Print(dm.substring(0, dn) + ",", dm.substring(dn+1) + "!", max);
             
-        }//if(into)
+        } else {//if(into) - 1 - 4
+            
+            System.out.println("-".repeat(max));
+            
+        }//if(into) - 1 - 4
         
         System.out.println(
             new Hora(true).TimerGood(
@@ -80,12 +84,16 @@ public class init {
             
             Reg.Print("", "", max);
             
-        }//if(into)
+        }//if(into) - 2 - 4
         
-        Reg.Print("class", "carregarFonte", max);
-        Reg.Print("package", "model", max);
+        if(into){
+            
+            Reg.Print("class", "carregarFonte", max);
+            Reg.Print("package", "model", max);
+            
+            Reg.Print("", "", max);
         
-        if(into) Reg.Print("", "", max);
+        }//if(into) - 3 - 4
         
         Reg.Print(
             carregarFonte.StackOverflow().dat(into),
@@ -98,6 +106,36 @@ public class init {
         Reg.Print(
             carregarFonte.Reddit().dat(into),
             carregarFonte.Reddit().getLink(),
+            max
+        );
+        
+        if(into){
+            
+            Reg.Print("", "", max);
+            Reg.Print(
+                new Data(2026,5,30).DataAbreviada(true),
+                "Próxima etapa:",
+                max
+            );
+            
+            Reg.Print(
+                new Hora(8,47,0).TimerGood(false),
+                "EXPORTAR HTML",
+                max
+            );
+            
+        
+        }//if(into) - 4 - 4
+        
+        Reg.Print(
+            Reg.Unicode(false),
+            Reg.Unicode(true),
+            max
+        );
+        
+        Reg.Print(
+            Reg.Icons(false),
+            Reg.Icons(true),
             max
         );
         
