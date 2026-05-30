@@ -100,7 +100,7 @@ public class xml_document {
                 value += before;
                 value += "_";
                 value += after;
-                value += "001";
+                value += "_001";
                 
             }//if(numeral.Val())
             
@@ -201,7 +201,7 @@ public class xml_document {
                         
                         cont++;
                         
-                    }while(!tent && cont <= 100);
+                    }while(!tent && cont < 100);
                     
                     if(tent){
                         
