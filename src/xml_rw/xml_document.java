@@ -42,13 +42,212 @@ public class xml_document {
         
     }//xml_document(String title, Read document)
     
+    private String AddRepeat(String repeated){
+        
+        var value = "";
+        
+        if(repeated.contains("_")){
+            
+            var before = "";
+            var after = "";
+            var divide = false;
+            
+            for(var i = 0; i < repeated.length(); i++){
+                
+                var ds = repeated.charAt(i);
+                
+                switch(ds){
+                    
+                    case '_' -> {
+                        
+                        if(divide){
+                            
+                            before += "_";
+                            before += after;
+                            after = "";
+                            
+                        } else {//if(divide)
+                            
+                            divide = true;
+                            
+                        }//if(divide)
+                        
+                    }//case '_'
+                    
+                    default -> {
+                        
+                        if(divide)
+                        {after += ds;}
+                        else
+                        {before += ds;}
+                        
+                    }//default
+                    
+                }//switch(ds)
+                
+            }//for(var i = 0; i < repeated.length(); i++)
+            
+            var numeral = new Num(after);
+            
+            if(numeral.Val()){
+                
+                value += before;
+                value += "_";
+                value += Reg.Numb(numeral.Num()+1, 100);
+                
+            } else {//if(numeral.Val())
+                
+                value += before;
+                value += "_";
+                value += after;
+                value += "001";
+                
+            }//if(numeral.Val())
+            
+        } else {//if(repeated.contains("_"))
+            
+            value += repeated;
+            value += "_1";
+            
+        }//if(repeated.contains("_"))
+        
+        return value;
+        
+    }//AddRepeat(String repeated)
+    
     public void Event(Read r){
         
         var o = new Order<xml_document_one>();
         
+        List<xml_document_link> url = new ArrayList();
+        List<String> textarea = new ArrayList();
+        
+        var title = "";
+        var tag = "";
+        
+        var create = false;
+        var create_year = new Data().getDate().getYear();
+        var create_month = 1;
+        var create_day = 1;
+        var create_hour = 0;
+        var create_minute = 0;
+        var create_second = 0;
+        
+        var modify = false;
+        var modify_year = new Data().getDate().getYear();
+        var modify_month = 1;
+        var modify_day = 1;
+        var modify_hour = 0;
+        var modify_minute = 0;
+        var modify_second = 0;
+        
         for(Tag t : new xml(r.Read()).Tag()){
             
-            //continue this
+            if(
+                t.Tag() &&
+                t.txt().equalsIgnoreCase("document") &&
+                title.isBlank()
+            ){//if(t.Tag())
+                
+                var validate = o.Add(
+                    new xml_document_one(
+                            title,
+                            url,
+                            textarea
+                        ),
+                        title
+                    );
+                
+                if(validate){
+                    
+                    url.clear();
+                    textarea.clear();
+                    
+                    title = "";
+                    tag = "";
+                    
+                    create = false;
+                    create_year = new Data().getDate().getYear();
+                    create_month = 1;
+                    create_day = 1;
+                    create_hour = 0;
+                    create_minute = 0;
+                    create_second = 0;
+                    
+                    modify = false;
+                    modify_year = new Data().getDate().getYear();
+                    modify_month = 1;
+                    modify_day = 1;
+                    modify_hour = 0;
+                    modify_minute = 0;
+                    modify_second = 0;
+                    
+                } else {//if(ok || cont <= 100)
+                    
+                    var tent = false;
+                    
+                    var cont = 0;
+                    
+                    do{
+                        
+                        tent = o.Add(
+                            new xml_document_one(
+                                this.AddRepeat(title),
+                                url,
+                                textarea
+                            ),
+                            this.AddRepeat(title)
+                        );
+                        
+                        cont++;
+                        
+                    }while(!tent && cont <= 100);
+                    
+                    if(tent){
+                        
+                        url.clear();
+                        textarea.clear();
+                        
+                        title = "";
+                        tag = "";
+                        
+                        create = false;
+                        create_year = new Data().getDate().getYear();
+                        create_month = 1;
+                        create_day = 1;
+                        create_hour = 0;
+                        create_minute = 0;
+                        create_second = 0;
+                        
+                        modify = false;
+                        modify_year = new Data().getDate().getYear();
+                        modify_month = 1;
+                        modify_day = 1;
+                        modify_hour = 0;
+                        modify_minute = 0;
+                        modify_second = 0;
+                        
+                    }//if(tent)
+                    
+                }//if(ok || cont <= 100)
+                
+            } else if(t.OpenTag()){//if(t.Tag())
+                
+                tag = t.txt();
+                
+            } else if(t.CloseTag()){//if(t.Tag())
+                
+                tag = "null";
+                
+            } else if(t.Text()){//if(t.Tag())
+                
+                switch(tag){
+                    
+                    //11:40 - Sáb, 30/05/2026
+                    
+                }//switch(tag)
+                
+            }//if(t.Tag())
             
         }//for(Tag t : new xml(r.Read()).Tag())
         

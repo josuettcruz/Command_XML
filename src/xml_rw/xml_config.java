@@ -146,7 +146,7 @@ public class xml_config {
                 !title.isEmpty() &&
                 !file.isEmpty()
             )
-            {//if(t.OpenTag())
+            {//if(t.Tag())
                 
                 xml_config_file_cond dll;
                 
@@ -214,15 +214,15 @@ public class xml_config {
                 set_acept = 0;
                 is_acept = "";
                 
-            } else if(t.OpenTag()){//if(t.OpenTag())
+            } else if(t.OpenTag()){//if(t.Tag())
                 
                 tag = t.txt();
                 
-            } else if(t.CloseTag()){//if(t.OpenTag())
+            } else if(t.CloseTag()){//if(t.Tag())
                 
                 tag = "null";
                 
-            } else {//if(t.OpenTag())
+            } else if(t.Text()){//if(t.Tag())
                 
                 switch(tag){
                     
@@ -384,7 +384,7 @@ public class xml_config {
                     
                 }//switch(tag)
                 
-            }//if(t.OpenTag())
+            }//if(t.Tag())
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
