@@ -402,11 +402,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         var val = "";
         
+        var mude = true;
+        
         var bar = 0;
         
         for(int i = 0; i < txt.length(); i++){
             
             switch(txt.charAt(i)){
+                
+                //improvisation code
+                //alternative: txt.text(String, char);
+                case ' ', '_', '-', '|' -> val += " ";
                 
                 case '/', '\\' ->{
                     
@@ -416,10 +422,19 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 }//case '/', '\\'
                 
+                case '!', '?' ->{
+                    
+                    val += ":";
+                    if(i < txt.length()-1) val += ":";
+                    mude = false;
+                    
+                }//case '!', '?'
+                
                 default ->{
                     
                     val += txt.charAt(i);
                     bar = 0;
+                    mude = true;
                     
                 }//default
                 
