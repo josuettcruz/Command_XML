@@ -161,9 +161,9 @@ public class Hora {
             
         }//if(this.error.isBlank())
         
-    }//public Hora(String t)
+    }//setHora(String t)
     
-    public Hora(String t){
+    private void EnterHora(String t){
         
         if(t.split(" ").length == 2 && !t.contains("\n")){
             
@@ -238,6 +238,21 @@ public class Hora {
             this.setHora(t);
             
         }//if(t.split(" ").length == 2 && !t.contains("\n"))
+        
+    }//EnterHora(String t)
+    
+    public Hora(String t){
+        
+        if(txt.text(t).isBlank()){
+            
+            this.hora = LocalTime.of(0, 0, 0);
+            this.error = "Nenhum valor inserido!";
+            
+        } else {
+            
+            this.EnterHora(t);
+            
+        }
         
     }//Hora(String t)
     
