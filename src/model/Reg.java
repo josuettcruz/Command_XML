@@ -29,7 +29,7 @@ public class Reg {
     
     public final static Data create = new Data(2025, 10, 27);
     
-    public final static Data modify = new Data(2026, 5, 30);
+    public final static Data modify = new Data(2026, 5, 31);
     
     public final static String xmls = "<?xml version=\"1.0\" " +
             "encoding=\"UTF-8\"?>";
@@ -104,24 +104,6 @@ public class Reg {
         return " ".repeat(pg);
         
     }//Tab(boolean print, String entrada, int tab)
-    
-    public static String Unicode(boolean link){
-        
-        var lnk = "https:";
-        lnk += "//www.w3schools.com/charsets/default.asp";
-        
-        return link ? lnk : "HTML UTF-8 Characters";
-        
-    }//Unicode()
-    
-    public static String Icons(boolean link){
-        
-        var lnk = "https:/";
-        lnk += "//www.w3schools.com/icons/default.asp";
-        
-        return link ? lnk : "HTML Icons";
-        
-    }//Icons()
     
     public static String Tab(String before, String after, int tab){
         
@@ -279,5 +261,23 @@ public class Reg {
         return txt;
         
     }//Numb(int numb, int max, String sep)
+    
+    public static String Unicode(boolean link){
+        
+        var lnk = "https:";
+        lnk += "//www.w3schools.com/charsets/default.asp";
+        
+        return link ? lnk : "HTML UTF-8 Characters";
+        
+    }//Unicode()
+    
+    public static String Icons(boolean link){
+        
+        var lnk = "https:/";
+        lnk += "//www.w3schools.com/icons/default.asp";
+        
+        return link ? lnk : "HTML Icons";
+        
+    }//Icons()
     
 }//Reg
