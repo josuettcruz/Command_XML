@@ -65,7 +65,7 @@ public class Hora {
         
     }//Hora(boolean now)
     
-    public Hora(String t){
+    private void setHora(String t){
         
         this.error = "";
         
@@ -162,6 +162,84 @@ public class Hora {
         }//if(this.error.isBlank())
         
     }//public Hora(String t)
+    
+    public Hora(String t){
+        
+        if(t.split(" ").length == 2 && !t.contains("\n")){
+            
+            String tema[] = t.split(" ");
+            
+            var before_am = tema[0].equalsIgnoreCase("am");
+            var before_pm = tema[0].equalsIgnoreCase("pm");
+            
+            var after_am = tema[1].equalsIgnoreCase("am");
+            var after_pm = tema[1].equalsIgnoreCase("pm");
+            
+            if(before_am || before_pm){
+                
+                this.setHora(tema[1]);
+                
+                if(before_pm){
+                    
+                    var hs = this.hora.getHour();
+                    hs += 12;
+                    
+                    var ms = this.hora.getMinute();
+                    
+                    var ss = this.hora.getSecond();
+                    
+                    if(hs < 24){
+                        
+                        this.hora = LocalTime.of(hs, ms, ss);
+                        
+                    } else {//if(hs < 24)
+                        
+                        this.hora = LocalTime.of(0, 0, 0);
+                        this.error = "Têm algo de errado com a hora!";
+                        
+                    }//if(hs < 24)
+                    
+                }//if(before_pm)
+                
+            } else if(after_am || after_pm){//if(before_am || before_pm)
+                
+                this.setHora(tema[0]);
+                
+                if(after_pm){
+                    
+                    var hs = this.hora.getHour();
+                    hs += 12;
+                    
+                    var ms = this.hora.getMinute();
+                    
+                    var ss = this.hora.getSecond();
+                    
+                    if(hs < 24){
+                        
+                        this.hora = LocalTime.of(hs, ms, ss);
+                        
+                    } else {//if(hs < 24)
+                        
+                        this.hora = LocalTime.of(0, 0, 0);
+                        this.error = "Têm algo de errado com a hora!";
+                        
+                    }//if(hs < 24)
+                    
+                }//if(after_pm)
+                
+            } else {//if(before_am || before_pm)
+                
+                this.setHora(t);
+                
+            }//if(before_am || before_pm)
+            
+        } else {//if(t.split(" ").length == 2 && !t.contains("\n"))
+            
+            this.setHora(t);
+            
+        }//if(t.split(" ").length == 2 && !t.contains("\n"))
+        
+    }//Hora(String t)
     
     public LocalTime getHora(){return this.hora;}
     
