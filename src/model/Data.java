@@ -305,12 +305,8 @@ public class Data {
             
         }//if(week)
         
-        if(this.data.getDayOfMonth() != this.data.getMonthValue()){
-            
-            txt += Reg.Numb(this.data.getDayOfMonth());
-            txt += sep;
-            
-        }//if(this.data.getDayOfMonth() != this.data.getMonthValue())
+        txt += Reg.Numb(this.data.getDayOfMonth());
+        txt += sep;
         
         txt += Reg.Numb(this.data.getMonthValue());
         txt += sep;
@@ -358,7 +354,7 @@ public class Data {
             
             txt += day_month;
             
-        }//if(semana)
+        }//if(week)
         
         if(day || week){
             
