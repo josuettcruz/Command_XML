@@ -22,7 +22,7 @@ public class xml_config {
     private String user;
     private boolean user_in;
     
-    public xml_config(Read arq, Integer tab){
+    public xml_config(Read arq){
         
         this.user = "";
         this.user_in = false;

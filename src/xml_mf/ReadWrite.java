@@ -4,7 +4,10 @@
  */
 package xml_mf;
 
-import xml_rw.*;
+import xml_rw.xml_config;
+
+import file.Arq;
+
 import form.*;
 import model.*;
 
@@ -20,11 +23,17 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
     private Font temp;
     
+    private xml_config tema;
+    
     private List<String> text;
     private List<Domain> domain;
     private Domain[] dom;
     
     public ReadWrite(){
+        
+        Arq r = new Arq("xml_document.xml");
+        
+        this.tema = new xml_config(r.Read());
         
         this.temp = new java.awt.Font("Consolas", 0, 18);
         

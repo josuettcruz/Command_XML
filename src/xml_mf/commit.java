@@ -424,8 +424,20 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 case '!', '?' ->{
                     
-                    val += ":";
-                    if(i < txt.length()-1) val += ":";
+                    if(i < txt.length()-1 && mude){
+                        
+                        val += "::";
+                        
+                    } else if(i < txt.length()-1){//if(i < txt.length()-1 && ...
+                        
+                        val += ":";
+                        
+                    } else {//if(i < txt.length()-1 && mude)
+                        
+                        val += ".";
+                        
+                    }//if(i < txt.length()-1 && mude)
+                    
                     mude = false;
                     
                 }//case '!', '?'
