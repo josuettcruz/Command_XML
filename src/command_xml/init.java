@@ -145,6 +145,7 @@ public class init {
         
         final String[] arqv = {
             "run",
+            "info",
             "code"
         };
         
