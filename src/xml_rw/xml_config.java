@@ -388,6 +388,41 @@ public class xml_config {
             
         }//for(Tag t : new xml(arq.Read()).Tag())
         
+        // Garantir que o último...
+        // seja lido
+        if(!title.isBlank() && !file.isBlank()){
+            
+            xml_config_file_cond dll;
+
+            if(Arq.Dir(file, true)){
+
+                dll = xml_config_file_cond.write;
+
+            } else if(Arq.Dir(file, false)){//if(Arq.Dir(file, true))
+
+                dll = xml_config_file_cond.readonly;
+
+            } else {//if(Arq.Dir(file, true))
+
+                dll = xml_config_file_cond.not;
+
+            }//if(Arq.Dir(file, true))
+            
+            o.Add(
+                new xml_config_one(
+                    title,
+                    new Arq(file).Read(),
+                    dll,
+                    new Data(create_year, create_month, create_day),
+                    new Hora(create_hour, create_minute, create_second),
+                    new Data(modify_year, modify_month, modify_day),
+                    new Hora(modify_hour, modify_minute, modify_second)
+                ),
+                title
+            );
+            
+        }//if(!title.isBlank() && !file.isBlank())
+        
         this.list = new ArrayList();
         this.list.addAll(o.Return());
         
