@@ -410,10 +410,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             switch(txt.charAt(i)){
                 
-                //improvisation code
-                //alternative: txt.text(String, char);
-                case ' ', '_', '-', '|' -> val += " ";
-                
                 case '/', '\\' ->{
                     
                     if(bar < 2) val += "/";
