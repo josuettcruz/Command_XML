@@ -122,7 +122,6 @@ public class xml_document {
         List<xml_document_link> url = new ArrayList();
         List<String> textarea = new ArrayList();
         
-        var title = "";
         var tag = "";
         
         var create = false;
@@ -141,6 +140,12 @@ public class xml_document {
         var modify_minute = 0;
         var modify_second = 0;
         
+        var title_one = "";
+        var url_name = "";
+        var url_link = "";
+        var url_valid = false;
+        var text_valid = false;
+        
         for(Tag t : new xml(r.Read()).Tag()){
             
             if(
@@ -151,7 +156,7 @@ public class xml_document {
                 
                 var validate = o.Add(
                     new xml_document_one(
-                            title,
+                            title_one,
                             url,
                             textarea
                         ),
@@ -163,7 +168,6 @@ public class xml_document {
                     url.clear();
                     textarea.clear();
                     
-                    title = "";
                     tag = "";
                     
                     create = false;
@@ -182,6 +186,12 @@ public class xml_document {
                     modify_minute = 0;
                     modify_second = 0;
                     
+                    title_one = "";
+                    url_name = "";
+                    url_link = "";
+                    url_valid = false;
+                    text_valid = false;
+                    
                 } else {//if(ok || cont <= 100)
                     
                     var tent = false;
@@ -192,7 +202,7 @@ public class xml_document {
                         
                         tent = o.Add(
                             new xml_document_one(
-                                this.AddRepeat(title),
+                                this.AddRepeat(title_one),
                                 url,
                                 textarea
                             ),
@@ -208,7 +218,6 @@ public class xml_document {
                         url.clear();
                         textarea.clear();
                         
-                        title = "";
                         tag = "";
                         
                         create = false;
@@ -227,6 +236,12 @@ public class xml_document {
                         modify_minute = 0;
                         modify_second = 0;
                         
+                        title_one = "";
+                        url_name = "";
+                        url_link = "";
+                        url_valid = false;
+                        text_valid = false;
+                        
                     }//if(tent)
                     
                 }//if(ok || cont <= 100)
@@ -243,13 +258,240 @@ public class xml_document {
                 
                 switch(tag){
                     
-                    //07:00 - Ter, 02/06/2026
+                    case "links" -> url_valid = true;
+                    
+                    case "content" -> text_valid = true;
+                    
+                    case "create" -> create = true;
+                    
+                    case "modify" -> modify = true;
+                    
+                    case "title" -> {
+                        
+                        if(this.title.isBlank())
+                        {this.title = t.txt();}
+                        
+                        if(text_valid)
+                        {title = t.txt();}
+                    
+                    }//case "title"
+                    
+                    case "year" -> {
+                        
+                        Num n = new Num(tag);
+                        
+                        if(n.Val() && n.Num() >= 1972){
+                            
+                            if(create && modify){
+                                
+                                create_year = n.Num();
+                                
+                            } else if(create){//if(create && modify)
+                                
+                                create_year = n.Num();
+                                modify_year = n.Num();
+                                
+                            } else if(modify){//if(create && modify)
+                                
+                                modify_year = n.Num();
+                                
+                            }//if(create && modify)
+                            
+                        }//if(n.Val() && n.Num() >= 1972)
+                        
+                    }//case "year"
+                    
+                    case "month" -> {
+                        
+                        Num n = new Num(tag);
+                        
+                        if(n.Val() && n.Num() >= 1 && n.Num() <= 12){
+                            
+                            if(create && modify){
+                                
+                                create_month = n.Num();
+                                
+                            } else if(create){//if(create && modify)
+                                
+                                create_month = n.Num();
+                                modify_month = n.Num();
+                                
+                            } else if(modify){//if(create && modify)
+                                
+                                modify_month = n.Num();
+                                
+                            }//if(create && modify)
+                            
+                        }//if(n.Val() && n.Num() >= 1 && n.Num() <= 12)
+                        
+                    }//case "month"
+                    
+                    case "day" -> {
+                        
+                        Num n = new Num(tag);
+                        
+                        if(create && n.Val() && n.Num() >= 1 && n.Num() <= 31){
+                            
+                            if(create && modify){
+                                
+                                create_day = n.Num();
+                                
+                            } else if(create){//if(create && modify)
+                                
+                                create_day = n.Num();
+                                modify_day = n.Num();
+                                
+                            } else if(modify){//if(create && modify)
+                                
+                                modify_day = n.Num();
+                                
+                            }//if(create && modify)
+                            
+                        }//if(n.Val() && n.Num() >= 1 && n.Num() <= 31)
+                        
+                    }//case "day"
+                    
+                    case "hour" -> {
+                        
+                        Num n = new Num(tag);
+                        
+                        if(n.Val() && n.Num() >= 0 && n.Num() < 24){
+                            
+                            if(create && modify){
+                                
+                                create_hour = n.Num();
+                                
+                            } else if(create){//if(create && modify)
+                                
+                                create_hour = n.Num();
+                                modify_hour = n.Num();
+                                
+                            } else if(modify){//if(create && modify)
+                                
+                                modify_hour = n.Num();
+                                
+                            }//if(create && modify)
+                            
+                        }//if(n.Val() && n.Num() >= 0 && n.Num() < 24)
+                        
+                    }//case "hour"
+                    
+                    case "minute" -> {
+                        
+                        Num n = new Num(tag);
+                        
+                        if(n.Val() && n.Num() >= 0 && n.Num() < 60){
+                            
+                            if(create && modify){
+                                
+                                create_minute = n.Num();
+                                
+                            } else if(create){//if(create && modify)
+                                
+                                create_minute = n.Num();
+                                modify_minute = n.Num();
+                                
+                            } else if(modify){//if(create && modify)
+                                
+                                modify_minute = n.Num();
+                                
+                            }//if(create && modify)
+                            
+                        }//if(n.Val() && n.Num() >= 0 && n.Num() < 60)
+                        
+                    }//case "minute"
+                    
+                    case "second" -> {
+                        
+                        Num n = new Num(tag);
+                        
+                        if(n.Val() && n.Num() >= 0 && n.Num() < 60){
+                            
+                            if(create && modify){
+                                
+                                create_second = n.Num();
+                                
+                            } else if(create){//if(create && modify)
+                                
+                                create_second = n.Num();
+                                modify_second = n.Num();
+                                
+                            } else if(modify){//if(create && modify)
+                                
+                                modify_second = n.Num();
+                                
+                            }//if(create && modify)
+                            
+                        }//if(n.Val() && n.Num() >= 0 && n.Num() < 60)
+                        
+                    }//case "second"
+                    
+                    case "page" ->{
+                        
+                        if(url_valid){
+                            
+                            if(url_name.isBlank() || url_link.isBlank()){
+                                
+                                url_name = t.txt();
+                                
+                            } else {//if(url_name.isBlank() || url_link.isBlank())
+                                
+                                url.add(
+                                    new xml_document_link(
+                                        url_name,
+                                        url_link
+                                    )
+                                );
+                                
+                            }//if(url_name.isBlank() || url_link.isBlank())
+                            
+                        }//if(url_valid)
+                        
+                    }//case "page"
+                    
+                    case "url" ->{
+                        
+                        if(url_valid){
+                            
+                            if(url_name.isBlank() || url_link.isBlank()){
+                                
+                                url_name = t.txt();
+                                
+                            } else {//if(url_name.isBlank() || url_link.isBlank())
+                                
+                                url.add(
+                                    new xml_document_link(
+                                        url_name,
+                                        url_link
+                                    )
+                                );
+                                
+                            }//if(url_name.isBlank() || url_link.isBlank())
+                            
+                        }//if(url_valid)
+                        
+                    }//case "url"
+                    
+                    case "text" ->{
+                        
+                        if(text_valid)
+                        {textarea.add(t.txt());}
+                        
+                    }//case "text"
                     
                 }//switch(tag)
                 
             }//if(t.Tag())
             
         }//for(Tag t : new xml(r.Read()).Tag())
+        
+        this.create_d = new Data(create_year, create_month, create_day);
+        
+        this.create_h = new Hora(create_hour, create_minute, create_second);
+        
+        this.modify_d = new Data(modify_year, modify_month, modify_day);
+        
+        this.modify_h = new Hora(modify_hour, modify_minute, modify_second);
         
         this.list.addAll(o.Return());
             
