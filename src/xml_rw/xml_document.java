@@ -455,7 +455,7 @@ public class xml_document {
                             
                             if(url_name.isBlank() || url_link.isBlank()){
                                 
-                                url_name = t.txt();
+                                url_link = t.txt();
                                 
                             } else {//if(url_name.isBlank() || url_link.isBlank())
                                 
