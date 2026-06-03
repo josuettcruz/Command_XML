@@ -161,7 +161,7 @@ public class xml_document {
                             url,
                             textarea
                         ),
-                        title
+                        title_one
                     );
                 
                 if(validate){
@@ -207,7 +207,7 @@ public class xml_document {
                                 url,
                                 textarea
                             ),
-                            this.AddRepeat(title)
+                            this.AddRepeat(title_one)
                         );
                         
                         cont++;
