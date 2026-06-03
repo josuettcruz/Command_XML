@@ -268,7 +268,7 @@ public class xml_document {
                     
                     case "title" -> {
                         
-                        if(this.title.isBlank())
+                        if(this.title.isBlank() && !text_valid)
                         {this.title = t.txt();}
                         
                         if(text_valid)
