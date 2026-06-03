@@ -30,7 +30,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private String input;
     
     final char[] ten = {'"','\'','\\','/','|','[',']','{','}','(',')'};
-    final String[] notpad = {"exit","sair","encerrar","finalizar","out","exc"};
+    final String[] notpad = {"exit","sair","encerrar","finalizar"};
     
     private final char[] points = {
         '?',
@@ -67,8 +67,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         Hora h = new Hora(true);
         
-        final var cond1 = h.Compare(new Hora(5,0,0));
-        final var cond2 = !h.Compare(new Hora(23,0,0));
+        final var cond1 = h.Compare(new Hora(6,0,0));
+        final var cond2 = !h.Compare(new Hora(22,0,0));
         final var cond = cond1 && cond2;
         
         var val = "git commit -m \"";
@@ -115,7 +115,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 var space = false;
                 
-                for(String t : txt.phrase(this.text.get(d), space)){
+                for(String t : txt.phrase(this.text.get(d))){
                     
                     if(space){
                         
@@ -196,7 +196,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 if(quot_end_line) val += "'";
                 
-            }//for(int d = 0; d < this.text.size(); d++)
+            }//for(String t : txt.phrase(this.text.get(d)))
             
         }//if(this.text.size() == 1)
         
