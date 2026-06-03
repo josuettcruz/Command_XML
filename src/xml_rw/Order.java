@@ -91,10 +91,9 @@ public class Order<cmd> {
                         compare = this.command.get(i).Title();
                         
                         val[i] = false;
-                        
                         loop = false;
                         
-                    }//if(txt.min(doc[i], compare))
+                    }//if(txt.min(this.command.get(i).Title(), compare))
                     
                 }//if(val[i])
                 

@@ -107,7 +107,7 @@ public class xml_document {
         } else {//if(repeated.contains("_"))
             
             value += repeated;
-            value += "_1";
+            value += "_001";
             
         }//if(repeated.contains("_"))
         
