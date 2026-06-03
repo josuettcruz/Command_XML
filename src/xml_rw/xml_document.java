@@ -151,8 +151,8 @@ public class xml_document {
             if(
                 t.Tag() &&
                 t.txt().equalsIgnoreCase("document") &&
-                title.isBlank()
-            ){//if(t.Tag())
+                title_one.isBlank()
+            ){
                 
                 var validate = o.Add(
                     new xml_document_one(
