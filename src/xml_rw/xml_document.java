@@ -150,6 +150,7 @@ public class xml_document {
             
             if(
                 t.Tag() &&
+                text_valid &&
                 t.txt().equalsIgnoreCase("document") &&
                 title_one.isBlank()
             ){
