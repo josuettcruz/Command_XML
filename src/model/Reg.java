@@ -71,16 +71,16 @@ public class Reg {
     }//coppy(String ctrl_c)
     
     public static boolean xml(Read r){
+            
+        var compare = "";
+        
+        for(String t : txt.phrase(xmls))
+        {compare += t.toLowerCase();}
         
         var proc = 0;
         var valid = false;
         
         do{
-            
-            var compare = "";
-            
-            for(String t : txt.phrase(Reg.xmls))
-            {compare += t.toLowerCase();}
             
             var validate = "";
             

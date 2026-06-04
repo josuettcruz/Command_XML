@@ -89,20 +89,20 @@ public class xml_document {
             
             var numeral = new Num(after);
             
-            if(numeral.Val()){
+            if(numeral.Val() && numeral.Num() > 0 && numeral.Num() <= 100){
                 
                 value += before;
                 value += "_";
                 value += Reg.Numb(numeral.Num()+1, 100);
                 
-            } else {//if(numeral.Val())
+            } else {//if(numeral.Val() && numeral.Num() > 0 && numeral.Num()...
                 
                 value += before;
                 value += "_";
                 value += after;
                 value += "_001";
                 
-            }//if(numeral.Val())
+            }//if(numeral.Val() && numeral.Num() > 0 && numeral.Num() <= 100)
             
         } else {//if(repeated.contains("_"))
             
