@@ -92,7 +92,7 @@ public class Characters {
         
         this.ad.add(value);
     
-    }
+    }//Tab(int tab, String tema, String tag)
     
     private void Tab(int tab, String tema, boolean open_tag){
         
@@ -112,7 +112,7 @@ public class Characters {
         
         this.ad.add(value);
     
-    }
+    }//Tab(int tab, String tema, boolean open_tag)
     
     public Exec Save(Arq save){
         
@@ -156,7 +156,9 @@ public class Characters {
         this.Tab(2, "characters", false);
         this.Tab(1, "root", false);
         
-        var node = save.Save(ad);
+        var node = save.Save(this.ad);
+        
+        this.ad.clear();
         
         return node;
         
