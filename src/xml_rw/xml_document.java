@@ -205,7 +205,7 @@ public class xml_document {
                     url_valid = false;
                     text_valid = false;
                     
-                } else {//if(ok || cont <= 100)
+                } else {//if(validate)
                     
                     var tent = false;
                     
@@ -257,7 +257,7 @@ public class xml_document {
                         
                     }//if(tent)
                     
-                }//if(ok || cont <= 100)
+                }//if(validate)
                 
             } else if(t.OpenTag()){//if(t.Tag())
                 
@@ -503,6 +503,44 @@ public class xml_document {
             }//if(t.Tag())
             
         }//for(Tag t : new xml(r.Read()).Tag())
+        
+        // Garantir que o último...
+        // seja lido
+        if(!title_one.isBlank()){
+            
+            var validate = o.Add(
+                new xml_document_one(
+                        title_one,
+                        url,
+                        textarea
+                    ),
+                    title_one
+                );
+
+            if(!validate){
+
+                var tent = false;
+
+                var cont = 0;
+
+                do{
+
+                    tent = o.Add(
+                        new xml_document_one(
+                            this.AddRepeat(title_one),
+                            url,
+                            textarea
+                        ),
+                        this.AddRepeat(title_one)
+                    );
+
+                    cont++;
+
+                }while(!tent && cont < 100);
+
+            }//if(!validate)
+
+        }//if(!title.isBlank() && !file.isBlank())
         
         this.create_d = new Data(create_year, create_month, create_day);
         

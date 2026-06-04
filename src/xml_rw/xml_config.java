@@ -702,7 +702,9 @@ public class xml_config {
         
         exp.add(this.Tab(1, "</root>"));
         
-        return save.Save(exp);
+        var node = save.Save(exp);
+        
+        return node;
         
     }//Save(Arq save)
     

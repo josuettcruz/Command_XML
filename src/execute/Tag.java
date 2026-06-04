@@ -4,9 +4,7 @@
  */
 package execute;
 
-import static execute.tg.attr;
-import static execute.tg.val;
-import static execute.tg.txt;
+//import static execute.tg.*;
 
 /**
  *
