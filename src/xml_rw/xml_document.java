@@ -444,6 +444,9 @@ public class xml_document {
                                     )
                                 );
                                 
+                                url_name = "";
+                                url_link = "";
+                                
                             }//if(url_name.isBlank() || url_link.isBlank())
                             
                         }//if(url_valid)
@@ -466,6 +469,9 @@ public class xml_document {
                                         url_link
                                     )
                                 );
+                                
+                                url_name = "";
+                                url_link = "";
                                 
                             }//if(url_name.isBlank() || url_link.isBlank())
                             
