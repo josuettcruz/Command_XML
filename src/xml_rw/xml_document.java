@@ -24,6 +24,8 @@ public class xml_document {
     private Data modify_d;
     private Hora modify_h;
     
+    private boolean xml_doc;
+    
     public xml_document(Read xhtml){
         
         Data d = new Data(1972,1,1);
@@ -38,7 +40,17 @@ public class xml_document {
         this.create_h = h;
         this.modify_h = h;
         
-        if(Reg.xml(xhtml)) this.Event(xhtml);
+        if(Reg.xml(xhtml)){
+            
+            this.Event(xhtml);
+            
+            this.xml_doc = !this.list.isEmpty();
+            
+        } else {
+            
+            this.xml_doc = false;
+            
+        }
         
     }//xml_document(String title, Read document)
     
@@ -740,19 +752,8 @@ public class xml_document {
         
     }//Update(Data d, Hora h)
     
-    private void Update(){
-        
-        Data d = new Data();
-        Hora h = new Hora(true);
-        
-        if(d.CompareTo(this.create_d, true) && h.Compare(this.create_h)){
-            
-            this.modify_d = d;
-            this.modify_h = h;
-            
-        }//if(d.CompareTo(this.create_d, true) && h.Compare(this.create_h))
-        
-    }//Update()
+    private boolean Update()
+    {return this.Update(new Data(), new Hora(true));}
     
     public int Proc(String title){
         
@@ -802,7 +803,19 @@ public class xml_document {
         
     }//Edit(int position, xml_document_one value)
 
-    public String Title(boolean txt_title) {return this.title;}
+    public void setTitle(String title) {this.title = title;}
+
+    public String getTitle() {return title;}
+
+    public Data CreateDate() {return create_d;}
+
+    public Hora CreateHour() {return create_h;}
+
+    public Data ModifyDate() {return modify_d;}
+
+    public Hora ModifyHour() {return modify_h;}
+
+    public boolean Doc() {return xml_doc;}
 
     public List<xml_document_one> List() {return list;}
     
