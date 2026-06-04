@@ -116,6 +116,8 @@ public class Characters {
     
     public Exec Save(Arq save){
         
+        this.ad.clear();
+        
         this.Tab(1, Reg.xmls);
         
         this.Tab(1, "root", true);
