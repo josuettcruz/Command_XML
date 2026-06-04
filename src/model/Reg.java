@@ -29,7 +29,7 @@ public class Reg {
     
     public final static Data create = new Data(2025, 10, 27);
     
-    public final static Data modify = new Data(2026, 6, 3);
+    public final static Data modify = new Data(2026, 6, 4);
     
     public final static String xmls = "<?xml version=\"1.0\" " +
             "encoding=\"UTF-8\"?>";
