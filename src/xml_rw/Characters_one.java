@@ -4,7 +4,7 @@
  */
 package xml_rw;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class Characters_one {
     
     public Characters_one(String characters, List<String> charset){
         
-        this.characters = characters;
+        this.characters = characters.trim();
         this.charset = charset;
         
     }//Characters_one(String characters, List<String> charset)
@@ -46,10 +46,6 @@ public class Characters_one {
         return val;
         
     }//Code(boolean character)
-    
-    public String Code(boolean character){return this.Code(character, 0);}
-    
-    public List<String> List(boolean character){return this.charset;}
     
     public String Value(){return this.characters;}
     
@@ -74,6 +70,10 @@ public class Characters_one {
         
     }//Val()
     
+    public String Code(boolean character){return this.Code(character, 0);}
+    
     public boolean Valid(){return this.Val() != this.err;}
+    
+    public int Max(){return this.charset.size();}
     
 }

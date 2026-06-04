@@ -554,7 +554,7 @@ public class xml_document {
             
     }//Event(Read r)
     
-    public String Tab(int tab, int tab_space, String tema){
+    private String Tab(int tab, int tab_space, String tema){
         
         var value = "";
         

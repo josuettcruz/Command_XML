@@ -428,7 +428,7 @@ public class xml_config {
         
     }//Event(Read arq)
     
-    public String Tab(int tab, String tema){
+    private String Tab(int tab, String tema){
         
         var value = "";
         

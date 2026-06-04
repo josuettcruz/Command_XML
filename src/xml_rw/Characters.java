@@ -19,11 +19,14 @@ public class Characters {
     
     private List<Characters_one> list;
     
+    private List<String> ad;
+    
     private boolean valid;
     
     public Characters(Read r){
         
         this.list = new ArrayList();
+        this.ad = new ArrayList();
         
         if(Reg.xml(r)){
             
@@ -41,19 +44,15 @@ public class Characters {
     
     private void Event(Read reading){
         
-        var o = new Order<Characters_one>();
-        
         for(Tag t : new xml(reading.Read()).Tag()){
             
             //code
             
         }//for(Tag t : new xml(reading.Read()).Tag())
         
-        this.list.addAll(o.Return());
-        
     }//Event(Read reading)
     
-    public String Tab(int tab, String tema){
+    private void Tab(int tab, String tema){
         
         var value = "";
         
@@ -67,13 +66,95 @@ public class Characters {
         
         value += tema;
         
-        return value;
+        this.ad.add(value);
     
     }//Tab(int tab, String tema)
     
+    private void Tab(int tab, String tema, String tag){
+        
+        var value = "";
+        
+        if(tab > 1){
+            
+            var repeat = tab-1;
+            
+            value += " ".repeat(repeat*Order.tab_space);
+            
+        }//if(tab > 1)
+        
+        value += "<";
+        value += tag;
+        value += ">";
+        value += tema;
+        value += "</";
+        value += tag;
+        value += ">";
+        
+        this.ad.add(value);
+    
+    }
+    
+    private void Tab(int tab, String tema, boolean open_tag){
+        
+        var value = "";
+        
+        if(tab > 1){
+            
+            var repeat = tab-1;
+            
+            value += " ".repeat(repeat*Order.tab_space);
+            
+        }//if(tab > 1)
+        
+        value += open_tag ? "<" : "</";
+        value += tema;
+        value += ">";
+        
+        this.ad.add(value);
+    
+    }
+    
     public Exec Save(Arq save){
         
-        List<String> ad = new ArrayList();
+        this.Tab(1, Reg.xmls);
+        
+        this.Tab(1, "root", true);
+        this.Tab(2, "characters", true);
+        
+        if(this.list.isEmpty()){
+            
+            this.Tab(3, "<character></character>");
+            
+        } else {//if(this.list.isEmpty())
+            
+            for(Characters_one a : this.list){
+                
+                this.Tab(3, "character", true);
+                
+                this.Tab(4, a.Value(), "caracter");
+                
+                if(a.Max() >= 1){
+                    
+                    this.Tab(4, "codes", true);
+                    
+                    for(int i = 0; i < a.Max(); i++){
+                        
+                        this.Tab(5, a.Value(), "code");
+                        
+                    }//for(int i = 0; i < a.Max(); i++)
+                    
+                    this.Tab(4, "codes", false);
+                    
+                }//if(a.Max() >= 1)
+                
+                this.Tab(3, "character", false);
+                
+            }//for(Characters_one a : this.list)
+            
+        }//if(this.list.isEmpty())
+        
+        this.Tab(2, "characters", false);
+        this.Tab(1, "root", false);
         
         var node = save.Save(ad);
         
