@@ -857,4 +857,4 @@ public class xml_document {
 
     public List<xml_document_one> List() {return list;}
     
-}
+}//xml_document

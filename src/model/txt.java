@@ -311,6 +311,8 @@ public class txt {
                     
                     switch(phrase.charAt(p)){
                         
+                        case '￿', '' -> {}
+                        
                         case ' ',
                             '\t',
                             '\n',
@@ -336,9 +338,8 @@ public class txt {
                             '8',
                             '9',
                             '-',
-                            '_' -> txt += phrase.charAt(p);
-                            
-                        case '￿', '' -> {}
+                            '_'
+                        -> txt += phrase.charAt(p);
                         
                         default ->{
                             
@@ -897,6 +898,8 @@ public class txt {
                 
                 switch(ds){
                     
+                    case '￿', '' -> {}
+                    
                     case ' ' -> val += ds;
                     
                     case '{' -> {
@@ -987,6 +990,8 @@ public class txt {
             for(int p = 0; p < value.length(); p++){
                 
                 switch(value.charAt(p)){
+                    
+                    case '￿', '' -> {}
                     
                     case '&' ->{
                         

@@ -26,4 +26,4 @@ public class xml_document_link {
 
     public String lnk() {return url;}
     
-}
+}//xml_document_link 

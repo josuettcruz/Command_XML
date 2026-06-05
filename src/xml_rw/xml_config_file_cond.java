@@ -20,4 +20,4 @@ public enum xml_config_file_cond {
     
     public String Desc(){return this.text;}
     
-}
+}//enum xml_config_file_cond

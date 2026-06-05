@@ -29,16 +29,22 @@ public class xml_document_one {
         
     }//public xml document one
 
-    public String getTitle() {return title;}
+    public String getTitle()
+    {return title;}
 
-    public void setTitle(String title) {this.title = title;}
+    public void setTitle(String title)
+    {this.title = title;}
 
-    public List<xml_document_link> getUrl() {return url;}
+    public List<xml_document_link> getUrl()
+    {return url;}
 
-    public void setUrl(List<xml_document_link> url) {this.url = url;}
+    public void setUrl(List<xml_document_link> url)
+    {this.url = url;}
 
-    public List<String> getText() {return textarea;}
+    public List<String> getText()
+    {return textarea;}
 
-    public void setText(List<String> textarea) {this.textarea = textarea;}
+    public void setText(List<String> textarea)
+    {this.textarea = textarea;}
     
-}
+}//xml_document_one
