@@ -841,7 +841,7 @@ public class txt {
         switch(dat.toLowerCase()){
             
             // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
-            case "nbsp", "#160", "#xA0" ->
+            case "nbsp", "#160", "#xa0" ->
             {val += utf ? "&nbsp" : " ";}
             
             // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
