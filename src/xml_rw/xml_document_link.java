@@ -4,8 +4,6 @@
  */
 package xml_rw;
 
-import model.Link;
-
 /**
  *
  * @author josue
