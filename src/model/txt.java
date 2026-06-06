@@ -1000,7 +1000,7 @@ public class txt {
                     
                     case '￿', '' -> {}
                     
-                    case '&' ->{
+                    case '&' ->{//if(quot) - 1 - 3
                         
                         if(quot){
                             
@@ -1036,7 +1036,7 @@ public class txt {
                     
                     }//case ' '
                     
-                    default ->{
+                    default ->{//if(quot) - 3 - 3
                         
                         if(quot){
                             

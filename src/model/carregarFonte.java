@@ -39,7 +39,7 @@ public class carregarFonte {
             
             var plain = font_type >= 0 && font_type <= 3 ? font_type : 0;
             
-            var size = font_size >= 0 && font_size <= 72 ? font_size : 12;
+            var size = font_size >= 8 && font_size <= 72 ? font_size : 12;
             
             this.msg.add(caminho_da_font);
             this.msg.add(Reg.Numb(plain));
@@ -85,15 +85,15 @@ public class carregarFonte {
         
     }//carregarFonte(String caminho_da_font)
     
-    public Font Font(Font f){
+    public Font MyFont(Font f){
         
         return this.minhaFonte == null ? f : this.minhaFonte;
         
-    }//Font(Font f)
+    }//MyFont(Font f)
     
     public Font Font(){
         
-        return this.Font(new java.awt.Font("Times New Roman",0,18));
+        return this.MyFont(new java.awt.Font("Times New Roman",0,18));
         
     }//Font()
     
