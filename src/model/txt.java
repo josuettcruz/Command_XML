@@ -908,10 +908,12 @@ public class txt {
                             
                             val += "{{{";
                             open_val = false;
+                            open_num = 0;
                             
                         } else if(open_num >= 2){//if(open_val)
                             
                             open_val = true;
+                            open_num = 0;
                             
                         } else {//if(open_val)
                             
@@ -927,8 +929,12 @@ public class txt {
                             
                             val += Out(dat, true);
                             dat = "";
+                            
                             open_val = false;
                             close_val = false;
+                            
+                            open_num = 0;
+                            close_num = 0;
                             
                         } else if(open_val){//if(open_val && close_val)
                             
@@ -939,6 +945,7 @@ public class txt {
                             } else if(close_num >= 2){//if(close_val)
                                 
                                 close_val = true;
+                                close_num = 0;
                                 
                             } else {//if(close_val)
                                 
