@@ -836,13 +836,15 @@ public class txt {
     private static String Out(String dat, boolean utf){
         
         var val = "";
+        
+        if(utf) val += "&";
                             
         // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
         switch(dat.toLowerCase()){
             
             // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
             case "nbsp", "#160", "#xa0" ->
-            {val += utf ? "&nbsp" : " ";}
+            {val += utf ? "&nbsp;" : " ";}
             
             // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
             case "amp", "#38", "#x26" ->
