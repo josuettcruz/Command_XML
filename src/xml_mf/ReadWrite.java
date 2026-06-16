@@ -4,12 +4,11 @@
  */
 package xml_mf;
 
-import xml_rw.xml_config;
-
 import file.Arq;
 
 import form.*;
 import model.*;
+import xml_rw.*;
 
 import java.awt.Font;
 import java.util.List;
@@ -21,39 +20,66 @@ import java.util.ArrayList;
  */
 public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
-    private Font temp;
+    private Font font;
     
-    private xml_config tema;
-    
+    private xml_document tema;
     private List<String> text;
-    private List<Domain> domain;
-    private Domain[] dom;
     
-    public ReadWrite(){
+    public void Init(Arq r){
         
-        Arq r = new Arq("xml_document.xml");
-        
-        this.tema = new xml_config(r.Read());
-        
-        this.temp = new java.awt.Font("Consolas", 0, 18);
+        this.tema = new xml_document(r.Read());
         
         this.text = new ArrayList();
-        this.domain = new ArrayList();
-        this.dom = new Domain[10];
         
-        for(int i = 0; i < dom.length; i++){
+        for(int i = 0; i < 100; i++){
             
-            var value = Reg.Numb(i+1, dom.length);
-            
-            Domain d = new Domain(i,value);
-            
-            this.text.add(value);
-            this.domain.add(d);
-            this.dom[i] = d;
+            this.text.add(Reg.Numb(i+1, 100));
             
         }//for(int i = 0; i < dom.length; i++)
         
-    }//ReadWrite()
+    }//Init(Arq r)
+    
+    public ReadWrite(Arq arquivo_xml){
+        
+        this.font = new java.awt.Font("Consolas", 0, 18);
+        
+        this.Init(arquivo_xml);
+        
+    }//ReadWrite(Arq arquivo_xml)
+    
+    public ReadWrite(Arq arquivo_xml, Font font){
+        
+        this.font = font;
+        
+        this.Init(arquivo_xml);
+        
+    }//ReadWrite(Arq arquivo_xml, Font font)
+    
+    private Domain[] DomainMode(){
+        
+        Domain demo[] = new Domain[10];
+        
+        //16/06/2026
+        //Instrução temporária!
+        for(int pos = 0; pos < 10; pos++)
+        {demo[pos] = new Domain(pos,Reg.Numb(pos+1, 10));}
+        
+        return demo;
+        
+    }//DomainMode()
+    
+    private List<Domain> DomainList(){
+        
+        List<Domain> demo = new ArrayList();
+        
+        //16/06/2026
+        //Instrução temporária!
+        for(int pos = 0; pos < 100; pos++)
+        {demo.add(new Domain(pos,Reg.Numb(pos+1, 10)));}
+        
+        return demo;
+        
+    }//DomainList()
 
     @Override
     public String Title(boolean title) {
@@ -62,7 +88,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public Font FontTitle() {
-        return this.temp;
+        return this.font;
     }
 
     @Override
@@ -72,7 +98,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public Font ListFont() {
-        return this.temp;
+        return this.font;
     }
 
     @Override
@@ -82,7 +108,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public List<Domain> ListMode() {
-        return this.domain;
+        return this.DomainList();
     }
 
     @Override
@@ -97,7 +123,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public Font TextAreaFont() {
-        return this.temp;
+        return this.font;
     }
 
     @Override
@@ -107,7 +133,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public Domain[] Mode() {
-        return this.dom;
+        return this.DomainMode();
     }
 
     @Override
