@@ -207,6 +207,8 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
     }//ReadWrite
     
+    // new classes this -- 16/06/2026 -- PM 01:10
+    
     private Domain[] DomainMode(){
         
         Domain demo[] = new Domain[10];
@@ -367,7 +369,6 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     {
         
         //throw new UnsupportedOperationException(this.temp);
-        
         
     }
 

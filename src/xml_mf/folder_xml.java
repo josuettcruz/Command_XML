@@ -200,7 +200,9 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         }//throw
         
-    }////folder_xml
+    }//folder_xml
+    
+    // new classes this -- 16/06/2026 -- PM 01:10
     
     private List<Domain> DomainList(){
         
