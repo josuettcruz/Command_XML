@@ -341,26 +341,49 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public void Action(pag1 action, List<Domain> vol, String input) {
+        
         //throw new UnsupportedOperationException(this.temp);
-        System.exit(0);
+        
     }
 
     @Override
     public void Command(pag2 op, List<Domain> value) {
+        
         //throw new UnsupportedOperationException(this.temp);
-        System.exit(0);
+        
+        
     }
 
     @Override
-    public void Painel3(int key_code, char key_char, Domain[] menu, String input, List<String> text, int row, int col) {
+    public void Painel3(
+        int key_code,
+        char key_char,
+        Domain[] menu,
+        String input,
+        List<String> text,
+        int row,
+        int col
+    )
+    {
+        
         //throw new UnsupportedOperationException(this.temp);
-        System.exit(0);
+        
+        
     }
 
     @Override
-    public void Painel3(pag3 op, Domain[] menu, String input, List<String> text, int row, int col) {
+    public void Painel3(
+        pag3 op,
+        Domain[] menu,
+        String input,
+        List<String> text,
+        int row,
+        int col
+    )
+    {
+        
         //throw new UnsupportedOperationException(this.temp);
-        System.exit(0);
+        
     }
     
 }//ReadWrite

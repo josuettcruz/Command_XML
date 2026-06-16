@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-//not currently used
 package xml_mf;
 
 import file.*;
@@ -307,14 +306,16 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
 
     @Override
     public void Action(pag1 action, List<Domain> vol, String input) {
+        
         //throw new UnsupportedOperationException(this.temp);
-        System.exit(0);
+        
     }
 
     @Override
     public void Command(pag2 op, List<Domain> value) {
+        
         //throw new UnsupportedOperationException(this.temp);
-        System.exit(0);
+        
     }
     
 }//folder_xml
