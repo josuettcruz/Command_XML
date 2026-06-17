@@ -25,7 +25,7 @@ public class init {
     
     public static void Play(){
         
-        controller.p1s(new config());
+        new Action();
         
     }//Play()
     
