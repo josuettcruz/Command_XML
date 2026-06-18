@@ -25,7 +25,7 @@ public class init {
     
     public static void Play(){
         
-        new Action();
+        Action.Enter();
         
     }//Play()
     
@@ -291,8 +291,12 @@ public class init {
     private static void Execute(){
         
         String[] folder = {
+            "_git-commit",
             "git-commit",
             "git-commit_" + Reg.modify.Load(),
+            "git-commit-" + Reg.modify.Load(),
+            "_git-commit_" + Reg.modify.Load(),
+            "_" + Reg.modify.Load(),
             Reg.modify.Load()
         };
         

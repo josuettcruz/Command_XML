@@ -16,26 +16,30 @@ import java.util.ArrayList;
  */
 public class Action {
     
+    public final static void Enter(){new Action();}
+    
+    /* 18/06/2026                 **
+    ** Removido após a preparação */
     private List<String> msg(){
         
         List<String> val = new ArrayList();
         
         val.add("CLASSE: \"Action\"");
-        val.add("PACOTE: \"command_xml\"");
+        val.add("PACOTE: \"command xml\"".toUpperCase());
         val.add("");
         val.add("Todas as novas funcionalidades do projeto,");
         val.add("deverão ficar nessa classe!");
         
         return val;
         
-    }// msg()
+    }//msg()
     
-    public Action(){
+    private void message(){
         
-        controller.p1s(new config());
-        System.out.println("_".repeat(this.msg().get(0).length()));
+        System.out.println("-".repeat(this.msg().get(0).length()));
         
         var nol = false;
+        var pol = 0;
         
         for(String p : this.msg()){
             
@@ -47,12 +51,18 @@ public class Action {
                 
                 if(nol){
                     
+                    if(pol > 0)System.out.println("-".repeat(pol));
                     System.out.println();
-                    System.out.println("_".repeat(p.length()));
+                    System.out.println("-".repeat(p.length()));
                     
                     nol = false;
+                    pol = 0;
                     
-                }//if(nol)
+                } else {
+                    
+                    pol = p.length();
+                    
+                }
                 
                 System.out.println(p);
                 
@@ -70,6 +80,16 @@ public class Action {
         
         System.out.println();
         
+    }/* message()                          **
+    **  Essas linhas deverão ser removidas **
+    **  no utilizar da classe              **
+    **  18/06/2026                         */
+    
+    public Action(){
+        
+        this.message(); /* Excluir junto com a linha de cima! */
+        controller.p1s(new config());
+    
     }//Action()
     
 }//Action
