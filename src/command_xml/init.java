@@ -9,8 +9,7 @@ import file.Read;
 
 import model.*;
 
-import xml_mf.config;
-import xml_mf.GitCommit;
+import xml_mf.*;
 
 import form.controller;
 
@@ -23,11 +22,7 @@ import java.util.List;
  */
 public class init {
     
-    public static void Play(){
-        
-        Action.Enter();
-        
-    }//Play()
+    public static void Play(){Action.Init();}
     
     private static void Println(boolean into){
         

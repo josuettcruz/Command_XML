@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package command_xml;
+package xml_mf;
 
 import form.controller;
-import xml_mf.config;
+import model.Reg;
+import model.Data;
+import model.Hora;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -16,16 +18,23 @@ import java.util.ArrayList;
  */
 public class Action {
     
-    public final static void Enter(){new Action();}
-    
-    /* 18/06/2026                 **
-    ** Removido após a preparação */
-    private List<String> msg(){
+    /* 22/06/2026                 **
+    ** Remover após a preparação  */
+    private final static List<String> msg(){
+        
+        final int tab = 10;
+        
+        var c1 = new Hora(true).Compare(new Hora(8,39,15));
+        var c2 = new Hora(18,0,30).Compare(new Hora(true));
+        var c = c1 && c2;
         
         List<String> val = new ArrayList();
         
-        val.add("CLASSE: \"Action\"");
-        val.add("PACOTE: \"command xml\"".toUpperCase());
+        if(c) val.add(Reg.Tab("Data:", new Data().DataAbreviada(true), tab));
+        val.add(Reg.Tab("CLASSE:", "Action", tab));
+        val.add(Reg.Tab("PACOTE:", "xml mf".toUpperCase(), tab));
+        if(!c) val.add(Reg.Tab("Data:", new Data().DataAbreviada(true), tab));
+        
         val.add("");
         val.add("Todas as novas funcionalidades do projeto,");
         val.add("deverão ficar nessa classe!");
@@ -34,14 +43,14 @@ public class Action {
         
     }//msg()
     
-    private void message(){
+    private static void message(){
         
-        System.out.println("-".repeat(this.msg().get(0).length()));
+        System.out.println("-".repeat(msg().get(0).length()));
         
         var nol = false;
         var pol = 0;
         
-        for(String p : this.msg()){
+        for(String p : msg()){
             
             if(p.isBlank()){
                 
@@ -72,8 +81,8 @@ public class Action {
         
         System.out.println(
             "-".repeat(
-                this.msg().get(
-                    this.msg().size()-1
+                msg().get(
+                    msg().size()-1
                 ).length()
             )
         );
@@ -83,11 +92,13 @@ public class Action {
     }/* message()                          **
     **  Essas linhas deverão ser removidas **
     **  no utilizar da classe              **
-    **  18/06/2026                         */
+    **  22/06/2026                         */
     
-    public Action(){
+    public static void Init(){
         
-        this.message(); /* Excluir junto com a linha de cima! */
+        /* Excluir junto com a linha de cima! */
+        message(); /*22/06/2026*/
+        
         controller.p1s(new config());
     
     }//Action()
