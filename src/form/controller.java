@@ -36,7 +36,7 @@ public class controller {
         
     }//Position(int right, int top, int width, int height)
     
-    public int Dim(d op){
+    public static int Dim(d op){
         
         int val = -1;
         
