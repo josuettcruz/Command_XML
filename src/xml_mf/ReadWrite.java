@@ -30,7 +30,7 @@ import java.awt.Font;
  */
 public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
-    private xml_document tema;
+    private Arq save;
     private List<String> text;
     
     private Font font_title;
@@ -44,139 +44,8 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     private boolean selection_multiple;
     private boolean combo_box;
     
-    public void Init(Arq r){
-        
-        this.title = new Data().DataAbreviada(true);
-        this.header = new Data().DataCompleta(true);
-        this.input = "";
-        
-        this.list_colum = true;
-        this.selection_multiple = false;
-        this.combo_box = true;
-        
-        this.tema = new xml_document(r.Read());
-        
-        this.text = new ArrayList();
-        
-        for(int i = 0; i < 100; i++){
-            
-            this.text.add(Reg.Numb(i+1, 100));
-            
-        }//for(int i = 0; i < dom.length; i++)
-        
-    }//Init(Arq r)
-    
-    public ReadWrite(Arq arquivo_xml){
-        
-        this.Init(arquivo_xml);
-        
-    }//ReadWrite
-    
-    public ReadWrite(Arq arquivo_xml, Font FontFamily){
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontFamily;
-        this.font_list = FontFamily;
-        
-    }//ReadWrite
-    
-    public ReadWrite(Arq arquivo_xml, Font FontTitle, Font FontList){
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-    }//ReadWrite
-    
     public ReadWrite(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        
-    }//ReadWrite
-    
-    public ReadWrite(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title,
-        String header
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        this.header = header;
-        
-    }//ReadWrite
-    
-    public ReadWrite(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title,
-        String header,
-        String input
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        this.header = header;
-        this.input = input;
-        
-    }//ReadWrite
-    
-    public ReadWrite(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title,
-        String header,
-        String input,
-        boolean list_colum,
-        boolean selection_multiple,
-        boolean combo_box
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        this.header = header;
-        this.input = input;
-        
-        this.list_colum = list_colum;
-        this.selection_multiple = selection_multiple;
-        this.combo_box = combo_box;
-        
-    }//ReadWrite
-    
-    public ReadWrite(
-        Arq arquivo_xml,
+        Arq arquivo,
         Font FontTitle,
         Font FontList,
         String[] str,
@@ -186,7 +55,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
         try{
             
-            this.Init(arquivo_xml);
+            this.save = arquivo;
             
             this.font_title = FontTitle;
             this.font_list = FontList;
@@ -226,6 +95,30 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
         List<Domain> demo = new ArrayList();
         
+        var tema = new xml_document(this.save.Read()).List();
+        
+        var insert = 0;
+        
+        if(tema.isEmpty()){
+            
+            demo.add(new Domain(insert, "Lista Vazia!"));
+            
+        } else {//if(this.tema.List().isEmpty())
+            
+            for(xml_document_one x : tema){
+                
+                insert++;
+                
+                demo.add(
+                    new Domain(
+                        insert, txt.title(x.getTitle(), true)
+                    )
+                );
+                
+            }//for(xml_document_one x : this.tema.List())
+            
+        }//if(this.tema.List().isEmpty())
+        
         //16/06/2026
         //Instrução temporária!
         for(int pos = 0; pos < 100; pos++)
@@ -243,7 +136,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
     public xml_document Tema(){
         
-        return this.tema;
+        return new xml_document(this.save.Read());
         
     }//Tema()
     

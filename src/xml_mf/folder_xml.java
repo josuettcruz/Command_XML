@@ -31,7 +31,7 @@ import java.awt.Font;
  */
 public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     
-    private xml_config tema;
+    private Arq save;
     private List<String> text;
     
     private Font font_title;
@@ -44,136 +44,8 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     private boolean list_colum;
     private boolean selection_multiple;
     
-    public void Init(Arq r){
-        
-        this.title = new Data().DataAbreviada(true);
-        this.header = new Data().DataCompleta(true);
-        this.input = "";
-        
-        this.list_colum = true;
-        this.selection_multiple = false;
-        
-        this.tema = new xml_config(r.Read());
-        
-        this.text = new ArrayList();
-        
-        for(int i = 0; i < 100; i++){
-            
-            this.text.add(Reg.Numb(i+1, 100));
-            
-        }//for(int i = 0; i < dom.length; i++)
-        
-    }//Init(Arq r)
-    
-    public folder_xml(Arq arquivo_xml){
-        
-        this.Init(arquivo_xml);
-        
-    }//folder_xml
-    
-    public folder_xml(Arq arquivo_xml, Font FontFamily){
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontFamily;
-        this.font_list = FontFamily;
-        
-    }//folder_xml
-    
-    public folder_xml(Arq arquivo_xml, Font FontTitle, Font FontList){
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-    }//folder_xml
-    
     public folder_xml(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        
-    }//folder_xml
-    
-    public folder_xml(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title,
-        String header
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        this.header = header;
-        
-    }//folder_xml
-    
-    public folder_xml(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title,
-        String header,
-        String input
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        this.header = header;
-        this.input = input;
-        
-    }//folder_xml
-    
-    public folder_xml(
-        Arq arquivo_xml,
-        Font FontTitle,
-        Font FontList,
-        String title,
-        String header,
-        String input,
-        boolean list_colum,
-        boolean selection_multiple
-    )
-    {
-        
-        this.Init(arquivo_xml);
-        
-        this.font_title = FontTitle;
-        this.font_list = FontList;
-        
-        this.title = title;
-        this.header = header;
-        this.input = input;
-        
-        this.list_colum = list_colum;
-        this.selection_multiple = selection_multiple;
-        
-    }//folder_xml
-    
-    public folder_xml(
-        Arq arquivo_xml,
+        Arq arquivo,
         Font FontTitle,
         Font FontList,
         String[] str,
@@ -182,7 +54,7 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         try{
             
-            this.Init(arquivo_xml);
+            this.save = arquivo;
             
             this.font_title = FontTitle;
             this.font_list = FontList;
@@ -202,16 +74,33 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         
     }//folder_xml
     
-    // new classes this -- 16/06/2026 -- PM 01:10
-    
     private List<Domain> DomainList(){
+        
+        var tema = new xml_config(this.save.Read()).learn();
         
         List<Domain> demo = new ArrayList();
         
-        //16/06/2026
-        //Instrução temporária!
-        for(int pos = 0; pos < 100; pos++)
-        {demo.add(new Domain(pos,Reg.Numb(pos+1, 10)));}
+        var insert = 0;
+        
+        if(tema.isEmpty()){
+            
+            demo.add(new Domain(insert,"Lisa Vazia!"));
+            
+        } else {//if(this.tema.learn().isEmpty())
+            
+            for(xml_config_one x : tema){
+                
+                insert++;
+                
+                demo.add(
+                    new Domain(
+                        insert,txt.title(x.Title(), true)
+                    )
+                );
+                
+            }//for(xml_config_one x : this.tema.learn())
+            
+        }//if(this.tema.learn().isEmpty())
         
         return demo;
         
@@ -225,7 +114,7 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     
     public xml_config Tema(){
         
-        return this.tema;
+        return new xml_config(this.save.Read());
         
     }//Tema()
     
