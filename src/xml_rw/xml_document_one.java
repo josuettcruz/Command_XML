@@ -17,9 +17,9 @@ public class xml_document_one {
     private List<xml_document_link> url;
     private List<String> textarea;
     
-    public xml_document_one(String title){
+    public xml_document_one(){
         
-        this.title = title;
+        this.title = "";
         
         this.url = new ArrayList();
         this.textarea = new ArrayList();

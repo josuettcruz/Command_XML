@@ -51,41 +51,55 @@ public class session implements Painel_3 {
         "Ação 10",
     };
     
-    private void Error(String err){
-        
-        if(Reg.java) System.err.println(err);
-        System.exit(0);
-        
-    }//Error(String err)
-    
     public session(int pos, xml_document d, Font ftitle, Font ftext){
         
-        if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty()){
+        try{
+
+            this.document = d;
             
-            try{
-                
-                this.document = d;
+            if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty()){
                 
                 this.doc = d.List().get(pos);
                 
-                Font[] font = {ftitle, ftext};
+            } else {//if(pos >= 0 && pos < d.List().size() && !d.List().isEmp...
                 
-                this.myfont = font;
+                this.doc = new xml_document_one();
                 
-            } catch(Exception e){//throw
-                
-                this.Error(e.getMessage());
-                
-            }//throw
+            }//if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty())
+
+            this.myfont = new Font[2];
             
-        } else {//if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty())
+            this.myfont[0] = ftitle;
+            this.myfont[0] = ftext;
+
+        } catch(Exception err){//throw
+
+            if(Reg.java){
+                
+                var node = new Hora(true).TimerGood(true);
+                
+                System.err.println(node);
+                
+                System.err.println(
+                    Reg.Tab(
+                        Hora.Good(),
+                        new Data().DataCompleta(true),
+                        node.length()
+                    )
+                );
+                
+                System.err.println();
+                System.err.println("Erro inesperado!");
+                System.err.println(err.getMessage());
+                
+            }//if(Reg.java)
             
-            this.Error("Algo deu errado com o código do projto!");
-            
-        }//if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty())
+            System.exit(0);
+
+        }//throw
         
     }//session(int pos, xml_document d, Font ftitle, Font ftext)
-
+    
     @Override
     public String Title(boolean title) {
         
