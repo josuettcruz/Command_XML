@@ -4,6 +4,7 @@
  */
 package xml_rw;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +16,15 @@ public class xml_document_one {
     private String title;
     private List<xml_document_link> url;
     private List<String> textarea;
+    
+    public xml_document_one(String title){
+        
+        this.title = title;
+        
+        this.url = new ArrayList();
+        this.textarea = new ArrayList();
+        
+    }//xml_document_one(String title)
     
     public xml_document_one(
         String title,
