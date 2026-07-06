@@ -133,8 +133,8 @@ public class session implements Painel_3 {
             
             int cont = 0;
             
-            int i = 0;
-            boolean loop = true;
+            var i = 0;
+            var loop = true;
             
             do{
                 
@@ -144,7 +144,7 @@ public class session implements Painel_3 {
                 
                 cont += dem.get(i).length();
                 
-                loop = cont >= max_str;
+                loop = cont < max_str;
                 
                 i++;
                 
