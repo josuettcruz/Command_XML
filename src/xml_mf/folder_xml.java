@@ -74,9 +74,15 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         
     }//folder_xml
     
+    public xml_config Tema(){
+        
+        return new xml_config(this.save.Read());
+        
+    }//Tema()
+    
     private List<Domain> DomainList(){
         
-        var tema = new xml_config(this.save.Read()).learn();
+        var tema = this.Tema().learn();
         
         List<Domain> demo = new ArrayList();
         
@@ -111,12 +117,6 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         return this.text;
         
     }//Text()
-    
-    public xml_config Tema(){
-        
-        return new xml_config(this.save.Read());
-        
-    }//Tema()
     
     public boolean[] MyOption(){
         

@@ -4,6 +4,8 @@
  */
 package xml_rw;
 
+import model.Link;
+
 /**
  *
  * @author josue
@@ -11,17 +13,17 @@ package xml_rw;
 public class xml_document_link {
     
     private String title;
-    private String url;
+    private Link url;
     
     public xml_document_link(String title, String url){
         
         this.title = title;
-        this.url = url;
+        this.url = new Link(url);
         
     }//xml_document_link(String title, Link url)
 
-    public String name() {return title;}
+    public String name() {return this.title;}
 
-    public String lnk() {return url;}
+    public Link lnk() {return this.url;}
     
 }//xml_document_link 

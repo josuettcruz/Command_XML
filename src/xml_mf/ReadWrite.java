@@ -30,8 +30,9 @@ import java.awt.Font;
  */
 public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
+    private int position;
     private Arq save;
-    private List<String> text;
+    private Domain[] option;
     
     private Font font_title;
     private Font font_list;
@@ -45,7 +46,9 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     private boolean combo_box;
     
     public ReadWrite(
+        int position,
         Arq arquivo,
+        Domain[] option,
         Font FontTitle,
         Font FontList,
         String[] str,
@@ -55,7 +58,10 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
         try{
             
+            this.position = position;
+            
             this.save = arquivo;
+            this.option = option;
             
             this.font_title = FontTitle;
             this.font_list = FontList;
@@ -76,26 +82,17 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
     }//ReadWrite
     
-    // new classes this -- 16/06/2026 -- PM 01:10
-    
-    private Domain[] DomainMode(){
+    public xml_document Tema(){
         
-        Domain demo[] = new Domain[10];
+        return new xml_document(this.save.Read());
         
-        //16/06/2026
-        //Instrução temporária!
-        for(int pos = 0; pos < 10; pos++)
-        {demo[pos] = new Domain(pos,Reg.Numb(pos+1, 10));}
-        
-        return demo;
-        
-    }//DomainMode()
+    }//Tema()
     
     private List<Domain> DomainList(){
         
         List<Domain> demo = new ArrayList();
         
-        var tema = new xml_document(this.save.Read()).List();
+        var tema = this.Tema().List();
         
         var insert = 0;
         
@@ -119,26 +116,9 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
             
         }//if(this.tema.List().isEmpty())
         
-        //16/06/2026
-        //Instrução temporária!
-        for(int pos = 0; pos < 100; pos++)
-        {demo.add(new Domain(pos,Reg.Numb(pos+1, 10)));}
-        
         return demo;
         
     }//DomainList()
-    
-    public List<String> Text(){
-        
-        return this.text;
-        
-    }//Text()
-    
-    public xml_document Tema(){
-        
-        return new xml_document(this.save.Read());
-        
-    }//Tema()
     
     public boolean[] MyOption(){
         
@@ -178,8 +158,6 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
     public Font MyFont(boolean title)
     {return title ? this.FontTitleFamily() : this.FontListFamily();}
-    
-    //Continue this
 
     @Override
     public Font FontTitle() {
@@ -223,7 +201,27 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public List<String> TextArea() {
-        return this.text;
+        
+        List<String> value = new ArrayList();
+        
+        var tm = this.Tema().List();
+        
+        if(this.position >= 0 && this.position < tm.size() && !tm.isEmpty()){
+            
+            for(xml_document_link link : tm.get(this.position).getUrl()){
+                
+                value.add(txt.InputForm(link.name()));
+                value.add(link.lnk().getLink());
+                
+            }//for(xml_document_link link : tm.get(this.position).getUrl())
+            
+            for(String texto : tm.get(this.position).getText())
+            {value.add(txt.InputForm(texto));}
+            
+        }//if(this.position >= 0 && this.position < tm.size() && !tm.isEmpty())
+        
+        return value;
+        
     }
 
     @Override
@@ -233,7 +231,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
 
     @Override
     public Domain[] Mode() {
-        return this.DomainMode();
+        return this.option;
     }
 
     @Override

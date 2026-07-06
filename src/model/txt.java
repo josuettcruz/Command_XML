@@ -836,8 +836,6 @@ public class txt {
     private static String Out(String dat, boolean utf){
         
         var val = "";
-        
-        if(utf) val += "&";
                             
         // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
         switch(dat.toLowerCase()){
@@ -880,7 +878,7 @@ public class txt {
         
     }//Out(String dat, boolean utf)
     
-    public static String OutputForm(String value){
+    public static String InputForm(String value){
         
         var val = "";
         
@@ -985,9 +983,9 @@ public class txt {
         
         return val;
         
-    }//OutputForm(String value)
+    }//InputForm(String value)
     
-    public static String InputForm(String value){
+    public static String OutputForm(String value){
         
         var val = "";
         
@@ -1060,6 +1058,6 @@ public class txt {
         
         return val;
         
-    }//InputForm(String value)
+    }//OutputForm(String value)
     
 }//txt
