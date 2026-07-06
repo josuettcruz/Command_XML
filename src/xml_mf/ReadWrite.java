@@ -28,11 +28,9 @@ import java.awt.Font;
  *
  * @author josue
  */
-public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
+public class ReadWrite implements Painel_1Single, Painel_2 {
     
-    private int position;
     private Arq save;
-    private Domain[] option;
     
     private Font font_title;
     private Font font_list;
@@ -43,12 +41,9 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     
     private boolean list_colum;
     private boolean selection_multiple;
-    private boolean combo_box;
     
     public ReadWrite(
-        int position,
         Arq arquivo,
-        Domain[] option,
         Font FontTitle,
         Font FontList,
         String[] str,
@@ -58,10 +53,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
         try{
             
-            this.position = position;
-            
             this.save = arquivo;
-            this.option = option;
             
             this.font_title = FontTitle;
             this.font_list = FontList;
@@ -72,7 +64,6 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
             
             if(bool.length > 0) this.list_colum = bool[0];
             if(bool.length > 1) this.selection_multiple = bool[1];
-            if(bool.length > 2) this.combo_box = bool[2];
             
         }catch(Exception err){//throw
             
@@ -124,8 +115,7 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
         boolean[] value = {
             this.list_colum,
-            this.selection_multiple,
-            this.combo_box
+            this.selection_multiple
         };
         
         return value;
@@ -195,46 +185,6 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
     }
 
     @Override
-    public boolean JComboBox() {
-        return this.combo_box;
-    }
-
-    @Override
-    public List<String> TextArea() {
-        
-        List<String> value = new ArrayList();
-        
-        var tm = this.Tema().List();
-        
-        if(this.position >= 0 && this.position < tm.size() && !tm.isEmpty()){
-            
-            for(xml_document_link link : tm.get(this.position).getUrl()){
-                
-                value.add(txt.InputForm(link.name()));
-                value.add(link.lnk().getLink());
-                
-            }//for(xml_document_link link : tm.get(this.position).getUrl())
-            
-            for(String texto : tm.get(this.position).getText())
-            {value.add(txt.InputForm(texto));}
-            
-        }//if(this.position >= 0 && this.position < tm.size() && !tm.isEmpty())
-        
-        return value;
-        
-    }
-
-    @Override
-    public Font TextAreaFont() {
-        return this.FontListFamily();
-    }
-
-    @Override
-    public Domain[] Mode() {
-        return this.option;
-    }
-
-    @Override
     public void Action(pag1 action, List<Domain> vol, String input) {
         
         //throw new UnsupportedOperationException(this.temp);
@@ -246,37 +196,6 @@ public class ReadWrite implements Painel_1Single, Painel_2, Painel_3 {
         
         //throw new UnsupportedOperationException(this.temp);
         
-        
-    }
-
-    @Override
-    public void Painel3(
-        int key_code,
-        char key_char,
-        Domain[] menu,
-        String input,
-        List<String> text,
-        int row,
-        int col
-    )
-    {
-        
-        //throw new UnsupportedOperationException(this.temp);
-        
-    }
-
-    @Override
-    public void Painel3(
-        pag3 op,
-        Domain[] menu,
-        String input,
-        List<String> text,
-        int row,
-        int col
-    )
-    {
-        
-        //throw new UnsupportedOperationException(this.temp);
         
     }
     
