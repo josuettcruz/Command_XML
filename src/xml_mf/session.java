@@ -109,7 +109,7 @@ public class session implements Painel_3 {
 
     @Override
     public String InputText() {
-        return this.doc.getTitle();
+        return txt.InputForm(this.doc.getTitle());
     }
 
     @Override
