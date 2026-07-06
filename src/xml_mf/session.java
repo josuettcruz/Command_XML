@@ -119,7 +119,13 @@ public class session implements Painel_3 {
 
     @Override
     public List<String> TextArea() {
-        return this.doc.getText();
+        
+        List<String> tema = new ArrayList();
+        
+        for(String t : this.doc.getText()) tema.add(txt.InputForm(t));
+        
+        return tema;
+        
     }
 
     @Override
@@ -141,8 +147,9 @@ public class session implements Painel_3 {
             
             var cod = i+1;
             
-            var tematico = Reg.Numb(cod, demo.length);
-            tematico += " --> ";
+            var tematico = "[";
+            tematico += Reg.Numb(cod, demo.length);
+            tematico += "] ";
             tematico += this.option[i];
             
             demo[i] = new Domain(cod, tematico);
