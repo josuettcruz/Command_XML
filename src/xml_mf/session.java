@@ -34,7 +34,7 @@ public class session implements Painel_3 {
     
     private xml_document document;
     
-    private xml_document_one doc;
+    private int position;
     
     private Font[] myfont;
     
@@ -59,18 +59,18 @@ public class session implements Painel_3 {
             
             if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty()){
                 
-                this.doc = d.List().get(pos);
+                this.position = pos;
                 
             } else {//if(pos >= 0 && pos < d.List().size() && !d.List().isEmp...
                 
-                this.doc = new xml_document_one();
+                this.position = -1;
                 
             }//if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty())
 
             this.myfont = new Font[2];
             
             this.myfont[0] = ftitle;
-            this.myfont[0] = ftext;
+            this.myfont[1] = ftext;
 
         } catch(Exception err){//throw
 
@@ -100,8 +100,24 @@ public class session implements Painel_3 {
         
     }//session(int pos, xml_document d, Font ftitle, Font ftext)
     
+    public xml_document_one Tema(){
+        
+        if(this.position >= 0){
+            
+            return this.document.List().get(this.position);
+            
+        } else {
+            
+            return new xml_document_one();
+            
+        }
+        
+    }
+    
     @Override
     public String Title(boolean title) {
+        
+        final var max_str = 15;
         
         final var max = this.document.getTitle();
         
@@ -109,9 +125,40 @@ public class session implements Painel_3 {
             
             return this.document.ModifyDate().DataAbreviada(true);
             
-        } else if(max.length() > 15){//if(title)
+        } else if(max.length() > max_str){//if(title)
             
-            return txt.Local(max);
+            var mytext = "";
+            
+            var dem = txt.phrase(max);
+            
+            int cont = 0;
+            
+            int i = 0;
+            boolean loop = true;
+            
+            do{
+                
+                if(i > 0) mytext += " ";
+                
+                mytext += dem.get(i);
+                
+                cont += dem.get(i).length();
+                
+                loop = cont >= max_str;
+                
+                i++;
+                
+            }while(i > 0 && i < dem.size() && loop);
+            
+            if(mytext.length() > max_str){
+                
+                var temp = mytext;
+                
+                mytext = temp.substring(0, max_str);
+                
+            }//if(mytext.length() > max_str)
+            
+            return mytext;
             
         } else {//if(title)
             
@@ -123,7 +170,17 @@ public class session implements Painel_3 {
 
     @Override
     public String InputText() {
-        return txt.InputForm(this.doc.getTitle());
+        
+        if(txt.text(this.Tema().getTitle()).isBlank()){
+            
+            return "";
+            
+        } else {//if(txt.text(this.Tema().getTitle()).isBlank())
+            
+            return txt.InputForm(this.Tema().getTitle());
+            
+        }//if(txt.text(this.Tema().getTitle()).isBlank())
+        
     }
 
     @Override
@@ -136,7 +193,15 @@ public class session implements Painel_3 {
         
         List<String> tema = new ArrayList();
         
-        for(String t : this.doc.getText()) tema.add(txt.InputForm(t));
+        if(!this.Tema().getText().isEmpty()){
+            
+            for(String text : this.Tema().getText()){
+                
+                tema.add(txt.InputForm(text));
+                
+            }//for(String text : this.Tema().getText())
+            
+        }//if(!this.Tema().getText().isEmpty())
         
         return tema;
         
