@@ -74,27 +74,7 @@ public class session implements Painel_3 {
 
         } catch(Exception err){//throw
 
-            if(Reg.java){
-                
-                var node = new Hora(true).TimerGood(true);
-                
-                System.err.println(node);
-                
-                System.err.println(
-                    Reg.Tab(
-                        Hora.Good(),
-                        new Data().DataCompleta(true),
-                        node.length()
-                    )
-                );
-                
-                System.err.println();
-                System.err.println("Erro inesperado!");
-                System.err.println(err.getMessage());
-                
-            }//if(Reg.java)
-            
-            System.exit(0);
+            Action.Err(err.getMessage());
 
         }//throw
         
@@ -102,17 +82,21 @@ public class session implements Painel_3 {
     
     public xml_document_one Tema(){
         
-        if(this.position >= 0){
+        var d = this.document.List();
+        
+        if(this.position >= 0 && !d.isEmpty()){
             
-            return this.document.List().get(this.position);
+            return d.get(this.position);
             
-        } else {
+        } else {//if(this.position >= 0 && !d.isEmpty())
+            
+            if(this.position != -1 || this.position > d.size()) System.exit(0);
             
             return new xml_document_one();
             
-        }
+        }//if(this.position >= 0 && !d.isEmpty())
         
-    }
+    }//Tema()
     
     @Override
     public String Title(boolean title) {

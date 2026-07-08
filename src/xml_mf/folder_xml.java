@@ -67,8 +67,8 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
             if(bool.length > 1) this.selection_multiple = bool[1];
             
         }catch(Exception err){//throw
-            
-            System.exit(0);
+
+            Action.Err(err.getMessage());
             
         }//throw
         

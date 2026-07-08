@@ -39,9 +39,6 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
     private String header;
     private String input;
     
-    private boolean list_colum;
-    private boolean selection_multiple;
-    
     public ReadWrite(
         Arq arquivo,
         Font FontTitle,
@@ -58,16 +55,13 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
             this.font_title = FontTitle;
             this.font_list = FontList;
             
-            if(str.length > 0) this.title = str[0];
-            if(str.length > 1) this.header = str[1];
-            if(str.length > 2) this.input = str[2];
-            
-            if(bool.length > 0) this.list_colum = bool[0];
-            if(bool.length > 1) this.selection_multiple = bool[1];
+            this.title = str.length > 0 ? str[0] : "";
+            this.header = str.length > 1 ? str[1] : "";
+            this.input = str.length > 2 ? str[2] : "";
             
         }catch(Exception err){//throw
-            
-            System.exit(0);
+
+            Action.Err(err.getMessage());
             
         }//throw
         
@@ -110,17 +104,6 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
         return demo;
         
     }//DomainList()
-    
-    public boolean[] MyOption(){
-        
-        boolean[] value = {
-            this.list_colum,
-            this.selection_multiple
-        };
-        
-        return value;
-        
-    }//MyOption()
     
     public String[] Mytext(){
         
@@ -176,12 +159,12 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
 
     @Override
     public boolean ListColumn() {
-        return this.list_colum;
+        return this.DomainList().size() >= 10;
     }
 
     @Override
     public boolean SelectionMultiple() {
-        return this.selection_multiple;
+        return false;
     }
 
     @Override
