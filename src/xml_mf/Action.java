@@ -19,16 +19,16 @@ import java.util.ArrayList;
 public class Action {
     
     public static void Err(String message){
-
+        
         if(Reg.java){
-
+            
             System.err.println(new Hora(true).TimerGood(false));
             System.err.println(Hora.Good());
             System.err.println("Houve um erro inesperado!");
             System.err.println(message);
-
+            
         }//if(Reg.java)
-
+        
         System.exit(0);
         
     }//Err(String message)
