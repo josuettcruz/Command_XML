@@ -22,20 +22,9 @@ public class Action {
 
         if(Reg.java){
 
-            var node = new Hora(true).TimerGood(true);
-
-            System.err.println(node);
-
-            System.err.println(
-                Reg.Tab(
-                    Hora.Good(),
-                    new Data().DataCompleta(true),
-                    node.length()
-                )
-            );
-
-            System.err.println();
-            System.err.println("Erro inesperado!");
+            System.err.println(new Hora(true).TimerGood(false));
+            System.err.println(Hora.Good());
+            System.err.println("Houve um erro inesperado!");
             System.err.println(message);
 
         }//if(Reg.java)
