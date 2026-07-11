@@ -20,10 +20,10 @@ import static form.pag2.*;
 import form.pag3;
 import static form.pag3.*;
 
-import java.awt.Font;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.awt.Font;
 
 /**
  *
@@ -35,7 +35,8 @@ public class session implements Painel_3 {
     
     private xml_document_one document_one;
     
-    private Font[] myfont;
+    private Font font_title;
+    private Font font_text;
     
     private final String[] option = {
         "Ação 01",
@@ -53,8 +54,7 @@ public class session implements Painel_3 {
     public session(
         xml_document document,
         xml_document_one document_one,
-        Font ftitle,
-        Font ftext
+        Font font[]
     )
     {
         
@@ -62,16 +62,18 @@ public class session implements Painel_3 {
 
             this.document = document;
             this.document_one = document_one;
-
-            this.myfont = new Font[2];
             
-            this.myfont[0] = ftitle;
-            this.myfont[1] = ftext;
+            this.font_title = font[0];
+            this.font_text = font[1];
 
-        } catch(Exception err){//throw
+        }catch(NullPointerException err){//throw
 
-            Action.Err(err.getMessage());
+            Action.Err("NullPointerException", err.getMessage());
+            
+        }catch(Exception err){//throw
 
+            Action.Err("Exception", err.getMessage());
+            
         }//throw
         
     }//session(xml_document d, xml_document_one o, Font ftitle, Font ftext)
@@ -147,7 +149,7 @@ public class session implements Painel_3 {
 
     @Override
     public Font FontTitle() {
-        return this.myfont[0];
+        return this.font_title;
     }
 
     @Override
@@ -171,7 +173,7 @@ public class session implements Painel_3 {
 
     @Override
     public Font TextAreaFont() {
-        return this.myfont[1];
+        return this.font_text;
     }
 
     @Override

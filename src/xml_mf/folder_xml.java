@@ -46,8 +46,7 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     
     public folder_xml(
         Arq arquivo,
-        Font FontTitle,
-        Font FontList,
+        Font font[],
         String[] str,
         boolean[] bool
     ){
@@ -56,19 +55,23 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             this.save = arquivo;
             
-            this.font_title = FontTitle;
-            this.font_list = FontList;
+            this.font_title = font[0];
+            this.font_list = font[1];
             
-            if(str.length > 0) this.title = str[0];
-            if(str.length > 1) this.header = str[1];
-            if(str.length > 2) this.input = str[2];
+            this.title = str[0];
+            this.header = str[1];
+            this.input = str[2];
             
-            if(bool.length > 0) this.list_colum = bool[0];
-            if(bool.length > 1) this.selection_multiple = bool[1];
+            this.list_colum = bool[0];
+            this.selection_multiple = bool[1];
+            
+        }catch(NullPointerException err){//throw
+
+            Action.Err("NullPointerException", err.getMessage());
             
         }catch(Exception err){//throw
 
-            Action.Err(err.getMessage());
+            Action.Err("Exception", err.getMessage());
             
         }//throw
         

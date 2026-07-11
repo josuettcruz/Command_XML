@@ -8,7 +8,6 @@ import file.*;
 import model.*;
 import xml_rw.*;
 import form.*;
-import model.Reg;
 
 
 import form.pag1;
@@ -30,7 +29,7 @@ import java.awt.Font;
  */
 public class ReadWrite implements Painel_1Single, Painel_2 {
     
-    private Arq save;
+    private xml_document document;
     
     private Font font_title;
     private Font font_list;
@@ -39,45 +38,47 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
     private String header;
     private String input;
     
+    private boolean multiple_selection;
+    
     public ReadWrite(
-        Arq arquivo,
+        xml_document arquivo,
         Font FontTitle,
         Font FontList,
         String[] str,
-        boolean[] bool
+        boolean selection_multiple
     )
     {
         
         try{
             
-            this.save = arquivo;
+            this.document = arquivo;
             
             this.font_title = FontTitle;
             this.font_list = FontList;
             
-            this.title = str.length > 0 ? str[0] : "";
-            this.header = str.length > 1 ? str[1] : "";
-            this.input = str.length > 2 ? str[2] : "";
+            this.title = str[0];
+            this.header = str[1];
+            this.input = str[2];
+            
+            this.multiple_selection = selection_multiple;
+            
+        }catch(NullPointerException err){//throw
+
+            Action.Err("NullPointerException", err.getMessage());
             
         }catch(Exception err){//throw
 
-            Action.Err(err.getMessage());
+            Action.Err("Exception", err.getMessage());
             
         }//throw
         
     }//ReadWrite
     
-    public xml_document Tema(){
-        
-        return new xml_document(this.save.Read());
-        
-    }//Tema()
-    
     private List<Domain> DomainList(){
         
         List<Domain> demo = new ArrayList();
         
-        var tema = this.Tema().List();
+        var tema = this.document.List();
         
         var insert = 0;
         
@@ -164,7 +165,7 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
 
     @Override
     public boolean SelectionMultiple() {
-        return false;
+        return this.multiple_selection;
     }
 
     @Override
