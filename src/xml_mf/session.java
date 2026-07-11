@@ -38,20 +38,7 @@ public class session implements Painel_3 {
     private Font font_title;
     private Font font_text;
     
-    private final String[] option = {
-        "Ação 01",
-        "Ação 02",
-        "Ação 03",
-        "Ação 04",
-        "Ação 05",
-        "Ação 06",
-        "Ação 07",
-        "Ação 08",
-        "Ação 09",
-        "Ação 10",
-    };
-    
-    public session(
+    private void init(
         xml_document document,
         xml_document_one document_one,
         Font font[]
@@ -76,7 +63,19 @@ public class session implements Painel_3 {
             
         }//throw
         
-    }//session(xml_document d, xml_document_one o, Font ftitle, Font ftext)
+    }//init(xml_document d, xml_document_one o, Font ftitle, Font ftext)
+    
+    public session(xml_document doc,xml_document_one doc_one,Font font[]){
+        
+        this.init(doc, doc_one, font);
+        
+    }//session(xml_document doc,xml_document_one doc_one,Font font[])
+    
+    public session(xml_document document,Font font[]){
+        
+        this.init(document, new xml_document_one(), font);
+        
+    }//session(xml_document document,Font font[])
     
     @Override
     public String Title(boolean title) {
