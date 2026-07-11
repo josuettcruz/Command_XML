@@ -49,21 +49,8 @@ public class Action {
             
             tab++;
             
-            var cont = 0;
-            
-            while(cont < print.length && cont < println.length){
-                
-                System.err.println(
-                    Reg.Tab(
-                        print[cont],
-                        println[cont],
-                        tab
-                    )
-                );
-                
-                cont++;
-                
-            }//while(cont < print.length && cont < println.length)
+            for(var i = 0; i < print.length && i < println.length; i++)
+            {System.err.println(Reg.Tab(print[i],println[i],tab));}
             
         }//if(Reg.java)
         
