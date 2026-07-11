@@ -33,7 +33,7 @@ public class session implements Painel_3 {
     
     private xml_document document;
     
-    private int position;
+    private xml_document_one document_one;
     
     private Font[] myfont;
     
@@ -50,21 +50,18 @@ public class session implements Painel_3 {
         "Ação 10",
     };
     
-    public session(int pos, xml_document d, Font ftitle, Font ftext){
+    public session(
+        xml_document document,
+        xml_document_one document_one,
+        Font ftitle,
+        Font ftext
+    )
+    {
         
         try{
 
-            this.document = d;
-            
-            if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty()){
-                
-                this.position = pos;
-                
-            } else {//if(pos >= 0 && pos < d.List().size() && !d.List().isEmp...
-                
-                this.position = -1;
-                
-            }//if(pos >= 0 && pos < d.List().size() && !d.List().isEmpty())
+            this.document = document;
+            this.document_one = document_one;
 
             this.myfont = new Font[2];
             
@@ -77,25 +74,7 @@ public class session implements Painel_3 {
 
         }//throw
         
-    }//session(int pos, xml_document d, Font ftitle, Font ftext)
-    
-    public xml_document_one Tema(){
-        
-        var d = this.document.List();
-        
-        if(this.position >= 0 && !d.isEmpty()){
-            
-            return d.get(this.position);
-            
-        } else {//if(this.position >= 0 && !d.isEmpty())
-            
-            if(this.position != -1 || this.position > d.size()) System.exit(0);
-            
-            return new xml_document_one();
-            
-        }//if(this.position >= 0 && !d.isEmpty())
-        
-    }//Tema()
+    }//session(xml_document d, xml_document_one o, Font ftitle, Font ftext)
     
     @Override
     public String Title(boolean title) {
@@ -154,13 +133,13 @@ public class session implements Painel_3 {
     @Override
     public String InputText() {
         
-        if(txt.text(this.Tema().getTitle()).isBlank()){
+        if(txt.text(this.document_one.getTitle()).isBlank()){
             
             return "";
             
         } else {//if(txt.text(this.Tema().getTitle()).isBlank())
             
-            return txt.InputForm(this.Tema().getTitle());
+            return txt.InputForm(this.document_one.getTitle());
             
         }//if(txt.text(this.Tema().getTitle()).isBlank())
         
@@ -176,9 +155,9 @@ public class session implements Painel_3 {
         
         List<String> tema = new ArrayList();
         
-        if(!this.Tema().getText().isEmpty()){
+        if(!this.document_one.getText().isEmpty()){
             
-            for(String text : this.Tema().getText()){
+            for(String text : this.document_one.getText()){
                 
                 tema.add(txt.InputForm(text));
                 
@@ -203,22 +182,7 @@ public class session implements Painel_3 {
     @Override
     public Domain[] Mode() {
         
-        Domain[] demo = new Domain[this.option.length];
-        
-        for(int i = 0; i < demo.length && i < this.option.length; i++){
-            
-            var cod = i+1;
-            
-            var tematico = "[";
-            tematico += Reg.Numb(cod, demo.length);
-            tematico += "] ";
-            tematico += this.option[i];
-            
-            demo[i] = new Domain(cod, tematico);
-            
-        }//for(int i = 0; i < dem.length && i < text.length; i++)
-        
-        return demo;
+        return Action.session_option;
         
     }
 
