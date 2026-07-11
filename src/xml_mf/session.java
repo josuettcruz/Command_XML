@@ -92,40 +92,49 @@ public class session implements Painel_3 {
             
             var mytext = "";
             
-            var dem = txt.phrase(max);
+            var dem = txt.phrase(max, Action.caracter_not_acept_in_title);
             
-            int cont = 0;
+            int cont_char = 0;
             
             var i = 0;
-            var loop = true;
+            var loop_array_string = true;
             
             do{
                 
-                if(i > 0) mytext += " ";
+                if(i > 0) {mytext += " ";}
                 
                 mytext += dem.get(i);
                 
-                cont += dem.get(i).length();
+                cont_char += dem.get(i).length();
                 
-                loop = cont < max_str;
+                loop_array_string = cont_char <= max_str;
                 
                 i++;
                 
-            }while(i > 0 && i < dem.size() && loop);
+            }while(i > 0 && i < dem.size() && loop_array_string);
+            
+            String value;
             
             if(mytext.length() > max_str){
                 
-                var temp = mytext;
+                value = mytext.substring(0, max_str);
                 
-                mytext = temp.substring(0, max_str);
+                value += "...";
+                
+            } else {//if(max.length() > max_str)
+                
+                value = mytext;
                 
             }//if(mytext.length() > max_str)
             
-            return mytext;
+            return value;
             
         } else {//if(title)
             
-            return txt.text(max);
+            return txt.text(
+                max,
+                Action.caracter_not_acept_in_title
+            );
             
         }//if(title)
                 
