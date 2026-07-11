@@ -30,20 +30,40 @@ public class Action {
         
         if(Reg.java){
             
-            final var print = "Hove um erro no código do projeto!";
+            String print[] = {
+                new Data().DataAbreviada(true),
+                new Hora(true).TimerGood(true),
+                Hora.Good()
+            };
             
-            var d = new Data().DataAbreviada(true);
-            var h = new Hora(true).TimerGood(true);
-            var t = Hora.Good();
+            String println[] = {
+                type,
+                "Hove um erro no código do projeto!",
+                message
+            };
             
-            var tab = d.length();
+            var tab = 0;
             
-            if(t.length() > tab) tab = t.length();
-            if(h.length() > tab) tab = h.length();
+            for(String max : print)
+            {tab = max.length() > tab ? max.length() : tab;}
             
-            System.err.println(Reg.Tab(d, type, tab));
-            System.err.println(Reg.Tab(h,print,tab));
-            System.err.println(Reg.Tab(t, message, tab));
+            tab++;
+            
+            var cont = 0;
+            
+            while(cont < print.length && cont < println.length){
+                
+                System.err.println(
+                    Reg.Tab(
+                        print[cont],
+                        println[cont],
+                        tab
+                    )
+                );
+                
+                cont++;
+                
+            }//while(cont < print.length && cont < println.length)
             
         }//if(Reg.java)
         
