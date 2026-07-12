@@ -9,7 +9,7 @@ import file.*;
 import model.*;
 import xml_rw.*;
 import form.*;
-import model.Reg;
+import xml_rw.xml_config;
 
 
 import form.pag1;
@@ -31,34 +31,24 @@ import java.awt.Font;
  */
 public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     
-    private Arq save;
+    private xml_config document;
     private List<String> text;
     
     private Font font_title;
     private Font font_list;
     
-    private String title;
-    private String header;
-    private String input;
-    
-    private boolean list_colum;
     private boolean selection_multiple;
     
-    public folder_xml(Arq arq, Font f[], String[] str, boolean[] bool){
+    public folder_xml(xml_config arq, Font f[], boolean multiple){
         
         try{
             
-            this.save = arq;
+            this.document = arq;
             
             this.font_title = f[0];
             this.font_list = f[1];
             
-            this.title = str[0];
-            this.header = str[1];
-            this.input = str[2];
-            
-            this.list_colum = bool[0];
-            this.selection_multiple = bool[1];
+            this.selection_multiple = multiple;
             
         }catch(NullPointerException err){//throw
 
@@ -71,16 +61,55 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         }//throw
         
     }//folder_xml(Arq arq, Font f[], String[] str, boolean[] bool)
-    
-    public xml_config Tema(){
+
+    @Override
+    public Font FontTitle() {
+        return this.font_title;
+    }
+
+    @Override
+    public Font ListFont() {
+        return this.font_list;
+    }
+
+    @Override
+    public String Title(boolean title) {
         
-        return new xml_config(this.save.Read());
+        var d = new Data();
         
-    }//Tema()
-    
-    private List<Domain> DomainList(){
+        var val = "";
         
-        var tema = this.Tema().learn();
+        if(title){
+            
+            if(this.document.Windows()){
+                
+                val += "\"";
+                val += this.document.UserWindows();
+                val += "\" -- ";
+            
+            }//if(this.document.Windows())
+            
+            val += d.DataAbreviada(!this.document.Windows());
+            
+        } else {//if(title)
+            
+            val += d.DataCompleta(this.document.Windows());
+            
+        }//if(title)
+        
+        return val;
+        
+    }
+
+    @Override
+    public String InputText() {
+        return "";
+    }
+
+    @Override
+    public List<Domain> ListMode() {
+        
+        var tema = this.document.learn();
         
         List<Domain> demo = new ArrayList();
         
@@ -108,86 +137,11 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         return demo;
         
-    }//DomainList()
-    
-    public List<String> Text(){
-        
-        return this.text;
-        
-    }//Text()
-    
-    public boolean[] MyOption(){
-        
-        boolean[] value = {
-            this.list_colum,
-            this.selection_multiple
-        };
-        
-        return value;
-        
-    }//MyOption()
-    
-    public String[] Mytext(){
-        
-        String[] value = {
-            this.title,
-            this.header,
-            this.input
-        };
-        
-        return value;
-        
-    }//Mytext()
-    
-    private Font FontTitleFamily(){
-        
-        return this.font_title == null
-            ? new java.awt.Font("Impact", 0, 18)
-            : this.font_title;
-        
-    }//FontTitleFamily()
-    
-    private Font FontListFamily(){
-        
-        return this.font_list == null
-            ? new java.awt.Font("Consolas", 0, 12)
-            : this.font_list;
-        
-    }//FontListFamily()
-    
-    public Font MyFont(boolean title)
-    {return title ? this.FontTitleFamily() : this.FontListFamily();}
-    
-    //Continue this
-
-    @Override
-    public Font FontTitle() {
-        return this.FontTitleFamily();
-    }
-
-    @Override
-    public Font ListFont() {
-        return this.FontListFamily();
-    }
-
-    @Override
-    public String Title(boolean title) {
-        return title ? this.title : this.header;
-    }
-
-    @Override
-    public String InputText() {
-        return this.input;
-    }
-
-    @Override
-    public List<Domain> ListMode() {
-        return this.DomainList();
     }
 
     @Override
     public boolean ListColumn() {
-        return this.list_colum;
+        return this.document.learn().size() >= 50;
     }
 
     @Override

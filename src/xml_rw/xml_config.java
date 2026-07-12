@@ -724,7 +724,7 @@ public class xml_config {
     
     }//setUser(String user)
     
-    public String getUser(){return this.user;}
+    public String UserWindows(){return this.user;}
     
     public boolean Windows(){return this.user_in;}
     
