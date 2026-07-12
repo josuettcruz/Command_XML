@@ -4,7 +4,6 @@
  */
 package xml_mf;
 
-import file.*;
 import model.*;
 import xml_rw.*;
 import form.*;

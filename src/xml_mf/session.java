@@ -4,11 +4,9 @@
  */
 package xml_mf;
 
-import file.*;
 import model.*;
 import xml_rw.*;
 import form.*;
-import model.Reg;
 
 
 import form.pag1;
@@ -82,21 +80,23 @@ public class session implements Painel_3 {
     @Override
     public String InputText() {
         
-        if(txt.text(this.document_one.getTitle()).isBlank()){
-            
-            return "";
-            
-        } else {//if(txt.text(this.Tema().getTitle()).isBlank())
-            
-            return txt.InputForm(this.document_one.getTitle());
-            
-        }//if(txt.text(this.Tema().getTitle()).isBlank())
+        var value = "";
+        
+        if(!txt.text(this.document_one.getTitle()).isBlank())
+        {value += txt.InputForm(this.document_one.getTitle());}
+        
+        return value;
         
     }
 
     @Override
     public Font FontTitle() {
         return this.font_title;
+    }
+
+    @Override
+    public Font TextAreaFont() {
+        return this.font_text;
     }
 
     @Override
@@ -116,11 +116,6 @@ public class session implements Painel_3 {
         
         return tema;
         
-    }
-
-    @Override
-    public Font TextAreaFont() {
-        return this.font_text;
     }
 
     @Override

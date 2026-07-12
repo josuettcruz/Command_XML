@@ -5,7 +5,6 @@
 
 package xml_mf;
 
-import file.*;
 import model.*;
 import xml_rw.*;
 import form.*;
@@ -77,27 +76,36 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
         
         var d = new Data();
         
-        var val = "";
-        
         if(title){
+            
+            var value = Hora.Good();
             
             if(this.document.Windows()){
                 
-                val += "\"";
-                val += this.document.UserWindows();
-                val += "\" -- ";
-            
+                value += ": ";
+                value += this.document.UserWindows();
+                
             }//if(this.document.Windows())
             
-            val += d.DataAbreviada(!this.document.Windows());
+            value += " - ";
+            value += d.DataAbreviada(true);
+            
+            return value;
+            
+        } else if(this.document.Windows()){//if(title)
+            
+            var val = "[";
+            val += this.document.UserWindows().toUpperCase();
+            val += "] ";
+            val += d.DataCompleta(false);
+            
+            return val;
             
         } else {//if(title)
             
-            val += d.DataCompleta(this.document.Windows());
+            return d.DataCompleta(true);
             
         }//if(title)
-        
-        return val;
         
     }
 

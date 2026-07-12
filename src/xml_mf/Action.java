@@ -69,7 +69,7 @@ public class Action {
         
         var c = doc.CreateDate();
         var m = doc.ModifyDate();
-        var equal = m.CompareTo(c);
+        var equal = c.CompareTo(m, true);
         
         var t = txt.text(txt.InputForm(doc.getTitle()));
         
