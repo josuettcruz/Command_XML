@@ -12,22 +12,6 @@ import model.*;
  * @author josue
  */
 public class Action {
-        
-    public final static char caracter_not_acept_in_title[] = {
-        '-',
-        '_',
-        ':',
-        ';',
-        '.',
-        '!',
-        '?',
-        '<',
-        '>',
-        '{',
-        '}',
-        '[',
-        ']'
-    };
     
     public final static Domain[] session_option = {
         new Domain(1, "Ação 1"),

@@ -70,7 +70,7 @@ public class Reg {
         
     }//coppy(String ctrl_c)
     
-    public static boolean xml(Read r){
+    public final static boolean xml(Read r){
             
         var compare = "";
         
@@ -97,7 +97,7 @@ public class Reg {
         
     }//xml(Read r)
     
-    public static String Tab(String entrada, int tab){
+    public final static String Tab(String entrada, int tab){
         
         var pg = (tab - entrada.length()) > 1 ? tab - entrada.length() : 1;
         
@@ -105,7 +105,7 @@ public class Reg {
         
     }//Tab(boolean print, String entrada, int tab)
     
-    public static String Tab(String before, String after, int tab){
+    public final static String Tab(String before, String after, int tab){
         
         var txt = before;
         txt += Tab(before, tab);
@@ -115,13 +115,13 @@ public class Reg {
         
     }//Tab(boolean aspas, String before, String after)
     
-    public static String Tab(String before, String after){
+    public final static String Tab(String before, String after){
         
         return Tab(before, after, result);
         
     }//Tab(boolean aspas, String before, String after)
     
-    public static void Print(String before, String after, int tab){
+    public final static void Print(String before, String after, int tab){
             
         System.out.print(before);
         System.out.print(Tab(before, tab));
@@ -129,13 +129,13 @@ public class Reg {
         
     }//Print(boolean aspas, String before, String after)
     
-    public static void Print(String before, String after){
+    public final static void Print(String before, String after){
         
         Print(before, after, result);
         
     }//Print(boolean aspas, String before, String after)
     
-    public static String Numb(int numb){
+    public final static String Numb(int numb){
         
         int num;
         
@@ -164,7 +164,7 @@ public class Reg {
         
     }//Numb(int numb)
     
-    public static String Numb(int numb, int max){
+    public final static String Numb(int numb, int max){
         
         int num;
         
@@ -211,7 +211,7 @@ public class Reg {
         
     }//Numb(int numb, int max)
     
-    public static String Numb(int numb, int max, String sep){
+    public final static String Numb(int numb, int max, String sep){
         
         int num;
         
@@ -262,7 +262,7 @@ public class Reg {
         
     }//Numb(int numb, int max, String sep)
     
-    public static String Unicode(boolean link){
+    public final static String Unicode(boolean link){
         
         var lnk = "https:";
         lnk += "//www.w3schools.com/charsets/default.asp";
@@ -271,7 +271,7 @@ public class Reg {
         
     }//Unicode()
     
-    public static String Icons(boolean link){
+    public final static String Icons(boolean link){
         
         var lnk = "https:/";
         lnk += "//www.w3schools.com/icons/default.asp";

@@ -80,63 +80,92 @@ public class session implements Painel_3 {
     @Override
     public String Title(boolean title) {
         
-        final var max_str = 15;
+        var c = this.document.CreateDate();
+        var m = this.document.ModifyDate();
+        var equal = m.CompareTo(c);
         
-        final var max = this.document.getTitle();
+        var t = txt.text(txt.InputForm(this.document.getTitle()));
+        
+        var val = "";
         
         if(title){
             
-            return this.document.ModifyDate().DataAbreviada(true);
+            if(equal) val += "[";
             
-        } else if(max.length() > max_str){//if(title)
+            val += c.DataAbreviada(equal);
             
-            var mytext = "";
+            if(equal){
+                
+                val += "]";
+                
+            } else {//if(equal)
+                
+                val += " --> ";
+                
+                val += m.DataAbreviada(true);
+                
+                val += "-->";
+                
+            }//if(equal)
             
-            var dem = txt.phrase(max, Action.caracter_not_acept_in_title);
-            
-            int cont_char = 0;
-            
-            var i = 0;
-            var loop_array_string = true;
-            
-            do{
-                
-                if(i > 0) {mytext += " ";}
-                
-                mytext += dem.get(i);
-                
-                cont_char += dem.get(i).length();
-                
-                loop_array_string = cont_char <= max_str;
-                
-                i++;
-                
-            }while(i > 0 && i < dem.size() && loop_array_string);
-            
-            String value;
-            
-            if(mytext.length() > max_str){
-                
-                value = mytext.substring(0, max_str);
-                
-                value += "...";
-                
-            } else {//if(max.length() > max_str)
-                
-                value = mytext;
-                
-            }//if(mytext.length() > max_str)
-            
-            return value;
+            val += " ";
+            val += t;
             
         } else {//if(title)
             
-            return txt.text(
-                max,
-                Action.caracter_not_acept_in_title
-            );
+            var max_str = 32;
             
+            if(equal){
+                
+                val += c.DataAbreviada(false);
+                val += " ";
+                
+                max_str = 21;
+            
+            }//if(equal)
+            
+            var tm = txt.title(t, true).split(" ");
+            
+            if(tm[0].length() < max_str){
+                
+                var i = 0;
+                var cont = 0;
+                
+                boolean loop;
+                
+                do{
+                    
+                    if(i > 0) val += " ";
+                    
+                    val += tm[i];
+                    
+                    cont += tm[i].length();
+                    
+                    loop = cont <= max_str;
+                    
+                    i++;
+                    
+                }while(i > 0 && i < tm.length && loop);
+                
+            } else {//if(tm[0].length() < max_str)
+                
+                var p = tm[0].toUpperCase();
+                
+                var i = 0;
+                
+                do{
+                    
+                    val += p.toUpperCase().charAt(i);
+                    
+                    i++;
+                    
+                }while(i > 0 && i < max_str && i < p.length());
+                
+            }//if(tm[0].length() < max_str)
+
         }//if(title)
+        
+        return val;
                 
     }
 
