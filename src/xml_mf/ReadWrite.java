@@ -34,33 +34,20 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
     private Font font_title;
     private Font font_list;
     
-    private String title;
-    private String header;
     private String input;
-    
     private boolean multiple_selection;
     
-    public ReadWrite(
-        xml_document arquivo,
-        Font FontTitle,
-        Font FontList,
-        String[] str,
-        boolean selection_multiple
-    )
-    {
+    public ReadWrite(xml_document arq, Font f[], String str, boolean mul){
         
         try{
             
-            this.document = arquivo;
+            this.document = arq;
             
-            this.font_title = FontTitle;
-            this.font_list = FontList;
+            this.font_title = f[0];
+            this.font_list = f[1];
             
-            this.title = str[0];
-            this.header = str[1];
-            this.input = str[2];
-            
-            this.multiple_selection = selection_multiple;
+            this.input = str;
+            this.multiple_selection = mul;
             
         }catch(NullPointerException err){//throw
 
@@ -72,9 +59,32 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
             
         }//throw
         
-    }//ReadWrite
-    
-    private List<Domain> DomainList(){
+    }//ReadWrite(xml_document arq, Font f[], String str, boolean mul)
+
+    @Override
+    public Font FontTitle() {
+        return this.font_title;
+    }
+
+    @Override
+    public Font ListFont() {
+        return this.font_list;
+    }
+
+    @Override
+    public String Title(boolean title) {
+        
+        return Action.OverrideTitle(this.document, title);
+        
+    }
+
+    @Override
+    public String InputText() {
+        return this.input;
+    }
+
+    @Override
+    public List<Domain> ListMode() {
         
         List<Domain> demo = new ArrayList();
         
@@ -104,63 +114,11 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
         
         return demo;
         
-    }//DomainList()
-    
-    public String[] Mytext(){
-        
-        String[] value = {this.title,this.header,this.input};
-        
-        return value;
-        
-    }//Mytext()
-    
-    private Font FontTitleFamily(){
-        
-        return this.font_title == null
-            ? new java.awt.Font("Impact", 0, 18)
-            : this.font_title;
-        
-    }//FontTitleFamily()
-    
-    private Font FontListFamily(){
-        
-        return this.font_list == null
-            ? new java.awt.Font("Consolas", 0, 12)
-            : this.font_list;
-        
-    }//FontListFamily()
-    
-    public Font MyFont(boolean title)
-    {return title ? this.FontTitleFamily() : this.FontListFamily();}
-
-    @Override
-    public Font FontTitle() {
-        return this.FontTitleFamily();
-    }
-
-    @Override
-    public Font ListFont() {
-        return this.FontListFamily();
-    }
-
-    @Override
-    public String Title(boolean title) {
-        return title ? this.title : this.header;
-    }
-
-    @Override
-    public String InputText() {
-        return this.input;
-    }
-
-    @Override
-    public List<Domain> ListMode() {
-        return this.DomainList();
     }
 
     @Override
     public boolean ListColumn() {
-        return this.DomainList().size() >= 10;
+        return this.document.List().size() >= 50;
     }
 
     @Override

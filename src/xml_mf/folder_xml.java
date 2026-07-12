@@ -44,19 +44,14 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     private boolean list_colum;
     private boolean selection_multiple;
     
-    public folder_xml(
-        Arq arquivo,
-        Font font[],
-        String[] str,
-        boolean[] bool
-    ){
+    public folder_xml(Arq arq, Font f[], String[] str, boolean[] bool){
         
         try{
             
-            this.save = arquivo;
+            this.save = arq;
             
-            this.font_title = font[0];
-            this.font_list = font[1];
+            this.font_title = f[0];
+            this.font_list = f[1];
             
             this.title = str[0];
             this.header = str[1];
@@ -75,7 +70,7 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
             
         }//throw
         
-    }//folder_xml
+    }//folder_xml(Arq arq, Font f[], String[] str, boolean[] bool)
     
     public xml_config Tema(){
         

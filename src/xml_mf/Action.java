@@ -6,6 +6,7 @@ package xml_mf;
 
 import form.*;
 import model.*;
+import xml_rw.xml_document;
 
 /**
  *
@@ -63,5 +64,110 @@ public class Action {
         controller.p1s(new config());
     
     }//Action()
+    
+    public final static String OverrideTitle(xml_document doc, boolean title){
+        
+        var c = doc.CreateDate();
+        var m = doc.ModifyDate();
+        var equal = m.CompareTo(c);
+        
+        var t = txt.text(txt.InputForm(doc.getTitle()));
+        
+        var val = "";
+        
+        if(title && !t.isBlank()){
+            
+            if(equal) val += "[";
+            
+            val += c.DataAbreviada(equal);
+            
+            if(equal){
+                
+                val += "]";
+                
+            } else {//if(equal)
+                
+                val += " --> ";
+                
+                val += m.DataAbreviada(true);
+                
+                val += "-->";
+                
+            }//if(equal)
+            
+            val += " ";
+            val += t;
+            
+        } else if(!t.isBlank()){//if(title)
+            
+            var max_str = 32;
+            
+            if(equal){
+                
+                val += c.DataAbreviada(false);
+                val += " ";
+                
+                max_str = 21;
+            
+            }//if(equal)
+            
+            var tm = txt.title(t, true).split(" ");
+            
+            if(tm[0].length() < max_str){
+                
+                var i = 0;
+                var cont = 0;
+                
+                boolean loop;
+                
+                do{
+                    
+                    if(i > 0) val += " ";
+                    
+                    val += tm[i];
+                    
+                    cont += tm[i].length();
+                    
+                    loop = cont <= max_str;
+                    
+                    i++;
+                    
+                }while(i > 0 && i < tm.length && loop);
+                
+            } else {//if(tm[0].length() < max_str)
+                
+                var p = tm[0].toUpperCase();
+                
+                var i = 0;
+                
+                do{
+                    
+                    val += p.toUpperCase().charAt(i);
+                    
+                    i++;
+                    
+                }while(i > 0 && i < max_str && i < p.length());
+                
+            }//if(tm[0].length() < max_str)
+
+        } else if(title){//if(title)
+            
+            val += Hora.Good();
+            
+        } else if(equal){//if(title)
+            
+            val += c.DataCompleta(false);
+            
+        } else {//if(title)
+            
+            val += c.DataAbreviada(true);
+            val += " --> ";
+            val += m.DataAbreviada(true);
+            
+        }//if(title)
+        
+        return val;
+        
+    }//OverrideTitle(xml_document doc, boolean title)
     
 }//Action

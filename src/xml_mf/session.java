@@ -38,20 +38,15 @@ public class session implements Painel_3 {
     private Font font_title;
     private Font font_text;
     
-    private void init(
-        xml_document document,
-        xml_document_one document_one,
-        Font font[]
-    )
-    {
+    private void init(xml_document all, xml_document_one one, Font f[]){
         
         try{
 
-            this.document = document;
-            this.document_one = document_one;
+            this.document = all;
+            this.document_one = one;
             
-            this.font_title = font[0];
-            this.font_text = font[1];
+            this.font_title = f[0];
+            this.font_text = f[1];
 
         }catch(NullPointerException err){//throw
 
@@ -63,7 +58,7 @@ public class session implements Painel_3 {
             
         }//throw
         
-    }//init(xml_document d, xml_document_one o, Font ftitle, Font ftext)
+    }//init(xml_document all, xml_document_one one, Font f[])
     
     public session(xml_document doc,xml_document_one doc_one,Font font[]){
         
@@ -80,92 +75,7 @@ public class session implements Painel_3 {
     @Override
     public String Title(boolean title) {
         
-        var c = this.document.CreateDate();
-        var m = this.document.ModifyDate();
-        var equal = m.CompareTo(c);
-        
-        var t = txt.text(txt.InputForm(this.document.getTitle()));
-        
-        var val = "";
-        
-        if(title){
-            
-            if(equal) val += "[";
-            
-            val += c.DataAbreviada(equal);
-            
-            if(equal){
-                
-                val += "]";
-                
-            } else {//if(equal)
-                
-                val += " --> ";
-                
-                val += m.DataAbreviada(true);
-                
-                val += "-->";
-                
-            }//if(equal)
-            
-            val += " ";
-            val += t;
-            
-        } else {//if(title)
-            
-            var max_str = 32;
-            
-            if(equal){
-                
-                val += c.DataAbreviada(false);
-                val += " ";
-                
-                max_str = 21;
-            
-            }//if(equal)
-            
-            var tm = txt.title(t, true).split(" ");
-            
-            if(tm[0].length() < max_str){
-                
-                var i = 0;
-                var cont = 0;
-                
-                boolean loop;
-                
-                do{
-                    
-                    if(i > 0) val += " ";
-                    
-                    val += tm[i];
-                    
-                    cont += tm[i].length();
-                    
-                    loop = cont <= max_str;
-                    
-                    i++;
-                    
-                }while(i > 0 && i < tm.length && loop);
-                
-            } else {//if(tm[0].length() < max_str)
-                
-                var p = tm[0].toUpperCase();
-                
-                var i = 0;
-                
-                do{
-                    
-                    val += p.toUpperCase().charAt(i);
-                    
-                    i++;
-                    
-                }while(i > 0 && i < max_str && i < p.length());
-                
-            }//if(tm[0].length() < max_str)
-
-        }//if(title)
-        
-        return val;
+        return Action.OverrideTitle(this.document, title);
                 
     }
 
