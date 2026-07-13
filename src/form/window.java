@@ -131,7 +131,7 @@ public class window extends javax.swing.JFrame {
             
             if(key_char != '￿' && key_char != ''){
                 
-                println += "\" -- '";
+                println += " -- '";
                 println += key_char;
                 println += "'";
                 
