@@ -26,6 +26,10 @@ public class controller {
     private static int w = 0;
     private static int h = 0;
     
+    private static boolean print_key = false;
+    
+    public static void PrintKey(){print_key = true;}
+    
     public static void Position(int right, int top, int width, int height){
         
         position = true;
@@ -59,24 +63,6 @@ public class controller {
         return val;
         
     }//Dim(d op)
-    
-    public static boolean PrintKey(){
-        
-        boolean acept = true;
-        
-        if(doc == null){
-            
-            acept = false;
-            
-        } else {//if(doc == null)
-            
-            doc.PrintKey();
-            
-        }//if(doc == null)
-        
-        return acept;
-        
-    }//PrintKey()
     
     public static boolean Msg(String setTtitle, List<String> msg, boolean exit){
         
@@ -132,6 +118,8 @@ public class controller {
                 }//if(w == null)
 
                 doc.Page_0(title, text, exit);
+                
+                if(print_key) doc.PrintKey();
 
             }catch(Exception err){
                 
@@ -167,6 +155,8 @@ public class controller {
                 
             }//if(doc == null && position)
             
+            if(print_key) doc.PrintKey();
+            
         }catch(Exception err){
 
             System.err.println(Reg.Numb(err.hashCode()));
@@ -196,6 +186,8 @@ public class controller {
                 doc.Page_1Multiple(painel);
                 
             }//if(doc == null && position)
+            
+            if(print_key) doc.PrintKey();
             
         }catch(Exception err){
 
@@ -227,6 +219,8 @@ public class controller {
                 
             }//if(doc == null && position)
             
+            if(print_key) doc.PrintKey();
+            
         }catch(Exception err){
 
             System.err.println(Reg.Numb(err.hashCode()));
@@ -256,6 +250,8 @@ public class controller {
                 doc.Painel_3(painel);
                 
             }//if(doc == null && position)
+            
+            if(print_key) doc.PrintKey();
             
         }catch(Exception err){
             

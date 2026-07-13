@@ -517,7 +517,22 @@ public class config implements
     )
     {
         
-        //code
+        var space = !this.list.isEmpty();
+        
+        if(space){
+            
+            Num n = new Num(this.list.get(0));
+            
+            space = !(n.Val() && n.Num() <= 100 && n.Num() >= 10);
+            
+        }
+        
+        List<String> sent = new ArrayList();
+        sent.add(Reg.Numb(key_code, 100));
+        if(space) sent.add("");
+        sent.addAll(this.list);
+        
+        controller.p3(new config(sent,""));
         
     }
 
@@ -582,7 +597,7 @@ public class config implements
                 
             }//case confirm, button_list, list_closer
             
-            case enter, confirm ->{
+            case enter, confirm, ctrl_enter ->{
                 
                 var doc = txt.text(input, tem);
                 
@@ -619,7 +634,7 @@ public class config implements
                 
             }//case enter
             
-            case cancel, ctrl_enter -> this.Exit();
+            case cancel -> this.Exit();
             
         }//switch(op)
         

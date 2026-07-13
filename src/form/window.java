@@ -115,10 +115,11 @@ public class window extends javax.swing.JFrame {
         final int max = 10;
         
         if(
-            this.key_code_char                             // A impressão deve ser ativada!
-            && this.key_code_count <= max                  // Só imprimir 10 vezes!
-            && key_code != 10                              // A tecla digitada não dever ser "Enter"
-            && (key_code != 40 || this.key_code_count > 1) // A seta para baixo nõ deverá ser obrigatória
+            (key_code != 40 || this.key_code_count > 1) // A seta para baixo nõ deverá ser obrigatória
+            && Reg.java                                 // Não executar em um arquivo .JAR
+            && this.key_code_char                       // A impressão deve ser ativada!
+            && this.key_code_count <= max               // Só imprimir 10 vezes!
+            && key_code != 10                           // A tecla digitada não dever ser "Enter"
         )
         {
             
@@ -1717,6 +1718,12 @@ public class window extends javax.swing.JFrame {
 
         }//switch(evt.getKeyCode())
         
+        this.Println(
+            evt.getKeyCode(),
+            evt.getKeyChar(),
+            evt.getExtendedKeyCode()
+        );
+        
     }//GEN-LAST:event_home_fileKeyReleased
 
     private void home_file_enterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_file_enterActionPerformed
@@ -1746,12 +1753,6 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_home_file_enterActionPerformed
 
     private void list_page1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_list_page1KeyReleased
-        
-        this.Println(
-            evt.getKeyCode(),
-            evt.getKeyChar(),
-            evt.getExtendedKeyCode()
-        );
         
         this.Page_1(list_page1.getSelectedIndex() >= 0);
         
@@ -1861,6 +1862,12 @@ public class window extends javax.swing.JFrame {
             
         }//switch(evt.getKeyCode())
         
+        this.Println(
+            evt.getKeyCode(),
+            evt.getKeyChar(),
+            evt.getExtendedKeyCode()
+        );
+        
     }//GEN-LAST:event_list_page1KeyReleased
 
     private void list_page1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_page1MouseReleased
@@ -1881,12 +1888,6 @@ public class window extends javax.swing.JFrame {
 
     private void front_listKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_front_listKeyReleased
         
-        this.Println(
-            evt.getKeyCode(),
-            evt.getKeyChar(),
-            evt.getExtendedKeyCode()
-        );
-        
         switch(evt.getKeyCode()){
             
             case 8 -> this.p2act(pag2.backspace);
@@ -1896,6 +1897,12 @@ public class window extends javax.swing.JFrame {
             case 127 -> this.p2act(pag2.del);
             
         }//switch(evt.getKeyCode())
+        
+        this.Println(
+            evt.getKeyCode(),
+            evt.getKeyChar(),
+            evt.getExtendedKeyCode()
+        );
         
     }//GEN-LAST:event_front_listKeyReleased
 
@@ -1945,15 +1952,20 @@ public class window extends javax.swing.JFrame {
 
     private void input_dateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_input_dateKeyPressed
         
-        switch(evt.getKeyCode()){
+        
+        if(this.text_area == user){
             
-            case 17 -> {if(this.text_area == user) this.text_area = ctrl;}
+            switch(evt.getKeyCode()){
+
+                case 17 -> this.text_area = ctrl;
+
+                case 18 -> this.text_area = alt;
+
+                default -> this.text_area = other;
+
+            }//switch(evt.getKeyCode())
             
-            case 18 -> {if(this.text_area == user) this.text_area = alt;}
-            
-            default -> {if(this.text_area == user) this.text_area = other;}
-            
-        }//switch(evt.getKeyCode())
+        }
         
     }//GEN-LAST:event_input_dateKeyPressed
 
@@ -1984,6 +1996,14 @@ public class window extends javax.swing.JFrame {
                 this.P3(),             // return List<String> -- "Texto do TEXT ÁREA"
                 this.P3(true),         // return int          -- "Posição do cursor - ROW"
                 this.P3(false)         // return int          -- "Posição do cursor - COL"
+            );
+            
+        } else {
+            
+            this.Println(
+                evt.getKeyCode(),
+                evt.getKeyChar(),
+                evt.getExtendedKeyCode()
             );
             
         }
@@ -2026,6 +2046,12 @@ public class window extends javax.swing.JFrame {
             case 40 -> input_date.requestFocus();
             
             default -> {
+                
+                this.Println(
+                    evt.getKeyCode(),
+                    evt.getKeyChar(),
+                    evt.getExtendedKeyCode()
+                );
 
                 if(tam <= 10){
 
@@ -2094,6 +2120,12 @@ public class window extends javax.swing.JFrame {
             }//default
 
         }//switch(evt.getKeyCode())
+        
+        this.Println(
+            evt.getKeyCode(),
+            evt.getKeyChar(),
+            evt.getExtendedKeyCode()
+        );
         
     }//GEN-LAST:event_input_titleKeyReleased
 

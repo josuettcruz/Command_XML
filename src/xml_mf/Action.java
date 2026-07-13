@@ -61,8 +61,8 @@ public class Action {
     
     public static void Init(){
         
-        controller.p1s(new config());
         controller.PrintKey();
+        controller.p1s(new config());
     
     }//Action()
     
