@@ -67,8 +67,8 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         Hora h = new Hora(true);
         
-        final var cond1 = h.Compare(new Hora(6,0,0));
-        final var cond2 = !h.Compare(new Hora(22,0,0));
+        final var cond1 = h.Compare(new Hora(7,0,0));
+        final var cond2 = !h.Compare(new Hora(23,0,0));
         final var cond = cond1 && cond2;
         
         var val = "git commit -m \"";
@@ -77,20 +77,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         if(cond){
             
             val += " -- ";
-            
-            if(h.Compare(new Hora(19,0,0))){
-                
-                val += h.TimerGood(false);
-                
-            } else if(h.Compare(new Hora(13,0,0))){//if(h.Compare(new Hora(...
-                
-                val += h.Timer();
-                
-            } else {//if(h.Compare(new Hora(19)))
-                
-                val += h.TimerGood(true);
-                
-            }//if(h.Compare(new Hora(19)))
+            val += h.TimerGood(false);
             
         }//if(cond)
         
