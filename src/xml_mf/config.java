@@ -517,38 +517,7 @@ public class config implements
     )
     {
         
-        final int max = 10;
-        
-        if(key_code == 10){
-            
-            if(this.key_code_count > 1) System.out.println();
-            
-            this.list.clear();
-            this.list.addAll(this.Println(text));
-            
-            this.Exit();
-        
-        } else if(this.key_code_count <= max && key_code != 10){//if(key_code...
-            
-            var println = "Impressão ";
-            println += Reg.Numb(this.key_code_count, max, " de ");
-            println += ": \"";
-            println += Reg.Numb(key_code, 100);
-            println += "\"";
-            
-            if(key_char != '￿' && key_char != ''){
-                
-                println += "\" -- '";
-                println += key_char;
-                println += "'";
-                
-            }//if(evt.getKeyChar() != '￿' && key_char != '')
-            
-            System.out.println(println);
-            
-            this.key_code_count++;
-            
-        }//if(key_code == 10)
+        //code
         
     }
 

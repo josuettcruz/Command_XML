@@ -108,18 +108,17 @@ public class window extends javax.swing.JFrame {
         
     }//Enter(String title, int r, int l, int w, int h)
     
-    public void PrintKey(){
-        this.key_code_char = true;
-    }
+    public void PrintKey(){this.key_code_char = true;}
     
     private void Println(int key_code, char key_char, int extendedkeycode){
         
         final int max = 10;
         
         if(
-            this.key_code_char             // A impressão deve ser ativada!
-            && this.key_code_count <= max  // Só imprimir 10 vezes!
-            && key_code != 10              // A tecla digitada não dever ser "Enter"
+            this.key_code_char                             // A impressão deve ser ativada!
+            && this.key_code_count <= max                  // Só imprimir 10 vezes!
+            && key_code != 10                              // A tecla digitada não dever ser "Enter"
+            && (key_code != 40 || this.key_code_count > 1) // A seta para baixo nõ deverá ser obrigatória
         )
         {
             
@@ -140,7 +139,7 @@ public class window extends javax.swing.JFrame {
             if(key_code != extendedkeycode){
                 
                 println += " -- [";
-                println += Reg.Numb(extendedkeycode, 1000);
+                println += Reg.Numb(extendedkeycode, 100);
                 println += "]";
                 
             }//if(evt.getKeyCode() != evt.getExtendedKeyCode())
