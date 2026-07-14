@@ -70,6 +70,14 @@ public class session implements Painel_3 {
         
     }//session(xml_document document,Font font[])
     
+    public Font[] Font(){
+        
+        Font font[] = {this.font_title, this.font_text};
+        
+        return font;
+        
+    }//Font()
+    
     @Override
     public String Title(boolean title) {
         
@@ -165,17 +173,19 @@ public class session implements Painel_3 {
                     
                     if(menu[i].Select()){
                         
-                        Font ttf[] = {this.font_title, this.font_text};
+                        this.document_one.setText(
+                            Action.session_ComboBox(
+                                menu[i],
+                                this.document_one.getText(),
+                                row
+                            )
+                        );
                         
                         controller.p3(
                             new session(
                                 this.document,
-                                Action.session_ComboBox(
-                                    menu[i],
-                                    this.document_one,
-                                    row
-                                ),
-                                ttf
+                                this.document_one,
+                                this.Font()
                             )
                         );
                         

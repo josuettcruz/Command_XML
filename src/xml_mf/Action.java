@@ -200,15 +200,19 @@ public class Action {
         
     }//session
     
-    public static xml_document_one session_ComboBox(Domain d, xml_document_one value, int row){
+    public static List<String> session_ComboBox(Domain d, List<String> value, int row){
         
-        if(!value.getText().isEmpty()){
+        if(value.isEmpty()){
+            
+            return new ArrayList();
+            
+        } else {//if(value.isEmpty())
             
             List<String> val = new ArrayList();
             
-            for(var i = 0; i < value.getText().size(); i++){
+            for(var i = 0; i < value.size(); i++){
                 
-                String t = value.getText().get(i);
+                String t = value.get(i);
                 
                 if(i == row && !txt.text(t).isBlank()){
                     
@@ -257,11 +261,9 @@ public class Action {
                 
             }//for(var i = 0; i < value.getText().size(); i++)
             
-            value.setText(val);
+            return val;
             
-        }//if(!value.getText().isEmpty())
-        
-        return value;
+        }//if(value.isEmpty())
         
     }//session_ComboBox
     
