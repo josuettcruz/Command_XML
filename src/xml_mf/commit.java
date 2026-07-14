@@ -77,7 +77,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         if(cond){
             
             val += " -- ";
-            val += h.TimerGood(false);
+            val += h.TimerGood(false," - ");
             
         }//if(cond)
         
