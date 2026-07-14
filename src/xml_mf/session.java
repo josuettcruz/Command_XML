@@ -165,7 +165,19 @@ public class session implements Painel_3 {
                     
                     if(menu[i].Select()){
                         
-                        Action.session_ComboBox(menu[i], this.document_one, row);
+                        Font ttf[] = {this.font_title, this.font_text};
+                        
+                        controller.p3(
+                            new session(
+                                this.document,
+                                Action.session_ComboBox(
+                                    menu[i],
+                                    this.document_one,
+                                    row
+                                ),
+                                ttf
+                            )
+                        );
                         
                         loop = false;
                         
