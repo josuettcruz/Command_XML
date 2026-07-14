@@ -140,7 +140,44 @@ public class session implements Painel_3 {
     @Override
     public void Painel3(pag3 op, Domain[] menu, String input, List<String> text, int row, int col) {
         
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch(op){
+            
+            case confirm ->{
+                
+                Action.session(true, this.document, this.document_one, input, text);
+                
+            }//case confirm
+            
+            case ctrl_enter, enter ->{
+                
+                Action.session(false, this.document, this.document_one, input, text);
+                
+            }//ctrl_enter, enter
+            
+            case ComboBox ->{
+                
+                var i = 0;
+                var loop = true;
+                
+                do{
+                    
+                    i++;
+                    
+                    if(menu[i].Select()){
+                        
+                        Action.session_ComboBox(menu[i], this.document_one, row);
+                        
+                        loop = false;
+                        
+                    }//if(menu[i].Select())
+                    
+                }while(i > 0 && i < menu.length && loop);
+                
+            }//case ComboBox
+            
+            case cancel -> Action.cancel_mouse(true);
+            
+        }//switch(op)
         
     }
     

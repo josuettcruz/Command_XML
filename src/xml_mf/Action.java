@@ -5,8 +5,10 @@
 package xml_mf;
 
 import form.*;
+import java.util.ArrayList;
+import java.util.List;
 import model.*;
-import xml_rw.xml_document;
+import xml_rw.*;
 
 /**
  *
@@ -170,5 +172,97 @@ public class Action {
         return val;
         
     }//OverrideTitle(xml_document doc, boolean title)
+    
+    public static void cancel_mouse(boolean mouse){
+        
+        if(mouse){
+            
+            System.exit(0);
+            
+        } else {//if(mouse)
+            
+            //code
+            
+        }//if(mouse)
+        
+    }//next modify paramters
+    
+    public static void session(
+        boolean mouse,
+        xml_document doc,
+        xml_document_one one,
+        String title,
+        List<String> text
+    )
+    {
+        
+        //next code
+        
+    }//session
+    
+    public static xml_document_one session_ComboBox(Domain d, xml_document_one value, int row){
+        
+        if(!value.getText().isEmpty()){
+            
+            List<String> val = new ArrayList();
+            
+            for(var i = 0; i < value.getText().size(); i++){
+                
+                String t = value.getText().get(i);
+                
+                if(i == row && !txt.text(t).isBlank()){
+                    
+                    //fazer ação correspondente ao menu selectionado
+                    
+                    switch(d.index()){
+                        
+                        case 1 -> val.add(txt.text(t));
+                        
+                        case 2 -> {
+                            
+                            var c1 = new Data(t);
+                            // Deve ser incluída novas opções de validação de
+                            // DATA com entradas de String
+                            // além das que já existem
+                            // A principal ou até mesma a única deve ser:
+                            // {dia} {nome do mes em ENG}. {ano}
+                            
+                            var c2 = new Hora(t);
+                            
+                            if(c1.Val()){
+                                
+                                val.add(c1.Load());
+                                
+                            } else if(c2.Val()){
+                                
+                                val.add(c2.Timer());
+                                
+                            } else {
+                                
+                                val.add(t);
+                                
+                            }
+                            
+                        }//case 2
+                        
+                        default -> val.add(t);
+                        
+                    }//switch(d.index())
+                    
+                } else {//if(i == row && !txt.text(t).isBlank())
+                    
+                    val.add(t);
+                    
+                }//if(i == row && !txt.text(t).isBlank())
+                
+            }//for(var i = 0; i < value.getText().size(); i++)
+            
+            value.setText(val);
+            
+        }//if(!value.getText().isEmpty())
+        
+        return value;
+        
+    }//session_ComboBox
     
 }//Action
