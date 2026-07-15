@@ -78,6 +78,27 @@ public class session implements Painel_3 {
         
     }//Font()
     
+    private void Document(List<String> input_text_area){
+        
+        List<String> tema = new ArrayList();
+        
+        for(String val : input_text_area){
+            
+            // Nessa parte do código,
+            // Deverá ficar o sistema
+            // que irá reconhecer os links
+            // e adicioná-lo ao local
+            // correspondente na
+            // classe: xml_document_one 
+            
+            tema.add(txt.OutputForm(val));
+            
+        }
+        
+        this.document_one.setText(tema);
+        
+    }//Document(List<String> input_text_area)
+    
     @Override
     public String Title(boolean title) {
         
@@ -141,7 +162,17 @@ public class session implements Painel_3 {
     @Override
     public void Painel3(int key_code, char key_char, Domain[] menu, String input, List<String> text, int row, int col) {
         
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        switch(key_code){
+            
+            case 27, 127, 8 ->{
+                
+                this.Document(text);
+                
+                Action.session(false, this.document, this.document_one, input);
+                
+            }//case 27, 127, 8
+            
+        }//switch(key_code)
         
     }
 
@@ -152,13 +183,17 @@ public class session implements Painel_3 {
             
             case confirm ->{
                 
-                Action.session(true, this.document, this.document_one, input, text);
+                this.Document(text);
+                
+                Action.session(true, this.document, this.document_one, input);
                 
             }//case confirm
             
             case ctrl_enter, enter ->{
                 
-                Action.session(false, this.document, this.document_one, input, text);
+                this.Document(text);
+                
+                Action.session(false, this.document, this.document_one, input);
                 
             }//ctrl_enter, enter
             
@@ -197,7 +232,7 @@ public class session implements Painel_3 {
                 
             }//case ComboBox
             
-            case cancel -> Action.cancel_mouse(true);
+            case cancel -> Action.session_cancel_mouse();
             
         }//switch(op)
         

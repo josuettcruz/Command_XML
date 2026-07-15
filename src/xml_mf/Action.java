@@ -173,17 +173,13 @@ public class Action {
         
     }//OverrideTitle(xml_document doc, boolean title)
     
-    public static void cancel_mouse(boolean mouse){
+    public static void session_cancel_mouse(){
         
-        if(mouse){
-            
-            System.exit(0);
-            
-        } else {//if(mouse)
-            
-            //code
-            
-        }//if(mouse)
+        // Deve ser criada uma nova classe
+        // que servirá para confirmar ou cancelar
+        // a ação que ira apagar todo o formulário
+        
+        System.exit(0);
         
     }//next modify paramters
     
@@ -191,8 +187,7 @@ public class Action {
         boolean mouse,
         xml_document doc,
         xml_document_one one,
-        String title,
-        List<String> text
+        String new_title
     )
     {
         
