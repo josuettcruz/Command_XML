@@ -80,22 +80,56 @@ public class session implements Painel_3 {
     
     private void Document(List<String> input_text_area){
         
-        List<String> tema = new ArrayList();
+        List<String> tem = new ArrayList();
+        List<xml_document_link> dat = new ArrayList();
+        
+        dat.addAll(this.document_one.getUrl());
+        
+        String tema = "";
         
         for(String val : input_text_area){
             
-            // Nessa parte do código,
-            // Deverá ficar o sistema
-            // que irá reconhecer os links
-            // e adicioná-lo ao local
-            // correspondente na
-            // classe: xml_document_one 
+            Link lnk = new Link(val);
             
-            tema.add(txt.OutputForm(val));
+            if(tema.isBlank() && lnk.Val()){
+                
+                dat.add(
+                    new xml_document_link(
+                        txt.OutputForm(
+                            lnk.page(true)),
+                            lnk
+                    )
+                );
+                
+            } else if(tema.isBlank()){//if(tema.isBlank() && lnk.Val())
+                
+                tema = val;
+                
+            } else if(lnk.Val()){//if(tema.isBlank() && lnk.Val())
+                
+                dat.add(
+                    new xml_document_link(
+                        txt.OutputForm(tema),
+                        lnk
+                    )
+                );
+                
+                tema = "";
+                
+            } else {//if(tema.isBlank() && lnk.Val())
+                
+                tem.add(txt.OutputForm(tema));
+                
+                tema = "";
+                
+            }//if(tema.isBlank() && lnk.Val())
             
-        }
+        }//for(String val : input_text_area)
         
-        this.document_one.setText(tema);
+        if(!tema.isBlank()) tem.add(txt.OutputForm(tema));
+        
+        this.document_one.setText(tem);
+        this.document_one.setUrl(dat);
         
     }//Document(List<String> input_text_area)
     

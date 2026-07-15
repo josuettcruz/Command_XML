@@ -452,7 +452,7 @@ public class xml_document {
                                 url.add(
                                     new xml_document_link(
                                         url_name,
-                                        url_link
+                                        new Link(url_link)
                                     )
                                 );
                                 
@@ -478,7 +478,7 @@ public class xml_document {
                                 url.add(
                                     new xml_document_link(
                                         url_name,
-                                        url_link
+                                        new Link(url_link)
                                     )
                                 );
                                 

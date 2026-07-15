@@ -15,10 +15,10 @@ public class xml_document_link {
     private String title;
     private Link url;
     
-    public xml_document_link(String title, String url){
+    public xml_document_link(String title, Link url){
         
         this.title = title;
-        this.url = new Link(url);
+        this.url = url;
         
     }//xml_document_link(String title, Link url)
 
