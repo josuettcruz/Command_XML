@@ -173,7 +173,7 @@ public class Action {
         
     }//OverrideTitle(xml_document doc, boolean title)
     
-    public static void session_cancel_mouse(){
+    public static void session_cancel(boolean mouse, xml_document doc, xml_document_one one){
         
         // Deve ser criada uma nova classe
         // que servirá para confirmar ou cancelar

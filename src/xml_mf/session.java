@@ -168,7 +168,7 @@ public class session implements Painel_3 {
                 
                 this.Document(text);
                 
-                Action.session(false, this.document, this.document_one, input);
+                Action.session_cancel(false, this.document, this.document_one);
                 
             }//case 27, 127, 8
             
@@ -232,7 +232,7 @@ public class session implements Painel_3 {
                 
             }//case ComboBox
             
-            case cancel -> Action.session_cancel_mouse();
+            case cancel -> Action.session_cancel(true, this.document, this.document_one);
             
         }//switch(op)
         
