@@ -77,7 +77,20 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         if(cond){
             
             val += " -- ";
-            val += h.TimerGood(false," - ");
+            
+            if(h.Compare(new Hora(17,59,30))){//if - h.Compare
+                
+                val += h.TimerGood(true);
+                
+            } else if(h.Compare(new Hora(8,30,30))){//if - h.Compare
+                
+                val += h.TimerGood(false);
+                
+            } else {//if - h.Compare
+                
+                val += h.TimerGood(true, " - ");
+                
+            }//if - h.Compare
             
         }//if(cond)
         
