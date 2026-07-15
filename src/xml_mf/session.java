@@ -105,7 +105,7 @@ public class session implements Painel_3 {
                     
                 } else {//if(lnk.Val())
                     
-                    tema = val;
+                    tema = val.trim();
                     
                 }//if(lnk.Val())
                 
