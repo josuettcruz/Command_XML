@@ -70,7 +70,7 @@ public class session implements Painel_3 {
         
     }//session(xml_document document,Font font[])
     
-    public Font[] Font(){
+    private Font[] Font(){
         
         Font font[] = {this.font_title, this.font_text};
         
@@ -91,38 +91,39 @@ public class session implements Painel_3 {
             
             Link lnk = new Link(val);
             
-            if(tema.isBlank() && lnk.Val()){
+            if(tema.isBlank()){
                 
-                dat.add(
-                    new xml_document_link(
-                        txt.OutputForm(
-                            lnk.page(true)),
-                            lnk
-                    )
-                );
+                if(lnk.Val()){
+                    
+                    dat.add(
+                        new xml_document_link(
+                            txt.OutputForm(
+                                lnk.page(true)),
+                                lnk
+                        )
+                    );
+                    
+                } else {//if(lnk.Val())
+                    
+                    tema = val;
+                    
+                }//if(lnk.Val())
                 
-            } else if(tema.isBlank()){//if(tema.isBlank() && lnk.Val())
+            } else {//if(tema.isBlank())
                 
-                tema = val;
-                
-            } else if(lnk.Val()){//if(tema.isBlank() && lnk.Val())
-                
-                dat.add(
-                    new xml_document_link(
-                        txt.OutputForm(tema),
-                        lnk
-                    )
-                );
+                if(lnk.Val()){
+                    
+                    dat.add(new xml_document_link(txt.OutputForm(tema),lnk));
+                    
+                } else {//if(lnk.Val())
+                    
+                    tem.add(tema);
+                    
+                }//if(lnk.Val())
                 
                 tema = "";
                 
-            } else {//if(tema.isBlank() && lnk.Val())
-                
-                tem.add(txt.OutputForm(tema));
-                
-                tema = "";
-                
-            }//if(tema.isBlank() && lnk.Val())
+            }//if(tema.isBlank())
             
         }//for(String val : input_text_area)
         
@@ -136,8 +137,8 @@ public class session implements Painel_3 {
     @Override
     public String Title(boolean title) {
         
-        return Action.OverrideTitle(this.document, title);
-                
+        return txt.InputForm(Action.OverrideTitle(this.document, title));
+        
     }
 
     @Override
