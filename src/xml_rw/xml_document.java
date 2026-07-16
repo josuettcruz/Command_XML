@@ -54,79 +54,6 @@ public class xml_document {
         
     }//xml_document(String title, Read document)
     
-    private String AddRepeat(String repeated){
-        
-        var value = "";
-        
-        if(repeated.contains("_")){
-            
-            var before = "";
-            var after = "";
-            var divide = false;
-            
-            for(var i = 0; i < repeated.length(); i++){
-                
-                var ds = repeated.charAt(i);
-                
-                switch(ds){
-                    
-                    case '_' -> {
-                        
-                        if(divide){
-                            
-                            before += "_";
-                            before += after;
-                            after = "";
-                            
-                        } else {//if(divide)
-                            
-                            divide = true;
-                            
-                        }//if(divide)
-                        
-                    }//case '_'
-                    
-                    default -> {
-                        
-                        if(divide)
-                        {after += ds;}
-                        else
-                        {before += ds;}
-                        
-                    }//default
-                    
-                }//switch(ds)
-                
-            }//for(var i = 0; i < repeated.length(); i++)
-            
-            var numeral = new Num(after);
-            
-            if(numeral.Val() && numeral.Num() > 0 && numeral.Num() <= 100){
-                
-                value += before;
-                value += "_";
-                value += Reg.Numb(numeral.Num()+1, 100);
-                
-            } else {//if(numeral.Val() && numeral.Num() > 0 && numeral.Num()...
-                
-                value += before;
-                value += "_";
-                value += after;
-                value += "_001";
-                
-            }//if(numeral.Val() && numeral.Num() > 0 && numeral.Num() <= 100)
-            
-        } else {//if(repeated.contains("_"))
-            
-            value += repeated;
-            value += "_001";
-            
-        }//if(repeated.contains("_"))
-        
-        return value;
-        
-    }//AddRepeat(String repeated)
-    
     public void Event(Read r){
         
         var o = new Order<xml_document_one>();
@@ -215,11 +142,11 @@ public class xml_document {
                         
                         tent = o.Add(
                             new xml_document_one(
-                                this.AddRepeat(title_one),
+                                txt.AddRepeat(title_one),
                                 url,
                                 textarea
                             ),
-                            this.AddRepeat(title_one)
+                            txt.AddRepeat(title_one)
                         );
                         
                         cont++;
@@ -527,11 +454,11 @@ public class xml_document {
 
                     tent = o.Add(
                         new xml_document_one(
-                            this.AddRepeat(title_one),
+                            txt.AddRepeat(title_one),
                             url,
                             textarea
                         ),
-                        this.AddRepeat(title_one)
+                        txt.AddRepeat(title_one)
                     );
 
                     cont++;
