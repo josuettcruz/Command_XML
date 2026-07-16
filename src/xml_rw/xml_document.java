@@ -24,9 +24,10 @@ public class xml_document {
     private Data modify_d;
     private Hora modify_h;
     
+    private boolean write_doc;
     private boolean xml_doc;
     
-    public xml_document(Read xhtml){
+    public xml_document(Read xhtml, boolean write_document_acept){
         
         Data d = new Data(1972,1,1);
         Hora h = new Hora(0,0,0);
@@ -40,17 +41,19 @@ public class xml_document {
         this.create_h = h;
         this.modify_h = h;
         
+        this.write_doc = write_document_acept;
+        
         if(Reg.xml(xhtml)){
             
             this.Event(xhtml);
             
             this.xml_doc = !this.list.isEmpty();
             
-        } else {
+        } else {//if(Reg.xml(xhtml))
             
             this.xml_doc = false;
             
-        }
+        }//if(Reg.xml(xhtml))
         
     }//xml_document(String title, Read document)
     
@@ -208,7 +211,7 @@ public class xml_document {
                     
                     case "title" -> {
                         
-                        if(this.title.isBlank())
+                        if(this.title.isBlank() || text_valid)
                         {this.title = txt.InputForm(t.txt());}
                         
                         if(text_valid)
@@ -784,6 +787,8 @@ public class xml_document {
     public Hora ModifyHour() {return modify_h;}
 
     public boolean Doc() {return xml_doc;}
+    
+    public boolean Write(){return this.write_doc;}
 
     public List<xml_document_one> List() {return list;}
     
