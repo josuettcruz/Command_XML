@@ -17,15 +17,15 @@ import xml_rw.*;
 public class Action {
     
     public final static Domain[] session_option = {
-        new Domain(1, "Ação 1"),
-        new Domain(2, "Ação 2"),
-        new Domain(3, "Ação 3"),
-        new Domain(4, "Ação 4"),
-        new Domain(5, "Ação 5"),
-        new Domain(6, "Ação 6"),
-        new Domain(7, "Ação 7"),
-        new Domain(8, "Ação 8"),
-        new Domain(9, "Ação 9"),
+        new Domain(1, "Condicionar todo o texto"),
+        new Domain(2, "Condicionar Texto"),
+        new Domain(3, "Predefinir DATA/HORA"),
+        new Domain(4, "Separas por frase"),
+        new Domain(5, "Separar por textos da frase"),
+        new Domain(6, "Ação 5"),
+        new Domain(7, "Ação 6"),
+        new Domain(8, "Ação 7"),
+        new Domain(9, "Ação 8"),
         new Domain(10, "Ação 10")
     };
     
@@ -201,6 +201,14 @@ public class Action {
             
             return new ArrayList();
             
+        } else if(d.index() == 1){
+            
+            List<String> aplication = new ArrayList();
+            
+            for(String val : value) aplication.add(txt.text(val, true));
+            
+            return aplication;
+            
         } else {//if(value.isEmpty())
             
             List<String> val = new ArrayList();
@@ -215,9 +223,9 @@ public class Action {
                     
                     switch(d.index()){
                         
-                        case 1 -> val.add(txt.text(t));
+                        case 2 -> val.add(txt.text(t));
                         
-                        case 2 -> {
+                        case 3 -> {
                             
                             var c1 = new Data(t);
                             // Deve ser incluída novas opções de validação de
@@ -242,7 +250,65 @@ public class Action {
                                 
                             }
                             
-                        }//case 2
+                        }//case 3
+                        
+                        case 4 -> {
+                            
+                            var rd = "";
+                            
+                            for(String r : txt.phrase(value.get(i))){
+                                
+                                if(!rd.isBlank()) rd += " ";
+                                
+                                rd += r;
+                                
+                                if(r.length() > 1){
+                                    
+                                    switch(r.charAt(r.length()-1)){
+                                        
+                                        case '.', '!', '?' -> {
+                                            
+                                            val.add(rd);
+                                            rd = "";
+                                            
+                                        }//case '.', '!', '?'
+                                        
+                                    }//switch(r.charAt(r.length()-1))
+                                    
+                                }//if(r.length() > 1)
+                                
+                            }//for(String r : txt.phrase(value.get(i)))
+                            
+                        }//case 4
+                        
+                        case 5 -> {
+                            
+                            var rd = "";
+                            
+                            for(String r : txt.phrase(value.get(i))){
+                                
+                                if(!rd.isBlank()) rd += " ";
+                                
+                                rd += r;
+                                
+                                if(r.length() > 1){
+                                    
+                                    switch(r.charAt(r.length()-1)){
+                                        
+                                        case '.', '!', '?', ';', ',' -> {
+                                            
+                                            val.add(rd);
+                                            rd = "";
+                                            
+                                        }//case '.', '!', '?'
+                                        
+                                    }//switch(r.charAt(r.length()-1))
+                                    
+                                }//if(r.length() > 1)
+                                
+                            }//for(String r : txt.phrase(value.get(i)))
+                            
+                        }//case 5
                         
                         default -> val.add(t);
                         
