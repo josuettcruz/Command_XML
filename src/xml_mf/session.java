@@ -97,9 +97,8 @@ public class session implements Painel_3 {
                     
                     dat.add(
                         new xml_document_link(
-                            txt.OutputForm(
-                                lnk.page(true)),
-                                lnk
+                            lnk.page(true),
+                            lnk
                         )
                     );
                     
@@ -113,7 +112,7 @@ public class session implements Painel_3 {
                 
                 if(lnk.Val()){
                     
-                    dat.add(new xml_document_link(txt.OutputForm(tema),lnk));
+                    dat.add(new xml_document_link(tema,lnk));
                     
                 } else {//if(lnk.Val())
                     
@@ -134,22 +133,26 @@ public class session implements Painel_3 {
         
     }//Document(List<String> input_text_area)
     
+    /*
+        Será preciso uma nova classe com formuláo
+        para poder visualizar os links salvos!
+        Essa classe deverá ter a interface:
+        Painel 2
+    */
+    
     @Override
     public String Title(boolean title) {
         
-        return txt.InputForm(Action.OverrideTitle(this.document, title));
+        return Action.OverrideTitle(this.document, title);
         
     }
 
     @Override
     public String InputText() {
         
-        var value = "";
+        var t = txt.text(this.document_one.getTitle());
         
-        if(!txt.text(this.document_one.getTitle()).isBlank())
-        {value += txt.InputForm(this.document_one.getTitle());}
-        
-        return value;
+        return t.isBlank() ? "" : t;
         
     }
 
@@ -166,19 +169,7 @@ public class session implements Painel_3 {
     @Override
     public List<String> TextArea() {
         
-        List<String> tema = new ArrayList();
-        
-        if(!this.document_one.getText().isEmpty()){
-            
-            for(String text : this.document_one.getText()){
-                
-                tema.add(txt.InputForm(text));
-                
-            }//for(String text : this.Tema().getText())
-            
-        }//if(!this.Tema().getText().isEmpty())
-        
-        return tema;
+        return this.document_one.getText();
         
     }
 

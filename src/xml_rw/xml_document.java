@@ -96,11 +96,11 @@ public class xml_document {
                 
                 var validate = o.Add(
                     new xml_document_one(
-                            title_one,
+                            txt.InputForm(title_one),
                             url,
                             textarea
                         ),
-                        title_one
+                        txt.InputForm(title_one)
                     );
                 
                 if(validate){
@@ -209,10 +209,10 @@ public class xml_document {
                     case "title" -> {
                         
                         if(this.title.isBlank())
-                        {this.title = t.txt();}
+                        {this.title = txt.InputForm(t.txt());}
                         
                         if(text_valid)
-                        {title = t.txt();}
+                        {title = txt.InputForm(t.txt());}
                     
                     }//case "title"
                     
@@ -404,7 +404,7 @@ public class xml_document {
                                 
                                 url.add(
                                     new xml_document_link(
-                                        url_name,
+                                        txt.InputForm(url_name),
                                         new Link(url_link)
                                     )
                                 );
@@ -421,7 +421,7 @@ public class xml_document {
                     case "text" ->{
                         
                         if(text_valid)
-                        {textarea.add(t.txt());}
+                        {textarea.add(txt.InputForm(t.txt()));}
                         
                     }//case "text"
                     
@@ -639,7 +639,7 @@ public class xml_document {
                 
                 dat.add(this.Tab(2, tab_space, "<document>"));
                 
-                dat.add(this.Tab(3, tab_space, "<title>" + t.getTitle() + "</title"));
+                dat.add(this.Tab(3, tab_space, "<title>" + txt.OutputForm(t.getTitle()) + "</title"));
                 
                 if(!t.getUrl().isEmpty()){
                     
@@ -647,7 +647,7 @@ public class xml_document {
                     
                     for(xml_document_link x : t.getUrl()){
                         
-                        dat.add(this.Tab(4, tab_space, "<page>" + x.name() + "</page>"));
+                        dat.add(this.Tab(4, tab_space, "<page>" + txt.OutputForm(x.name()) + "</page>"));
                         dat.add(this.Tab(4, tab_space, "<url>" + x.lnk() + "</url>"));
                         
                     }//for(xml_document_link x : t.getUrl())
@@ -660,8 +660,11 @@ public class xml_document {
                     
                     dat.add(this.Tab(3, tab_space, "<content>"));
                     
-                    for(String x : t.getText())
-                    {dat.add(this.Tab(4, tab_space, "<text>" + x + "</text>"));}
+                    for(String d : t.getText()){
+                        
+                        dat.add(this.Tab(4, tab_space, "<text>" + txt.OutputForm(d) + "</text>"));
+                    
+                    }
                     
                     dat.add(this.Tab(3, tab_space, "</content>"));
                     
