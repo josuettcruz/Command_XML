@@ -8,13 +8,6 @@ import model.*;
 import xml_rw.*;
 import form.*;
 
-
-import form.pag1;
-import static form.pag1.*;
-
-import form.pag2;
-import static form.pag2.*;
-
 import form.pag3;
 import static form.pag3.*;
 
@@ -230,8 +223,6 @@ public class session implements Painel_3 {
                 
                 do{
                     
-                    i++;
-                    
                     if(menu[i].Select()){
                         
                         this.document_one.setText(
@@ -253,6 +244,8 @@ public class session implements Painel_3 {
                         loop = false;
                         
                     }//if(menu[i].Select())
+                    
+                    i++;
                     
                 }while(i > 0 && i < menu.length && loop);
                 
