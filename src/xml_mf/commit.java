@@ -65,35 +65,10 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private String Commit(){
         
-        Hora h = new Hora(true);
-        
-        final var cond1 = h.Compare(new Hora(7,0,0));
-        final var cond2 = !h.Compare(new Hora(23,0,0));
-        final var cond = cond1 && cond2;
-        
         var val = "git commit -m \"";
-        val += new Data().DataAbreviada(cond);
-        
-        if(cond){
-            
-            val += " -- ";
-            
-            if(h.Compare(new Hora(19,1,30))){//if - h.Compare
-                
-                val += h.TimerGood(true);
-                
-            } else if(h.Compare(new Hora(7,30,30))){//if - h.Compare
-                
-                val += h.TimerGood(false);
-                
-            } else {//if - h.Compare
-                
-                val += h.TimerGood(true, " - ");
-                
-            }//if - h.Compare
-            
-        }//if(cond)
-        
+        val += new Data().DataAbreviada(true);
+        val += " -- ";
+        val += new Hora(true).TimerGood(false);
         val += " -- Nesse COMMIT";
         
         if(this.text.size() == 1){
