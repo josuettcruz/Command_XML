@@ -219,18 +219,16 @@ public class Action {
             var tx = txt.arq(value);
             var tm = "";
             
-            var cont = 0;
-            
-            do{
+            for(var i = 0; i < tx.length() && i < 3; i++){
                 
                 var co = 0;
                 var loop1 = true;
                 
                 do{
                     
-                    if(tx.charAt(cont) == month[co].charAt(cont)){
+                    if(tx.charAt(i) == month[co].charAt(i)){
                         
-                        tm += tx.charAt(cont);
+                        tm += tx.charAt(i);
                         loop1 = false;
                         
                     }//if(tx.charAt(cont) == month[co].charAt(cont))
@@ -239,11 +237,9 @@ public class Action {
                     
                 }while(loop1 && co > 0 && co < month.length);
                 
-                cont++;
-                
-            }while(tm.length() < 3 && cont > 0 && cont < tx.length());
+            }//for(var i = 0; i < tx.length() && i < 3; i++)
             
-            cont = 0;
+            var cont = 0;
             
             var loop2 = true;
             
