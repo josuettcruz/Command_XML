@@ -17,16 +17,12 @@ import xml_rw.*;
 public class Action {
     
     public final static Domain[] session_option = {
-        new Domain(1, "Condicionar todo o texto"),
-        new Domain(2, "Condicionar Texto"),
+        new Domain(0, "Selecione uma opção!"),
+        new Domain(1, "Condicionar todo o texto."),
+        new Domain(2, "Condicionar Texto."),
         new Domain(3, "Predefinir DATA/HORA"),
-        new Domain(4, "Separas por frase"),
-        new Domain(5, "Separar por textos da frase"),
-        new Domain(6, "Ação 5"),
-        new Domain(7, "Ação 6"),
-        new Domain(8, "Ação 7"),
-        new Domain(9, "Ação 8"),
-        new Domain(10, "Ação 10")
+        new Domain(4, "Separas por frase."),
+        new Domain(5, "Separar por textos da frase.")
     };
     
     public final static void Err(String type, String message){
@@ -195,6 +191,82 @@ public class Action {
         
     }//session
     
+    private static int month_ComboBox(String value){
+        
+        final String month[] = {
+            "jan",
+            "fev",
+            "mar",
+            "abr",
+            "mai",
+            "jun",
+            "jul",
+            "ago",
+            "set",
+            "out",
+            "nov",
+            "dez"
+        };
+        
+        var val = -1;
+        
+        if(txt.text(value).isBlank()){
+            
+            val = -2;
+            
+        } else {//if(txt.text(value).isBlank())
+            
+            var tx = txt.arq(value);
+            var tm = "";
+            
+            var cont = 0;
+            
+            do{
+                
+                var co = 0;
+                var loop1 = true;
+                
+                do{
+                    
+                    if(tx.charAt(cont) == month[co].charAt(cont)){
+                        
+                        tm += tx.charAt(cont);
+                        loop1 = false;
+                        
+                    }//if(tx.charAt(cont) == month[co].charAt(cont))
+                    
+                    co++;
+                    
+                }while(loop1 && co > 0 && co < month.length);
+                
+                cont++;
+                
+            }while(tm.length() < 3 && cont > 0 && cont < tx.length());
+            
+            cont = 0;
+            
+            var loop2 = true;
+            
+            do{
+                
+                if(tm.equalsIgnoreCase(month[cont])){
+                    
+                    val = cont+1;
+                    
+                    loop2 = false;
+                    
+                }//if(tm.equalsIgnoreCase(month[cont]))
+                
+                cont++;
+                
+            }while(loop2 && cont > 0 && cont < month.length);
+            
+        }//if(txt.text(value).isBlank())
+        
+        return val;
+        
+    }//month_ComboBox(String val)
+    
     public static List<String> session_ComboBox(Domain d, List<String> value, int row){
         
         if(value.isEmpty()){
@@ -228,11 +300,6 @@ public class Action {
                         case 3 -> {
                             
                             var c1 = new Data(t);
-                            // Deve ser incluída novas opções de validação de
-                            // DATA com entradas de String
-                            // além das que já existem
-                            // A principal ou até mesma a única deve ser:
-                            // {dia} {nome do mes em ENG}. {ano}
                             
                             var c2 = new Hora(t);
                             
@@ -240,15 +307,50 @@ public class Action {
                                 
                                 val.add(c1.Load());
                                 
-                            } else if(c2.Val()){
+                            } else if(c2.Val()){//if(c1.Val())
                                 
                                 val.add(c2.Timer());
                                 
-                            } else {
+                            } else {//if(c1.Val())
                                 
-                                val.add(t);
+                                var day = 0;
+                                var month = 0;
+                                var year = 0;
                                 
-                            }
+                                var tm = txt.phrase(t);
+                                
+                                var cont = 0;
+                                var loop = true;
+                                
+                                do{
+                                    
+                                    var dat = month_ComboBox(tm.get(cont));
+                                    
+                                    var n = new Num(tm.get(cont));
+                                    
+                                    if(dat > 0) month = dat;
+                                    
+                                    if(n.Val() && n.Num() <= 31) day = n.Num();
+                                    
+                                    if(n.Val() && n.Num() > 1972) year = n.Num();
+                                    
+                                    cont++;
+                                    
+                                }while(loop && cont > 0 && cont < tm.size());
+                                
+                                Data code = new Data(year, month, day);
+                                
+                                if(code.Val()){
+                                    
+                                    val.add(code.Load());
+                                    
+                                } else {//if(code.Val())
+                                    
+                                    val.add(t);
+                                    
+                                }//if(code.Val())
+                                
+                            }//if(c1.Val())
                             
                         }//case 3
                         
