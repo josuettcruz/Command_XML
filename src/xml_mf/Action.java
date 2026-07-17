@@ -169,7 +169,12 @@ public class Action {
         
     }//OverrideTitle(xml_document doc, boolean title)
     
-    public static void session_cancel(boolean mouse, xml_document doc, xml_document_one one){
+    public static void session_cancel(
+        boolean mouse,
+        xml_document doc,
+        xml_document_one one
+    )
+    {
         
         // Deve ser criada uma nova classe
         // que servirá para confirmar ou cancelar
@@ -177,7 +182,7 @@ public class Action {
         
         System.exit(0);
         
-    }//next modify paramters
+    }//session_cancel
     
     public static void session(
         boolean mouse,
@@ -263,7 +268,12 @@ public class Action {
         
     }//month_ComboBox(String val)
     
-    public static List<String> session_ComboBox(Domain d, List<String> value, int row){
+    public static List<String> session_ComboBox(
+        Domain d,
+        List<String> value,
+        int row
+    )
+    {
         
         if(value.isEmpty()){
             
@@ -313,26 +323,29 @@ public class Action {
                                 var month = 0;
                                 var year = 0;
                                 
-                                var tm = txt.phrase(t);
-                                
-                                var cont = 0;
-                                var loop = true;
-                                
-                                do{
+                                for(String tm : txt.phrase(t)){
                                     
-                                    var dat = month_ComboBox(tm.get(cont));
+                                    var dat = month_ComboBox(tm);
                                     
-                                    var n = new Num(tm.get(cont));
+                                    var n = new Num(tm);
                                     
                                     if(dat > 0) month = dat;
                                     
-                                    if(n.Val() && n.Num() <= 31) day = n.Num();
+                                    if(
+                                        n.Val()
+                                        && n.Num() > 0
+                                        && n.Num() <= 31
+                                    ) day = n.Num();
                                     
-                                    if(n.Val() && n.Num() > 1972) year = n.Num();
+                                    if(
+                                        n.Val()
+                                        && n.Num() > 1972
+                                        && n.Num() <= new Data()
+                                            .getDate()
+                                            .getYear()
+                                    ) year = n.Num();
                                     
-                                    cont++;
-                                    
-                                }while(loop && cont > 0 && cont < tm.size());
+                                }//while(loop && cont > 0 && cont < tm.size());
                                 
                                 Data code = new Data(year, month, day);
                                 
