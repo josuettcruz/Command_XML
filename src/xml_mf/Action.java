@@ -217,50 +217,71 @@ public class Action {
         
         if(txt.text(value).isBlank()){
             
-            val = -2;
+            val = 0;
             
         } else {//if(txt.text(value).isBlank())
             
             var tx = txt.arq(value);
             var tm = "";
-            
-            for(var i = 0; i < tx.length() && i < 3; i++){
-                
-                var co = 0;
-                var loop1 = true;
-                
-                do{
-                    
-                    if(tx.charAt(i) == month[co].charAt(i)){
-                        
-                        tm += tx.charAt(i);
-                        loop1 = false;
-                        
-                    }//if(tx.charAt(cont) == month[co].charAt(cont))
-                    
-                    co++;
-                    
-                }while(loop1 && co > 0 && co < month.length);
-                
-            }//for(var i = 0; i < tx.length() && i < 3; i++)
+            var charAt = 0;
             
             var cont = 0;
             
-            var loop2 = true;
+            var loop = true;
             
             do{
                 
-                if(tm.equalsIgnoreCase(month[cont])){
+                var co = 0;
+                var intern_loop = true;
+                
+                do{
                     
-                    val = cont+1;
+                    if(charAt < month[co].length()){
+                        
+                        if(tx.charAt(charAt) == month[co].charAt(charAt)){
+                            
+                            tm += tx.charAt(charAt);
+                            charAt++;
+                            
+                            intern_loop = false;
+                            
+                        }//if(tx.charAt(cont) == month[co].charAt(cont))
+                        
+                    } else {//if(charAt < month[co].length())
+                        
+                        loop = false;
+                        
+                    }//if(charAt < month[co].length())
                     
-                    loop2 = false;
+                    co++;
                     
-                }//if(tm.equalsIgnoreCase(month[cont]))
+                }while(intern_loop && co > 0 && co < month.length);
                 
                 cont++;
                 
-            }while(loop2 && cont > 0 && cont < month.length);
+            }while(loop && cont > 0 && cont < tx.length());
+            
+            if(tm.length() >= 3){
+                
+                cont = 0;
+                
+                loop = true;
+                
+                do{
+                    
+                    if(tm.equalsIgnoreCase(month[cont])){
+                        
+                        val = cont+1;
+                        
+                        loop = false;
+                        
+                    }//if(tm.equalsIgnoreCase(month[cont]))
+                    
+                    cont++;
+                    
+                }while(loop && cont > 0 && cont < month.length);
+                
+            }//if(tm.length() >= 3)
             
         }//if(txt.text(value).isBlank())
         
@@ -323,7 +344,13 @@ public class Action {
                                 var month = 0;
                                 var year = 0;
                                 
-                                for(String tm : txt.phrase(t)){
+                                final char[] element = {
+                                    '.',
+                                    ',',
+                                    ';'
+                                };
+                                
+                                for(String tm : txt.phrase(t, element)){
                                     
                                     var dat = month_ComboBox(tm);
                                     
