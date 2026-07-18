@@ -70,7 +70,7 @@ public class Action {
         var m = doc.ModifyDate();
         var equal = c.CompareTo(m, true);
         
-        var t = txt.text(txt.InputForm(doc.getTitle()));
+        var t = txt.title(doc.getTitle(), true);
         
         var val = "";
         
@@ -178,7 +178,7 @@ public class Action {
         
         // Deve ser criada uma nova classe
         // que servirá para confirmar ou cancelar
-        // a ação que ira apagar todo o formulário
+        // que ira apagar o formulário!
         
         System.exit(0);
         
