@@ -196,99 +196,6 @@ public class Action {
         
     }//session
     
-    /*private static int month_ComboBox(String value){
-        
-        final String month[] = {
-            "jan",
-            "fev",
-            "mar",
-            "abr",
-            "mai",
-            "jun",
-            "jul",
-            "ago",
-            "set",
-            "out",
-            "nov",
-            "dez"
-        };
-        
-        var val = -1;
-        
-        if(txt.text(value).isBlank()){
-            
-            val = 0;
-            
-        } else {//if(txt.text(value).isBlank())
-            
-            var tx = txt.arq(value);
-            var tm = "";
-            var charAt = 0;
-            
-            var cont = 0;
-            
-            var loop = true;
-            
-            do{
-                
-                var co = 0;
-                var intern_loop = true;
-                
-                do{
-                    
-                    if(charAt < month[co].length()){
-                        
-                        if(tx.charAt(charAt) == month[co].charAt(charAt)){
-                            
-                            tm += tx.charAt(charAt);
-                            charAt++;
-                            
-                            intern_loop = false;
-                            
-                        }//if(tx.charAt(cont) == month[co].charAt(cont))
-                        
-                    } else {//if(charAt < month[co].length())
-                        
-                        loop = false;
-                        
-                    }//if(charAt < month[co].length())
-                    
-                    co++;
-                    
-                }while(intern_loop && co > 0 && co < month.length);
-                
-                cont++;
-                
-            }while(loop && cont > 0 && cont < tx.length());
-            
-            if(tm.length() >= 3){
-                
-                cont = 0;
-                
-                loop = true;
-                
-                do{
-                    
-                    if(tm.equalsIgnoreCase(month[cont])){
-                        
-                        val = cont+1;
-                        
-                        loop = false;
-                        
-                    }//if(tm.equalsIgnoreCase(month[cont]))
-                    
-                    cont++;
-                    
-                }while(loop && cont > 0 && cont < month.length);
-                
-            }//if(tm.length() >= 3)
-            
-        }//if(txt.text(value).isBlank())
-        
-        return val;
-        
-    }*/
-    
     private static int month_ComboBox(String value){
         
         final int init = 0;
@@ -418,13 +325,7 @@ public class Action {
                                 var month = 0;
                                 var year = 0;
                                 
-                                final char[] element = {
-                                    '.',
-                                    ',',
-                                    ';'
-                                };
-                                
-                                for(String tm : txt.phrase(t, element)){
+                                for(String tm : txt.phrase(t, true)){
                                     
                                     var dat = month_ComboBox(tm);
                                     
