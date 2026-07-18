@@ -198,50 +198,51 @@ public class Action {
     
     private static int month_ComboBox(String value){
         
-        final int init = 0;
-        int val = init;
-        
-        final Domain month[] = {
-            new Domain(1,"jan"),
-            new Domain(2,"fev"),
-            new Domain(3,"mar"),
-            new Domain(4,"abr"),
-            new Domain(5,"mai"),
-            new Domain(6,"jun"),
-            new Domain(7,"jul"),
-            new Domain(8,"ago"),
-            new Domain(9,"set"),
-            new Domain(10,"out"),
-            new Domain(11,"nov"),
-            new Domain(12,"dez")
-        };
-        
-        var text = txt.arq(value);
-        
-        if(!text.isBlank()){
+        if(txt.arq(value).isBlank()){
             
-            var charAt = 0;
+            return -1;
+            
+        } else {
+            
+            final Domain month[] = {
+                new Domain(1,"jan"),
+                new Domain(2,"fev"),
+                new Domain(3,"mar"),
+                new Domain(4,"abr"),
+                new Domain(5,"mai"),
+                new Domain(5,"may"),
+                new Domain(6,"jun"),
+                new Domain(7,"jul"),
+                new Domain(8,"ago"),
+                new Domain(9,"set"),
+                new Domain(10,"out"),
+                new Domain(11,"nov"),
+                new Domain(12,"dez")
+            };
+            
+            var val = -1;
+            
             var tx = "";
             
-            for(int i = 0; i < text.length(); i++){
+            for(int i = 0; i < txt.arq(value).length(); i++){
                 
                 var cont = 0;
                 var loop = true;
                 
                 do{
                     
+                    var charAt = tx.isBlank() ? 0 : tx.length()-1;
+                    
                     var dm = month[cont].Text();
                     
                     if(charAt < dm.length()){
                         
-                        if(dm.charAt(charAt) == value.charAt(i)){
+                        if(dm.charAt(charAt) == txt.arq(value).charAt(i)){
                             
                             tx += dm.charAt(charAt);
-                            charAt++;
-                            
                             loop = false;
                             
-                        }//if(dm.charAt(charAt) == value.charAt(i))
+                        }//if(dm.charAt(charAt) == txt.arq(value).charAt(i))
                         
                     }//if(charAt < dm.length())
                     
@@ -249,24 +250,27 @@ public class Action {
                     
                 }while(loop && cont > 0 && cont < month.length);
                 
-            }//for(int i = 0; i < text.length(); i++)
+            }//for(int i = 0; i < txt.arq(value).length(); i++)
             
             var proc = 0;
+            var in_loop = true;
             
             do{
                 
-                var t1 = month[proc].Text();
-                var t2 = month[proc].index();
-                
-                if(tx.equalsIgnoreCase(t1)) val = t2;
+                if(tx.equalsIgnoreCase(month[proc].Text())){
+                    
+                    val = month[proc].index();
+                    in_loop = false;
+                    
+                }//if(tx.equalsIgnoreCase(month[proc].Text()))
                 
                 proc++;
                 
-            }while(val == init && proc > 0 && proc < month.length);
+            }while(in_loop && proc > 0 && proc < month.length);
+            
+            return val;
             
         }//if(!text.isBlank())
-        
-        return val;
         
     }//month_ComboBox(String value)
     
@@ -321,9 +325,11 @@ public class Action {
                                 
                             } else {//if(c1.Val())
                                 
-                                var day = 0;
-                                var month = 0;
-                                var year = 0;
+                                final var init = -1;
+                                
+                                var year = init;
+                                var month = init;
+                                var day = init;
                                 
                                 for(String tm : txt.phrase(t, true)){
                                     
@@ -331,35 +337,50 @@ public class Action {
                                     
                                     var n = new Num(tm);
                                     
-                                    if(dat > 0) month = dat;
+                                    if(
+                                        year == init &&
+                                        n.Val() &&
+                                        n.Num() > 1972 &&
+                                        n.Num() <= new Data()
+                                            .getDate()
+                                            .getYear() + 1
+                                    ) year = n.Num();
                                     
                                     if(
-                                        n.Val()
-                                        && n.Num() > 0
-                                        && n.Num() <= 31
+                                        day == init &&
+                                        n.Val() &&
+                                        n.Num() > 0 &&
+                                        n.Num() <= 31
                                     ) day = n.Num();
                                     
-                                    if(
-                                        n.Val()
-                                        && n.Num() > 1972
-                                        && n.Num() <= new Data()
-                                            .getDate()
-                                            .getYear()
-                                    ) year = n.Num();
+                                    if(month == init && dat > 0) month = dat;
                                     
                                 }//while(loop && cont > 0 && cont < tm.size());
                                 
-                                Data code = new Data(year, month, day);
-                                
-                                if(code.Val()){
+                                if(
+                                    init != year &&
+                                    init != month &&
+                                    init != day
+                                )
+                                {
                                     
-                                    val.add(code.Load());
+                                    Data code = new Data(year, month, day);
                                     
-                                } else {//if(code.Val())
+                                    if(code.Val()){
+                                        
+                                        val.add(code.Load());
+                                        
+                                    } else {//if(code.Val())
+                                        
+                                        val.add(t);
+                                        
+                                    }//if(code.Val())
+                                    
+                                } else {//if(year != init && month != init &&...
                                     
                                     val.add(t);
                                     
-                                }//if(code.Val())
+                                }//if(year != init && month != init && day !=...
                                 
                             }//if(c1.Val())
                             
