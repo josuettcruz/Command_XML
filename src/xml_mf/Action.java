@@ -196,7 +196,7 @@ public class Action {
         
     }//session
     
-    private static int month_ComboBox(String value){
+    /*private static int month_ComboBox(String value){
         
         final String month[] = {
             "jan",
@@ -287,7 +287,81 @@ public class Action {
         
         return val;
         
-    }//month_ComboBox(String val)
+    }*/
+    
+    private static int month_ComboBox(String value){
+        
+        final int init = 0;
+        int val = init;
+        
+        final Domain month[] = {
+            new Domain(1,"jan"),
+            new Domain(2,"fev"),
+            new Domain(3,"mar"),
+            new Domain(4,"abr"),
+            new Domain(5,"mai"),
+            new Domain(6,"jun"),
+            new Domain(7,"jul"),
+            new Domain(8,"ago"),
+            new Domain(9,"set"),
+            new Domain(10,"out"),
+            new Domain(11,"nov"),
+            new Domain(12,"dez")
+        };
+        
+        var text = txt.arq(value);
+        
+        if(!text.isBlank()){
+            
+            var charAt = 0;
+            var tx = "";
+            
+            for(int i = 0; i < text.length(); i++){
+                
+                var cont = 0;
+                var loop = true;
+                
+                do{
+                    
+                    var dm = month[cont].Text();
+                    
+                    if(charAt < dm.length()){
+                        
+                        if(dm.charAt(charAt) == value.charAt(i)){
+                            
+                            tx += dm.charAt(charAt);
+                            charAt++;
+                            
+                            loop = false;
+                            
+                        }//if(dm.charAt(charAt) == value.charAt(i))
+                        
+                    }//if(charAt < dm.length())
+                    
+                    cont++;
+                    
+                }while(loop && cont > 0 && cont < month.length);
+                
+            }//for(int i = 0; i < text.length(); i++)
+            
+            var proc = 0;
+            
+            do{
+                
+                var t1 = month[proc].Text();
+                var t2 = month[proc].index();
+                
+                if(tx.equalsIgnoreCase(t1)) val = t2;
+                
+                proc++;
+                
+            }while(val == init && proc > 0 && proc < month.length);
+            
+        }//if(!text.isBlank())
+        
+        return val;
+        
+    }//month_ComboBox(String value)
     
     public static List<String> session_ComboBox(
         Domain d,
