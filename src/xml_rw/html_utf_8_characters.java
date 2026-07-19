@@ -52,31 +52,24 @@ public class html_utf_8_characters {
     private static String Out(String dat, boolean utf){
         
         var val = "";
-                            
-        // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
+        
         switch(dat.toLowerCase()){
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
             case "nbsp", "#160", "#xa0" ->
             {val += utf ? "&nbsp;" : " ";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
             case "amp", "#38", "#x26" ->
             {val += utf ? "&amp;" : "&";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=60&ent=lt
             case "lt", "#60", "#x3c" ->
             {val += utf ? "&lt;" : "<";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=62&ent=gt
             case "gt", "#62", "#x3e" ->
             {val += utf ? "&gt;" : ">";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=34&ent=quot
             case "quot", "#34", "#x22" ->
             {val += utf ? "&quot;" : "\"";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=39&ent=apos
             case "apos", "#39", "#x27" ->
             {val += utf ? "&apos;" : "'";}
             
@@ -279,31 +272,24 @@ public class html_utf_8_characters {
     private static String In(String dat){
         
         var val = "";
-                            
-        // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
+        
         switch(dat.toLowerCase()){
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
             case "nbsp", "#160", "#xa0" ->
             {val += " ";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
             case "amp", "#38", "#x26" ->
             {val += "&";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=60&ent=lt
             case "lt", "#60", "#x3c" ->
             {val += "<";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=62&ent=gt
             case "gt", "#62", "#x3e" ->
             {val += ">";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=34&ent=quot
             case "quot", "#34", "#x22" ->
             {val += "\"";}
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=39&ent=apos
             case "apos", "#39", "#x27" ->
             {val += "\'";}
             
@@ -377,7 +363,7 @@ public class html_utf_8_characters {
         
         return val;
         
-    }
+    }//Replace(String dat)
     
     public static String InputForm(String value){
         
@@ -469,6 +455,8 @@ public class html_utf_8_characters {
                 
                 switch(value.charAt(i)){
                     
+                    case ' ' -> val += Out(value.charAt(i));
+                    
                     case '{' -> open++;
                     
                     case '}' ->{
@@ -476,11 +464,15 @@ public class html_utf_8_characters {
                         if(open == 2){
                             
                             close++;
-                            open = 0;
                             
                         } else {//if(open == 2)
                             
-                            if(open > 0) val += "{".repeat(open);
+                            if(open > 0){
+                                
+                                val += "{".repeat(open);
+                                open = 0;
+                                
+                            }//if(open > 0)
                             
                             val += "}";
                             
@@ -490,16 +482,18 @@ public class html_utf_8_characters {
                     
                     default ->{
                         
-                        if(open == 2 && close == 0){
+                        if(open == 2){
                             
                             symbol += value.charAt(i);
                             
-                        } else if(close == 2){//if(open == 2 && close == 0)
+                        } else if(close == 2){//if(open == 2)
                             
                             val += Replace(symbol);
-                            symbol = "";
                             
-                        } else {//if(open == 2 && close == 0)
+                            symbol = "";
+                            close = 0;
+                            
+                        } else {//if(open == 2)
                             
                             if(open > 0) val += "{".repeat(open);
                             
@@ -507,13 +501,28 @@ public class html_utf_8_characters {
                             
                             val += Out(value.charAt(i));
                             
-                        }//if(open == 2 && close == 0)
+                            open = 0;
+                            close = 0;
+                            
+                        }//if(open == 2)
                         
                     }//default
                     
                 }//switch(form.charAt(i))
                 
             }//for(var i = 0; i < form.length(); i++)
+            
+            if(open > 0) val += "{".repeat(open);
+            
+            if(close == 2){
+                
+                val += Replace(symbol);
+                
+            } else {//if(close == 2)
+                
+                if(close > 0) val += "}".repeat(close);
+                
+            }//if(close == 2)
             
             return val;
             
