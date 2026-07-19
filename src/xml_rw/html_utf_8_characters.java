@@ -371,7 +371,7 @@ public class html_utf_8_characters {
             
             return "";
             
-        } else {//if(!form.isEmpty())
+        } else {//if(txt.text(value, true).isBlank())
             
             var val = "";
             
@@ -433,7 +433,7 @@ public class html_utf_8_characters {
             
             return val;
             
-        }//if(!form.isEmpty())
+        }//if(txt.text(value, true).isBlank())
         
     }//InputForm(String value)
     
@@ -443,7 +443,7 @@ public class html_utf_8_characters {
             
             return "";
             
-        } else {//if(!form.isEmpty())
+        } else {//if(txt.text(value, true).isBlank())
             
             var open = 0;
             var close = 0;
@@ -526,7 +526,7 @@ public class html_utf_8_characters {
             
             return val;
             
-        }//if(!form.isEmpty())
+        }//if(txt.text(value, true).isBlank())
         
     }//OutputForm(String value)
     
