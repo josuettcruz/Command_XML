@@ -5,6 +5,7 @@
 package xml_rw;
 
 import model.Link;
+import model.txt;
 
 /**
  *
@@ -383,18 +384,50 @@ public class html_utf_8_characters {
     
     public static String InputForm(String value){
         
-        var val = "";
+        var form = txt.phrase(value, true);
         
-        return val;
+        if(!form.isEmpty()){
+            
+            return "";
+            
+        } else {//if(!form.isEmpty())
+            
+            var val = "";
+            
+            for(String t : form){
+                
+                //code
+                
+            }//for(String t : txt.phrase(value, true))
+            
+            return val;
+            
+        }//if(!form.isEmpty())
         
-    }
+    }//InputForm(String value)
     
     public static String OutputForm(String value){
         
-        var val = "";
+        var form = txt.phrase(value, true);
         
-        return val;
+        if(!form.isEmpty()){
+            
+            return "";
+            
+        } else {//if(!form.isEmpty())
+            
+            var val = "";
+            
+            for(String t : form){
+                
+                //code
+                
+            }//for(String t : txt.phrase(value, true))
+            
+            return val;
+            
+        }//if(!form.isEmpty())
         
-    }
+    }//OutputForm(String value)
     
-}
+}//html_utf_8_characters
