@@ -381,9 +381,7 @@ public class html_utf_8_characters {
     
     public static String InputForm(String value){
         
-        var form = txt.text(value, true);
-        
-        if(!form.isBlank()){
+        if(txt.text(value, true).isBlank()){
             
             return "";
             
@@ -394,9 +392,9 @@ public class html_utf_8_characters {
             var dat = "";
             var symbol = false;
             
-            for(var i = 0; i < form.length(); i++){
+            for(var i = 0; i < value.length(); i++){
                 
-                switch(form.charAt(i)){
+                switch(value.charAt(i)){
                     
                     case '&' ->{
                         
@@ -423,7 +421,7 @@ public class html_utf_8_characters {
                             
                         } else {//if(symbol)
                             
-                            val += form.charAt(i);
+                            val += value.charAt(i);
                             
                         }//if(symbol)
                         
@@ -433,11 +431,11 @@ public class html_utf_8_characters {
                         
                         if(symbol){
                             
-                            dat += form.charAt(i);
+                            dat += value.charAt(i);
                             
                         } else {//if(symbol)
                             
-                            val += form.charAt(i);
+                            val += value.charAt(i);
                             
                         }//if(symbol)
                         
@@ -455,9 +453,7 @@ public class html_utf_8_characters {
     
     public static String OutputForm(String value){
         
-        var form = txt.text(value, true);
-        
-        if(!form.isBlank()){
+        if(txt.text(value, true).isBlank()){
             
             return "";
             
@@ -469,9 +465,9 @@ public class html_utf_8_characters {
             var symbol = "";
             var val = "";
             
-            for(var i = 0; i < form.length(); i++){
+            for(var i = 0; i < value.length(); i++){
                 
-                switch(form.charAt(i)){
+                switch(value.charAt(i)){
                     
                     case '{' -> open++;
                     
@@ -496,7 +492,7 @@ public class html_utf_8_characters {
                         
                         if(open == 2 && close == 0){
                             
-                            symbol += form.charAt(i);
+                            symbol += value.charAt(i);
                             
                         } else if(close == 2){//if(open == 2 && close == 0)
                             
@@ -509,7 +505,7 @@ public class html_utf_8_characters {
                             
                             if(close > 0) val += "}".repeat(close);
                             
-                            val += Out(form.charAt(i));
+                            val += Out(value.charAt(i));
                             
                         }//if(open == 2 && close == 0)
                         
