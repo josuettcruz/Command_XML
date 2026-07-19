@@ -384,9 +384,9 @@ public class html_utf_8_characters {
     
     public static String InputForm(String value){
         
-        var form = txt.phrase(value, true);
+        var form = txt.text(value, true);
         
-        if(!form.isEmpty()){
+        if(!form.isBlank()){
             
             return "";
             
@@ -394,11 +394,11 @@ public class html_utf_8_characters {
             
             var val = "";
             
-            for(String t : form){
+            for(var i = 0; i < form.length(); i++){
                 
                 //code
                 
-            }//for(String t : txt.phrase(value, true))
+            }//for(var i = 0; i < form.length(); i++)
             
             return val;
             
@@ -408,9 +408,9 @@ public class html_utf_8_characters {
     
     public static String OutputForm(String value){
         
-        var form = txt.phrase(value, true);
+        var form = txt.text(value, true);
         
-        if(!form.isEmpty()){
+        if(!form.isBlank()){
             
             return "";
             
@@ -418,11 +418,11 @@ public class html_utf_8_characters {
             
             var val = "";
             
-            for(String t : form){
+            for(var i = 0; i < form.length(); i++){
                 
                 //code
                 
-            }//for(String t : txt.phrase(value, true))
+            }//for(var i = 0; i < form.length(); i++)
             
             return val;
             
