@@ -276,32 +276,6 @@ public class html_utf_8_characters {
         
     }//OutputForm(String value)*/
     
-    private static String Out(char dat){
-        
-        String val = "";
-                    
-        switch(dat){
-            
-            case ' ' -> val += "&nbsp;";
-            
-            case '&' -> val += "&amp;";
-            
-            case '<' -> val += "&lt;";
-            
-            case '>' -> val += "&gt;";
-            
-            case '"' -> val += "&quot;";
-            
-            case '\'' -> val += "&apos;";
-            
-            default -> val += dat;
-
-        }//switch(value.charAt(p))
-        
-        return val;
-        
-    }
-    
     private static String In(String dat){
         
         var val = "";
@@ -345,7 +319,37 @@ public class html_utf_8_characters {
         
         return val;
         
-    }
+    }//In(String dat)
+    
+    private static String Out(char dat){
+        
+        String val = "&";
+        
+        var code = true;
+                    
+        switch(dat){
+            
+            case ' ' -> val += "nbsp";
+            
+            case '&' -> val += "amp";
+            
+            case '<' -> val += "lt";
+            
+            case '>' -> val += "gt";
+            
+            case '"' -> val += "quot";
+            
+            case '\'' -> val += "apos";
+            
+            default -> code = false;
+
+        }//switch(value.charAt(p))
+        
+        val += ";";
+        
+        return code ? val : dat + "";
+        
+    }//Out(char dat)
     
     private static String Replace(String dat){
         
@@ -394,9 +398,61 @@ public class html_utf_8_characters {
             
             var val = "";
             
+            var dat = "";
+            var symbol = false;
+            
             for(var i = 0; i < form.length(); i++){
                 
-                //code
+                var ds = form.charAt(i);
+                
+                switch(ds){
+                    
+                    case '&' ->{
+                        
+                        if(symbol){
+                            
+                            val += "&";
+                            symbol = false;
+                            
+                        } else {//if(symbol)
+                            
+                            symbol = true;
+                            
+                        }//if(symbol)
+                        
+                    }//case '&'
+                    
+                    case ';' ->{
+                        
+                        if(symbol){
+                            
+                            val += In(dat);
+                            dat = "";
+                            symbol = false;
+                            
+                        } else {//if(symbol)
+                            
+                            val += ds;
+                            
+                        }//if(symbol)
+                        
+                    }//case ';'
+                    
+                    default ->{
+                        
+                        if(symbol){
+                            
+                            dat += ds;
+                            
+                        } else {//if(symbol)
+                            
+                            val += ds;
+                            
+                        }//if(symbol)
+                        
+                    }//default
+                    
+                }//switch(ds)
                 
             }//for(var i = 0; i < form.length(); i++)
             
