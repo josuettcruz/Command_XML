@@ -354,26 +354,19 @@ public class html_utf_8_characters {
     private static String Replace(String dat){
         
         var val = "&";
-                            
-        // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
+        
         switch(dat.toLowerCase()){
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
             case "nbsp", "#160", "#xa0" -> val += "nbsp";
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
             case "amp", "#38", "#x26" -> val += "amp";
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=60&ent=lt
             case "lt", "#60", "#x3c" -> val += "lt";
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=62&ent=gt
             case "gt", "#62", "#x3e" -> val += "gt";
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=34&ent=quot
             case "quot", "#34", "#x22" -> val += "quot";
             
-            // https://www.w3schools.com/charsets/tryit.asp?deci=39&ent=apos
             case "apos", "#39", "#x27" -> val += "apos";
             
             default -> val += dat;
@@ -403,9 +396,7 @@ public class html_utf_8_characters {
             
             for(var i = 0; i < form.length(); i++){
                 
-                var ds = form.charAt(i);
-                
-                switch(ds){
+                switch(form.charAt(i)){
                     
                     case '&' ->{
                         
@@ -432,7 +423,7 @@ public class html_utf_8_characters {
                             
                         } else {//if(symbol)
                             
-                            val += ds;
+                            val += form.charAt(i);
                             
                         }//if(symbol)
                         
@@ -442,11 +433,11 @@ public class html_utf_8_characters {
                         
                         if(symbol){
                             
-                            dat += ds;
+                            dat += form.charAt(i);
                             
                         } else {//if(symbol)
                             
-                            val += ds;
+                            val += form.charAt(i);
                             
                         }//if(symbol)
                         
@@ -476,7 +467,7 @@ public class html_utf_8_characters {
             
             for(var i = 0; i < form.length(); i++){
                 
-                //code
+                char ds = form.charAt(i);
                 
             }//for(var i = 0; i < form.length(); i++)
             
