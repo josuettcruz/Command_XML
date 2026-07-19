@@ -443,7 +443,7 @@ public class html_utf_8_characters {
                         
                     }//default
                     
-                }//switch(ds)
+                }//switch(form.charAt(i))
                 
             }//for(var i = 0; i < form.length(); i++)
             
@@ -463,11 +463,59 @@ public class html_utf_8_characters {
             
         } else {//if(!form.isEmpty())
             
+            var open = 0;
+            var close = 0;
+            
+            var symbol = "";
             var val = "";
             
             for(var i = 0; i < form.length(); i++){
                 
-                char ds = form.charAt(i);
+                switch(form.charAt(i)){
+                    
+                    case '{' -> open++;
+                    
+                    case '}' ->{
+                        
+                        if(open == 2){
+                            
+                            close++;
+                            open = 0;
+                            
+                        } else {//if(open == 2)
+                            
+                            if(open > 0) val += "{".repeat(open);
+                            
+                            val += "}";
+                            
+                        }//if(open == 2)
+                        
+                    }//case '}'
+                    
+                    default ->{
+                        
+                        if(open == 2 && close == 0){
+                            
+                            symbol += form.charAt(i);
+                            
+                        } else if(close == 2){//if(open == 2 && close == 0)
+                            
+                            val += Replace(symbol);
+                            symbol = "";
+                            
+                        } else {//if(open == 2 && close == 0)
+                            
+                            if(open > 0) val += "{".repeat(open);
+                            
+                            if(close > 0) val += "}".repeat(close);
+                            
+                            val += Out(form.charAt(i));
+                            
+                        }//if(open == 2 && close == 0)
+                        
+                    }//default
+                    
+                }//switch(form.charAt(i))
                 
             }//for(var i = 0; i < form.length(); i++)
             
