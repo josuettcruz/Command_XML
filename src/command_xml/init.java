@@ -11,6 +11,8 @@ import model.*;
 
 import xml_mf.*;
 
+import xml_rw.html_utf_8_characters;
+
 import form.controller;
 
 import java.util.ArrayList;
@@ -77,12 +79,11 @@ public class init {
                 
             }//if(!d.CompareTo(Reg.modify))
             
-            Reg.Print("", "", max);
-            
         }//if(into) - 2 - 4
         
         if(into){
             
+            Reg.Print("", "", max);
             Reg.Print("class", "carregarFonte", max);
             Reg.Print("package", "model", max);
         
@@ -103,30 +104,20 @@ public class init {
         if(into){
             
             Reg.Print("", "", max);
-            Reg.Print(
-                new Data(2026,5,30).DataAbreviada(true),
-                "Próxima etapa:",
-                max
-            );
-            
-            Reg.Print(
-                new Hora(8,47,0).TimerGood(false),
-                "EXPORTAR HTML",
-                max
-            );
-            
+            Reg.Print("class", "html utf 8 characters", max);
+            Reg.Print("package", "xml rw", max);
         
         }//if(into) - 4 - 4
         
         Reg.Print(
-            Reg.Unicode(false),
-            Reg.Unicode(true),
+            html_utf_8_characters.charsets.dat(into),
+            html_utf_8_characters.charsets.getLink(),
             max
         );
         
         Reg.Print(
-            Reg.Icons(false),
-            Reg.Icons(true),
+            html_utf_8_characters.unicode.page(false).toUpperCase(),
+            html_utf_8_characters.unicode.getLink(),
             max
         );
         

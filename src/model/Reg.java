@@ -262,22 +262,4 @@ public class Reg {
         
     }//Numb(int numb, int max, String sep)
     
-    public final static String Unicode(boolean link){
-        
-        var lnk = "https:";
-        lnk += "//www.w3schools.com/charsets/default.asp";
-        
-        return link ? lnk : "HTML UTF-8 Characters";
-        
-    }//Unicode()
-    
-    public final static String Icons(boolean link){
-        
-        var lnk = "https:/";
-        lnk += "//www.w3schools.com/icons/default.asp";
-        
-        return link ? lnk : "HTML Icons";
-        
-    }//Icons()
-    
 }//Reg

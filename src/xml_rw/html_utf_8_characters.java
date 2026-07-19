@@ -4,7 +4,7 @@
  */
 package xml_rw;
 
-import model.txt;
+import model.Link;
 
 /**
  *
@@ -12,7 +12,17 @@ import model.txt;
  */
 public class html_utf_8_characters {
     
-    private static String Out(char dat){
+    public static Link unicode = new Link(
+        "https:" +
+        "//www.w3schools.com/charsets/default.asp"
+    );
+    
+    public static Link charsets = new Link(
+        "https:" +
+        "//www.w3schools.com/charsets/ref_html_entities_latin.asp"
+    );
+    
+    /*private static String Out(char dat){
         
         String val = "";
                     
@@ -263,6 +273,128 @@ public class html_utf_8_characters {
         
         return val;
         
-    }//OutputForm(String value)
+    }//OutputForm(String value)*/
+    
+    private static String Out(char dat){
+        
+        String val = "";
+                    
+        switch(dat){
+            
+            case ' ' -> val += "&nbsp;";
+            
+            case '&' -> val += "&amp;";
+            
+            case '<' -> val += "&lt;";
+            
+            case '>' -> val += "&gt;";
+            
+            case '"' -> val += "&quot;";
+            
+            case '\'' -> val += "&apos;";
+            
+            default -> val += dat;
+
+        }//switch(value.charAt(p))
+        
+        return val;
+        
+    }
+    
+    private static String In(String dat){
+        
+        var val = "";
+                            
+        // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
+        switch(dat.toLowerCase()){
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
+            case "nbsp", "#160", "#xa0" ->
+            {val += " ";}
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
+            case "amp", "#38", "#x26" ->
+            {val += "&";}
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=60&ent=lt
+            case "lt", "#60", "#x3c" ->
+            {val += "<";}
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=62&ent=gt
+            case "gt", "#62", "#x3e" ->
+            {val += ">";}
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=34&ent=quot
+            case "quot", "#34", "#x22" ->
+            {val += "\"";}
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=39&ent=apos
+            case "apos", "#39", "#x27" ->
+            {val += "\'";}
+            
+            default -> {
+
+                val += "{{";
+                val += dat;
+                val += "}}";
+
+            }//default
+
+        }//switch(dat)
+        
+        return val;
+        
+    }
+    
+    private static String Replace(String dat){
+        
+        var val = "&";
+                            
+        // https://www.w3schools.com/charsets/ref_html_entities_latin.asp
+        switch(dat.toLowerCase()){
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=160&ent=nbsp
+            case "nbsp", "#160", "#xa0" -> val += "nbsp";
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=38&ent=amp
+            case "amp", "#38", "#x26" -> val += "amp";
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=60&ent=lt
+            case "lt", "#60", "#x3c" -> val += "lt";
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=62&ent=gt
+            case "gt", "#62", "#x3e" -> val += "gt";
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=34&ent=quot
+            case "quot", "#34", "#x22" -> val += "quot";
+            
+            // https://www.w3schools.com/charsets/tryit.asp?deci=39&ent=apos
+            case "apos", "#39", "#x27" -> val += "apos";
+            
+            default -> val += dat;
+
+        }//switch(dat)
+        
+        val += ";";
+        
+        return val;
+        
+    }
+    
+    public static String InputForm(String value){
+        
+        var val = "";
+        
+        return val;
+        
+    }
+    
+    public static String OutputForm(String value){
+        
+        var val = "";
+        
+        return val;
+        
+    }
     
 }
