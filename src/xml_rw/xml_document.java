@@ -99,11 +99,11 @@ public class xml_document {
                 
                 var validate = o.Add(
                     new xml_document_one(
-                            txt.InputForm(title_one),
+                            html_utf_8_characters.InputForm(title_one),
                             url,
                             textarea
                         ),
-                        txt.InputForm(title_one)
+                        html_utf_8_characters.InputForm(title_one)
                     );
                 
                 if(validate){
@@ -212,10 +212,10 @@ public class xml_document {
                     case "title" -> {
                         
                         if(this.title.isBlank() || text_valid)
-                        {this.title = txt.InputForm(t.txt());}
+                        {this.title = html_utf_8_characters.InputForm(t.txt());}
                         
                         if(text_valid)
-                        {title = txt.InputForm(t.txt());}
+                        {title = html_utf_8_characters.InputForm(t.txt());}
                     
                     }//case "title"
                     
@@ -407,7 +407,7 @@ public class xml_document {
                                 
                                 url.add(
                                     new xml_document_link(
-                                        txt.InputForm(url_name),
+                                        html_utf_8_characters.InputForm(url_name),
                                         new Link(url_link)
                                     )
                                 );
@@ -424,7 +424,7 @@ public class xml_document {
                     case "text" ->{
                         
                         if(text_valid)
-                        {textarea.add(txt.InputForm(t.txt()));}
+                        {textarea.add(html_utf_8_characters.InputForm(t.txt()));}
                         
                     }//case "text"
                     
@@ -642,7 +642,7 @@ public class xml_document {
                 
                 dat.add(this.Tab(2, tab_space, "<document>"));
                 
-                dat.add(this.Tab(3, tab_space, "<title>" + txt.OutputForm(t.getTitle()) + "</title"));
+                dat.add(this.Tab(3, tab_space, "<title>" + html_utf_8_characters.OutputForm(t.getTitle()) + "</title"));
                 
                 if(!t.getUrl().isEmpty()){
                     
@@ -650,7 +650,7 @@ public class xml_document {
                     
                     for(xml_document_link x : t.getUrl()){
                         
-                        dat.add(this.Tab(4, tab_space, "<page>" + txt.OutputForm(x.name()) + "</page>"));
+                        dat.add(this.Tab(4, tab_space, "<page>" + html_utf_8_characters.OutputForm(x.name()) + "</page>"));
                         dat.add(this.Tab(4, tab_space, "<url>" + x.lnk() + "</url>"));
                         
                     }//for(xml_document_link x : t.getUrl())
@@ -665,7 +665,7 @@ public class xml_document {
                     
                     for(String d : t.getText()){
                         
-                        dat.add(this.Tab(4, tab_space, "<text>" + txt.OutputForm(d) + "</text>"));
+                        dat.add(this.Tab(4, tab_space, "<text>" + html_utf_8_characters.OutputForm(d) + "</text>"));
                     
                     }
                     

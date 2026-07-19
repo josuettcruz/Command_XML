@@ -119,7 +119,7 @@ public class session implements Painel_3 {
             
         }//for(String val : input_text_area)
         
-        if(!tema.isBlank()) tem.add(txt.OutputForm(tema));
+        if(!tema.isBlank()) tem.add(tema);
         
         this.document_one.setText(tem);
         this.document_one.setUrl(dat);

@@ -226,9 +226,9 @@ public class xml_config {
                 
                 switch(tag){
                     
-                    case "title" -> title = txt.InputForm(t.txt());
+                    case "title" -> title = html_utf_8_characters.InputForm(t.txt());
                     
-                    case "file" -> file = txt.InputForm(t.txt());
+                    case "file" -> file = html_utf_8_characters.InputForm(t.txt());
                     
                     case "create" -> {
                         
@@ -532,12 +532,12 @@ public class xml_config {
                 var dt = doc.InsertData().getDate() != doc.ModifyData().getDate();
                 var ht = doc.InsertHora().getHora() != doc.ModifyHora().getHora();
                 
-                exp.add(this.Tab(3, "<title>" + txt.OutputForm(doc.Title()) + "</title>"));
+                exp.add(this.Tab(3, "<title>" + html_utf_8_characters.OutputForm(doc.Title()) + "</title>"));
                 
                 var a = "<file acept=\"";
                 a += doc.Cond().Desc();
                 a += "\">";
-                a += txt.OutputForm(doc.File().Arq());
+                a += html_utf_8_characters.OutputForm(doc.File().Arq());
                 a += "</file>";
                 
                 exp.add(this.Tab(3, a));
