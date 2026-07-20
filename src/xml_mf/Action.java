@@ -90,7 +90,7 @@ public class Action {
                 
                 val += m.DataAbreviada(true);
                 
-                val += "-->";
+                val += " -->";
                 
             }//if(equal)
             
