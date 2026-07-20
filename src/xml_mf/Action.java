@@ -97,7 +97,7 @@ public class Action {
             val += " ";
             val += t;
             
-        } else if(!t.isBlank()){//if(title)
+        } else if(!t.isBlank()){//if(title && !t.isBlank())
             
             var max_str = 32;
             
@@ -149,21 +149,13 @@ public class Action {
                 
             }//if(tm[0].length() < max_str)
 
-        } else if(title){//if(title)
+        } else {//if(title && !t.isBlank())
             
             val += Hora.Good();
+            val += "!";
+            if(title) val += " Documento sem título.";
             
-        } else if(equal){//if(title)
-            
-            val += c.DataCompleta(false);
-            
-        } else {//if(title)
-            
-            val += c.DataAbreviada(true);
-            val += " --> ";
-            val += m.DataAbreviada(true);
-            
-        }//if(title)
+        }//if(title && !t.isBlank())
         
         return val;
         
