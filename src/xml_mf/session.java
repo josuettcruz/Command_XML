@@ -183,11 +183,11 @@ public class session implements Painel_3 {
         
         switch(key_code){
             
-            case 27, 127, 8 ->{
+            case 27, 127 ->{
                 
                 this.Document(text);
                 
-                Action.session_cancel(false, this.document, this.document_one);
+                Action.session(false, this.document, this.document_one, input);
                 
             }//case 27, 127, 8
             
@@ -200,7 +200,7 @@ public class session implements Painel_3 {
         
         switch(op){
             
-            case confirm ->{
+            case confirm, ctrl_enter, enter ->{
                 
                 this.Document(text);
                 
@@ -208,13 +208,13 @@ public class session implements Painel_3 {
                 
             }//case confirm
             
-            case ctrl_enter, enter ->{
+            case cancel ->{
                 
                 this.Document(text);
                 
                 Action.session(false, this.document, this.document_one, input);
                 
-            }//ctrl_enter, enter
+            }//case confirm
             
             case ComboBox ->{
                 
@@ -250,8 +250,6 @@ public class session implements Painel_3 {
                 }while(i > 0 && i < menu.length && loop);
                 
             }//case ComboBox
-            
-            case cancel -> Action.session_cancel(true, this.document, this.document_one);
             
         }//switch(op)
         

@@ -161,33 +161,6 @@ public class Action {
         
     }//OverrideTitle(xml_document doc, boolean title)
     
-    public static void session_cancel(
-        boolean mouse,
-        xml_document doc,
-        xml_document_one one
-    )
-    {
-        
-        // Deve ser criada uma nova classe
-        // que servirá para confirmar ou cancelar
-        // que ira apagar o formulário!
-        
-        System.exit(0);
-        
-    }//session_cancel
-    
-    public static void session(
-        boolean mouse,
-        xml_document doc,
-        xml_document_one one,
-        String new_title
-    )
-    {
-        
-        //next code
-        
-    }//session
-    
     private static int month_ComboBox(String value){
         
         if(txt.arq(value).isBlank()){
@@ -453,5 +426,17 @@ public class Action {
         }//if(value.isEmpty())
         
     }//session_ComboBox
+    
+    public static void session(
+        boolean confirm,
+        xml_document doc,
+        xml_document_one one,
+        String new_title
+    )
+    {
+        
+        //next code
+        
+    }//session
     
 }//Action
