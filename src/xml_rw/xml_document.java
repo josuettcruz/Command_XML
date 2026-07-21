@@ -375,7 +375,8 @@ public class xml_document {
                             
                             if(url_name.isBlank() || url_link.isBlank()){
                                 
-                                url_name = t.txt();
+                                url_name = html_utf_8_characters
+                                        .InputForm(t.txt());
                                 
                             } else {//if(url_name.isBlank() || url_link.isBlank())
                                 
@@ -407,7 +408,7 @@ public class xml_document {
                                 
                                 url.add(
                                     new xml_document_link(
-                                        html_utf_8_characters.InputForm(url_name),
+                                        url_name,
                                         new Link(url_link)
                                     )
                                 );
@@ -423,8 +424,15 @@ public class xml_document {
                     
                     case "text" ->{
                         
-                        if(text_valid)
-                        {textarea.add(html_utf_8_characters.InputForm(t.txt()));}
+                        if(text_valid){
+                            
+                            textarea.add(
+                                html_utf_8_characters.InputForm(
+                                    t.txt()
+                                )
+                            );
+                            
+                        }
                         
                     }//case "text"
                     
