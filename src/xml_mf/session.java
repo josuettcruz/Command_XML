@@ -142,14 +142,14 @@ public class session implements Painel_3 {
         **
         ** REPITA{
         ** 
-        ** SE (indice.Index() == NUM){
-        **   
-        **   ESCREVA("Chamar a função referente ao índice: ");
-        **   ESCREVA(NUM);
-        **   
-        **   loop = FALSO;
-        **   
-        ** }
+        **   SE (indice[cont].Index() == NUM){
+        **     
+        **     ESCREVA("Chamar a função referente ao índice: ");
+        **     ESCREVAL(NUM);
+        **     
+        **     loop = FALSO;
+        **     
+        **   }
         ** 
         ** cont++;
         ** 

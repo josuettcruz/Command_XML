@@ -633,13 +633,20 @@ public class Action {
         **   
         **   ESCREVAL("Adicionar:");
         **   ESCREVAL("~");
-        **   ESCREVAL("Antes do título do documento1");
+        **   ESCREVAL("Antes do título do documento!");
         **   
         ** } */
         
     }//session_cancel
     
-    public static void session_combobox(Domain menu[], xml_document doc, xml_document_one one, Font font[], int row){
+    public static void session_combobox(
+        Domain menu[],
+        xml_document doc,
+        xml_document_one one,
+        Font font[],
+        int row
+    )
+    {
         
         var i = 0;
         var loop = true;
@@ -672,6 +679,6 @@ public class Action {
             
         }while(i > 0 && i < menu.length && loop);
         
-    }
+    }//session_combobox
     
 }//Action
