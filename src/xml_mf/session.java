@@ -119,42 +119,45 @@ public class session implements Painel_3 {
     @Override
     public void Painel3(int key_code, char key_char, Domain[] menu, String input, List<String> text, int row, int col) {
         
-        /* CARACTER tecla = char key_char;
-        ** INTEIRO NUM = 0;
-        ** Domain[] indice = Domain[menu.length];
-        ** 
-        ** ESCOLLHA(tecla){
-        **   
-        **   OPÇÃO '1' -> NUM = 1;
-        **   OPÇÃO '2' -> NUM = 2;
-        **   OPÇÃO '3' -> NUM = 3;
-        **   OPÇÃO '4' -> NUM = 4;
-        **   OPÇÃO '5' -> NUM = 5;
-        **   OPÇÃO '6' -> NUM = 6;
-        **   OPÇÃO '7' -> NUM = 7;
-        **   OPÇÃO '8' -> NUM = 8;
-        **   OPÇÃO '9' -> NUM = 9;
-        **   OPÇÃO '0' -> NUM = 0;
-        **   
-        ** }
-        ** 
-        ** INTEIRO cont = 0;
-        ** LÓGICO loop = VERDADEIRO;
-        **
-        ** REPITA{
-        ** 
-        **   SE (indice[cont].Index() == NUM){
-        **     
-        **     ESCREVA("Chamar a função referente ao índice: ");
-        **     ESCREVAL(NUM);
-        **     
-        **     loop = FALSO;
-        **     
-        **   }
-        ** 
-        ** cont++;
-        ** 
-        **}ENQUANTO(loop == VERDADEIRO E cont > 0 E con < menu.length); */
+        var num = 0;
+        
+        switch(key_char){
+            
+            case '1' -> num = 1;
+            case '2' -> num = 2;
+            case '3' -> num = 3;
+            case '4' -> num = 4;
+            case '5' -> num = 5;
+            case '6' -> num = 6;
+            case '7' -> num = 7;
+            case '8' -> num = 8;
+            case '9' -> num = 9;
+            case '0' -> num = 10;
+            
+        }//switch(key_char)
+        
+        var cont = 0;
+        var loop = true;
+        
+        do{
+            
+            if(num == menu[cont].index()){
+                
+                Action.session_combobox(
+                    menu[cont],
+                    this.document,
+                    this.document_one,
+                    this.Font(),
+                    row
+                );
+                
+                loop = false;
+                
+            }//if(num ==menu[cont].index())
+            
+            cont++;
+            
+        }while(loop && cont > 0 && cont < menu.length);
         
     }
 
@@ -202,13 +205,28 @@ public class session implements Painel_3 {
             
             case ComboBox ->{
                 
-                Action.session_combobox(
-                    menu,
-                    this.document,
-                    this.document_one,
-                    this.Font(),
-                    row
-                );
+                var cont = 0;
+                var loop = true;
+                
+                do{
+                    
+                    if(menu[cont].Select()){
+                        
+                    Action.session_combobox(
+                        menu[cont],
+                        this.document,
+                        this.document_one,
+                        this.Font(),
+                        row
+                    );
+                        
+                    loop = false;
+                        
+                    }//if(menu[cont].Select())
+                    
+                    cont++;
+                    
+                }while(loop && cont > 0 && cont < menu.length);
                 
             }//case ComboBox
             

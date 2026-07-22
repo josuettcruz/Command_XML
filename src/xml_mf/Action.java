@@ -640,7 +640,7 @@ public class Action {
     }//session_cancel
     
     public static void session_combobox(
-        Domain menu[],
+        Domain menu,
         xml_document doc,
         xml_document_one one,
         Font font[],
@@ -648,36 +648,21 @@ public class Action {
     )
     {
         
-        var i = 0;
-        var loop = true;
+        one.setText(
+            session_ComboBox(
+                menu,
+                one.getText(),
+                row
+            )
+        );
         
-        do{
-
-            if(menu[i].Select()){
-                
-                one.setText(
-                    session_ComboBox(
-                        menu[i],
-                        one.getText(),
-                        row
-                    )
-                );
-                
-                controller.p3(
-                    new session(
-                        doc,
-                        one,
-                        font
-                    )
-                );
-                
-                loop = false;
-                
-            }//if(menu[i].Select())
-            
-            i++;
-            
-        }while(i > 0 && i < menu.length && loop);
+        controller.p3(
+            new session(
+                doc,
+                one,
+                font
+            )
+        );
         
     }//session_combobox
     
