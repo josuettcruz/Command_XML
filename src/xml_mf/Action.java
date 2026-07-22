@@ -5,6 +5,7 @@
 package xml_mf;
 
 import form.*;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import model.*;
@@ -614,7 +615,7 @@ public class Action {
         ** a possibilidade de isso acontecer também na     **
         ** classe ReadWrite                                */
         
-    }//session
+    }//session_confirm
     
     public static void session_cancel(
         xml_document doc,
@@ -635,6 +636,41 @@ public class Action {
         **   ESCREVAL("Antes do título do documento1");
         **   
         ** } */
+        
+    }//session_cancel
+    
+    public static void session_combobox(Domain menu[], xml_document doc, xml_document_one one, Font font[], int row){
+        
+        var i = 0;
+        var loop = true;
+        
+        do{
+
+            if(menu[i].Select()){
+                
+                one.setText(
+                    session_ComboBox(
+                        menu[i],
+                        one.getText(),
+                        row
+                    )
+                );
+                
+                controller.p3(
+                    new session(
+                        doc,
+                        one,
+                        font
+                    )
+                );
+                
+                loop = false;
+                
+            }//if(menu[i].Select())
+            
+            i++;
+            
+        }while(i > 0 && i < menu.length && loop);
         
     }
     

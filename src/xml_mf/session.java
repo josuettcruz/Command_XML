@@ -177,8 +177,7 @@ public class session implements Painel_3 {
             
             case ctrl_enter, enter ->{
                 
-                Action.session_confirm(
-                    false,
+                Action.session_confirm(false,
                     this.document,
                     Action.Document(
                         input,
@@ -202,36 +201,13 @@ public class session implements Painel_3 {
             
             case ComboBox ->{
                 
-                var i = 0;
-                var loop = true;
-                
-                do{
-                    
-                    if(menu[i].Select()){
-                        
-                        this.document_one.setText(
-                            Action.session_ComboBox(
-                                menu[i],
-                                this.document_one.getText(),
-                                row
-                            )
-                        );
-                        
-                        controller.p3(
-                            new session(
-                                this.document,
-                                this.document_one,
-                                this.Font()
-                            )
-                        );
-                        
-                        loop = false;
-                        
-                    }//if(menu[i].Select())
-                    
-                    i++;
-                    
-                }while(i > 0 && i < menu.length && loop);
+                Action.session_combobox(
+                    menu,
+                    this.document,
+                    this.document_one,
+                    this.Font(),
+                    row
+                );
                 
             }//case ComboBox
             
