@@ -689,54 +689,87 @@ public class Action {
         
         if(doc.Write()){
             
-            /* Antes de executar a função abaixo, **
-            ** abrir primeiro a mesma classe      **
-            ** que está na condição de 'ELSE'     **
-            ** mas com a opção extra de           **
-            ** abrir o documento!                 */
+            /* Abrir formulário de ações        **
+            ** que ficará em uma classe         **
+            ** que ainda será criada, mas       **
+            ** com a opção de Abrir adicionada! */
             
             controller.p3(new session(doc, one, MyFont()));
             
-        } else {//if(doc.Write())
+        } else {
             
-            /* Executar uma classe que ainda **
-            ** srá criada com as opções      **
-            ** de Exportar!                  */
+            /* Abrir formulário de ações **
+            ** que ficará em uma classe  **
+            ** que ainda será criada!    */
             
-        }//if(doc.Write())
+        }
         
     }//ReadWrite(xml_document doc, xml_document_one one)
     
+    public static void ReadWrite(xml_document doc, String title){
+        
+        var t = txt.text(title, exclude_document_function).length();
+        var p = txt.phrase(title, exclude_document_function).size();
+        
+        var cond_all = t > 1;
+        var cond = p > 1;
+        
+        if(cond_all){
+            
+            xml_document_one one = new xml_document_one();
+            
+            if(cond){
+                
+                one.setTitle(txt.title(title, true));
+                
+            } else {//if(cond)
+                
+                one.setTitle(txt.arq(title).toUpperCase());
+                
+            }//if(cond)
+            
+            ReadWrite(doc, one);
+            
+        } else {//if(cond_all)
+            
+            ReadWrite(doc, new xml_document_one());
+            
+        }//if(cond_all)
+        
+    }//ReadWrite(xml_document doc)
+    
     public static void ReadWrite(List<Domain> vol, xml_document doc){
         
-        var cont = 0;
-        var loop = true;
+        var new_doc = true;
         
-        do{
+        if(doc.Write()){
             
-            if(vol.get(cont).Select()){
-                
-                if(doc.List().size() > cont){
-                    
-                    ReadWrite(doc, doc.List().get(cont));
-                    
-                } else {//if(doc.List().size() > cont)
-                    
-                    var msg = "ReadWrite(List<Domain> vol, xml_document doc)";
-                    msg += "\nclasse Action";
-                    msg += "\nTêm algo de errado com o código Java!";
-                    
-                    Err("Falha",msg);
-                    
-                }//if(doc.List().size() > cont)
-                
-                loop = false;
-                
-            }//if(vol.get(cont).Select())
+            var cont = 0;
+            var loop = true;
             
-            cont++;
+            do{
+                
+                if(vol.get(cont).Select()){
+                    
+                    if(doc.List().size() > cont){
+                        
+                        ReadWrite(doc, doc.List().get(cont));
+                        
+                        new_doc = false;
+                        
+                    }//if(doc.List().size() > cont)
+                    
+                    loop = false;
+                    
+                }//if(vol.get(cont).Select())
+                
+                cont++;
+                
+            }while(loop && cont > 0 && cont < vol.size());
             
-        }while(loop && cont > 0 && cont < vol.size());
+        }//if(doc.Write())
+        
+        if(new_doc) ReadWrite(doc, new xml_document_one());
         
     }
     

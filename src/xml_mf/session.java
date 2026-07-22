@@ -27,7 +27,7 @@ public class session implements Painel_3 {
     private Font font_title;
     private Font font_text;
     
-    private void init(xml_document all, xml_document_one one, Font f[]){
+    public session(xml_document all, xml_document_one one, Font f[]){
         
         try{
 
@@ -48,18 +48,6 @@ public class session implements Painel_3 {
         }//throw
         
     }//init(xml_document all, xml_document_one one, Font f[])
-    
-    public session(xml_document doc,xml_document_one doc_one,Font font[]){
-        
-        this.init(doc, doc_one, font);
-        
-    }//session(xml_document doc,xml_document_one doc_one,Font font[])
-    
-    public session(xml_document document,Font font[]){
-        
-        this.init(document, new xml_document_one(), font);
-        
-    }//session(xml_document document,Font font[])
     
     private Font[] Font(){
         

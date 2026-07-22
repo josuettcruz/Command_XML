@@ -125,15 +125,24 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
     @Override
     public void Action(pag1 action, List<Domain> vol, String input) {
         
-        //throw new UnsupportedOperationException(this.temp);
+        switch(action){
+            
+            case open, enter -> Action.ReadWrite(this.document, input);
+            
+            case add, key -> Action.ReadWrite(vol, this.document);
+            
+        }
         
     }
 
     @Override
     public void Command(pag2 op, List<Domain> value) {
         
-        //throw new UnsupportedOperationException(this.temp);
-        
+        switch(op){
+            
+            case confirm, enter -> Action.ReadWrite(value, this.document);
+            
+        }//switch(op)
         
     }
     
