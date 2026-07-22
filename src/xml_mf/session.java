@@ -134,6 +134,7 @@ public class session implements Painel_3 {
         **   OPÇÃO '7' -> NUM = 7;
         **   OPÇÃO '8' -> NUM = 8;
         **   OPÇÃO '9' -> NUM = 9;
+        **   OPÇÃO '0' -> NUM = 0;
         **   
         ** }
         ** 
