@@ -609,7 +609,13 @@ public class Action {
     )
     {
         
-        //next code
+        /* Permitir adição à partir de um arquivo de TEXTO **
+        ** simplismente digitando o seu endereço no        **
+        ** campo de título!                                **
+        ** ----------------------------------------------- **
+        ** É importante saber que existe                   **
+        ** a possibilidade de isso acontecer também na     **
+        ** classe ReadWrite                                */
         
     }//session
     
