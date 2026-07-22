@@ -412,7 +412,7 @@ public class Action {
         
     }//month_ComboBox(String value)
     
-    public static List<String> session_ComboBox(
+    private static List<String> session_ComboBox(
         Domain d,
         List<String> value,
         int row
