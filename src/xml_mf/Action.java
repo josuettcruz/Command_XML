@@ -622,7 +622,9 @@ public class Action {
     )
     {
         
-        /* SE(título == [título do documento] OU título == ""){
+        /* CADEIA titulo == doc.setTitle().trim();
+        /* 
+        /* SE(título == [titulo do documento] OU titulo == ""){
         **   
         **   ESCREVA("Não alterar o documento");
         **   
