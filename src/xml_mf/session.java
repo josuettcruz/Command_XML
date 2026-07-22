@@ -119,23 +119,41 @@ public class session implements Painel_3 {
     @Override
     public void Painel3(int key_code, char key_char, Domain[] menu, String input, List<String> text, int row, int col) {
         
-        switch(key_code){
-            
-            case 27, 127 ->{
-                
-                Action.session(
-                    false,
-                    this.document,
-                    Action.Document(
-                        this.document_one,
-                        input,
-                        text
-                    )
-                );
-                
-            }//case 27, 127, 8
-            
-        }//switch(key_code)
+        /* CARACTER tecla = char key_char;
+        ** INTEIRO NUM = 0;
+        ** Domain[] indice = Domain[menu.length];
+        ** 
+        ** ESCOLLHA(tecla){
+        **   
+        **   OPÇÃO '1' -> NUM = 1;
+        **   OPÇÃO '2' -> NUM = 2;
+        **   OPÇÃO '3' -> NUM = 3;
+        **   OPÇÃO '4' -> NUM = 4;
+        **   OPÇÃO '5' -> NUM = 5;
+        **   OPÇÃO '6' -> NUM = 6;
+        **   OPÇÃO '7' -> NUM = 7;
+        **   OPÇÃO '8' -> NUM = 8;
+        **   OPÇÃO '9' -> NUM = 9;
+        **   
+        ** }
+        ** 
+        ** INTEIRO cont = 0;
+        ** LÓGICO loop = VERDADEIRO;
+        **
+        ** REPITA{
+        ** 
+        ** SE (indice.Index() == NUM){
+        **   
+        **   ESCREVA("Chamar a função referente ao índice: ");
+        **   ESCREVA(NUM);
+        **   
+        **   loop = FALSO;
+        **   
+        ** }
+        ** 
+        ** cont++;
+        ** 
+        **}ENQUANTO(loop == VERDADEIRO E cont > 0 E con < menu.length); */
         
     }
 
@@ -144,13 +162,25 @@ public class session implements Painel_3 {
         
         switch(op){
             
-            case confirm, ctrl_enter, enter ->{
+            case confirm ->{
                 
-                Action.session(
+                Action.session_confirm(
                     true,
                     this.document,
                     Action.Document(
-                        this.document_one,
+                        input,
+                        text
+                    )
+                );
+                
+            }//case confirm
+            
+            case ctrl_enter, enter ->{
+                
+                Action.session_confirm(
+                    false,
+                    this.document,
+                    Action.Document(
                         input,
                         text
                     )
@@ -160,11 +190,9 @@ public class session implements Painel_3 {
             
             case cancel ->{
                 
-                Action.session(
-                    true,
+                Action.session_cancel(
                     this.document,
                     Action.Document(
-                        this.document_one,
                         input,
                         text
                     )

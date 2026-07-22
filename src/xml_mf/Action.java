@@ -69,7 +69,6 @@ public class Action {
         '0','1','2','3','4','5','6','7','8','9'};
     
     public static xml_document_one Document(
-        xml_document_one doc,
         String new_title,
         List<String> input_text_area
     )
@@ -99,8 +98,6 @@ public class Action {
         }//if(txt.text(doc.getTitle(), exclude).isBlank())
         
         List<xml_document_link> dat = new ArrayList();
-        
-        if(!doc.getUrl().isEmpty()) dat.addAll(doc.getUrl());
         
         List<String> tem = new ArrayList();
         
@@ -602,8 +599,8 @@ public class Action {
         
     }//session_ComboBox
     
-    public static void session(
-        boolean confirm,
+    public static void session_confirm(
+        boolean mouse,
         xml_document doc,
         xml_document_one one
     )
@@ -618,5 +615,25 @@ public class Action {
         ** classe ReadWrite                                */
         
     }//session
+    
+    public static void session_cancel(
+        xml_document doc,
+        xml_document_one one
+    )
+    {
+        
+        /* SE(título == [título do documento] OU título == ""){
+        **   
+        **   ESCREVA("Não alterar o documento");
+        **   
+        ** } SENAO {
+        **   
+        **   ESCREVAL("Adicionar:");
+        **   ESCREVAL("~");
+        **   ESCREVAL("Antes do título do documento1");
+        **   
+        ** } */
+        
+    }
     
 }//Action
