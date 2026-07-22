@@ -71,68 +71,6 @@ public class session implements Painel_3 {
         
     }//Font()
     
-    private void Document(List<String> input_text_area){
-        
-        List<String> tem = new ArrayList();
-        List<xml_document_link> dat = new ArrayList();
-        
-        dat.addAll(this.document_one.getUrl());
-        
-        String tema = "";
-        
-        for(String val : input_text_area){
-            
-            Link lnk = new Link(val);
-            
-            if(tema.isBlank()){
-                
-                if(lnk.Val()){
-                    
-                    dat.add(
-                        new xml_document_link(
-                            lnk.page(true),
-                            lnk
-                        )
-                    );
-                    
-                } else {//if(lnk.Val())
-                    
-                    tema = val.trim();
-                    
-                }//if(lnk.Val())
-                
-            } else {//if(tema.isBlank())
-                
-                if(lnk.Val()){
-                    
-                    dat.add(new xml_document_link(tema,lnk));
-                    
-                } else {//if(lnk.Val())
-                    
-                    tem.add(tema);
-                    
-                }//if(lnk.Val())
-                
-                tema = "";
-                
-            }//if(tema.isBlank())
-            
-        }//for(String val : input_text_area)
-        
-        if(!tema.isBlank()) tem.add(tema);
-        
-        this.document_one.setText(tem);
-        this.document_one.setUrl(dat);
-        
-    }//Document(List<String> input_text_area)
-    
-    /*
-        Será preciso uma nova classe com formuláo
-        para poder visualizar os links salvos!
-        Essa classe deverá ter a interface:
-        Painel 2
-    */
-    
     @Override
     public String Title(boolean title) {
         
@@ -185,9 +123,15 @@ public class session implements Painel_3 {
             
             case 27, 127 ->{
                 
-                this.Document(text);
-                
-                Action.session(false, this.document, this.document_one, input);
+                Action.session(
+                    false,
+                    this.document,
+                    Action.Document(
+                        this.document_one,
+                        input,
+                        text
+                    )
+                );
                 
             }//case 27, 127, 8
             
@@ -202,17 +146,29 @@ public class session implements Painel_3 {
             
             case confirm, ctrl_enter, enter ->{
                 
-                this.Document(text);
-                
-                Action.session(true, this.document, this.document_one, input);
+                Action.session(
+                    true,
+                    this.document,
+                    Action.Document(
+                        this.document_one,
+                        input,
+                        text
+                    )
+                );
                 
             }//case confirm
             
             case cancel ->{
                 
-                this.Document(text);
-                
-                Action.session(false, this.document, this.document_one, input);
+                Action.session(
+                    true,
+                    this.document,
+                    Action.Document(
+                        this.document_one,
+                        input,
+                        text
+                    )
+                );
                 
             }//case confirm
             

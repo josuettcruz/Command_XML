@@ -64,6 +64,181 @@ public class Action {
     
     }//Action()
     
+    private final static char[] exclude_document_function = {'<','>',':',';',
+        '.',',','!','?', '{','}','[',']','(',')',
+        '0','1','2','3','4','5','6','7','8','9'};
+    
+    public static xml_document_one Document(
+        xml_document_one doc,
+        String new_title,
+        List<String> input_text_area
+    )
+    {
+        
+        xml_document_one val = new xml_document_one();
+        
+        if(txt.text(new_title, exclude_document_function).isBlank()){
+            
+            var title = new Data().Load();
+            title += "_";
+            
+            Hora ds = new Hora(true);
+            
+            title += Reg.Numb(ds.Hour());
+            title += "-";
+            title += Reg.Numb(ds.Min());
+            title += "-";
+            title += Reg.Numb(ds.Sec());
+            
+            val.setTitle(title);
+            
+        } else {//if(txt.text(doc.getTitle(), exclude).isBlank())
+            
+            val.setTitle(txt.title(new_title, true));
+            
+        }//if(txt.text(doc.getTitle(), exclude).isBlank())
+        
+        List<xml_document_link> dat = new ArrayList();
+        
+        if(!doc.getUrl().isEmpty()) dat.addAll(doc.getUrl());
+        
+        List<String> tem = new ArrayList();
+        
+        String tema = "";
+        
+        for(String v : input_text_area){
+            
+            Link lnk = new Link(v);
+            
+            if(tema.isBlank()){
+                
+                if(lnk.Val()){
+                    
+                    dat.add(
+                        new xml_document_link(
+                            lnk.page(true),
+                            lnk
+                        )
+                    );
+                    
+                } else {//if(lnk.Val())
+                    
+                    tema = v.trim();
+                    
+                }//if(lnk.Val())
+                
+            } else {//if(tema.isBlank())
+                
+                if(lnk.Val()){
+                    
+                    dat.add(new xml_document_link(tema,lnk));
+                    
+                } else {//if(lnk.Val())
+                    
+                    tem.add(tema);
+                    
+                }//if(lnk.Val())
+                
+                tema = "";
+                
+            }//if(tema.isBlank())
+            
+        }//for(String val : input_text_area)
+        
+        if(!tema.isBlank()) tem.add(tema);
+        
+        val.setText(tem);
+        val.setUrl(dat);
+        
+        return val;
+        
+    }//Document(xml_document_one doc, String new_title, List<String> input_te...
+    
+    public static xml_document_one Document(
+        xml_document_one doc,
+        List<String> input_text_area
+    )
+    {
+        
+        xml_document_one val = new xml_document_one();
+        
+        if(txt.text(doc.getTitle(), exclude_document_function).isBlank()){
+            
+            var title = new Data().Load();
+            title += "_";
+            
+            Hora ds = new Hora(true);
+            
+            title += Reg.Numb(ds.Hour());
+            title += "-";
+            title += Reg.Numb(ds.Min());
+            title += "-";
+            title += Reg.Numb(ds.Sec());
+            
+            val.setTitle(title);
+            
+        } else {//if(txt.text(doc.getTitle(), exclude).isBlank())
+            
+            val.setTitle(doc.getTitle());
+            
+        }//if(txt.text(doc.getTitle(), exclude).isBlank())
+        
+        List<xml_document_link> dat = new ArrayList();
+        
+        if(!doc.getUrl().isEmpty()) dat.addAll(doc.getUrl());
+        
+        List<String> tem = new ArrayList();
+        
+        String tema = "";
+        
+        for(String v : input_text_area){
+            
+            Link lnk = new Link(v);
+            
+            if(tema.isBlank()){
+                
+                if(lnk.Val()){
+                    
+                    dat.add(
+                        new xml_document_link(
+                            lnk.page(true),
+                            lnk
+                        )
+                    );
+                    
+                } else {//if(lnk.Val())
+                    
+                    tema = v.trim();
+                    
+                }//if(lnk.Val())
+                
+            } else {//if(tema.isBlank())
+                
+                if(lnk.Val()){
+                    
+                    dat.add(new xml_document_link(tema,lnk));
+                    
+                } else {//if(lnk.Val())
+                    
+                    tem.add(tema);
+                    
+                }//if(lnk.Val())
+                
+                tema = "";
+                
+            }//if(tema.isBlank())
+            
+        }//for(String val : input_text_area)
+        
+        if(!tema.isBlank()) tem.add(tema);
+        
+        val.setText(tem);
+        val.setUrl(dat);
+        
+        return val;
+        
+    }//Document(xml_document_one doc, List<String> input_text_area)
+    
     public final static String OverrideTitle(xml_document doc, boolean title){
         
         var c = doc.CreateDate();
@@ -430,8 +605,7 @@ public class Action {
     public static void session(
         boolean confirm,
         xml_document doc,
-        xml_document_one one,
-        String new_title
+        xml_document_one one
     )
     {
         
