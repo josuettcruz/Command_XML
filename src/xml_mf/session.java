@@ -11,9 +11,7 @@ import form.*;
 import form.pag3;
 import static form.pag3.*;
 
-
 import java.util.List;
-import java.util.ArrayList;
 import java.awt.Font;
 
 /**
@@ -136,28 +134,32 @@ public class session implements Painel_3 {
             
         }//switch(key_char)
         
-        var cont = 0;
-        var loop = true;
-        
-        do{
+        if(num > 0){
             
-            if(num == menu[cont].index()){
-                
-                Action.session_combobox(
-                    menu[cont],
-                    this.document,
-                    this.document_one,
-                    this.Font(),
-                    row
-                );
-                
-                loop = false;
-                
-            }//if(num ==menu[cont].index())
+            var cont = 0;
+            var loop = true;
             
-            cont++;
+            do{
+                
+                if(num == menu[cont].index()){
+                    
+                    Action.session_combobox(
+                        menu[cont],
+                        this.document,
+                        this.document_one,
+                        this.Font(),
+                        row
+                    );
+                    
+                    loop = false;
+                    
+                }//if(num ==menu[cont].index())
+                
+                cont++;
+                
+            }while(loop && cont > 0 && cont < menu.length);
             
-        }while(loop && cont > 0 && cont < menu.length);
+        }//if(num > 0)
         
     }
 
