@@ -26,6 +26,25 @@ public class Action {
         new Domain(5, "Separar por textos da frase.")
     };
     
+    /* Permitir futuramente                        **
+    ** que a segunda fonte seja substituada por    **
+    ** quaisquer outras fontes externas através da **
+    ** classe "carregarFonte" que está no          **
+    ** pacote "model"                              */
+    
+    private static Font EditFont = new java.awt.Font("Arial", 18, 0);
+    
+    private static Font[] MyFont(){
+        
+        java.awt.Font font[] = {
+            new java.awt.Font("Impact", 16, 0),
+            EditFont
+        };
+        
+        return font;
+        
+    }//MyFont()
+    
     public final static void Err(String type, String message){
         
         if(Reg.java){
@@ -665,5 +684,60 @@ public class Action {
         );
         
     }//session_combobox
+    
+    private static void ReadWrite(xml_document doc, xml_document_one one){
+        
+        if(doc.Write()){
+            
+            /* Antes de executar a função abaixo, **
+            ** abrir primeiro a mesma classe      **
+            ** que está na condição de 'ELSE'     **
+            ** mas com a opção extra de           **
+            ** abrir o documento!                 */
+            
+            controller.p3(new session(doc, one, MyFont()));
+            
+        } else {//if(doc.Write())
+            
+            /* Executar uma classe que ainda **
+            ** srá criada com as opções      **
+            ** de Exportar!                  */
+            
+        }//if(doc.Write())
+        
+    }//ReadWrite(xml_document doc, xml_document_one one)
+    
+    public static void ReadWrite(List<Domain> vol, xml_document doc){
+        
+        var cont = 0;
+        var loop = true;
+        
+        do{
+            
+            if(vol.get(cont).Select()){
+                
+                if(doc.List().size() > cont){
+                    
+                    ReadWrite(doc, doc.List().get(cont));
+                    
+                } else {//if(doc.List().size() > cont)
+                    
+                    var msg = "ReadWrite(List<Domain> vol, xml_document doc)";
+                    msg += "\nclasse Action";
+                    msg += "\nTêm algo de errado com o código Java!";
+                    
+                    Err("Falha",msg);
+                    
+                }//if(doc.List().size() > cont)
+                
+                loop = false;
+                
+            }//if(vol.get(cont).Select())
+            
+            cont++;
+            
+        }while(loop && cont > 0 && cont < vol.size());
+        
+    }
     
 }//Action

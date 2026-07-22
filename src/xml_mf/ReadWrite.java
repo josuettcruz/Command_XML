@@ -15,9 +15,6 @@ import static form.pag1.*;
 import form.pag2;
 import static form.pag2.*;
 
-import form.pag3;
-import static form.pag3.*;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Font;
