@@ -212,15 +212,15 @@ public class session implements Painel_3 {
                     
                     if(menu[cont].Select()){
                         
-                    Action.session_combobox(
-                        menu[cont],
-                        this.document,
-                        this.document_one,
-                        this.Font(),
-                        row
-                    );
+                        Action.session_combobox(
+                            menu[cont],
+                            this.document,
+                            this.document_one,
+                            this.Font(),
+                            row
+                        );
                         
-                    loop = false;
+                        loop = false;
                         
                     }//if(menu[cont].Select())
                     
