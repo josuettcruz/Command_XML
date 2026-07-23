@@ -12,9 +12,6 @@ import form.*;
 import form.pag1;
 import static form.pag1.*;
 
-import form.pag2;
-import static form.pag2.*;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Font;
@@ -23,7 +20,7 @@ import java.awt.Font;
  *
  * @author josue
  */
-public class ReadWrite implements Painel_1Single, Painel_2 {
+public class ReadWrite implements Painel_1Single {
     
     private xml_document document;
     
@@ -118,11 +115,6 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
     }
 
     @Override
-    public boolean SelectionMultiple() {
-        return this.multiple_selection;
-    }
-
-    @Override
     public void Action(pag1 action, List<Domain> vol, String input) {
         
         switch(action){
@@ -132,17 +124,6 @@ public class ReadWrite implements Painel_1Single, Painel_2 {
             case add, key -> Action.ReadWrite(vol, this.document);
             
         }
-        
-    }
-
-    @Override
-    public void Command(pag2 op, List<Domain> value) {
-        
-        switch(op){
-            
-            case confirm, enter -> Action.ReadWrite(value, this.document);
-            
-        }//switch(op)
         
     }
     
