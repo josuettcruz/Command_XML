@@ -695,26 +695,6 @@ public class xml_document {
     
     public Exec Save(Arq xhtml){return xhtml.Save(xmls(Order.tab_space));}
     
-    public int Add(xml_document_one demo){
-        
-        Order o = new Order<xml_document_one>();
-        
-        for(xml_document_one d : this.list)
-        {o.Add(d, d.getTitle());}
-        
-        var valid = o.Add(demo, demo.getTitle());
-        
-        if(valid){
-            
-            this.list.clear();
-            this.list.addAll(o.Return());
-            
-        }//if(valid)
-        
-        return o.Position();
-        
-    }//Add(xml_document_one demo)
-    
     public boolean Update(Data d, Hora h){
         
         var valid = d.CompareTo(this.create_d, true) &&
@@ -731,9 +711,6 @@ public class xml_document {
         
     }//Update(Data d, Hora h)
     
-    private boolean Update()
-    {return this.Update(new Data(), new Hora(true));}
-    
     public int Proc(String title){
         
         List<String> tem = new ArrayList();
@@ -745,44 +722,35 @@ public class xml_document {
         
     }//Proc(String title)
     
-    public int Edit(int position, xml_document_one value){
+    public int Add(xml_document_one demo, boolean update){
         
-        var valid = -2;
+        Order o = new Order<xml_document_one>();
         
-        if(
-            position >= 0 &&
-            position < this.list.size() &&
-            !this.list.isEmpty()
-        )
-        {
-            
-            Order<xml_document_one> o = new Order();
-            
-            for(int add = 0; add < this.list.size(); add++){
-                
-                if(add != position)
-                {o.Add(this.list.get(add), this.list.get(add).getTitle());}
-                
-            }//for(int add = 0; add < this.list.size(); add++)
-            
-            var acept = o.Add(value, value.getTitle());
-            
-            if(acept){
-                
-                this.list.clear();
-                this.list.addAll(o.Return());
-                valid = o.Position();
-                this.Update();
-                
-            }//if(acept)
-            
-        }//if - position
+        for(xml_document_one d : this.list)
+        {o.Add(d, d.getTitle());}
         
-        return valid;
+        var valid = o.Add(demo, demo.getTitle());
         
-    }//Edit(int position, xml_document_one value)
+        if(valid){
+            
+            this.list.clear();
+            this.list.addAll(o.Return());
+            
+            if(update) this.Update(new Data(), new Hora(true));
+            
+        }//if(valid)
+        
+        return o.Position();
+        
+    }//Add(xml_document_one demo)
 
-    public void setTitle(String title) {this.title = title;}
+    public void setTitle(String title, boolean update){
+        
+        this.title = title;
+        
+        if(update) this.Update(new Data(), new Hora(true));
+    
+    }//setTitle(String title)
 
     public String getTitle() {return title;}
 

@@ -14,12 +14,6 @@ import xml_rw.xml_config;
 import form.pag1;
 import static form.pag1.*;
 
-import form.pag2;
-import static form.pag2.*;
-
-import form.pag3;
-import static form.pag3.*;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Font;
@@ -28,7 +22,7 @@ import java.awt.Font;
  *
  * @author josue
  */
-public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
+public class folder_xml implements Painel_1Single, Painel_1Multiple{
     
     private xml_config document;
     private List<String> text;
@@ -36,9 +30,7 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     private Font font_title;
     private Font font_list;
     
-    private boolean selection_multiple;
-    
-    public folder_xml(xml_config arq, Font f[], boolean multiple){
+    public folder_xml(xml_config arq, Font f[]){
         
         try{
             
@@ -46,8 +38,6 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
             
             this.font_title = f[0];
             this.font_list = f[1];
-            
-            this.selection_multiple = multiple;
             
         }catch(NullPointerException err){//throw
 
@@ -117,29 +107,21 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     @Override
     public List<Domain> ListMode() {
         
-        var tema = this.document.learn();
-        
         List<Domain> demo = new ArrayList();
         
-        var insert = 0;
-        
-        if(tema.isEmpty()){
+        if(this.document.learn().isEmpty()){
             
-            demo.add(new Domain(insert,"Lisa Vazia!"));
+            demo.add(new Domain(0,"Lisa Vazia!"));
             
         } else {//if(this.tema.learn().isEmpty())
             
-            for(xml_config_one x : tema){
+            for(var i = 0; i < this.document.learn().size(); i++){
                 
-                insert++;
+                var t = txt.text(this.document.learn().get(i).Title());
                 
-                demo.add(
-                    new Domain(
-                        insert,txt.title(x.Title(), true)
-                    )
-                );
+                demo.add(new Domain(i,txt.title(t, true)));
                 
-            }//for(xml_config_one x : this.tema.learn())
+            }//for(var i = 0; i < this.document.learn().size(); i++)
             
         }//if(this.tema.learn().isEmpty())
         
@@ -153,21 +135,60 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple, Painel_2{
     }
 
     @Override
-    public boolean SelectionMultiple() {
-        return this.selection_multiple;
-    }
-
-    @Override
     public void Action(pag1 action, List<Domain> vol, String input) {
         
-        //throw new UnsupportedOperationException(this.temp);
-        
-    }
-
-    @Override
-    public void Command(pag2 op, List<Domain> value) {
-        
-        //throw new UnsupportedOperationException(this.temp);
+        switch(action){
+            
+            case add, open, key, enter ->{
+                
+                var cont = 0;
+                var loop = true;
+                
+                do{
+                    
+                    if(vol.get(cont).Select()){
+                        
+                        Action.folder_xml(vol.get(cont), input);
+                        
+                        loop = false;
+                        
+                    }//if(vol.get(cont).Select())
+                    
+                    cont++;
+                    
+                }while(loop && cont > 0 && cont < vol.size());
+                
+                if(loop) Action.folder_xml(input);
+                
+            }//case add, open, key, enter
+            
+            case remove, delet, backspace ->{
+                
+                var proc = 0;
+                var valid = false;
+                
+                do{
+                    
+                    valid = vol.get(proc).Select();
+                    
+                    proc++;
+                    
+                }while(!valid && proc > 0 && proc < vol.size());
+                
+                if(valid){
+                    
+                    List<Domain> select_del = new ArrayList();
+                    
+                    for(Domain v : vol)
+                    {if(v.Select()) select_del.add(v);}
+                    
+                    Action.folder_xml(select_del);
+                    
+                }//if(valid)
+                
+            }
+            
+        }
         
     }
     

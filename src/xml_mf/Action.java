@@ -771,6 +771,24 @@ public class Action {
         
         if(new_doc) ReadWrite(doc, new xml_document_one());
         
+    }//ReadWrite(List<Domain> vol, xml_document doc)
+    
+    public static void folder_xml(Domain select, String input){
+        
+        //code
+        
+    }
+    
+    public static void folder_xml(String input){
+        
+        //code
+        
+    }
+    
+    public static void folder_xml(List<Domain> select_del){
+        
+        //code
+        
     }
     
 }//Action
