@@ -28,9 +28,8 @@ public class ReadWrite implements Painel_1Single {
     private Font font_list;
     
     private String input;
-    private boolean multiple_selection;
     
-    public ReadWrite(xml_document arq, Font f[], String str, boolean mul){
+    private void ReadWrite(xml_document arq, Font f[], String str){
         
         try{
             
@@ -40,7 +39,6 @@ public class ReadWrite implements Painel_1Single {
             this.font_list = f[1];
             
             this.input = str;
-            this.multiple_selection = mul;
             
         }catch(NullPointerException err){//throw
 
@@ -53,6 +51,12 @@ public class ReadWrite implements Painel_1Single {
         }//throw
         
     }//ReadWrite(xml_document arq, Font f[], String str, boolean mul)
+    
+    public ReadWrite(xml_document arq, Font f[], String str)
+    {this.ReadWrite(arq, f, str);}
+    
+    public ReadWrite(xml_document arq, Font f[])
+    {this.ReadWrite(arq, f, "");}
 
     @Override
     public Font FontTitle() {
