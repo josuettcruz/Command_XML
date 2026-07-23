@@ -775,19 +775,40 @@ public class Action {
     
     public static void folder_xml(Domain select, String input){
         
-        //code
+        /* É aquí que vai ficar a              **
+        ** classe Arquivo                      **
+        ** que iniciará a                      **
+        ** classe "xml document"               **
+        ** ----------------------------------- **
+        ** Essa função será chamaa quando,     **
+        ** um ou mais itens forem selecionado! */
         
     }
     
     public static void folder_xml(String input){
         
-        //code
+        /* É aquí que vai ficar a            **
+        ** classe Arquivo                    **
+        ** que iniciará a                    **
+        ** classe "xml document"             **
+        ** --------------------------------- **
+        ** Essa função será chamaa quando,   **
+        ** nenhum intem estiver selecionado! */
         
     }
     
     public static void folder_xml(List<Domain> select_del){
         
-        //code
+        /* Essa função será chamada              **
+        ** quando for acionado                   **
+        ** tanto pelo teclado                    **
+        ** quanto pelo mouse                     **
+        ** a opção de deletar                    **
+        ** e também                              **
+        ** um ou mais intens forem selecionados! **
+        ** ------------------------------------- **
+        ** Essa função também chamara uma        **
+        ** classe que ainda será criada!         */
         
     }
     
