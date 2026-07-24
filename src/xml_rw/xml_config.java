@@ -760,13 +760,100 @@ public class xml_config {
         
     }//SaveFile(int pos, String file_name)
     
-    public Exec SaveDocument(int pos, String file_name){
+    public Exec SaveDocument(int pos, String file_name)
+    {return this.SaveFile(pos, this.Documents(file_name));}
+    
+    public boolean Del(String value){
         
-        String document;
+        var execute = true;
         
-        return this.SaveFile(pos, this.Documents(file_name));
+        List<String> tem = new ArrayList();
         
-    }//SaveDocument(int pos, String file_name)
+        for(xml_config_one x : this.list)
+        {tem.add(x.Title());}
+        
+        var numb = Order.Proc(tem, value);
+        
+        if(numb >= 0){
+            
+            this.list.remove(numb);
+            
+        } else {//if(numb >= 0)
+            
+            execute = false;
+            
+        }//if(numb >= 0)
+        
+        return execute;
+        
+    }//Del(String title)
+    
+    public boolean Del(int value){
+        
+        var execute = true;
+        
+        if(value >= 0 && value < this.list.size() && !this.list.isEmpty()){
+            
+            this.list.remove(value);
+            
+        } else {//if(value >= 0 && value < this.list.size() && !this.list.isE...
+            
+            execute = false;
+            
+        }//if(value >= 0 && value < this.list.size() && !this.list.isEmpty())
+        
+        return execute;
+        
+    }//Del(int value)
+    
+    public boolean Del(List<Integer> value){
+        
+        var execute = !this.list.isEmpty() && !value.isEmpty();
+        
+        if(execute){
+            
+            var cont = 0;
+            
+            do{
+                
+                execute = value.get(cont) >= 0
+                    && value.get(cont) < this.list.size();
+                
+                cont++;
+                
+            }while(execute && cont > 0 && cont < value.size());
+            
+        }//if(execute) 1 de 2
+        
+        if(execute){
+            
+            List<xml_config_one> doc = new ArrayList();
+            doc.addAll(this.list);
+            
+            this.list.clear();
+            
+            for(int i = 0; i < doc.size(); i++){
+                
+                var proc = 0;
+                var add = true;
+                
+                do{
+                    
+                    add = i != value.get(proc);
+                    
+                    proc++;
+                    
+                }while(add && proc > 0 && proc < value.size());
+                
+                if(add) this.list.add(doc.get(i));
+                
+            }//for(int i = 0; i < doc.size(); i++)
+            
+        }//if(execute) 2 de 2
+        
+        return execute;
+        
+    }//Del(List<Integer> value)
     
     public int Add(String t, Read r){
         

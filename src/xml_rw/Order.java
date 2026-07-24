@@ -116,7 +116,7 @@ public class Order<cmd> {
         if(txt.phrase(search).size() > 1){
             
             var i = 0;
-            var exit = false;
+            var loop = true;
             
             var validate = "";
             
@@ -128,13 +128,16 @@ public class Order<cmd> {
                 
                 for(String t : txt.phrase(proc.get(i))) valid += txt.arq(t);
                 
-                exit = validate.equals(valid);
+                if(validate.equals(valid)){
+                    
+                    value = i;
+                    loop = false;
+                    
+                }//if(validate.equals(valid))
                 
                 i++;
                 
-            }while(!exit && i > 0 && i < proc.size());
-            
-            if(exit) value = i;
+            }while(loop && i > 0 && i < proc.size());
             
         }//if(txt.phrase(search).size() > 1)
         
