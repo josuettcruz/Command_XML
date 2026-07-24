@@ -100,13 +100,13 @@ public class folder_xml implements Painel_1Single{
             
         } else {//if(this.tema.learn().isEmpty())
             
-            for(var i = 0; i < this.document.learn().size(); i++){
+            for(var id = 0; id < this.document.learn().size(); id++){
                 
-                var t = txt.text(this.document.learn().get(i).Title());
+                var t = txt.text(this.document.learn().get(id).Title());
                 
-                demo.add(new Domain(i,txt.title(t, true)));
+                demo.add(new Domain(id,txt.title(t, true)));
                 
-            }//for(var i = 0; i < this.document.learn().size(); i++)
+            }//for(var id = 0; id < this.document.learn().size(); id++)
             
         }//if(this.tema.learn().isEmpty())
         
