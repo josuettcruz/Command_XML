@@ -6,9 +6,8 @@
 package xml_mf;
 
 import model.*;
+import xml_rw.*;
 import form.*;
-import xml_rw.xml_config;
-
 
 import form.pag1;
 import static form.pag1.*;
