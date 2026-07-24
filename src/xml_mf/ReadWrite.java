@@ -20,7 +20,7 @@ import java.awt.Font;
  *
  * @author josue
  */
-public class ReadWrite implements Painel_1Single {
+public class ReadWrite implements Painel_1Single, Painel_1Multiple {
     
     private xml_document document;
     
@@ -85,29 +85,21 @@ public class ReadWrite implements Painel_1Single {
         
         List<Domain> demo = new ArrayList();
         
-        var tema = this.document.List();
-        
-        var insert = 0;
-        
-        if(tema.isEmpty()){
+        if(this.document.List().isEmpty()){
             
-            demo.add(new Domain(insert, "Lista Vazia!"));
+            demo.add(new Domain(0, "Lista Vazia!"));
             
-        } else {//if(this.tema.List().isEmpty())
+        } else {//if(this.document.List().isEmpty())
             
-            for(xml_document_one x : tema){
+            for(int id = 0; id < this.document.List().size(); id++){
                 
-                insert++;
+                var tema = txt.text(this.document.List().get(id).getTitle());
                 
-                demo.add(
-                    new Domain(
-                        insert, txt.title(x.getTitle(), true)
-                    )
-                );
+                demo.add(new Domain(id,txt.title(tema, true)));
                 
-            }//for(xml_document_one x : this.tema.List())
+            }//for(int cont = 0; cont < this.document.List().size(); cont++)
             
-        }//if(this.tema.List().isEmpty())
+        }//if(this.document.List().isEmpty())
         
         return demo;
         
@@ -123,9 +115,62 @@ public class ReadWrite implements Painel_1Single {
         
         switch(action){
             
-            case open, enter -> Action.ReadWrite(this.document, input);
+            case open, add, enter, key -> {
+                
+                var proc = 0;
+                var void_selected = true;
+                
+                do{
+                    
+                    if(vol.get(proc).Select()){
+                        
+                        Action.ReadWrite(
+                            this.document,
+                            this.document.List().get(
+                                vol.get(proc).index()
+                            ),
+                            input
+                        );
+                        
+                        void_selected = false;
+                        
+                    }//if(vol.get(proc).Select())
+                    
+                    proc++;
+                    
+                }while(void_selected && proc > 0 && proc < vol.size());
+                
+                if(void_selected) Action.ReadWrite(this.document,input);
+                
+            }//case open, add, enter, key 
             
-            case add, key -> Action.ReadWrite(vol, this.document);
+            case remove -> {
+                
+                var proc_list = 0;
+                var selected = false;
+                
+                do{
+                    
+                    selected = vol.get(proc_list).Select();
+                    
+                    proc_list++;
+                    
+                }while(!selected && proc_list > 0 && proc_list < vol.size());
+                
+                if(selected){
+                    
+                    /* Abrir um formulário   **
+                    ** que ainda será criado **
+                    ** com as opções de      **
+                    ** confirmar exclusão!   */
+                    
+                } else {//if(selected)
+                    
+                    Action.Exit();
+                    
+                }//if(selected)
+                
+            }//switch(action)
             
         }
         

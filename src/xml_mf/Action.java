@@ -700,7 +700,18 @@ public class Action {
         
     }//session_combobox
     
-    private static void ReadWrite(xml_document doc, xml_document_one one){
+    public static void ReadWrite(
+        xml_document doc,
+        xml_document_one one,
+        String input
+    )
+    {
+        
+        /* Essa classe           **
+        ** será chamada          **
+        ** sempre que houver     **
+        ** itens selecionados na **
+        ** classe "ReadWrite"    */
         
         if(doc.Write()){
             
@@ -711,82 +722,33 @@ public class Action {
             
             controller.p3(new session(doc, one, MyFont()));
             
-        } else {
+        } else {//if(doc.Write())
             
             /* Abrir formulário de ações **
             ** que ficará em uma classe  **
             ** que ainda será criada!    */
             
-        }
-        
-    }//ReadWrite(xml_document doc, xml_document_one one)
-    
-    public static void ReadWrite(xml_document doc, String title){
-        
-        var t = txt.text(title, exclude_document_function).length();
-        var p = txt.phrase(title, exclude_document_function).size();
-        
-        var cond_all = t > 1;
-        var cond = p > 1;
-        
-        if(cond_all){
-            
-            xml_document_one one = new xml_document_one();
-            
-            if(cond){
-                
-                one.setTitle(txt.title(title, true));
-                
-            } else {//if(cond)
-                
-                one.setTitle(txt.arq(title).toUpperCase());
-                
-            }//if(cond)
-            
-            ReadWrite(doc, one);
-            
-        } else {//if(cond_all)
-            
-            ReadWrite(doc, new xml_document_one());
-            
-        }//if(cond_all)
-        
-    }//ReadWrite(xml_document doc)
-    
-    public static void ReadWrite(List<Domain> vol, xml_document doc){
-        
-        var new_doc = true;
-        
-        if(doc.Write()){
-            
-            var cont = 0;
-            var loop = true;
-            
-            do{
-                
-                if(vol.get(cont).Select()){
-                    
-                    if(doc.List().size() > cont){
-                        
-                        ReadWrite(doc, doc.List().get(cont));
-                        
-                        new_doc = false;
-                        
-                    }//if(doc.List().size() > cont)
-                    
-                    loop = false;
-                    
-                }//if(vol.get(cont).Select())
-                
-                cont++;
-                
-            }while(loop && cont > 0 && cont < vol.size());
-            
         }//if(doc.Write())
         
-        if(new_doc) ReadWrite(doc, new xml_document_one());
+    }//ReadWrite(xml_document doc, xml_document_one one, String input)
+    
+    public static void ReadWrite(xml_document doc, String input){
         
-    }//ReadWrite(List<Domain> vol, xml_document doc)
+        ReadWrite(doc, new xml_document_one(), input);
+        
+        /* Essa classe será chamada      **
+        ** quando não houver             **
+        ** itens selecionados!           **
+        ** ----------------------------- **
+        ** Existe a possibilidade de que **
+        ** o chamado da função a cima    **
+        ** seja substituído per uma      **
+        ** ação completamente diferente! **
+        ** Caso isso não ocorra,         **
+        ** deixar essa classe            **
+        ** chamando a classe de cima!    */
+        
+    }//ReadWrite(xml_document doc, String input)
     
     public static void folder_xml(Domain select, String input){
         
