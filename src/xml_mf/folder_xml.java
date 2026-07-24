@@ -64,36 +64,23 @@ public class folder_xml implements Painel_1Single{
         
         var d = new Data();
         
+        var val = Hora.Good();
+        
         if(title){
             
-            var value = Hora.Good();
-            
-            if(this.document.Windows()){
-                
-                value += ": ";
-                value += this.document.UserWindows();
-                
-            }//if(this.document.Windows())
-            
-            value += " - ";
-            value += d.DataAbreviada(true);
-            
-            return value;
-            
-        } else if(this.document.Windows()){//if(title)
-            
-            var val = "[";
-            val += this.document.UserWindows().toUpperCase();
-            val += "] ";
-            val += d.DataCompleta(false);
-            
-            return val;
+            val += ": ";
+            val += this.document.Windows()
+                ? this.document.UserWindows()
+                : d.DataAbreviada(true);
             
         } else {//if(title)
             
-            return d.DataCompleta(true);
+            val += ", hoje é ";
+            val += d.DataCompleta(true);
             
         }//if(title)
+        
+        return val;
         
     }
 
