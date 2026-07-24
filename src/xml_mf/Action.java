@@ -45,6 +45,28 @@ public class Action {
         
     }//MyFont()
     
+    public static void Init(){
+        
+        controller.PrintKey();
+        controller.p1s(new config());
+    
+    }//Action()
+    
+    public static void Exit(){
+        
+        /* import model.Reg;                           **
+        ** LOGICO ide_execute = Reg.java;              **
+        **                                             **
+        ** SE(ide_execute){                            **
+        **   ESCREVAL("system.out.println(\"...\");"); **
+        ** }                                           **
+        **                                             **
+        ** ESCREVAL("sYstem.exit(0);");                */
+        
+        System.exit(0);
+        
+    }//Exit()
+    
     public final static void Err(String type, String message){
         
         if(Reg.java){
@@ -76,13 +98,6 @@ public class Action {
         System.exit(0);
         
     }//Err(String message)
-    
-    public static void Init(){
-        
-        controller.PrintKey();
-        controller.p1s(new config());
-    
-    }//Action()
     
     private final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
@@ -783,7 +798,7 @@ public class Action {
         ** Essa função será chamaa quando,     **
         ** um ou mais itens forem selecionado! */
         
-    }
+    }//folder_xml(Domain select, String input)
     
     public static void folder_xml(String input){
         
@@ -795,21 +810,6 @@ public class Action {
         ** Essa função será chamaa quando,   **
         ** nenhum intem estiver selecionado! */
         
-    }
-    
-    public static void Exit(){
-        
-        /* import model.Reg;                           **
-        ** LOGICO ide_execute = Reg.java;              **
-        **                                             **
-        ** SE(ide_execute){                            **
-        **   ESCREVAL("system.out.println(\"...\");"); **
-        ** }                                           **
-        **                                             **
-        ** ESCREVAL("sYstem.exit(0);");                */
-        
-        System.exit(0);
-        
-    }
+    }//folder_xml(String input)
     
 }//Action
