@@ -797,18 +797,18 @@ public class Action {
         
     }
     
-    public static void folder_xml(List<Domain> select_del){
+    public static void Exit(){
         
-        /* Essa função será chamada              **
-        ** quando for acionado                   **
-        ** tanto pelo teclado                    **
-        ** quanto pelo mouse                     **
-        ** a opção de deletar                    **
-        ** e também                              **
-        ** um ou mais intens forem selecionados! **
-        ** ------------------------------------- **
-        ** Essa função também chamara uma        **
-        ** classe que ainda será criada!         */
+        /* import model.Reg;                           **
+        ** LOGICO ide_execute = Reg.java;              **
+        **                                             **
+        ** SE(ide_execute){                            **
+        **   ESCREVAL("system.out.println(\"...\");"); **
+        ** }                                           **
+        **                                             **
+        ** ESCREVAL("sYstem.exit(0);");                */
+        
+        System.exit(0);
         
     }
     

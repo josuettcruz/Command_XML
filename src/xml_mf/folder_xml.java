@@ -6,7 +6,6 @@
 package xml_mf;
 
 import model.*;
-import xml_rw.*;
 import form.*;
 import xml_rw.xml_config;
 
@@ -22,7 +21,7 @@ import java.awt.Font;
  *
  * @author josue
  */
-public class folder_xml implements Painel_1Single, Painel_1Multiple{
+public class folder_xml implements Painel_1Single{
     
     private xml_config document;
     private List<String> text;
@@ -162,33 +161,9 @@ public class folder_xml implements Painel_1Single, Painel_1Multiple{
                 
             }//case add, open, key, enter
             
-            case remove, delet, backspace ->{
-                
-                var proc = 0;
-                var valid = false;
-                
-                do{
-                    
-                    valid = vol.get(proc).Select();
-                    
-                    proc++;
-                    
-                }while(!valid && proc > 0 && proc < vol.size());
-                
-                if(valid){
-                    
-                    List<Domain> select_del = new ArrayList();
-                    
-                    for(Domain v : vol)
-                    {if(v.Select()) select_del.add(v);}
-                    
-                    Action.folder_xml(select_del);
-                    
-                }//if(valid)
-                
-            }
+            case remove -> Action.Exit();
             
-        }
+        }//switch(action)
         
     }
     
