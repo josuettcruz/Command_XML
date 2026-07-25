@@ -27,7 +27,9 @@ public class session implements Painel_3 {
     private Font font_title;
     private Font font_text;
     
-    public session(xml_document all, xml_document_one one, Font f[]){
+    private Domain option;
+    
+    public void session(xml_document all, xml_document_one one, Font f[]){
         
         try{
 
@@ -47,7 +49,23 @@ public class session implements Painel_3 {
             
         }//throw
         
-    }//init(xml_document all, xml_document_one one, Font f[])
+    }//session(xml_document all, xml_document_one one, Font f[])
+    
+    public session(xml_document all, xml_document_one one, Font f[]){
+        
+        this.session(all, one, f);
+        
+        this.option = new Domain(0,"");
+        
+    }//session(xml_document all, xml_document_one one, Font f[])
+    
+    public session(xml_document all, xml_document_one one, Font f[], Domain op){
+        
+        this.session(all, one, f);
+        
+        this.option = op;
+        
+    }//session(xml_document all, xml_document_one one, Font f[], Domain op)
     
     private Font[] Font(){
         
@@ -194,6 +212,16 @@ public class session implements Painel_3 {
             }//case confirm
             
             case ComboBox ->{
+                
+                /* Foi feita uma modificação,         **
+                ** que sevirá para que futuramente    **
+                ** esse código que está nessa função  **
+                ** seja substituído                   **
+                ** por um que irá apenas adicionar... **
+                ** ---------------------------------- **
+                ** Isso irá permitir que o sistema    **
+                ** peça uma confirmação ao invés      **
+                ** de agir direto...                  */
                 
                 var cont = 0;
                 var loop = true;
