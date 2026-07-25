@@ -28,8 +28,9 @@ public class session implements Painel_3 {
     private Font font_text;
     
     private Domain option;
+    private boolean option_selected;
     
-    public void session(xml_document all, xml_document_one one, Font f[]){
+    private void init(xml_document all, xml_document_one one, Font f[]){
         
         try{
 
@@ -53,17 +54,19 @@ public class session implements Painel_3 {
     
     public session(xml_document all, xml_document_one one, Font f[]){
         
-        this.session(all, one, f);
+        this.init(all, one, f);
         
         this.option = new Domain(0,"");
+        this.option_selected = false;
         
     }//session(xml_document all, xml_document_one one, Font f[])
     
     public session(xml_document all, xml_document_one one, Font f[], Domain op){
         
-        this.session(all, one, f);
+        this.init(all, one, f);
         
         this.option = op;
+        this.option_selected = op.index() > 0;
         
     }//session(xml_document all, xml_document_one one, Font f[], Domain op)
     
@@ -78,7 +81,25 @@ public class session implements Painel_3 {
     @Override
     public String Title(boolean title) {
         
-        return Action.OverrideTitle(this.document, title);
+        if(this.option_selected && title){
+            
+            var value = "-- ";
+            value += Hora.Good();
+            value += "! Opção ";
+            value += this.option.index();
+            value += " selecionada!";
+            
+            return value;
+            
+        } else if(this.option_selected){//if(this.option_selected && title)
+            
+            return this.option.Text();
+            
+        } else {//if(this.option_selected && title)
+            
+            return Action.OverrideTitle(this.document, title);
+            
+        }//if(this.option_selected && title)
         
     }
 
@@ -140,7 +161,11 @@ public class session implements Painel_3 {
             
         }//switch(key_char)
         
-        if(num > 0){
+        if(
+            num >= Action.min_session_option &&
+            num <= Action.max_session_option
+        )
+        {
             
             var cont = 0;
             var loop = true;
@@ -165,7 +190,7 @@ public class session implements Painel_3 {
                 
             }while(loop && cont > 0 && cont < menu.length);
             
-        }//if(num > 0)
+        }//if(num >= Action.min_session_option && num <= Action.max_session_o...
         
     }
 
@@ -174,30 +199,32 @@ public class session implements Painel_3 {
         
         switch(op){
             
-            case confirm ->{
+            case confirm, ctrl_enter, enter ->{
                 
-                Action.session_confirm(
-                    true,
-                    this.document,
-                    Action.Document(
-                        input,
-                        text
-                    )
-                );
+                if(this.option.index() == 0){
+                    
+                    Action.session_confirm(
+                        op == confirm,
+                        this.document,
+                        Action.Document(
+                            input,
+                            text
+                        )
+                    );
+                    
+                } else {//if(this.option.index() == 0)
+                    
+                    Action.session_combobox(
+                        this.option,
+                        this.document,
+                        this.document_one,
+                        this.Font(),
+                        row
+                    );
+                    
+                }//if(this.option.index() == 0)
                 
-            }//case confirm
-            
-            case ctrl_enter, enter ->{
-                
-                Action.session_confirm(false,
-                    this.document,
-                    Action.Document(
-                        input,
-                        text
-                    )
-                );
-                
-            }//case confirm
+            }//case confirm, ctrl_enter, enter
             
             case cancel ->{
                 
@@ -213,16 +240,6 @@ public class session implements Painel_3 {
             
             case ComboBox ->{
                 
-                /* Foi feita uma modificação,         **
-                ** que sevirá para que futuramente    **
-                ** esse código que está nessa função  **
-                ** seja substituído                   **
-                ** por um que irá apenas adicionar... **
-                ** ---------------------------------- **
-                ** Isso irá permitir que o sistema    **
-                ** peça uma confirmação ao invés      **
-                ** de agir direto...                  */
-                
                 var cont = 0;
                 var loop = true;
                 
@@ -230,12 +247,13 @@ public class session implements Painel_3 {
                     
                     if(menu[cont].Select()){
                         
-                        Action.session_combobox(
-                            menu[cont],
-                            this.document,
-                            this.document_one,
-                            this.Font(),
-                            row
+                        controller.p3(
+                            new session(
+                                this.document,
+                                this.document_one,
+                                this.Font(),
+                                menu[cont]
+                            )
                         );
                         
                         loop = false;

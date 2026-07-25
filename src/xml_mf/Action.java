@@ -26,6 +26,10 @@ public class Action {
         new Domain(5, "Separar por textos da frase.")
     };
     
+    public final static int min_session_option = 1;
+    
+    public final static int max_session_option = 5;
+    
     /* Permitir futuramente                        **
     ** que a segunda fonte seja substituada por    **
     ** quaisquer outras fontes externas através da **
