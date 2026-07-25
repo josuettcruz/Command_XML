@@ -703,22 +703,6 @@ public class xml_document {
     
     public Exec Save(Arq xhtml){return xhtml.Save(xmls(Order.tab_space));}
     
-    public boolean Update(Data d, Hora h){
-        
-        var valid = d.CompareTo(this.create_d, true) &&
-                    h.Compare(this.create_h);
-        
-        if(valid){
-            
-            this.modify_d = d;
-            this.modify_h = h;
-            
-        }//if(valid)
-        
-        return valid;
-        
-    }//Update(Data d, Hora h)
-    
     public boolean Del(String value){
         
         var execute = true;
@@ -810,6 +794,22 @@ public class xml_document {
         return execute;
         
     }//Del(List<Integer> value)
+    
+    public boolean Update(Data d, Hora h){
+        
+        var valid = d.CompareTo(this.create_d, true) &&
+                    h.Compare(this.create_h);
+        
+        if(valid){
+            
+            this.modify_d = d;
+            this.modify_h = h;
+            
+        }//if(valid)
+        
+        return valid;
+        
+    }//Update(Data d, Hora h)
     
     public int Add(xml_document_one demo, boolean update){
         
