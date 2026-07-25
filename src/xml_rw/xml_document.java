@@ -652,7 +652,11 @@ public class xml_document {
                 
                 dat.add(this.Tab(3, tab_space, "<title>" + html_utf_8_characters.OutputForm(t.getTitle()) + "</title"));
                 
-                if(!t.getUrl().isEmpty()){
+                if(t.getUrl().isEmpty()){
+                    
+                    dat.add(this.Tab(3, tab_space, "<links></links>"));
+                    
+                } else {//if(t.getUrl().isEmpty())
                     
                     dat.add(this.Tab(3, tab_space, "<links>"));
                     
@@ -665,9 +669,13 @@ public class xml_document {
                     
                     dat.add(this.Tab(3, tab_space, "</links>"));
                     
-                }//if(!t.getUrl().isEmpty())
+                }//if(t.getUrl().isEmpty())
                 
-                if(!t.getText().isEmpty()){
+                if(t.getText().isEmpty()){
+                    
+                    dat.add(this.Tab(3, tab_space, "<content></content>"));
+                    
+                } else {//if(t.getText().isEmpty())
                     
                     dat.add(this.Tab(3, tab_space, "<content>"));
                     
