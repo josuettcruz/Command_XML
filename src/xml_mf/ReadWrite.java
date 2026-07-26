@@ -170,9 +170,9 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                     
                 }//if(selected)
                 
-            }//switch(action)
+            }//case remove 
             
-        }
+        }//switch(action)
         
     }
     

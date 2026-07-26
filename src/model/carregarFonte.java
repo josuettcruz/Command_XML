@@ -25,7 +25,7 @@ public class carregarFonte {
     private List<String> msg;
     private List<Link> lnk;
     
-    public void carregarFonte(
+    public carregarFonte(
         String caminho_da_font,
         int font_type,
         int font_size

@@ -5,11 +5,13 @@
 package xml_mf;
 
 import form.*;
+import model.*;
+import xml_rw.*;
+import file.Arq;
+
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import model.*;
-import xml_rw.*;
 
 /**
  *
@@ -36,12 +38,12 @@ public class Action {
     ** classe "carregarFonte" que está no          **
     ** pacote "model"                              */
     
-    private static Font EditFont = new java.awt.Font("Arial", 18, 0);
+    private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
     private static Font[] MyFont(){
         
         java.awt.Font font[] = {
-            new java.awt.Font("Impact", 16, 0),
+            new java.awt.Font("Impact", 12, 0),
             EditFont
         };
         
@@ -55,6 +57,33 @@ public class Action {
         controller.p1s(new config());
     
     }//Action()
+    
+    private static boolean newFont(String ttf){
+        
+        if(Arq.Dir(ttf, false)){
+            
+            /* Depois,              **
+            ** será incluída uma    **
+            ** nova classe          **
+            ** com implementação    **
+            ** da interface         **
+            ** Painel_2             **
+            ** para poder definir o **
+            ** tamanho da fonte     */
+            
+            carregarFonte doc = new carregarFonte(ttf, 0, 12);
+            
+            if(doc.Val()) EditFont = doc.Font();
+            
+            return doc.Val();
+            
+        } else {//if(Arq.Dir(ttf, false))
+            
+            return false;
+            
+        }//if(Arq.Dir(ttf, false))
+        
+    }//newFont(String ttf)
     
     public static void Exit(){
         

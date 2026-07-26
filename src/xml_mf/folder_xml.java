@@ -69,9 +69,16 @@ public class folder_xml implements Painel_1Single{
         if(title){
             
             val += ": ";
-            val += this.document.Windows()
-                ? this.document.UserWindows()
-                : d.DataAbreviada(true);
+            
+            if(this.document.Windows()){
+                
+                val += this.document.UserWindows();
+                
+            } else {//if(this.document.Windows())
+                
+                val += d.DataAbreviada(true);
+                
+            }//if(this.document.Windows())
             
         } else {//if(title)
             
