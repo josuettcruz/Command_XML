@@ -99,10 +99,10 @@ public class Action {
         /* LOGICO ide_execute = Reg.java;              **
         **                                             **
         ** SE(ide_execute){                            **
-        **   ESCREVAL("system.out.println(\"...\");"); **
+        **   ESCREVAL("System.out.println(\"...\");"); **
         ** }                                           **
         **                                             **
-        ** ESCREVAL("sYstem.exit(0);");                */
+        ** ESCREVAL("System.exit(0);");                */
         
         System.exit(0);
         
@@ -165,38 +165,32 @@ public class Action {
         
     }//Document(String input)
     
+    public static List<String> Document(xml_document_one val){
+        
+        List<String> value = new ArrayList();
+        
+        for(xml_document_link l : val.getUrl()){
+            
+            value.add(l.name());
+            value.add(l.lnk().getLink());
+            
+        }//for(xml_document_link l : val.getUrl())
+        
+        for(String t : val.getText()) value.add(t);
+        
+        return value;
+        
+    }//Document(xml_document_one val)
+    
     public static xml_document_one Document(
-        xml_document_one doc,
+        xml_document_one val,
         List<String> input_text_area
     )
     {
         
-        xml_document_one val = new xml_document_one();
-        
-        if(txt.text(doc.getTitle(), exclude_document_function).isBlank()){
-            
-            var title = new Data().Load();
-            title += "_";
-            
-            Hora ds = new Hora(true);
-            
-            title += Reg.Numb(ds.Hour());
-            title += "-";
-            title += Reg.Numb(ds.Min());
-            title += "-";
-            title += Reg.Numb(ds.Sec());
-            
-            val.setTitle(title);
-            
-        } else {//if(txt.text(doc.getTitle(), exclude).isBlank())
-            
-            val.setTitle(doc.getTitle());
-            
-        }//if(txt.text(doc.getTitle(), exclude).isBlank())
-        
         List<xml_document_link> dat = new ArrayList();
         
-        if(!doc.getUrl().isEmpty()) dat.addAll(doc.getUrl());
+        if(!val.getUrl().isEmpty()) dat.addAll(val.getUrl());
         
         List<String> tem = new ArrayList();
         
@@ -653,19 +647,20 @@ public class Action {
     )
     {
         
-        /* CADEIA titulo == title.trim();                       **
-        /*                                                      **
-        /* SE(título == [titulo do documento] OU titulo == ""){ **
-        **                                                      **
-        **   ESCREVA("Não alterar o documento");                **
-        **                                                      **
-        ** } SENAO {                                            **
-        **                                                      **
-        **   ESCREVAL("Adicionar:");                            **
-        **   ESCREVAL("~");                                     **
-        **   ESCREVAL("Antes do título do documento!");         **
-        **                                                      **
-        ** }                                                    */
+        /* CADEIA antigo_titulo == one.getTitle();               **
+        ** CADEIA novo_titulo == title.trim();                   **
+        **                                                       **
+        ** SE(new_título == antigo_titulo OU novo_titulo == ""){ **
+        **                                                       **
+        **   ESCREVA("Não alterar o documento");                 **
+        **                                                       **
+        ** } SENAO {                                             **
+        **                                                       **
+        **   ESCREVAL("Adicionar:");                             **
+        **   ESCREVAL("~");                                      **
+        **   ESCREVAL("Antes do título do documento!");          **
+        **                                                       **
+        ** }                                                     */
         
     }//session_cancel
     
