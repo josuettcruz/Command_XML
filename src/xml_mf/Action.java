@@ -140,23 +140,6 @@ public class Action {
         
     }//Err(String message)
     
-    public static List<String> Document(xml_document_one val){
-        
-        List<String> value = new ArrayList();
-        
-        for(xml_document_link l : val.getUrl()){
-            
-            value.add(l.name());
-            value.add(l.lnk().getLink());
-            
-        }//for(xml_document_link l : val.getUrl())
-        
-        for(String t : val.getText()) value.add(t);
-        
-        return value;
-        
-    }//Document(xml_document_one val)
-    
     private static String Document(String input){
         
         if(txt.text(input, exclude_document_function).isBlank()){
@@ -181,72 +164,6 @@ public class Action {
         }//if(txt.text(doc.getTitle(), exclude).isBlank())
         
     }//Document(String input)
-    
-    public static xml_document_one Document(
-        xml_document_one doc,
-        List<String> input_text_area
-    )
-    {
-        
-        xml_document_one val = new xml_document_one();
-        
-        val.setTitle(Document(doc.getTitle()));
-        
-        List<xml_document_link> dat = new ArrayList();
-        
-        if(!doc.getUrl().isEmpty()) dat.addAll(val.getUrl());
-        
-        List<String> tem = new ArrayList();
-        
-        String tema = "";
-        
-        for(String v : input_text_area){
-            
-            Link lnk = new Link(v);
-            
-            if(tema.isBlank()){
-                
-                if(lnk.Val()){
-                    
-                    dat.add(
-                        new xml_document_link(
-                            lnk.page(true),
-                            lnk
-                        )
-                    );
-                    
-                } else {//if(lnk.Val())
-                    
-                    tema = v.trim();
-                    
-                }//if(lnk.Val())
-                
-            } else {//if(tema.isBlank())
-                
-                if(lnk.Val()){
-                    
-                    dat.add(new xml_document_link(tema,lnk));
-                    
-                } else {//if(lnk.Val())
-                    
-                    tem.add(tema);
-                    
-                }//if(lnk.Val())
-                
-                tema = "";
-                
-            }//if(tema.isBlank())
-            
-        }//for(String val : input_text_area)
-        
-        if(!tema.isBlank()) tem.add(tema);
-        
-        val.setText(tem);
-        val.setUrl(dat);
-        
-        return val;
-        
-    }//Document(xml_document_one doc, List<String> input_text_area)
     
     public final static String OverrideTitle(xml_document doc, boolean title){
         
@@ -610,6 +527,95 @@ public class Action {
         }//if(value.isEmpty())
         
     }//session_ComboBox
+    
+    /* Na alteração a baixo,             **
+    ** ocultado do formulário os títulos **
+    ** serão apenas reposicionados.      **
+    ** Logo não será mais necessário,    **
+    ** quargar a classe completa,        **
+    ** mas poderá ser guardado           **
+    ** apenas o formulário               */
+    
+    public static List<String> session_Document(xml_document_one val){
+        
+        List<String> value = new ArrayList();
+        
+        for(xml_document_link l : val.getUrl()){
+            
+            value.add(l.name());
+            value.add(l.lnk().getLink());
+            
+        }//for(xml_document_link l : val.getUrl())
+        
+        for(String t : val.getText()) value.add(t);
+        
+        return value;
+        
+    }//session_Document
+    
+    public static xml_document_one session_textArea(
+        String title,
+        List<String> input_text_area
+    )
+    {
+        
+        xml_document_one val = new xml_document_one();
+        
+        val.setTitle(Document(title));
+        
+        List<xml_document_link> dat = new ArrayList();
+        
+        List<String> tem = new ArrayList();
+        
+        String tema = "";
+        
+        for(String v : input_text_area){
+            
+            Link lnk = new Link(v);
+            
+            if(tema.isBlank()){
+                
+                if(lnk.Val()){
+                    
+                    dat.add(
+                        new xml_document_link(
+                            lnk.page(true),
+                            lnk
+                        )
+                    );
+                    
+                } else {//if(lnk.Val())
+                    
+                    tema = v.trim();
+                    
+                }//if(lnk.Val())
+                
+            } else {//if(tema.isBlank())
+                
+                if(lnk.Val()){
+                    
+                    dat.add(new xml_document_link(tema,lnk));
+                    
+                } else {//if(lnk.Val())
+                    
+                    tem.add(tema);
+                    
+                }//if(lnk.Val())
+                
+                tema = "";
+                
+            }//if(tema.isBlank())
+            
+        }//for(String val : input_text_area)
+        
+        if(!tema.isBlank()) tem.add(tema);
+        
+        val.setText(tem);
+        val.setUrl(dat);
+        
+        return val;
+        
+    }//session_textArea
     
     public static void session_confirm(
         boolean mouse,
