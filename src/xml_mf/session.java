@@ -206,10 +206,8 @@ public class session implements Painel_3 {
                     Action.session_confirm(
                         op == confirm,
                         this.document,
-                        Action.Document(
-                            input,
-                            text
-                        )
+                        this.document_one,
+                        input
                     );
                     
                 } else {//if(this.option.index() == 0)
@@ -230,10 +228,8 @@ public class session implements Painel_3 {
                 
                 Action.session_cancel(
                     this.document,
-                    Action.Document(
-                        input,
-                        text
-                    )
+                    this.document_one,
+                    input
                 );
                 
             }//case confirm

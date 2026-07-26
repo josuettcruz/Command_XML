@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class Action {
     
+    private final static char[] exclude_document_function = {'<','>',':',';',
+        '.',',','!','?', '{','}','[',']','(',')',
+        '0','1','2','3','4','5','6','7','8','9'};
+    
     public final static Domain[] session_option = {
         new Domain(0, "Selecione uma opção!"),
         new Domain(1, "Condicionar todo o texto."),
@@ -136,19 +140,9 @@ public class Action {
         
     }//Err(String message)
     
-    private final static char[] exclude_document_function = {'<','>',':',';',
-        '.',',','!','?', '{','}','[',']','(',')',
-        '0','1','2','3','4','5','6','7','8','9'};
-    
-    public static xml_document_one Document(
-        String new_title,
-        List<String> input_text_area
-    )
-    {
+    public static String Document(String input){
         
-        xml_document_one val = new xml_document_one();
-        
-        if(txt.text(new_title, exclude_document_function).isBlank()){
+        if(txt.text(input, exclude_document_function).isBlank()){
             
             var title = new Data().Load();
             title += "_";
@@ -161,67 +155,15 @@ public class Action {
             title += "-";
             title += Reg.Numb(ds.Sec());
             
-            val.setTitle(title);
+            return title;
             
         } else {//if(txt.text(doc.getTitle(), exclude).isBlank())
             
-            val.setTitle(txt.title(new_title, true));
+            return txt.title(input, true);
             
         }//if(txt.text(doc.getTitle(), exclude).isBlank())
         
-        List<xml_document_link> dat = new ArrayList();
-        
-        List<String> tem = new ArrayList();
-        
-        String tema = "";
-        
-        for(String v : input_text_area){
-            
-            Link lnk = new Link(v);
-            
-            if(tema.isBlank()){
-                
-                if(lnk.Val()){
-                    
-                    dat.add(
-                        new xml_document_link(
-                            lnk.page(true),
-                            lnk
-                        )
-                    );
-                    
-                } else {//if(lnk.Val())
-                    
-                    tema = v.trim();
-                    
-                }//if(lnk.Val())
-                
-            } else {//if(tema.isBlank())
-                
-                if(lnk.Val()){
-                    
-                    dat.add(new xml_document_link(tema,lnk));
-                    
-                } else {//if(lnk.Val())
-                    
-                    tem.add(tema);
-                    
-                }//if(lnk.Val())
-                
-                tema = "";
-                
-            }//if(tema.isBlank())
-            
-        }//for(String val : input_text_area)
-        
-        if(!tema.isBlank()) tem.add(tema);
-        
-        val.setText(tem);
-        val.setUrl(dat);
-        
-        return val;
-        
-    }//Document(xml_document_one doc, String new_title, List<String> input_te...
+    }//Document(String input)
     
     public static xml_document_one Document(
         xml_document_one doc,
@@ -674,11 +616,12 @@ public class Action {
     public static void session_confirm(
         boolean mouse,
         xml_document doc,
-        xml_document_one one
+        xml_document_one one,
+        String title
     )
     {
         
-        /* CADEIA titulo = one.getTitle();                  **
+        /* CADEIA titulo = Document(title);                  **
         ** LOGICO fonte = newFont(titulo);                  **
         **                                                  **
         ** SE(font){                                        **
@@ -705,11 +648,12 @@ public class Action {
     
     public static void session_cancel(
         xml_document doc,
-        xml_document_one one
+        xml_document_one one,
+        String title
     )
     {
         
-        /* CADEIA titulo == doc.setTitle().trim();              **
+        /* CADEIA titulo == title.trim();                       **
         /*                                                      **
         /* SE(título == [titulo do documento] OU titulo == ""){ **
         **                                                      **
