@@ -73,7 +73,12 @@ public class Action {
             
             carregarFonte doc = new carregarFonte(ttf, 0, 12);
             
-            if(doc.Val()) EditFont = doc.Font();
+            if(doc.Val()){
+                
+                /* Abrir formulário com as opções **
+                ** do tamanho da fonte!           */
+                
+            }//if(doc.Val())
             
             return doc.Val();
             
@@ -87,8 +92,7 @@ public class Action {
     
     public static void Exit(){
         
-        /* import model.Reg;                           **
-        ** LOGICO ide_execute = Reg.java;              **
+        /* LOGICO ide_execute = Reg.java;              **
         **                                             **
         ** SE(ide_execute){                            **
         **   ESCREVAL("system.out.println(\"...\");"); **
@@ -674,13 +678,28 @@ public class Action {
     )
     {
         
-        /* Permitir adição à partir de um arquivo de TEXTO **
-        ** simplismente digitando o seu endereço no        **
-        ** campo de título!                                **
-        ** ----------------------------------------------- **
-        ** É importante saber que existe                   **
-        ** a possibilidade de isso acontecer também na     **
-        ** classe ReadWrite                                */
+        /* CADEIA titulo = one.getTitle();                  **
+        ** LOGICO fonte = newFont(titulo);                  **
+        **                                                  **
+        ** SE(font){                                        **
+        **                                                  **
+        **   ESCREVAL("Abir o formulário");                 **
+        **   ESCREVAL("com as opções de tamanho da fonte"); **
+        **                                                  **
+        ** } SENÃO {                                        **
+        **                                                  **
+        **   ESCREVAL("Prosseguir normalmente!");           **
+        **                                                  **
+        ** }                                                **
+        ** ------------------------------------------------ **
+        ** ------------------------------------------------ **
+        ** Permitir adição à partir de um arquivo de TEXTO  **
+        ** simplismente digitando o seu endereço no         **
+        ** campo de título!                                 **
+        ** ------------------------------------------------ **
+        ** É importante saber que existe                    **
+        ** a possibilidade de isso acontecer também na      **
+        ** classe ReadWrite                                 */
         
     }//session_confirm
     
@@ -690,19 +709,19 @@ public class Action {
     )
     {
         
-        /* CADEIA titulo == doc.setTitle().trim();
-        /* 
-        /* SE(título == [titulo do documento] OU titulo == ""){
-        **   
-        **   ESCREVA("Não alterar o documento");
-        **   
-        ** } SENAO {
-        **   
-        **   ESCREVAL("Adicionar:");
-        **   ESCREVAL("~");
-        **   ESCREVAL("Antes do título do documento!");
-        **   
-        ** } */
+        /* CADEIA titulo == doc.setTitle().trim();              **
+        /*                                                      **
+        /* SE(título == [titulo do documento] OU titulo == ""){ **
+        **                                                      **
+        **   ESCREVA("Não alterar o documento");                **
+        **                                                      **
+        ** } SENAO {                                            **
+        **                                                      **
+        **   ESCREVAL("Adicionar:");                            **
+        **   ESCREVAL("~");                                     **
+        **   ESCREVAL("Antes do título do documento!");         **
+        **                                                      **
+        ** }                                                    */
         
     }//session_cancel
     
