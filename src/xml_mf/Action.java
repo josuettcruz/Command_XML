@@ -140,7 +140,24 @@ public class Action {
         
     }//Err(String message)
     
-    public static String Document(String input){
+    public static List<String> Document(xml_document_one val){
+        
+        List<String> value = new ArrayList();
+        
+        for(xml_document_link l : val.getUrl()){
+            
+            value.add(l.name());
+            value.add(l.lnk().getLink());
+            
+        }//for(xml_document_link l : val.getUrl())
+        
+        for(String t : val.getText()) value.add(t);
+        
+        return value;
+        
+    }//Document(xml_document_one val)
+    
+    private static String Document(String input){
         
         if(txt.text(input, exclude_document_function).isBlank()){
             
@@ -165,32 +182,19 @@ public class Action {
         
     }//Document(String input)
     
-    public static List<String> Document(xml_document_one val){
-        
-        List<String> value = new ArrayList();
-        
-        for(xml_document_link l : val.getUrl()){
-            
-            value.add(l.name());
-            value.add(l.lnk().getLink());
-            
-        }//for(xml_document_link l : val.getUrl())
-        
-        for(String t : val.getText()) value.add(t);
-        
-        return value;
-        
-    }//Document(xml_document_one val)
-    
     public static xml_document_one Document(
-        xml_document_one val,
+        xml_document_one doc,
         List<String> input_text_area
     )
     {
         
+        xml_document_one val = new xml_document_one();
+        
+        val.setTitle(Document(doc.getTitle()));
+        
         List<xml_document_link> dat = new ArrayList();
         
-        if(!val.getUrl().isEmpty()) dat.addAll(val.getUrl());
+        if(!doc.getUrl().isEmpty()) dat.addAll(val.getUrl());
         
         List<String> tem = new ArrayList();
         
