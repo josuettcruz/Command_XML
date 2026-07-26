@@ -351,11 +351,50 @@ public class Action {
             
             return new ArrayList();
             
-        } else if(d.index() == 1){
+        } else if(d.index() == 1){//if(value.isEmpty())
             
             List<String> aplication = new ArrayList();
             
-            for(String val : value) aplication.add(txt.text(val, true));
+            var line_blank = false;
+            var line_length = 0;
+            
+            for(String val : value){
+                
+                var t = txt.text(val, true);
+                
+                if(t.isBlank()){
+                    
+                    line_blank = true;
+                    
+                } else {//if(t.isBlank())
+                    
+                    if(line_blank){
+                        
+                        final var min = 3;
+                        
+                        var max = line_length < t.length()
+                            ? line_length
+                            : t.length();
+                        
+                        aplication.add("");
+                        
+                        aplication.add("-".repeat(max > min ? max : min));
+                        
+                        aplication.add("");
+                        
+                        line_blank = false;
+                        
+                    } else {//if(line_blank)
+                        
+                        line_length = t.length();
+                        
+                    }//if(line_blank)
+                    
+                    aplication.add(t);
+                    
+                }//if(t.isBlank())
+                
+            }//for(String val : value)
             
             return aplication;
             
@@ -365,11 +404,9 @@ public class Action {
             
             for(var i = 0; i < value.size(); i++){
                 
-                String t = value.get(i);
+                String t = txt.text(value.get(i), true);
                 
                 if(i == row && !txt.text(t).isBlank()){
-                    
-                    //fazer ação correspondente ao menu selectionado
                     
                     switch(d.index()){
                         
@@ -387,7 +424,13 @@ public class Action {
                                 
                             } else if(c2.Val()){//if(c1.Val())
                                 
-                                val.add(c2.Timer());
+                                var timer = Reg.Numb(c2.Hour());
+                                timer += "-";
+                                timer += Reg.Numb(c2.Min());
+                                timer += "-";
+                                timer += Reg.Numb(c2.Sec());
+                                
+                                val.add(timer);
                                 
                             } else {//if(c1.Val())
                                 
