@@ -355,8 +355,9 @@ public class Action {
             
             List<String> aplication = new ArrayList();
             
-            var line_blank = false;
-            var line_length = 0;
+            var line = false;
+            var length = 0;
+            var trace_before = true;
             
             for(String val : value){
                 
@@ -364,29 +365,71 @@ public class Action {
                 
                 if(t.isBlank()){
                     
-                    line_blank = true;
+                    line = true;
                     
                 } else {//if(t.isBlank())
                     
-                    if(line_blank){
+                    trace_before = false;
+                    var proc = 0;
+
+                    do{
+
+                        var ds = t.charAt(proc);
+
+                        trace_before = ds != '_' && ds != '-';
+
+                        proc++;
+
+                    }while(!trace_before && proc > 0 && proc < t.length());
+
+                    aplication.add("");
+                    
+                    if(line){
                         
-                        final var min = 3;
+                        var trace_after = false;
+                        proc = 0;
                         
-                        var max = line_length < t.length()
-                            ? line_length
-                            : t.length();
+                        if(trace_before){
+                            
+                            do{
+                                
+                                var ds = t.charAt(proc);
+                                
+                                trace_after = ds != '_' && ds != '-';
+                                
+                                proc++;
+                                
+                            }while(
+                                !trace_after &&
+                                proc > 0 &&
+                                proc < t.length()
+                            );
+                            
+                        }//if(trace_before)
                         
                         aplication.add("");
                         
-                        aplication.add("-".repeat(max > min ? max : min));
+                        if(trace_after){
+                            
+                            final var min = 3;
+                            
+                            var max = t.length();
+                            
+                            if(max < length) max = length;
+                            
+                            if(max < min) max = min;
+                            
+                            aplication.add("-".repeat(max));
+                            
+                            aplication.add("");
+                            
+                        }//if(trace)
                         
-                        aplication.add("");
-                        
-                        line_blank = false;
+                        line = false;
                         
                     } else {//if(line_blank)
                         
-                        line_length = t.length();
+                        length = t.length();
                         
                     }//if(line_blank)
                     
