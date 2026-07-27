@@ -359,7 +359,9 @@ public class Action {
             
             for(String line : value){
                 
-                var text_line = txt.text(line, true);
+                var text_line = new Link(line).Val()
+                    ? line
+                    : txt.text(line, true);
                 
                 if(text_line.isBlank()){
                     
@@ -389,9 +391,19 @@ public class Action {
             
             for(var i = 0; i < value.size(); i++){
                 
-                String t = txt.text(value.get(i), true);
-                
-                if(i == row && !txt.text(t).isBlank()){
+                if(
+                    i == row && /* Alterae a linha onde está o cursor */
+                    !new Link(value.get(i)).Val() && /* O texto não deve ser um link! */
+                    !txt.text(
+                        txt.text(
+                            value.get(i),
+                            exclude_document_function
+                        )
+                    ).isBlank() /* O texto deve conter outro valor além dos que são referentes ao Array de caracteres 'exclude_document_function' */
+                )
+                {
+                    
+                    String t = txt.text(value.get(i), true);
                     
                     switch(d.index()){
                         
@@ -542,11 +554,11 @@ public class Action {
                         
                     }//switch(d.index())
                     
-                } else {//if(i == row && !txt.text(t).isBlank())
+                } else {//if(i == row && !new Link(value.get(i)).Val() &&...
                     
-                    val.add(t);
+                    val.add(value.get(i));
                     
-                }//if(i == row && !txt.text(t).isBlank())
+                }//if(i == row && !new Link(value.get(i)).Val() && !txt.text(...
                 
             }//for(var i = 0; i < value.getText().size(); i++)
             
