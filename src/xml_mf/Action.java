@@ -355,85 +355,27 @@ public class Action {
             
             List<String> aplication = new ArrayList();
             
-            var line = false;
-            var length = 0;
-            var trace_before = true;
+            var line_blank = false;
             
-            for(String val : value){
+            for(String line : value){
                 
-                var t = txt.text(val, true);
+                var text_line = txt.text(line, true);
                 
-                if(t.isBlank()){
+                if(text_line.isBlank()){
                     
-                    line = true;
+                    line_blank = true;
                     
-                } else {//if(t.isBlank())
+                } else {//if(text_line.isBlank())
                     
-                    trace_before = false;
-                    var proc = 0;
-
-                    do{
-
-                        var ds = t.charAt(proc);
-
-                        trace_before = ds != '_' && ds != '-';
-
-                        proc++;
-
-                    }while(!trace_before && proc > 0 && proc < t.length());
-
-                    aplication.add("");
-                    
-                    if(line){
+                    if(line_blank){
                         
-                        var trace_after = false;
-                        proc = 0;
+                        aplication.add(text_line);
                         
-                        if(trace_before){
-                            
-                            do{
-                                
-                                var ds = t.charAt(proc);
-                                
-                                trace_after = ds != '_' && ds != '-';
-                                
-                                proc++;
-                                
-                            }while(
-                                !trace_after &&
-                                proc > 0 &&
-                                proc < t.length()
-                            );
-                            
-                        }//if(trace_before)
-                        
-                        aplication.add("");
-                        
-                        if(trace_after){
-                            
-                            final var min = 3;
-                            
-                            var max = t.length();
-                            
-                            if(max < length) max = length;
-                            
-                            if(max < min) max = min;
-                            
-                            aplication.add("-".repeat(max));
-                            
-                            aplication.add("");
-                            
-                        }//if(trace)
-                        
-                        line = false;
-                        
-                    } else {//if(line_blank)
-                        
-                        length = t.length();
+                        line_blank = false;
                         
                     }//if(line_blank)
                     
-                    aplication.add(t);
+                    aplication.add(text_line);
                     
                 }//if(t.isBlank())
                 
