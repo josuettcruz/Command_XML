@@ -608,43 +608,45 @@ public class Action {
         List<String> tem = new ArrayList();
         
         String tema = "";
+        boolean next_line = false;
         
         for(String v : input_text_area){
             
-            Link lnk = new Link(v);
-            
-            if(tema.isBlank()){
+            if(next_line){
+                
+                Link lnk = new Link(v);
                 
                 if(lnk.Val()){
                     
-                    dat.add(
-                        new xml_document_link(
-                            lnk.page(true),
-                            lnk
-                        )
-                    );
+                    String text_link;
                     
-                } else {//if(lnk.Val())
+                    if(txt.text(tema, exclude_document_function).isBlank()){
+                        
+                        text_link = lnk.dat(false);
+                        
+                    } else {//if(txt.text(tema, exclude_document_function).isBlank())
+                        
+                        text_link = txt.text(tema, next_line);
+                        
+                    }//if(txt.text(tema, exclude_document_function).isBlank())
                     
-                    tema = v.trim();
+                    dat.add(new xml_document_link(text_link,lnk));
                     
-                }//if(lnk.Val())
-                
-            } else {//if(tema.isBlank())
-                
-                if(lnk.Val()){
-                    
-                    dat.add(new xml_document_link(tema,lnk));
-                    
-                } else {//if(lnk.Val())
+                } else {//if(next_line)
                     
                     tem.add(tema);
                     
-                }//if(lnk.Val())
+                }//if(next_line)
                 
                 tema = "";
+                next_line = false;
                 
-            }//if(tema.isBlank())
+            } else {//if(next_line)
+                
+                tema = v;
+                next_line = true;
+                
+            }//if(next_line)
             
         }//for(String val : input_text_area)
         
