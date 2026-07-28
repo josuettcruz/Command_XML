@@ -505,14 +505,18 @@ public class Action {
                                     
                                     switch(r.charAt(r.length()-1)){
                                         
-                                        case '?', '!', '.', ':', ';' -> {
+                                        case '.', '"' -> {
                                             
-                                            val.add(rd);
-                                            rd = "";
+                                            if(r.length() > 4){
+                                                
+                                                val.add(rd);
+                                                rd = "";
+                                                
+                                            }//if(r.length() > 4)
                                             
-                                        }//case '?', '!', '.', ':', ';'
+                                        }//case '.', '"'
                                         
-                                        case ',', ')', ']', '}', '>' ->{
+                                        case ',', '>', '\'' ->{
                                             
                                             if(d.index() == 5){
                                                 
@@ -521,26 +525,44 @@ public class Action {
                                                 
                                             }//if(d.index() == 5)
                                             
-                                        }//case ',', ')', ']', '}', '>'
+                                        }//case ',', '>', '\''
+                                        
+                                        case '?',
+                                             '!',
+                                             ';',
+                                             ':',
+                                             '}',
+                                             ']',
+                                             ')' -> {
+                                            
+                                            val.add(rd);
+                                            rd = "";
+                                            
+                                        }//cases
                                         
                                         default ->{
                                             
-                                            if(d.index() == 5){
+                                            switch(r.charAt(0)){
                                                 
-                                                var c1 = r.charAt(0) == '(';
-                                                var c2 = r.charAt(0) == '[';
-                                                var c3 = r.charAt(0) == '{';
-                                                var c4 = r.charAt(0) == '<';
-                                                var cond = c1 || c2 || c3 || c4;
-                                                
-                                                if(cond){
+                                                case '{', '[', '(', '"' ->{
                                                     
-                                                    val.add(r);
+                                                    val.add(rd);
                                                     rd = "";
                                                     
-                                                }//if(cond)
+                                                }//case '{', '[', '(', '"'
                                                 
-                                            }//if(d.index() == 5)
+                                                case '<', '\'' ->{
+                                                    
+                                                    if(d.index() == 5){
+                                                        
+                                                        val.add(rd);
+                                                        rd = "";
+                                                        
+                                                    }//if(d.index() == 5)
+                                                    
+                                                }//case '<', '\''
+                                                
+                                            }//switch(r.charAt(0))
                                             
                                         }//default
                                         
