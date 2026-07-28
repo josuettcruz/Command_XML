@@ -510,16 +510,16 @@ public class Action {
                                     
                                 }//if(r.length() > 1 && d.index() == 5)
                                 
-                                if(new_line && !r.isBlank()){
+                                if(new_line){
                                     
                                     val.add(r);
                                     
-                                } else {//if(new_line && !r.isBlank())
+                                } else {//if(new_line)
                                     
                                     if(!rd.isBlank()) rd += " ";
                                     rd += r;
                                     
-                                }//if(new_line && !r.isBlank())
+                                }//if(new_line)
                                 
                                 if(r.length() > 1){
                                     
