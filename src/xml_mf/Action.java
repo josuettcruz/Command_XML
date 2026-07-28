@@ -32,8 +32,6 @@ public class Action {
         new Domain(5, "Separar por textos da frase.")
     };
     
-    public final static int min_session_option = 1;
-    
     public final static int max_session_option = 5;
     
     /* Permitir futuramente                        **
@@ -64,7 +62,11 @@ public class Action {
     
     private static boolean newFont(String ttf){
         
-        if(Arq.Dir(ttf, false)){
+        if(
+            Arq.Dir(ttf, false) &&
+            !txt.text(ttf, exclude_document_function).isBlank()
+        )
+        {
             
             /* Depois,              **
             ** será incluída uma    **
@@ -75,22 +77,45 @@ public class Action {
             ** para poder definir o **
             ** tamanho da fonte     */
             
-            carregarFonte doc = new carregarFonte(ttf, 0, 12);
+            final String[] otf = {"ttf", "otf"};
             
-            if(doc.Val()){
+            var ext = "";
+            
+            for(var i = 0; i < ttf.length(); i++){
                 
-                /* Abrir formulário com as opções **
-                ** do tamanho da fonte!           */
+                switch(ttf.charAt(i)){
+                    
+                    case '.' -> ext = "";
+                    
+                    default -> ext += ttf.charAt(i);
+                    
+                }//switch(ttf.charAt(i))
                 
-            }//if(doc.Val())
+            }//for(var i = 0; i < ttf.length(); i++)
             
-            return doc.Val();
+            var aply = false;
             
-        } else {//if(Arq.Dir(ttf, false))
+            if(!txt.arq(ext).isBlank()){
+                
+                var proc = 0;
+                
+                do{
+                    
+                    aply = txt.arq(ext).equals(otf[proc]);
+                    
+                    proc++;
+                    
+                }while(!aply && proc > 0 && proc < otf.length);
+                
+            }//if(!txt.arq(ext).isBlank())
+            
+            return aply;
+            
+        } else {//if(Arq.Dir(ttf, false) && !txt.text(ttf, exclude_document_f...
             
             return false;
             
-        }//if(Arq.Dir(ttf, false))
+        }//if(Arq.Dir(ttf, false) && !txt.text(ttf, exclude_document_function...
         
     }//newFont(String ttf)
     
@@ -273,6 +298,7 @@ public class Action {
             final Domain month[] = {
                 new Domain(1,"jan"),
                 new Domain(2,"fev"),
+                new Domain(2,"feb"),
                 new Domain(3,"mar"),
                 new Domain(4,"abr"),
                 new Domain(5,"mai"),
@@ -283,7 +309,8 @@ public class Action {
                 new Domain(9,"set"),
                 new Domain(10,"out"),
                 new Domain(11,"nov"),
-                new Domain(12,"dez")
+                new Domain(12,"dez"),
+                new Domain(12,"dec")
             };
             
             var val = -1;

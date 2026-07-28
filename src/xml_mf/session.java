@@ -144,28 +144,37 @@ public class session implements Painel_3 {
     @Override
     public void Painel3(int key_code, char key_char, Domain[] menu, String input, List<String> text, int row, int col) {
         
-        var num = 0;
+        var num = -1;
         
-        switch(key_char){
+        switch(key_code){
             
-            case '1' -> num = 1;
-            case '2' -> num = 2;
-            case '3' -> num = 3;
-            case '4' -> num = 4;
-            case '5' -> num = 5;
-            case '6' -> num = 6;
-            case '7' -> num = 7;
-            case '8' -> num = 8;
-            case '9' -> num = 9;
-            case '0' -> num = 10;
+            case 49 -> num = 1;
+            case 50 -> num = 2;
+            case 51 -> num = 3;
+            case 52 -> num = 4;
+            case 53 -> num = 5;
+            case 54 -> num = 6;
+            case 55 -> num = 7;
+            case 56 -> num = 8;
+            case 57 -> num = 9;
+            case 48 -> num = 10;
+            
+            case 10 ->{
+                
+                Link lnk = new Link(text.get(row));
+                
+                if(lnk.Val()){
+                    
+                    lnk.Open();
+                    Action.Exit();
+                    
+                }//if(lnk.Val())
+                
+            }//case 10
             
         }//switch(key_char)
         
-        if(
-            num >= Action.min_session_option &&
-            num <= Action.max_session_option
-        )
-        {
+        if(num >= 1 && num <= Action.max_session_option){
             
             var cont = 0;
             var loop = true;
@@ -190,7 +199,7 @@ public class session implements Painel_3 {
                 
             }while(loop && cont > 0 && cont < menu.length);
             
-        }//if(num >= Action.min_session_option && num <= Action.max_session_o...
+        }//if(num >= 1 && num <= Action.max_session_option)
         
     }
 
@@ -212,26 +221,13 @@ public class session implements Painel_3 {
                     
                 } else {//if(this.option.index() == 0)
                     
-                    if(row < text.size()){
-                        
-                        var cond1 = new Link(text.get(row)).Val();
-                        
-                        var cond2 = txt.text(
-                            text.get(row),
-                            Action.exclude_document_function
-                        ).isBlank();
-                        
-                        var cond = !cond1 && !cond2;
-                        
-                        if(cond) Action.session_combobox(
-                            this.option,
-                            this.document,
-                            this.document_one,
-                            this.Font(),
-                            row
-                        );
-                        
-                    }//if(row < text.size())
+                    Action.session_combobox(
+                        this.option,
+                        this.document,
+                        this.document_one,
+                        this.Font(),
+                        row
+                    );
                     
                 }//if(this.option.index() == 0)
                 
