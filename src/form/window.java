@@ -1068,8 +1068,8 @@ public class window extends javax.swing.JFrame {
             
             if(out){
                 
-                row = -1;
-                col = -1;
+                row = 0;
+                col = 0;
                 
             }//if(out)
             

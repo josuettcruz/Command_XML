@@ -212,13 +212,26 @@ public class session implements Painel_3 {
                     
                 } else {//if(this.option.index() == 0)
                     
-                    Action.session_combobox(
-                        this.option,
-                        this.document,
-                        this.document_one,
-                        this.Font(),
-                        row
-                    );
+                    if(row < text.size()){
+                        
+                        var cond1 = new Link(text.get(row)).Val();
+                        
+                        var cond2 = txt.text(
+                            text.get(row),
+                            Action.exclude_document_function
+                        ).isBlank();
+                        
+                        var cond = !cond1 && !cond2;
+                        
+                        if(cond) Action.session_combobox(
+                            this.option,
+                            this.document,
+                            this.document_one,
+                            this.Font(),
+                            row
+                        );
+                        
+                    }//if(row < text.size())
                     
                 }//if(this.option.index() == 0)
                 

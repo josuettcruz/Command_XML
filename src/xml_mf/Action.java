@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class Action {
     
-    private final static char[] exclude_document_function = {'<','>',':',';',
+    public final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
         '0','1','2','3','4','5','6','7','8','9'};
     
@@ -394,16 +394,11 @@ public class Action {
                 if(
                     i == row &&
                     !new Link(value.get(i)).Val() &&
-                    !txt.text(
-                        txt.text(
-                            value.get(i),
-                            exclude_document_function
-                        )
-                    ).isBlank()
+                    !txt.text(value.get(i)).isBlank()
                 )
                 {
                     
-                    String t = txt.text(value.get(i), true);
+                    String t = value.get(i);
                     
                     switch(d.index()){
                         
@@ -411,25 +406,13 @@ public class Action {
                         
                         case 3 -> {
                             
-                            var c1 = new Data(t);
+                            var data = new Data(t.trim());
                             
-                            var c2 = new Hora(t);
-                            
-                            if(c1.Val()){
+                            if(data.Val()){
                                 
-                                val.add(c1.Load());
+                                val.add(data.Load());
                                 
-                            } else if(c2.Val()){//if(c1.Val())
-                                
-                                var timer = Reg.Numb(c2.Hour());
-                                timer += "-";
-                                timer += Reg.Numb(c2.Min());
-                                timer += "-";
-                                timer += Reg.Numb(c2.Sec());
-                                
-                                val.add(timer);
-                                
-                            } else {//if(c1.Val())
+                            } else {//if(data.Val())
                                 
                                 final var init = -1;
                                 
@@ -488,7 +471,7 @@ public class Action {
                                     
                                 }//if(year != init && month != init && day !=...
                                 
-                            }//if(c1.Val())
+                            }//if(data.Val())
                             
                         }//case 3
                         
