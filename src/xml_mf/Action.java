@@ -290,7 +290,9 @@ public class Action {
             
             var tx = "";
             
-            for(int i = 0; i < txt.arq(value).length(); i++){
+            var dm = txt.arq(value);
+            
+            for(int i = 0; i < dm.length(); i++){
                 
                 var cont = 0;
                 var loop = true;
@@ -299,16 +301,14 @@ public class Action {
                     
                     var charAt = tx.isBlank() ? 0 : tx.length()-1;
                     
-                    var dm = month[cont].Text();
-                    
-                    if(charAt < dm.length()){
+                    if(charAt < month[cont].Text().length()){
                         
-                        if(dm.charAt(charAt) == txt.arq(value).charAt(i)){
+                        if(month[cont].Text().charAt(charAt) == dm.charAt(i)){
                             
-                            tx += dm.charAt(charAt);
+                            tx += month[cont].Text().charAt(charAt);
                             loop = false;
                             
-                        }//if(dm.charAt(charAt) == txt.arq(value).charAt(i))
+                        }//if(month[cont].Text().charAt(charAt) == dm.charAt(i))
                         
                     }//if(charAt < dm.length())
                     
@@ -371,7 +371,7 @@ public class Action {
                     
                     if(line_blank){
                         
-                        aplication.add(text_line);
+                        aplication.add("");
                         
                         line_blank = false;
                         
@@ -392,14 +392,14 @@ public class Action {
             for(var i = 0; i < value.size(); i++){
                 
                 if(
-                    i == row && /* Alterae a linha onde está o cursor */
-                    !new Link(value.get(i)).Val() && /* O texto não deve ser um link! */
+                    i == row &&
+                    !new Link(value.get(i)).Val() &&
                     !txt.text(
                         txt.text(
                             value.get(i),
                             exclude_document_function
                         )
-                    ).isBlank() /* O texto deve conter outro valor além dos que são referentes ao Array de caracteres 'exclude_document_function' */
+                    ).isBlank()
                 )
                 {
                     
@@ -492,26 +492,56 @@ public class Action {
                             
                         }//case 3
                         
-                        case 4 -> {
+                        case 4, 5 -> {
                             
                             var rd = "";
                             
                             for(String r : txt.phrase(value.get(i))){
                                 
-                                if(!rd.isBlank()) rd += " ";
+                                var new_line = false;
                                 
-                                rd += r;
+                                if(r.length() > 1 && d.index() == 5){
+                                    
+                                    switch(r.charAt(0)){
+                                        
+                                        case '(', '[', '{' -> new_line = true;
+                                        
+                                    }//switch(r.charAt(0))
+                                    
+                                }//if(r.length() > 1 && d.index() == 5)
+                                
+                                if(new_line && !r.isBlank()){
+                                    
+                                    val.add(r);
+                                    
+                                } else {//if(new_line && !r.isBlank())
+                                    
+                                    if(!rd.isBlank()) rd += " ";
+                                    rd += r;
+                                    
+                                }//if(new_line && !r.isBlank())
                                 
                                 if(r.length() > 1){
                                     
                                     switch(r.charAt(r.length()-1)){
                                         
-                                        case '.', '!', '?' -> {
+                                        case '?', '!', '.', ':', ';' -> {
                                             
                                             val.add(rd);
                                             rd = "";
                                             
-                                        }//case '.', '!', '?'
+                                        }//case '?', '!', '.', ':', ';'
+                                        
+                                        case ',', ')', ']', '}', '>' ->{
+                                            
+                                            if(d.index() == 5){
+                                                
+                                                val.add(rd);
+                                                rd = "";
+                                                
+                                            }//if(d.index() == 5)
+                                            
+                                        }//case ',', ')', ']', '}', '>'
                                         
                                     }//switch(r.charAt(r.length()-1))
                                     
@@ -519,36 +549,7 @@ public class Action {
                                 
                             }//for(String r : txt.phrase(value.get(i)))
                             
-                        }//case 4
-                        
-                        case 5 -> {
-                            
-                            var rd = "";
-                            
-                            for(String r : txt.phrase(value.get(i))){
-                                
-                                if(!rd.isBlank()) rd += " ";
-                                
-                                rd += r;
-                                
-                                if(r.length() > 1){
-                                    
-                                    switch(r.charAt(r.length()-1)){
-                                        
-                                        case '.', '!', '?', ';', ',' -> {
-                                            
-                                            val.add(rd);
-                                            rd = "";
-                                            
-                                        }//case '.', '!', '?'
-                                        
-                                    }//switch(r.charAt(r.length()-1))
-                                    
-                                }//if(r.length() > 1)
-                                
-                            }//for(String r : txt.phrase(value.get(i)))
-                            
-                        }//case 5
+                        }//case 4, 5
                         
                         default -> val.add(t);
                         
@@ -624,11 +625,11 @@ public class Action {
                         
                         text_link = lnk.dat(false);
                         
-                    } else {//if(txt.text(tema, exclude_document_function).isBlank())
+                    } else {//if(txt.text(tema, exclude_document_function).is...
                         
                         text_link = txt.text(tema, next_line);
                         
-                    }//if(txt.text(tema, exclude_document_function).isBlank())
+                    }//if(txt.text(tema, exclude_document_function).isBlank()...
                     
                     dat.add(new xml_document_link(text_link,lnk));
                     
@@ -650,7 +651,7 @@ public class Action {
             
         }//for(String val : input_text_area)
         
-        if(!tema.isBlank()) tem.add(tema);
+        if(next_line) tem.add(tema);
         
         val.setText(tem);
         val.setUrl(dat);
