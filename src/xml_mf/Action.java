@@ -498,28 +498,8 @@ public class Action {
                             
                             for(String r : txt.phrase(value.get(i))){
                                 
-                                var new_line = false;
-                                
-                                if(r.length() > 1 && d.index() == 5){
-                                    
-                                    switch(r.charAt(0)){
-                                        
-                                        case '(', '[', '{' -> new_line = true;
-                                        
-                                    }//switch(r.charAt(0))
-                                    
-                                }//if(r.length() > 1 && d.index() == 5)
-                                
-                                if(new_line){
-                                    
-                                    val.add(r);
-                                    
-                                } else {//if(new_line)
-                                    
-                                    if(!rd.isBlank()) rd += " ";
-                                    rd += r;
-                                    
-                                }//if(new_line)
+                                if(!rd.isBlank()) rd += " ";
+                                rd += r;
                                 
                                 if(r.length() > 1){
                                     
@@ -542,6 +522,27 @@ public class Action {
                                             }//if(d.index() == 5)
                                             
                                         }//case ',', ')', ']', '}', '>'
+                                        
+                                        default ->{
+                                            
+                                            if(d.index() == 5){
+                                                
+                                                var c1 = r.charAt(0) == '(';
+                                                var c2 = r.charAt(0) == '[';
+                                                var c3 = r.charAt(0) == '{';
+                                                var c4 = r.charAt(0) == '<';
+                                                var cond = c1 || c2 || c3 || c4;
+                                                
+                                                if(cond){
+                                                    
+                                                    val.add(r);
+                                                    rd = "";
+                                                    
+                                                }//if(cond)
+                                                
+                                            }//if(d.index() == 5)
+                                            
+                                        }//default
                                         
                                     }//switch(r.charAt(r.length()-1))
                                     
