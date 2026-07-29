@@ -508,79 +508,90 @@ public class Action {
                             
                             for(String r : txt.phrase(value.get(i))){
                                 
-                                if(!rd.isBlank()) rd += " ";
-                                rd += r;
-                                
-                                if(r.length() > 1){
+                                switch(r.charAt(0)){
                                     
-                                    switch(r.charAt(r.length()-1)){
+                                    case '{', '[', '(' -> {
                                         
-                                        case '.', '"' -> {
-                                            
-                                            if(r.length() > 4){
-                                                
-                                                val.add(rd);
-                                                rd = "";
-                                                
-                                            }//if(r.length() > 4)
-                                            
-                                        }//case '.', '"'
+                                        if(!rd.isBlank()) val.add(rd);
+                                        rd = r;
                                         
-                                        case ',', '>', '\'' ->{
-                                            
-                                            if(d.index() == 5){
-                                                
-                                                val.add(rd);
-                                                rd = "";
-                                                
-                                            }//if(d.index() == 5)
-                                            
-                                        }//case ',', '>', '\''
+                                    }//case '{', '[', '('
+                                    
+                                    case '"', '\'' -> {
                                         
-                                        case '?',
-                                             '!',
-                                             ';',
-                                             ':',
-                                             '}',
-                                             ']',
-                                             ')' -> {
+                                        switch(d.index()){
+                                            
+                                            case 4 ->{
+                                                
+                                                if(!rd.isBlank())rd += " ";
+                                                
+                                                rd += r;
+                                                
+                                            }//case 4
+                                            
+                                            case 5 ->{
+
+                                                if(!rd.isBlank()) val.add(rd);
+                                                
+                                                rd = r;
+                                                
+                                            }//case 5
+                                            
+                                        }//switch(d.index())
+                                        
+                                    }//case '{', '[', '('
+                                    
+                                    default ->{
+                                        
+                                        if(!rd.isBlank()) rd += " ";
+                                        rd += r;
+                                        
+                                    }//default
+                                    
+                                }//switch(r.charAt(0))
+                                
+                                switch(r.charAt(r.length()-1)){
+                                    
+                                    case '.' -> {
+                                        
+                                        if(r.length() > 4){
                                             
                                             val.add(rd);
                                             rd = "";
                                             
-                                        }//cases
+                                        }//if(r.length() > 4)
                                         
-                                        default ->{
-                                            
-                                            switch(r.charAt(0)){
-                                                
-                                                case '{', '[', '(', '"' ->{
-                                                    
-                                                    val.add(rd);
-                                                    rd = "";
-                                                    
-                                                }//case '{', '[', '(', '"'
-                                                
-                                                case '<', '\'' ->{
-                                                    
-                                                    if(d.index() == 5){
-                                                        
-                                                        val.add(rd);
-                                                        rd = "";
-                                                        
-                                                    }//if(d.index() == 5)
-                                                    
-                                                }//case '<', '\''
-                                                
-                                            }//switch(r.charAt(0))
-                                            
-                                        }//default
-                                        
-                                    }//switch(r.charAt(r.length()-1))
+                                    }//case '.'
                                     
-                                }//if(r.length() > 1)
+                                    case ',', '>', '"', '\'' ->{
+                                        
+                                        if(d.index() == 5){
+                                            
+                                            val.add(rd);
+                                            rd = "";
+                                            
+                                        }//if(d.index() == 5)
+                                        
+                                    }//case ',', '>', '"', '\''
+                                    
+                                    case '?',
+                                         '!',
+                                         ';',
+                                         ':',
+                                         '}',
+                                         ']',
+                                         ')' -> {
+                                        
+                                        val.add(rd);
+                                        rd = "";
+                                        
+                                    }//cases
+                                         
+                                }//switch(r.charAt(r.length()-1))
                                 
                             }//for(String r : txt.phrase(value.get(i)))
+                            
+                            if(!rd.isBlank()) val.add(rd);
                             
                         }//case 4, 5
                         
