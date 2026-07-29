@@ -322,7 +322,7 @@ public class Action {
             for(int i = 0; i < dm.length(); i++){
                 
                 var cont = 0;
-                var loop = true;
+                var in_loop = true;
                 
                 do{
                     
@@ -333,7 +333,7 @@ public class Action {
                         if(month[cont].Text().charAt(charAt) == dm.charAt(i)){
                             
                             tx += month[cont].Text().charAt(charAt);
-                            loop = false;
+                            in_loop = false;
                             
                         }//if(month[cont].Text().charAt(charAt) == dm.charAt(i))
                         
@@ -341,25 +341,25 @@ public class Action {
                     
                     cont++;
                     
-                }while(loop && cont > 0 && cont < month.length);
+                }while(in_loop && cont > 0 && cont < month.length);
                 
             }//for(int i = 0; i < txt.arq(value).length(); i++)
             
             var proc = 0;
-            var in_loop = true;
+            var loop = true;
             
             do{
                 
                 if(tx.equalsIgnoreCase(month[proc].Text())){
                     
                     val = month[proc].index();
-                    in_loop = false;
+                    loop = false;
                     
                 }//if(tx.equalsIgnoreCase(month[proc].Text()))
                 
                 proc++;
                 
-            }while(in_loop && proc > 0 && proc < month.length);
+            }while(loop && proc > 0 && proc < month.length);
             
             return val;
             
@@ -399,7 +399,6 @@ public class Action {
                     if(line_blank){
                         
                         aplication.add("");
-                        
                         line_blank = false;
                         
                     }//if(line_blank)
@@ -523,7 +522,7 @@ public class Action {
                                             
                                             case 4 ->{
                                                 
-                                                if(!rd.isBlank())rd += " ";
+                                                if(!rd.isBlank()) rd += " ";
                                                 
                                                 rd += r;
                                                 
