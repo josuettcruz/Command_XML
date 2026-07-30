@@ -13,6 +13,9 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
+import confirm_cancel.*;
+import static confirm_cancel.form_selected.*;
+
 /**
  *
  * @author josue
@@ -52,6 +55,8 @@ public class Action {
         return font;
         
     }//MyFont()
+    
+    public static void newFont(Font font){EditFont = font;}
     
     public static void Init(){
         
