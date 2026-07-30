@@ -6,11 +6,7 @@ package confirm_cancel;
 
 import xml_mf.*;
 import xml_rw.*;
-
-import model.carregarFonte;
-import model.Reg;
-import model.Hora;
-
+import model.*;
 import form.*;
 import static form.pag2.confirm;
 import static form.pag2.cancel;
@@ -150,42 +146,102 @@ public class newFont implements Painel_2{
                     
                     xml_document_one temp = this.one;
                     
-                    var tt = this.one.getTitle();
-                    
-                    if(!tt.isBlank()) tt += " - ";
-                    
-                    tt += "\"";
-                    tt += msg_err_font;
-                    tt += "\"";
-                    
-                    temp.setTitle(tt);
+                    if(this.one.getTitle().isBlank()){
+                        
+                        temp.setTitle(msg_err_font);
+                        
+                    } else {//if(this.one.getTitle().isBlank())
+                        
+                        var array = txt.phrase(this.one.getTitle(), true);
+                        
+                        var contain = false;
+                        
+                        var txt1 = "";
+                        
+                        for(String t : txt.phrase(
+                            txt.arq(
+                                array.get(
+                                    array.size()-1)
+                                )
+                            )
+                        ) txt1 += t;
+                        
+                        var txt2 = "";
+                        
+                        for(String t : txt.phrase(
+                                txt.arq(
+                                    msg_err_font
+                                )
+                            )
+                        ) txt2 += t;
+                        
+                        if(array.size() > 1) contain = txt1.equals(txt2);
+                        
+                        temp.setTitle(
+                            contain
+                            ? this.one.getTitle()
+                            : this.one.getTitle()
+                            + " - "
+                            + msg_err_font
+                        );
+                        
+                    }//if(this.one.getTitle().isBlank())
                     
                     if(!cod.msg().isEmpty()){
                         
                         List<String> text = new ArrayList();
                         
-                        if(!this.one.getUrl().isEmpty()) text.add(
-                            "_".repeat(
-                                cod.msg().get(0).length()
-                            )
-                        );
-                        
-                        for(String t : cod.msg()) text.add(t);
-                        
-                        if(!this.one.getText().isEmpty()){
+                        if(this.one.getText().isEmpty()){
                             
-                            var hifen = "-".repeat(
-                                cod.msg().get(cod.msg().size()-1).length()
-                            );
+                            text.add(new Data().DataAbreviada(false));
+                            text.add(new Hora(true).Timer());
+                            
+                        } else {//if(this.one.getText().isEmpty())
+                            
+                            var proc = 0;
+                            var find = false;
+                            
+                            do{
+                                
+                                var dat = new Data(this.one.getText().get(proc));
+                                
+                                if(dat.Val()){
+                                    
+                                    find = new Data().CompareTo(dat);
+                                    
+                                } else {//if(dat.Val())
+                                    
+                                    find = txt.text(
+                                        this.one.getText().get(proc)
+                                    ).isBlank();
+                                    
+                                }//if(dat.Val())
+                                
+                                proc++;
+                                
+                            }while(!find && proc > 0 && proc < this.one.getText().size());
+                            
+                            if(find){
+                                
+                                text.add(new Data().DataAbreviada(false));
+                                text.add(new Hora(true).Timer());
+                                
+                            } else {//if(find)
+                                
+                                text.add(new Data().DataCompleta(true));
+                                text.add(new Hora(true).TimerGood(false));
+                                
+                            }//if(find)
                             
                             text.add("");
-                            text.add(hifen);
-                            text.add(hifen);
+                            
+                            for(String t : cod.msg()) text.add(t);
+                            
                             text.add("");
                             
                             text.addAll(this.one.getText());
                             
-                        }//if(!this.one.getText().isEmpty())
+                        }//if(this.one.getText().isEmpty())
                         
                         temp.setText(text);
                         
