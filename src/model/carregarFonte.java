@@ -56,7 +56,7 @@ public class carregarFonte {
             
         } catch (FontFormatException e) {//throws
             
-            this.msg.add("\"" + e.hashCode() + "\"");
+            //this.msg.add(Reg.Numb(e.hashCode()));
             this.msg.add("FontFormatException");
             this.msg.add(e.getMessage());
             
@@ -65,7 +65,7 @@ public class carregarFonte {
             
         } catch (IOException e) {//throws
             
-            this.msg.add("\"" + e.hashCode() + "\"");
+            //this.msg.add(Reg.Numb(e.hashCode()));
             this.msg.add("IOException");
             this.msg.add(e.getMessage());
             
@@ -74,7 +74,7 @@ public class carregarFonte {
             
         } catch (Exception e) {//throws
             
-            this.msg.add("\"" + e.hashCode() + "\"");
+            //this.msg.add(Reg.Numb(e.hashCode()));
             this.msg.add("Exception");
             this.msg.add(e.getMessage());
             

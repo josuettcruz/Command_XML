@@ -191,57 +191,17 @@ public class newFont implements Painel_2{
                         
                         List<String> text = new ArrayList();
                         
-                        if(this.one.getText().isEmpty()){
-                            
-                            text.add(new Data().DataAbreviada(false));
-                            text.add(new Hora(true).Timer());
-                            
-                        } else {//if(this.one.getText().isEmpty())
-                            
-                            var proc = 0;
-                            var find = false;
-                            
-                            do{
-                                
-                                var dat = new Data(this.one.getText().get(proc));
-                                
-                                if(dat.Val()){
-                                    
-                                    find = new Data().CompareTo(dat);
-                                    
-                                } else {//if(dat.Val())
-                                    
-                                    find = txt.text(
-                                        this.one.getText().get(proc)
-                                    ).isBlank();
-                                    
-                                }//if(dat.Val())
-                                
-                                proc++;
-                                
-                            }while(!find && proc > 0 && proc < this.one.getText().size());
-                            
-                            if(find){
-                                
-                                text.add(new Data().DataAbreviada(false));
-                                text.add(new Hora(true).Timer());
-                                
-                            } else {//if(find)
-                                
-                                text.add(new Data().DataCompleta(true));
-                                text.add(new Hora(true).TimerGood(false));
-                                
-                            }//if(find)
+                        text.add(new Data().DataAbreviada(false));
+                        text.add(new Hora(true).Timer());
+                        
+                        text.addAll(cod.msg());
+                        
+                        if(!this.one.getText().isEmpty()){
                             
                             text.add("");
-                            
-                            for(String t : cod.msg()) text.add(t);
-                            
-                            text.add("");
-                            
                             text.addAll(this.one.getText());
                             
-                        }//if(this.one.getText().isEmpty())
+                        }//if(!this.one.getText().isEmpty())
                         
                         temp.setText(text);
                         
