@@ -281,8 +281,6 @@ public class init {
             "git-commit",
             "git-commit_" + Reg.modify.Load(),
             "git-commit-" + Reg.modify.Load(),
-            "_git-commit_" + Reg.modify.Load(),
-            "_" + Reg.modify.Load(),
             Reg.modify.Load()
         };
         
