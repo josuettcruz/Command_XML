@@ -29,7 +29,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
     
     private String input;
     
-    private void ReadWrite(xml_document arq, Font f[], String str){
+    private void init(xml_document arq, Font f[], String str){
         
         try{
             
@@ -53,10 +53,10 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
     }//ReadWrite(xml_document arq, Font f[], String str, boolean mul)
     
     public ReadWrite(xml_document arq, Font f[], String str)
-    {this.ReadWrite(arq, f, str);}
+    {this.init(arq, f, str);}
     
     public ReadWrite(xml_document arq, Font f[])
-    {this.ReadWrite(arq, f, "");}
+    {this.init(arq, f, "");}
 
     @Override
     public Font FontTitle() {

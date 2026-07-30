@@ -45,7 +45,7 @@ public class Action {
     
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
-    private static Font[] MyFont(){
+    public static Font[] MyFont(){
         
         java.awt.Font font[] = {
             new java.awt.Font("Impact", 12, 0),

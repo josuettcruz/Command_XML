@@ -4,18 +4,18 @@
  */
 package confirm_cancel;
 
-import xml_mf.Action;
+import xml_mf.*;
 import xml_rw.*;
 
 import model.carregarFonte;
 import model.Reg;
 import model.Hora;
-import form.Domain;
-import form.Painel_2;
-import form.pag2;
+
+import form.*;
 import static form.pag2.confirm;
 import static form.pag2.cancel;
 import static form.pag2.enter;
+
 import static confirm_cancel.form_selected.*;
 
 import java.awt.Font;
@@ -31,9 +31,16 @@ public class newFont implements Painel_2{
     private form_selected form_selection;
     private String local_font;
     
+    xml_config xml;
+    xml_document doc;
+    xml_document_one one;
+    
+    
     public newFont(xml_config con, String local){
         
         this.form_selection = folder_xml;
+        this.xml = con;
+        
         this.local_font = local;
         
     }//newFont(xml_config con, Font[] font, String local)
@@ -41,6 +48,8 @@ public class newFont implements Painel_2{
     public newFont(xml_document doc, String local){
         
         this.form_selection = ReadWrite;
+        this.doc = doc;
+        
         this.local_font = local;
         
     }//public newFont(xml_config con, String local)
@@ -48,60 +57,260 @@ public class newFont implements Painel_2{
     public newFont(xml_document doc, xml_document_one one, String local){
         
         this.form_selection = session;
+        this.doc = doc;
+        this.one = one;
+        
         this.local_font = local;
         
     }//newFont(xml_document doc, xml_document_one one, String local)
     
     private void addFont(carregarFonte cod){
         
-        //code
+        final var msg_err_font = "FontFormatException";
+        
+        if(cod.Val()) Action.newFont(cod.Font()); 
+        
+        switch(this.form_selection){
+            
+            case folder_xml ->{
+                
+                if(xml == null){
+                    
+                    Action.Err("Erro", "xml == null");
+                    
+                } else if(cod.Val()){//if(xml == null)
+                    
+                    controller.p1s(
+                        new folder_xml(
+                            this.xml,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                } else {//if(xml == null)
+                    
+                    controller.p1s(
+                        new folder_xml(
+                            this.xml,
+                            Action.MyFont(),
+                            msg_err_font
+                        )
+                    );
+                    
+                }//if(xml == null)
+                
+            }//case folder_xml
+            
+            case ReadWrite ->{
+                
+                if(doc == null){
+                    
+                    Action.Err("Erro", "doc == null");
+                    
+                } else if(cod.Val()){//if(xml == null)
+                    
+                    controller.p1m(
+                        new ReadWrite(
+                            this.doc,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                } else {//if(xml == null)
+                    
+                    controller.p1s(
+                        new ReadWrite(
+                            this.doc,
+                            Action.MyFont(),
+                            msg_err_font
+                        )
+                    );
+                    
+                }//if(xml == null)
+                
+            }//case ReadWrite
+            
+            case session ->{
+                
+                if(doc == null || one == null){
+                    
+                    Action.Err("Erro", "doc == null || one == null");
+                    
+                } else if(cod.Val()){//if(xml == null)
+                    
+                    controller.p3(
+                        new session(
+                            this.doc,
+                            this.one,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                } else {//if(xml == null)
+                    
+                    xml_document_one temp = this.one;
+                    
+                    var tt = this.one.getTitle();
+                    
+                    if(!tt.isBlank()) tt += " - ";
+                    
+                    tt += "\"";
+                    tt += msg_err_font;
+                    tt += "\"";
+                    
+                    temp.setTitle(tt);
+                    
+                    if(!cod.msg().isEmpty()){
+                        
+                        List<String> text = new ArrayList();
+                        
+                        if(!this.one.getUrl().isEmpty()) text.add(
+                            "_".repeat(
+                                cod.msg().get(0).length()
+                            )
+                        );
+                        
+                        for(String t : cod.msg()) text.add(t);
+                        
+                        if(!this.one.getText().isEmpty()){
+                            
+                            var hifen = "-".repeat(
+                                cod.msg().get(cod.msg().size()-1).length()
+                            );
+                            
+                            text.add("");
+                            text.add(hifen);
+                            text.add(hifen);
+                            text.add("");
+                            
+                            text.addAll(this.one.getText());
+                            
+                        }//if(!this.one.getText().isEmpty())
+                        
+                        temp.setText(text);
+                        
+                    }//if(!cod.msg().isEmpty())
+                    
+                    controller.p3(
+                        new session(
+                            this.doc,
+                            temp,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                }//if(xml == null)
+                
+            }//case session
+            
+        }//switch(this.form_selection)
         
     }//addFont(carregarFonte cod)
     
     private void cancel(){
         
-        //code
+        switch(this.form_selection){
+            
+            case folder_xml ->{
+                
+                if(xml == null){
+                    
+                    Action.Err("Erro", "xml == null");
+                    
+                } else {//if(xml == null)
+                    
+                    controller.p1s(
+                        new folder_xml(
+                            this.xml,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                }//if(xml == null)
+                
+            }//case folder_xml
+            
+            case ReadWrite ->{
+                
+                if(doc == null){
+                    
+                    Action.Err("Erro", "doc == null");
+                    
+                } else {//if(xml == null)
+                    
+                    controller.p1m(
+                        new ReadWrite(
+                            this.doc,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                }//if(xml == null)
+                
+            }//case ReadWrite
+            
+            case session ->{
+                
+                if(doc == null || one == null){
+                    
+                    Action.Err("Erro", "doc == null E/OU one == null");
+                    
+                } else {//if(xml == null)
+                    
+                    controller.p3(
+                        new session(
+                            this.doc,
+                            this.one,
+                            Action.MyFont()
+                        )
+                    );
+                    
+                }//if(xml == null)
+                
+            }//case session
+            
+        }//switch(this.form_selection)
         
     }//cancel()
     
-    private void confirm(Domain dom){
+    private void confirm(int size){
         
-        if(dom.index() == 0){
+        if(size == 0){
             
             this.cancel();
             
-        } else {//if(dom.index() == 0)
+        } else {//if(size == 0)
             
             this.addFont(
                 new carregarFonte(
                     this.local_font,
                     0,
-                    dom.index()
+                    size
                 )
             );
             
-        }//if(dom.index() == 0)
+        }//if(size == 0)
         
     }//confirm(Domain dom)
 
     @Override
     public String Title(boolean title) {
         
-        var doc = Hora.Good();
-        doc += "! ";
+        var text = Hora.Good();
+        text += "! ";
         
         if(title){
             
-            doc += Reg.categories;
+            text += Reg.categories;
             
         } else {//if(title)
             
-            doc += Reg.categories;
-            doc += " - Escolha o tamanho da fonte:";
+            text += Reg.categories;
+            text += " - Escolha o tamanho da fonte:";
             
         }//if(title)
         
-        return doc;
+        return text;
         
     }
 
@@ -155,7 +364,7 @@ public class newFont implements Painel_2{
                     
                     if(value.get(proc).Select()){
                         
-                        this.confirm(value.get(proc));
+                        this.confirm(value.get(proc).index());
                         
                         loop = false;
                         

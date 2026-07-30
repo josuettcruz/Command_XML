@@ -24,11 +24,12 @@ public class folder_xml implements Painel_1Single{
     
     private xml_config document;
     private List<String> text;
+    private String input;
     
     private Font font_title;
     private Font font_list;
     
-    public folder_xml(xml_config arq, Font f[]){
+    private void init(xml_config arq, Font f[], String str){
         
         try{
             
@@ -36,6 +37,8 @@ public class folder_xml implements Painel_1Single{
             
             this.font_title = f[0];
             this.font_list = f[1];
+            
+            this.input = str;
             
         }catch(NullPointerException err){//throw
 
@@ -48,6 +51,12 @@ public class folder_xml implements Painel_1Single{
         }//throw
         
     }//folder_xml(Arq arq, Font f[], String[] str, boolean[] bool)
+    
+    public folder_xml(xml_config arq, Font f[], String str)
+    {this.init(arq, f, str);};
+    
+    public folder_xml(xml_config arq, Font f[])
+    {this.init(arq, f, "");};
 
     @Override
     public Font FontTitle() {
@@ -93,7 +102,7 @@ public class folder_xml implements Painel_1Single{
 
     @Override
     public String InputText() {
-        return "";
+        return this.input;
     }
 
     @Override

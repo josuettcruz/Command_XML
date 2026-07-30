@@ -85,7 +85,7 @@ public class carregarFonte {
         
     }//carregarFonte(String caminho_da_font)
     
-    public Font MyFont(Font f){
+    public Font Font(Font f){
         
         return this.minhaFonte == null ? f : this.minhaFonte;
         
@@ -93,7 +93,7 @@ public class carregarFonte {
     
     public Font Font(){
         
-        return this.MyFont(new java.awt.Font("Times New Roman",0,18));
+        return this.Font(new java.awt.Font("Times New Roman",0,18));
         
     }//Font()
     
