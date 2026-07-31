@@ -37,12 +37,6 @@ public class Action {
     
     public final static int max_session_option = 5;
     
-    /* Permitir futuramente                        **
-    ** que a segunda fonte seja substituada por    **
-    ** quaisquer outras fontes externas através da **
-    ** classe "carregarFonte" que está no          **
-    ** pacote "model"                              */
-    
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
     public static Font[] MyFont(){
@@ -72,15 +66,6 @@ public class Action {
             !txt.text(ttf, exclude_document_function).isBlank()
         )
         {
-            
-            /* Depois,              **
-            ** será incluída uma    **
-            ** nova classe          **
-            ** com implementação    **
-            ** da interface         **
-            ** Painel_2             **
-            ** para poder definir o **
-            ** tamanho da fonte     */
             
             final String[] otf = {"ttf", "otf"};
             
@@ -616,14 +601,6 @@ public class Action {
         }//if(value.isEmpty())
         
     }//session_ComboBox
-    
-    /* Na alteração a baixo,             **
-    ** ocultado do formulário os títulos **
-    ** serão apenas reposicionados.      **
-    ** Logo não será mais necessário,    **
-    ** quargar a classe completa,        **
-    ** mas poderá ser guardado           **
-    ** apenas o formulário               */
     
     public static List<String> session_Document(xml_document_one val){
         
