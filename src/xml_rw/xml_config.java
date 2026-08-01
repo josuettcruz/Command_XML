@@ -881,6 +881,32 @@ public class xml_config {
         
     }//Add(String t, Read r)
     
+    public int Add(xml_config_one one){
+        
+        var msg_position = -1;
+        
+        Order<xml_config_one> o = new Order();
+        
+        for(xml_config_one x : this.list)
+        {o.Add(x, x.Title());}
+        
+        var valid = o.Add(one, one.Title());
+        
+        if(valid){
+            
+            this.list.clear();
+            this.list.addAll(o.Return());
+            
+        } else {//if(valid)
+            
+            msg_position = o.Position();
+            
+        }//if(valid)
+        
+        return msg_position;
+        
+    }//Add(xml_config_one one)
+    
     public int newTitle(int position, String title){
         
         var valid = -2;

@@ -13,9 +13,6 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
-import confirm_cancel.*;
-import static confirm_cancel.form_selected.*;
-
 /**
  *
  * @author josue
@@ -602,6 +599,33 @@ public class Action {
         
     }//session_ComboBox
     
+    public static void session_combobox(
+        Domain menu,
+        xml_document doc,
+        xml_document_one one,
+        Font font[],
+        int row
+    )
+    {
+        
+        one.setText(
+            session_ComboBox(
+                menu,
+                one.getText(),
+                row
+            )
+        );
+        
+        controller.p3(
+            new session(
+                doc,
+                one,
+                font
+            )
+        );
+        
+    }//session_combobox
+    
     public static List<String> session_Document(xml_document_one val){
         
         List<String> value = new ArrayList();
@@ -693,28 +717,25 @@ public class Action {
     )
     {
         
-        /* CADEIA titulo = Document(title);                  **
-        ** LOGICO fonte = newFont(titulo);                  **
-        **                                                  **
-        ** SE(font){                                        **
-        **                                                  **
-        **   ESCREVAL("Abir o formulário");                 **
-        **   ESCREVAL("com as opções de tamanho da fonte"); **
-        **                                                  **
-        ** } SENÃO {                                        **
-        **                                                  **
-        **   ESCREVAL("Prosseguir normalmente!");           **
-        **                                                  **
-        ** }                                                **
-        ** ------------------------------------------------ **
-        ** ------------------------------------------------ **
-        ** Permitir adição à partir de um arquivo de TEXTO  **
-        ** simplismente digitando o seu endereço no         **
-        ** campo de título!                                 **
-        ** ------------------------------------------------ **
-        ** É importante saber que existe                    **
-        ** a possibilidade de isso acontecer também na      **
-        ** classe ReadWrite                                 */
+        doc.Del(one.getTitle());
+        
+        one.setTitle(Action.Document(title));
+        
+        doc.Add(one, true);
+        
+        /* undefined Java code **
+        
+        Arq xml = new Arq([LOCAL DO ARQUIVO XML]);
+        
+        doc.Save(xml);
+        
+        xml_config comment = new xml_config(new Arq([ARQUIVO PADRÃO]).Read());
+        
+        comment.Del(doc.getTitle());
+        
+        comment.Add(xml.Read());
+        
+        ** undefined Java code */
         
     }//session_confirm
     
@@ -741,33 +762,6 @@ public class Action {
         ** }                                                     */
         
     }//session_cancel
-    
-    public static void session_combobox(
-        Domain menu,
-        xml_document doc,
-        xml_document_one one,
-        Font font[],
-        int row
-    )
-    {
-        
-        one.setText(
-            session_ComboBox(
-                menu,
-                one.getText(),
-                row
-            )
-        );
-        
-        controller.p3(
-            new session(
-                doc,
-                one,
-                font
-            )
-        );
-        
-    }//session_combobox
     
     public static void ReadWrite(
         xml_document doc,
