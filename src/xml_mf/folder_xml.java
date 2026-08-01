@@ -149,7 +149,7 @@ public class folder_xml implements Painel_1Single{
                     
                     if(vol.get(cont).Select()){
                         
-                        Action.folder_xml(vol.get(cont), input);
+                        //Action.folder_xml(vol.get(cont), input);
                         
                         loop = false;
                         
@@ -159,7 +159,7 @@ public class folder_xml implements Painel_1Single{
                     
                 }while(loop && cont > 0 && cont < vol.size());
                 
-                if(loop) Action.folder_xml(input);
+                //if(loop) Action.folder_xml(input);
                 
             }//case add, open, key, enter
             

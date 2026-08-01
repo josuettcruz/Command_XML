@@ -4,6 +4,7 @@
  */
 package xml_mf;
 
+import confirm_cancel.DocumentView;
 import form.*;
 import model.*;
 import xml_rw.*;
@@ -36,6 +37,13 @@ public class Action {
     
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
+    public static void Init(){
+        
+        controller.PrintKey();
+        controller.p1s(new config());
+    
+    }//Action()
+    
     public static Font[] MyFont(){
         
         java.awt.Font font[] = {
@@ -49,14 +57,7 @@ public class Action {
     
     public static void newFont(Font font){EditFont = font;}
     
-    public static void Init(){
-        
-        controller.PrintKey();
-        controller.p1s(new config());
-    
-    }//Action()
-    
-    private static boolean newFont(String ttf){
+    public static boolean newFont(String ttf){
         
         if(
             Arq.Dir(ttf, false) &&
@@ -152,7 +153,7 @@ public class Action {
         
     }//Err(String message)
     
-    private static String Document(String input){
+    public static String Document(String input){
         
         if(txt.text(input, exclude_document_function).isBlank()){
             
@@ -763,6 +764,21 @@ public class Action {
         
     }//session_cancel
     
+    public static void ReadWrite(xml_document doc,String input){
+        
+        xml_document_one novo = new xml_document_one();
+        
+        novo.setTitle(
+            txt.text(
+                input,
+                Action.exclude_document_function
+            ).isBlank() ? "" : txt.title(input, true)
+        );
+        
+        controller.p2(new DocumentView(doc, novo, MyFont()));
+        
+    }//ReadWrite(xml_document doc,String input)
+    
     public static void ReadWrite(
         xml_document doc,
         xml_document_one one,
@@ -770,71 +786,16 @@ public class Action {
     )
     {
         
-        /* Essa classe           **
-        ** será chamada          **
-        ** sempre que houver     **
-        ** itens selecionados na **
-        ** classe "ReadWrite"    */
-        
-        if(doc.Write()){
+        if(txt.text(input, Action.exclude_document_function).isBlank()){
             
-            /* Abrir formulário de ações        **
-            ** que ficará em uma classe         **
-            ** que ainda será criada, mas       **
-            ** com a opção de Abrir adicionada! */
+            controller.p2(new DocumentView(doc,one,MyFont()));
             
-            controller.p3(new session(doc, one, MyFont()));
+        } else {//if(txt.text(input, Action.exclude_document_function).isBlank())
             
-        } else {//if(doc.Write())
+            ReadWrite(doc, input);
             
-            /* Abrir formulário de ações **
-            ** que ficará em uma classe  **
-            ** que ainda será criada!    */
-            
-        }//if(doc.Write())
+        }//if(txt.text(input, Action.exclude_document_function).isBlank())
         
     }//ReadWrite(xml_document doc, xml_document_one one, String input)
-    
-    public static void ReadWrite(xml_document doc, String input){
-        
-        ReadWrite(doc, new xml_document_one(), input);
-        
-        /* Essa classe será chamada      **
-        ** quando não houver             **
-        ** itens selecionados!           **
-        ** ----------------------------- **
-        ** Existe a possibilidade de que **
-        ** o chamado da função a cima    **
-        ** seja substituído per uma      **
-        ** ação completamente diferente! **
-        ** Caso isso não ocorra,         **
-        ** deixar essa classe            **
-        ** chamando a classe de cima!    */
-        
-    }//ReadWrite(xml_document doc, String input)
-    
-    public static void folder_xml(Domain select, String input){
-        
-        /* É aquí que vai ficar a              **
-        ** classe Arquivo                      **
-        ** que iniciará a                      **
-        ** classe "xml document"               **
-        ** ----------------------------------- **
-        ** Essa função será chamaa quando,     **
-        ** um ou mais itens forem selecionado! */
-        
-    }//folder_xml(Domain select, String input)
-    
-    public static void folder_xml(String input){
-        
-        /* É aquí que vai ficar a            **
-        ** classe Arquivo                    **
-        ** que iniciará a                    **
-        ** classe "xml document"             **
-        ** --------------------------------- **
-        ** Essa função será chamaa quando,   **
-        ** nenhum intem estiver selecionado! */
-        
-    }//folder_xml(String input)
     
 }//Action

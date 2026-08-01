@@ -7,6 +7,7 @@ package xml_mf;
 import model.*;
 import xml_rw.*;
 import form.*;
+import confirm_cancel.DocumentView;
 
 
 import form.pag1;
@@ -57,6 +58,27 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
     
     public ReadWrite(xml_document arq, Font f[])
     {this.init(arq, f, "");}
+    
+    public Font[] Font(){
+        
+        java.awt.Font val[] = {
+            this.font_title,
+            this.font_list
+        };
+        
+        return val;
+        
+    }
+    
+    public void sent(String input){
+        
+        xml_document_one novo = new xml_document_one();
+        
+        novo.setTitle(txt.text(input, Action.exclude_document_function).isBlank() ? "" : txt.title(input, true));
+        
+        controller.p2(new DocumentView(this.document, novo, this.Font()));
+        
+    }
 
     @Override
     public Font FontTitle() {
@@ -115,7 +137,20 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
         
         switch(action){
             
-            case open, add, enter, key -> {
+            case remove, delet, backspace ->{
+                
+                /* Abrir um formulário   **
+                ** que ainda será criado **
+                ** com as opções de      **
+                ** comfirmar ou cancelar **
+                ** ação de excluir       **
+                ** selectionado!         */
+                
+            }//case remove, delet, backspace 
+            
+            case add, key -> Action.ReadWrite(this.document, input);
+                    
+            case open, enter -> {
                 
                 var proc = 0;
                 var void_selected = true;
@@ -126,9 +161,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                         
                         Action.ReadWrite(
                             this.document,
-                            this.document.List().get(
-                                vol.get(proc).index()
-                            ),
+                            this.document.List().get(proc),
                             input
                         );
                         
@@ -140,37 +173,9 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                     
                 }while(void_selected && proc > 0 && proc < vol.size());
                 
-                if(void_selected) Action.ReadWrite(this.document,input);
+                if(void_selected) Action.ReadWrite(this.document, input);
                 
-            }//case open, add, enter, key 
-            
-            case remove -> {
-                
-                var proc_list = 0;
-                var selected = false;
-                
-                do{
-                    
-                    selected = vol.get(proc_list).Select();
-                    
-                    proc_list++;
-                    
-                }while(!selected && proc_list > 0 && proc_list < vol.size());
-                
-                if(selected){
-                    
-                    /* Abrir um formulário   **
-                    ** que ainda será criado **
-                    ** com as opções de      **
-                    ** confirmar exclusão!   */
-                    
-                } else {//if(selected)
-                    
-                    Action.Exit();
-                    
-                }//if(selected)
-                
-            }//case remove 
+            }//case open, enter
             
         }//switch(action)
         
