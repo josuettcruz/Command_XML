@@ -4,7 +4,7 @@
  */
 package xml_mf;
 
-import confirm_cancel.DocumentView;
+import confirm_cancel.*;
 import form.*;
 import model.*;
 import xml_rw.*;
@@ -710,8 +710,7 @@ public class Action {
         
     }//session_textArea
     
-    public static void session_confirm(
-        boolean mouse,
+    private static void session(
         xml_document doc,
         xml_document_one one,
         String title
@@ -737,6 +736,25 @@ public class Action {
         comment.Add(xml.Read());
         
         ** undefined Java code */
+        
+    }//session
+    
+    public static void session_confirm(
+        xml_document doc,
+        xml_document_one one,
+        String title
+    )
+    {
+        
+        if(Action.newFont(title)){
+            
+            controller.p2(new newFont(doc, one, Arq.Files(title)));
+            
+        } else {//if(Action.newFont(title))
+            
+            Action.session(doc, one, title);
+            
+        }//if(Action.newFont(title))
         
     }//session_confirm
     
@@ -786,16 +804,38 @@ public class Action {
     )
     {
         
-        if(txt.text(input, Action.exclude_document_function).isBlank()){
+        if(Action.newFont(input)){
+            
+            controller.p2(new newFont(doc, Arq.Files(input)));
+            
+        } else if(
+            txt.text(
+                input,
+                Action.exclude_document_function
+            ).isBlank()
+        )
+        {
             
             controller.p2(new DocumentView(doc,one,MyFont()));
             
-        } else {//if(txt.text(input, Action.exclude_document_function).isBlank())
+        } else {//if(Action.newFont(input))
             
             ReadWrite(doc, input);
             
-        }//if(txt.text(input, Action.exclude_document_function).isBlank())
+        }//if(Action.newFont(input))
         
     }//ReadWrite(xml_document doc, xml_document_one one, String input)
+    
+    public static void folder_xml(String input){
+        
+        //01/08/2026
+        
+    }//folder_xml(String input)
+    
+    public static void folder_xml(Domain menu, String input){
+        
+        //01/08/2026
+        
+    }//folder_xml(Domain menu, String input)
     
 }//Action

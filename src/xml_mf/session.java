@@ -213,7 +213,6 @@ public class session implements Painel_3 {
                 if(this.option.index() == 0){
                     
                     Action.session_confirm(
-                        op == confirm,
                         this.document,
                         this.document_one,
                         input
