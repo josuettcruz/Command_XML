@@ -10,6 +10,8 @@ import model.*;
 import xml_rw.*;
 import file.Arq;
 
+import static xml_rw.xml_config_file_cond.*;
+
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -748,7 +750,7 @@ public class Action {
         
         if(Action.newFont(title)){
             
-            controller.p2(new newFont(doc, one, Arq.Files(title)));
+            controller.p2(new newFont(doc, one, Arq.Files(title), MyFont()));
             
         } else {//if(Action.newFont(title))
             
@@ -806,7 +808,7 @@ public class Action {
         
         if(Action.newFont(input)){
             
-            controller.p2(new newFont(doc, Arq.Files(input)));
+            controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
             
         } else if(
             txt.text(
@@ -826,15 +828,52 @@ public class Action {
         
     }//ReadWrite(xml_document doc, xml_document_one one, String input)
     
-    public static void folder_xml(String input){
+    public static void folder_xml(xml_config xml, String input){
         
-        //01/08/2026
+        if(Action.newFont(input)){
+            
+            controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
+            
+        } else {//if(Action.newFont(input))
+            
+            /* Executar uma ação que só será possível   **
+            ** quando o projeto avançar                 **
+            ** para a criação do arquivo geral que      **
+            ** guardará todos os arquivos XMLs recenter */
+            
+        }//if(Action.newFont(input))
         
     }//folder_xml(String input)
     
-    public static void folder_xml(Domain menu, String input){
+    public static void folder_xml(xml_config xml, Domain menu, String input){
         
-        //01/08/2026
+        if(Action.newFont(input)){
+            
+            controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
+            
+        } else {//if(Action.newFont(input))
+            
+            xml_config_one all = xml.learn().get(menu.index());
+            
+            xml_document doc = new xml_document(
+                all.File(),
+                all.Cond() == write // Condição essencial para execução bem susedida!
+            );
+            
+            controller.p1s(
+                new ReadWrite(
+                    doc,
+                    Action.MyFont(),
+                    txt.title(input, true)
+                )
+            );
+            
+            /* Continuar escrevendo só                  **
+            ** quando o projeto avançar                 **
+            ** para a criação do arquivo geral que      **
+            ** guardará todos os arquivos XMLs recenter */
+            
+        }//if(Action.newFont(input))
         
     }//folder_xml(Domain menu, String input)
     

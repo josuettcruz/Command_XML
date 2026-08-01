@@ -61,7 +61,7 @@ public class session implements Painel_3 {
         
     }//session(xml_document all, xml_document_one one, Font f[])
     
-    public session(xml_document all, xml_document_one one, Font f[], Domain op){
+    private session(xml_document all, xml_document_one one, Font f[], Domain op){
         
         this.init(all, one, f);
         

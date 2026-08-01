@@ -27,38 +27,77 @@ public class newFont implements Painel_2{
     private form_selected form_selection;
     private String local_font;
     
-    xml_config xml;
-    xml_document doc;
-    xml_document_one one;
+    private xml_config xml;
+    private xml_document doc;
+    private xml_document_one one;
     
+    private java.awt.Font font_title;
+    private java.awt.Font font_text;
     
-    public newFont(xml_config con, String local){
+    private boolean init(Font f[]){
         
-        this.form_selection = folder_xml;
-        this.xml = con;
+        var try_true = false;
         
-        this.local_font = local;
+        try{
+            
+            this.font_title = f[0];
+            this.font_text = f[1];
+            
+            try_true = true;
+
+        }catch(NullPointerException err){//throw
+
+            Action.Err("NullPointerException", err.getMessage());
+            
+        }catch(Exception err){//throw
+
+            Action.Err("Exception", err.getMessage());
+            
+        }//throw
         
-    }//newFont(xml_config con, Font[] font, String local)
+        return try_true;
+        
+    }//session(xml_document all, xml_document_one one, Font f[])
     
-    public newFont(xml_document doc, String local){
+    public newFont(xml_config con, String local, Font[] f){
         
-        this.form_selection = ReadWrite;
-        this.doc = doc;
+        if(this.init(f)){
+            
+            this.form_selection = folder_xml;
+            this.xml = con;
+            
+            this.local_font = local;
+            
+        }//if(this.init(f))
         
-        this.local_font = local;
-        
-    }//public newFont(xml_config con, String local)
+    }//newFont(xml_config con, Font[] font, String local, Font[] f)
     
-    public newFont(xml_document doc, xml_document_one one, String local){
+    public newFont(xml_document doc, String local, Font[] f){
         
-        this.form_selection = session;
-        this.doc = doc;
-        this.one = one;
+        if(this.init(f)){
+            
+            this.form_selection = ReadWrite;
+            this.doc = doc;
+            
+            this.local_font = local;
+            
+        }//if(this.init(f))
         
-        this.local_font = local;
+    }//public newFont(xml_config con, String local, Font[] f)
+    
+    public newFont(xml_document doc, xml_document_one one, String local, Font[] f){
         
-    }//newFont(xml_document doc, xml_document_one one, String local)
+        if(this.init(f)){
+            
+            this.form_selection = session;
+            this.doc = doc;
+            this.one = one;
+            
+            this.local_font = local;
+            
+        }//if(this.init(f))
+        
+    }//newFont(xml_document doc, xml_document_one one, String local, Font[] f)
     
     private void addFont(carregarFonte cod){
         
@@ -332,12 +371,12 @@ public class newFont implements Painel_2{
 
     @Override
     public Font FontTitle() {
-        return new java.awt.Font("Verdana", 20, 0);
+        return this.font_title;
     }
 
     @Override
     public Font ListFont() {
-        return new java.awt.Font("Consolas", 20, 0);
+        return this.font_text;
     }
 
     @Override
