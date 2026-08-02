@@ -316,7 +316,7 @@ public class Arq {
         
         if(this.valid){
             
-            return new Read(this.text, this.arq);
+            return new Read(this.arq, this.text);
             
         } else {//if(this.valid)
             
@@ -326,43 +326,21 @@ public class Arq {
         
     }//Read()
     
-    public static long Tam(String file){
-        
-        long date = 0L;
-        
-        File menu = new File(file);
-        
-        if(menu.canRead()){
-            
-            date += menu.length();
-            
-        }//if(menu.exists())
-        
-        return date;
-        
-    }//Tam(String file)
-    
     public static long Tam(String file, long init){
         
         long date = init;
         
-        if(date < 0L){
-            
-            date = date - date*2L;
-            
-        }//if(date < 0L)
+        if(date < 0l) date = date - date*2l;
         
         File menu = new File(file);
         
-        if(menu.canRead()){
-            
-            date += menu.length();
-            
-        }//if(menu.exists())
+        if(menu.canRead()) date += menu.length();
         
         return date;
         
     }//Tam(String file, long init)
+    
+    public static long Tam(String file){return Arq.Tam(file, 0l);}
     
     public static boolean Dir(String file, boolean write){
         
@@ -422,13 +400,15 @@ public class Arq {
     
     private static List<String> Folder_Files(String diretory){
         
+        var file = new File(diretory).getAbsolutePath();
+        
         List<String> next = new ArrayList();
         
         var temp = "";
         
-        for(var i = 0; i < diretory.length(); i++){
+        for(var i = 0; i < file.length(); i++){
             
-            switch(diretory.charAt(i)){
+            switch(file.charAt(i)){
                 
                 case '\\', '/' -> {
                     
@@ -437,89 +417,143 @@ public class Arq {
                     
                 }//case '\\', '/'
                 
-                default -> temp += diretory.charAt(i);
+                default -> temp += file.charAt(i);
                 
             }//switch(diretory.charAt(i))
             
-        }//for(var i = 0; i < diretory.length(); i++)
+        }//for(var i = 0; i < file.length(); i++)
         
         if(!temp.isBlank()) next.add(temp);
         
-        if(next.isEmpty()){
+        List<String> rew = new ArrayList();
+        var retreat = 0;
+        
+        for(var i = next.size()-1; i >= 0; i--){
             
-            return new ArrayList();
-            
-        } else {//if(next.isEmpty())
-            
-            List<String> rew = new ArrayList();
-            var retreat = 0;
-            
-            for(var i = next.size()-1; i >= 0; i--){
+            if(retreat(next.get(i))){
                 
-                if(retreat(next.get(i))){
-                    
-                    retreat++;
-                    
-                } else if(retreat > 0){//if(retreat(next.get(i)))
-                    
-                    retreat--;
-                    
-                } else {//if(retreat(next.get(i)))
-                    
-                    rew.add(next.get(i));
-                    
-                }//if(retreat(next.get(i)))
+                retreat++;
                 
-            }//for(var i = next.size()-1; i >= 0; i--)
+            } else if(retreat > 0){//if(retreat(next.get(i)))
+                
+                retreat--;
+                
+            } else {//if(retreat(next.get(i)))
+                
+                rew.add(next.get(i));
+                
+            }//if(retreat(next.get(i)))
             
-            List<String> folder = new ArrayList();
-            
-            for(int i = rew.size()-1; i >= 0; i--)
-            {folder.add(rew.get(i));}
-            
-            return folder;
-            
-        }//if(next.isEmpty())
+        }//for(var i = next.size()-1; i >= 0; i--)
+        
+        List<String> folder = new ArrayList();
+        
+        for(int i = rew.size()-1; i >= 0; i--) folder.add(rew.get(i));
+        
+        return folder;
         
     }//Folder_Files(String diretory)
     
     public static List<String> Folder(String diretory){
         
-        List<String> dir = new ArrayList();
+        List<String> AbsolutePath = new ArrayList();
         
-        for(String ds : Arq.Folder_Files(new File(diretory).getAbsolutePath()))
-        {if(!ds.isBlank()) dir.add(ds);}
+        var acept = false;
+        var caracter = 0;
         
-        return dir;
+        if(diretory.length() > 2){
+            
+            do{
+                
+                char option[] = {
+                    'a',
+                    'b',
+                    'c',
+                    'd',
+                    'e',
+                    'f',
+                    'g',
+                    'h',
+                    'i',
+                    'j',
+                    'k',
+                    'l',
+                    'm',
+                    'n',
+                    'o',
+                    'p',
+                    'q',
+                    'r',
+                    's',
+                    't',
+                    'u',
+                    'w',
+                    'x',
+                    'y',
+                    'z'
+                };
+                
+                var proc = 0;
+                
+                do{
+                    
+                    acept = diretory
+                        .toLowerCase()
+                        .charAt(caracter) == option[proc];
+                    
+                    proc++;
+                    
+                }while(!acept && proc > 0 && proc < option.length);
+                
+                caracter++;
+                
+            }while(!acept && caracter > 0 && caracter < diretory.length());
+            
+        }//if(diretory.length() > 2)
+        
+        if(acept){
+            
+            if(new File(diretory).exists())
+            {AbsolutePath.addAll(Arq.Folder_Files(diretory));}
+            
+        }//if(acept)
+        
+        return AbsolutePath;
         
     }//Folder(String diretory)
     
-    public static String Files(String diretory, boolean against_bar){
+    public static String Files(String diretory){
         
-        var value = "";
-        var bar = false;
+        var getAbsolutePath = Arq.Folder(diretory);
         
-        for(String t : Arq.Folder_Files(new File(diretory).getAbsolutePath())){
+        if(getAbsolutePath.isEmpty()){
             
-            if(bar && against_bar){
-                
-                value += "\\";
-                
-            } else if(bar){//if(bar && against_bar)
-                
-                value += "/";
-                
-            } else {//if(bar && against_bar)
-                
-                bar = true;
-                
-            }//if(bar && against_bar)
+            return "";
             
-            value += t;
+        } else {//if(getAbsolutePath.isEmpty())
             
-        }//for(String t : Arq.Folder_Files(new File(diretory).getAbsolutePath()))
-        
-        return value;
+            var value = "";
+            var bar = false;
+            
+            for(String AbsolutePath : getAbsolutePath){
+                
+                if(bar){//if(bar)
+                    
+                    value += "\\";
+                    
+                } else {//if(bar)
+                    
+                    bar = true;
+                    
+                }//if(bar)
+                
+                value += AbsolutePath;
+                
+            }//for(String AbsolutePath : Arq.Folder(new File(diretory).getAbs...
+            
+            return value;
+            
+        }//if(getAbsolutePath.isEmpty())
         
     }//Files(String diretory)
     

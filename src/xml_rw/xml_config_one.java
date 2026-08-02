@@ -41,11 +41,11 @@ public class xml_config_one {
         this.title = title;
         this.cmd = cmd;
         
-        if(Arq.Dir(cmd.Arq(), true)){
+        if(Arq.Dir(cmd.getAbsolutePath(), true)){
             
             this.cond = write;
             
-        } else if(Arq.Dir(cmd.Arq(), false)){//if - Arq.Dir
+        } else if(Arq.Dir(cmd.getAbsolutePath(), false)){//if - Arq.Dir
             
             this.cond = readonly;
             

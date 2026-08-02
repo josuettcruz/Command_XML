@@ -17,42 +17,39 @@ public class Read {
     
     private List<String> text;
     private String name;
+    private String getAbsolutePath;
+    
     private boolean exec;
     
-    public Read(){
-        
-        String msg = "void";
-        
-        this.text = new ArrayList();
-        this.text.add(msg);
-        this.text.add("Nenhuma ação para ser executada!");
-        this.name = msg;
-        
-        this.exec = false;
-        
-    }//Read()
-    
     public Read(String type, String msg){
+        
+        this.getAbsolutePath = "";
         
         this.text = new ArrayList();
         this.text.add(type);
         this.text.add(msg);
+        
         this.name = msg;
         
         this.exec = false;
         
     }//Read(String type, String msg)
     
-    public Read(List <String> read, String arq){
+    public Read(String arq, List <String> read){
         
-        this.text = read;
         this.name = arq;
+        this.text = read;
+        
+        this.getAbsolutePath = Arq.Files(arq);
         
         this.exec = true;
         
     }//Read(List <String> text)
     
     public String Arq(){return this.name;}
+    
+    public String getAbsolutePath()
+    {return this.getAbsolutePath;}
     
     public String Read(){
         

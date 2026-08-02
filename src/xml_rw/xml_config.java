@@ -27,10 +27,10 @@ public class xml_config {
         this.user = "";
         this.user_in = false;
         
-        this.local = new String[Arq.Folder(arq.Arq()).size()];
+        this.local = new String[Arq.Folder(arq.getAbsolutePath()).size()];
         
-        for(int i = 0; i < Arq.Folder(arq.Arq()).size(); i++)
-        {this.local[i] = Arq.Folder(arq.Arq()).get(i);}
+        for(int i = 0; i < Arq.Folder(arq.getAbsolutePath()).size(); i++)
+        {this.local[i] = Arq.Folder(arq.getAbsolutePath()).get(i);}
         
         if(Reg.xml(arq)) this.Event(arq);
         
@@ -457,15 +457,15 @@ public class xml_config {
         
         var col = "";
         
-        for(var i = 0; i < save.Read().Arq().length(); i++){
+        for(var i = 0; i < save.Read().getAbsolutePath().length(); i++){
             
-            switch(save.Read().Arq().charAt(i)){
+            switch(save.Read().getAbsolutePath().charAt(i)){
                 
                 case '\'', '/' -> col = "";
                 
-                default -> col += save.Read().Arq().charAt(i);
+                default -> col += save.Read().getAbsolutePath().charAt(i);
                 
-            }//switch(save.Read().Arq().charAt(i))
+            }//switch(save.Read().getAbsolutePath().charAt(i))
             
         }//for(var i = 0; i < save.Read().Arq().length(); i++)
         
@@ -537,7 +537,7 @@ public class xml_config {
                 var a = "<file acept=\"";
                 a += doc.Cond().Desc();
                 a += "\">";
-                a += html_utf_8_characters.OutputForm(doc.File().Arq());
+                a += html_utf_8_characters.OutputForm(doc.File().getAbsolutePath());
                 a += "</file>";
                 
                 exp.add(this.Tab(3, a));
