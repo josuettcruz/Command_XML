@@ -750,7 +750,7 @@ public class Action {
         
         if(Action.newFont(title)){
             
-            controller.p2(new newFont(doc, one, Arq.Files(title), MyFont()));
+            controller.p2(new newFont(doc, one, Arq.Files(title, true), MyFont()));
             
         } else {//if(Action.newFont(title))
             
@@ -808,7 +808,7 @@ public class Action {
         
         if(Action.newFont(input)){
             
-            controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
+            controller.p2(new newFont(doc, Arq.Files(input, true), MyFont()));
             
         } else if(
             txt.text(
@@ -832,7 +832,7 @@ public class Action {
         
         if(Action.newFont(input)){
             
-            controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
+            controller.p2(new newFont(xml, Arq.Files(input, true), MyFont()));
             
         } else {//if(Action.newFont(input))
             
@@ -849,7 +849,7 @@ public class Action {
         
         if(Action.newFont(input)){
             
-            controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
+            controller.p2(new newFont(xml, Arq.Files(input, true), MyFont()));
             
         } else {//if(Action.newFont(input))
             
