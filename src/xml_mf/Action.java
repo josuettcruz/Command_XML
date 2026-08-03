@@ -858,16 +858,12 @@ public class Action {
         )
         {
             
-            xml_config_one all = xml.learn().get(menu.index());
-            
-            xml_document doc = new xml_document(
-                all.File(),
-                all.Cond() == write
-            );
-            
             controller.p1s(
                 new ReadWrite(
-                    doc,
+                    new xml_document(
+                        xml.learn().get(menu.index()).File(),
+                        xml.learn().get(menu.index()).Cond() == write
+                    ),
                     Action.MyFont(),
                     txt.title(input, true)
                 )
