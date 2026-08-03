@@ -851,7 +851,12 @@ public class Action {
             
             controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
             
-        } else {//if(Action.newFont(input))
+        } else if(
+            menu.index() >= 0 &&
+            menu.index() < xml.learn().size() &&
+            !xml.learn().isEmpty()
+        )
+        {
             
             xml_config_one all = xml.learn().get(menu.index());
             
@@ -868,10 +873,10 @@ public class Action {
                 )
             );
             
-            /* Continuar escrevendo só                  **
-            ** quando o projeto avançar                 **
-            ** para a criação do arquivo geral que      **
-            ** guardará todos os arquivos XMLs recenter */
+        } else {//if(Action.newFont(input))
+            
+            /* Criar um novo documento          **
+            ** com base nas condições dos dados */
             
         }//if(Action.newFont(input))
         
