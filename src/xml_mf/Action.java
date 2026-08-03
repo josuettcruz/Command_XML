@@ -862,7 +862,7 @@ public class Action {
             
             xml_document doc = new xml_document(
                 all.File(),
-                all.Cond() == write // Condição essencial para execução bem susedida!
+                all.Cond() == write
             );
             
             controller.p1s(
@@ -875,8 +875,7 @@ public class Action {
             
         } else {//if(Action.newFont(input))
             
-            /* Criar um novo documento          **
-            ** com base nas condições dos dados */
+            folder_xml(xml, input);
             
         }//if(Action.newFont(input))
         
