@@ -118,8 +118,7 @@ public class Link {
             
             for(String pg : link.split("/")){
                 
-                if(!pg.isBlank())
-                    this.lnk.add(pg);
+                if(!pg.isBlank()) this.lnk.add(pg);
             
             }//for(String lnk : this.url)
             
@@ -520,6 +519,88 @@ public class Link {
     
     public List<String> OpenMsg(){return this.open_err;}
     
-    public String getLink(){return this.url;}
+    public String getLink(boolean link){
+        
+        if(link){
+            
+            return this.url;
+            
+        } else {//if(link)
+            
+            var note = "";
+            
+            String command[] = this.url.split("/");
+            
+            if(command.length > 3){
+                
+                var code = 0;
+                
+                for(String text : command){
+                    
+                    boolean insert = false;
+                    
+                    switch(text){
+                        
+                        case "http:", "https:" ->{
+                            
+                            if(code == 0){
+                                
+                                code = 1;
+                                
+                            } else {//if(code == 0)
+                                
+                                insert = true;
+                                
+                            }//if(code == 0)
+                            
+                        }//case "http:", "https:"
+                        
+                        case "" ->{
+                            
+                            if(code == 1){
+                                
+                                code = 2;
+                                
+                            } else {//if(code == 1)
+                                
+                                insert = true;
+                                
+                            }//if(code == 1)
+                            
+                        }//case ""
+                        
+                        default ->{
+                            
+                            if(code == 2 || code == 3){
+                                
+                                if(code == 3){
+                                    
+                                    note += "/";
+                                    
+                                } else {//if(code == 3)
+                                    
+                                    code = 3;
+                                    
+                                }//if(code == 3)
+                                
+                                insert = true;
+                                
+                            }//if(code == 2 || code == 3)
+                            
+                        }//default
+                        
+                    }//switch(textcode)
+                    
+                    if(insert) note += text;
+                    
+                }//for(String text : code)
+                
+            }//if(!this.Link(true).isEmpty())
+            
+            return note;
+            
+        }//if(link)
+    
+    }//getLink(boolean link)
     
 }//Link

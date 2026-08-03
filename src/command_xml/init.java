@@ -26,6 +26,73 @@ public class init {
     
     public static void Play(){Action.Init();}
     
+    private static void Prt(Link note, boolean into, int max){
+        
+        final char[] cod = {
+            '-',
+            '_',
+            '/',
+            '.',
+            '?',
+            '=',
+            '0',
+            '1',
+            '2',
+            '3',
+            '4',
+            '5',
+            '6',
+            '7',
+            '8',
+            '9'
+        };
+        
+        var prt = "";
+        
+        for(String p : txt.phrase(note.getLink(false), cod)){
+            
+            var insert = true;
+            
+            String not[] = {
+                "www",
+                "com",
+                "htm",
+                "html",
+                "custom",
+                "question",
+                "questions",
+                "javahelp",
+                "charsets",
+                "asp"
+            };
+            
+            var proc = 0;
+            
+            do{
+                
+                insert = !p.equalsIgnoreCase(not[proc]);
+                
+                proc++;
+                
+            }while(insert && proc > 0 && proc < not.length);
+            
+            if(insert && !into)
+            {insert = !txt.arq(note.dat(false)).contains(txt.arq(p));}
+                
+            if(insert && p.length() > 2){
+                
+                if(!prt.isBlank()) prt += " ";
+                
+                prt += into ? p : p.toUpperCase();
+                
+            }//if(insert && p.length() > 2)
+            
+        }//for(String p : txt.phrase(note.getLink(false), cod))
+        
+        Reg.Print(note.dat(into), prt, max);
+        
+    }//Prt(Link note, boolean into, int max){
+    
     private static void Println(boolean into){
         
         var d = new Data();
@@ -89,17 +156,8 @@ public class init {
         
         }//if(into) - 3 - 4
         
-        Reg.Print(
-            carregarFonte.StackOverflow().dat(into),
-            carregarFonte.StackOverflow().getLink(),
-            max
-        );
-        
-        Reg.Print(
-            carregarFonte.Reddit().dat(into),
-            carregarFonte.Reddit().getLink(),
-            max
-        );
+        init.Prt(carregarFonte.StackOverflow(), into, max);
+        init.Prt(carregarFonte.Reddit(), into, max);
         
         if(into){
             
@@ -109,17 +167,8 @@ public class init {
         
         }//if(into) - 4 - 4
         
-        Reg.Print(
-            html_utf_8_characters.charsets.dat(into),
-            html_utf_8_characters.charsets.getLink(),
-            max
-        );
-        
-        Reg.Print(
-            html_utf_8_characters.unicode.page(false).toUpperCase(),
-            html_utf_8_characters.unicode.getLink(),
-            max
-        );
+        init.Prt(html_utf_8_characters.charsets, into, max);
+        init.Prt(html_utf_8_characters.unicode, into, max);
         
         System.out.println();
         

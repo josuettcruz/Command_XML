@@ -636,7 +636,7 @@ public class Action {
         for(xml_document_link l : val.getUrl()){
             
             value.add(l.name());
-            value.add(l.lnk().getLink());
+            value.add(l.lnk().getLink(true));
             
         }//for(xml_document_link l : val.getUrl())
         
