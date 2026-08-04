@@ -760,6 +760,31 @@ public class Action {
         
     }//session_confirm
     
+    public static void session_save_temp(
+        xml_document doc,
+        xml_document_one one,
+        String title
+    ){
+        
+        var node = "~";
+            
+        node += txt.text(one.getTitle()).charAt(0) == '~'
+            ? txt.AddRepeat(one.getTitle())
+            : one.getTitle();
+        
+        if(txt.phrase(title, exclude_document_function).size() > 1){
+            
+            node += " - ";
+            node += title;
+            
+        }//if(txt.phrase(title, exclude_document_function).size() > 1)
+        
+        one.setTitle(node);
+        
+        session(doc, one, title);
+        
+    }//session_save_temp
+    
     public static void session_cancel(
         xml_document doc,
         xml_document_one one,
@@ -767,20 +792,155 @@ public class Action {
     )
     {
         
-        /* CADEIA antigo_titulo == one.getTitle();               **
-        ** CADEIA novo_titulo == title.trim();                   **
-        **                                                       **
-        ** SE(new_título == antigo_titulo OU novo_titulo == ""){ **
-        **                                                       **
-        **   ESCREVA("Não alterar o documento");                 **
-        **                                                       **
-        ** } SENAO {                                             **
-        **                                                       **
-        **   ESCREVAL("Adicionar:");                             **
-        **   ESCREVAL("~");                                      **
-        **   ESCREVAL("Antes do título do documento!");          **
-        **                                                       **
-        ** }                                                     */
+        var txt1 = "";
+        
+        for(String p : txt.phrase(one.getTitle()))
+        {txt1 += txt.arq(p);}
+        
+        var proc = 0;
+        var find = -1;
+        
+        do{
+            
+            var txt_a1 = "";
+            
+            for(String p : txt.phrase(doc.List().get(proc).getTitle()))
+            {txt_a1 += txt.arq(p);}
+            
+            if(txt1.equals(txt_a1)) find = proc;
+            
+            proc++;
+            
+        }while(find < 0 && proc > 0 && proc < doc.List().size());
+        
+        if(find >= 0){
+            
+            xml_document_one done = doc.List().get(find);
+            
+            var txt2 = "";
+            
+            if(done.getText().isEmpty()){
+                
+                for(String x : done.getText()){
+                    
+                    if(!txt.phrase(x).isEmpty())
+                    {for(String y : txt.phrase(x)) {txt2 += txt.arq(y);}}
+                    
+                }//for(String x : done.getText())
+                
+            }//if(done.getText().isEmpty())
+            
+            var txt3 = "";
+            
+            if(!one.getText().isEmpty()){
+                
+                for(String x : one.getText()){
+                    
+                    if(!txt.phrase(x).isEmpty())
+                    {for(String y : txt.phrase(x)) {txt3 += txt.arq(y);}}
+                    
+                }//for(String x : one.getText())
+                
+            }//if(!one.getText().isEmpty())
+            
+            var cond1a = txt2.equals(txt3);
+            var cond1b = txt.text(txt2,exclude_document_function).isBlank();
+            var cond1 = cond1a || cond1b;
+            
+            var txt4 = "";
+            
+            if(!txt.phrase(title).isEmpty()){
+                
+                for(String x : txt.phrase(title)){
+                    
+                    if(!txt.phrase(x).isEmpty()){
+                        
+                        for(String y : txt.phrase(x))
+                        {txt4 += txt.arq(y);}
+                        
+                    }//if(!txt.phrase(x).isEmpty())
+                    
+                }//for(String x : txt.phrase(title))
+                
+            }//if(!txt.phrase(title).isEmpty())
+            
+            var txt5 = "";
+            
+            if(!txt.phrase(done.getTitle()).isEmpty()){
+                
+                for(String x : txt.phrase(done.getTitle())){
+                    
+                    if(!txt.phrase(x).isEmpty()){
+                        
+                        for(String y : txt.phrase(x))
+                        {txt5 += txt.arq(y);}
+                        
+                    }//if(!txt.phrase(x).isEmpty())
+                    
+                }//for(String x : txt.phrase(title))
+                
+            }//if(!txt.phrase(title).isEmpty())
+            
+            var cond2a = txt4.equals(txt5);
+            var cond2b = txt.text(txt4,exclude_document_function).isBlank();
+            var cond2 = cond2a || cond2b;
+            
+            if(cond1 && cond2){
+                
+                controller.p1m(
+                    new ReadWrite(
+                        doc,
+                        MyFont(),
+                        txt.text(title, true)
+                    )
+                );
+                
+            } else {//if(cond1 && cond2)
+                
+                session_save_temp(doc, one, title);
+                
+            }//if(cond1 && cond2)
+                
+        } else {//if(find >= 0)
+            
+            var cond = true;
+            
+            if(!one.getText().isEmpty()){
+                
+                var cod = one.getText();
+                
+                var letter = 0;
+                
+                do{
+                    
+                    cond = txt.phrase(
+                        cod.get(letter),
+                        exclude_document_function
+                    ).isEmpty();
+                    
+                    letter++;
+                    
+                }while(cond && letter > 0 && letter < cod.size());
+                
+            }//if(!one.getText().isEmpty())
+            
+            if(cond){
+                
+                controller.p1m(
+                    new ReadWrite(
+                        doc,
+                        MyFont(),
+                        txt.text(title, true)
+                    )
+                );
+                
+            } else {//if(cond)
+                
+                session_save_temp(doc, one, title);
+                
+            }//if(cond)
+            
+        }//if(find >= 0)
         
     }//session_cancel
     
