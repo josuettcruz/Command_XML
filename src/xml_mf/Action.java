@@ -788,14 +788,22 @@ public class Action {
         
         xml_document_one novo = new xml_document_one();
         
-        novo.setTitle(
-            txt.text(
-                input,
-                Action.exclude_document_function
-            ).isBlank() ? "" : txt.title(input, true)
-        );
-        
-        controller.p2(new DocumentView(doc, novo, MyFont()));
+        if(Action.newFont(input)){
+            
+            controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
+            
+        } else {//if(Action.newFont(input))
+            
+            novo.setTitle(
+                txt.text(
+                    input,
+                    Action.exclude_document_function
+                ).isBlank() ? "" : txt.title(input, true)
+            );
+            
+            controller.p2(new DocumentView(doc, novo, MyFont()));
+            
+        }//if(Action.newFont(input))
         
     }//ReadWrite(xml_document doc,String input)
     
@@ -806,11 +814,7 @@ public class Action {
     )
     {
         
-        if(Action.newFont(input)){
-            
-            controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
-            
-        } else if(
+        if(
             txt.text(
                 input,
                 Action.exclude_document_function
@@ -818,13 +822,21 @@ public class Action {
         )
         {
             
-            controller.p2(new DocumentView(doc,one,MyFont()));
+            if(Action.newFont(input)){
+                
+                controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
+                
+            } else {//if(Action.newFont(input))
+                
+                controller.p2(new DocumentView(doc,one,MyFont()));
+                
+            }//if(Action.newFont(input))
             
-        } else {//if(Action.newFont(input))
+        } else {//if(txt.text...
             
             ReadWrite(doc, input);
             
-        }//if(Action.newFont(input))
+        }//if(txt.text...
         
     }//ReadWrite(xml_document doc, xml_document_one one, String input)
     
