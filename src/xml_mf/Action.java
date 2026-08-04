@@ -946,13 +946,13 @@ public class Action {
     
     public static void ReadWrite(xml_document doc,String input){
         
-        xml_document_one novo = new xml_document_one();
-        
         if(Action.newFont(input)){
             
             controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
             
         } else {//if(Action.newFont(input))
+            
+            xml_document_one novo = new xml_document_one();
             
             novo.setTitle(
                 txt.text(
@@ -1002,24 +1002,24 @@ public class Action {
     
     public static void folder_xml(xml_config xml, String input){
         
-        if(Action.newFont(input)){
+        if(newFont(input)){
             
             controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
             
-        } else {//if(Action.newFont(input))
+        } else {//if(newFont(input))
             
             /* Executar uma ação que só será possível   **
             ** quando o projeto avançar                 **
             ** para a criação do arquivo geral que      **
             ** guardará todos os arquivos XMLs recenter */
             
-        }//if(Action.newFont(input))
+        }//if(newFont(input))
         
     }//folder_xml(String input)
     
     public static void folder_xml(xml_config xml, Domain menu, String input){
         
-        if(Action.newFont(input)){
+        if(newFont(input)){
             
             controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
             
@@ -1036,16 +1036,16 @@ public class Action {
                         xml.learn().get(menu.index()).File(),
                         xml.learn().get(menu.index()).Cond() == write
                     ),
-                    Action.MyFont(),
+                    MyFont(),
                     txt.title(input, true)
                 )
             );
             
-        } else {//if(Action.newFont(input))
+        } else {//if(newFont(input))
             
             folder_xml(xml, input);
             
-        }//if(Action.newFont(input))
+        }//if(newFont(input))
         
     }//folder_xml(Domain menu, String input)
     
