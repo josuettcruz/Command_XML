@@ -66,9 +66,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private String Commit(){
         
         var val = "git commit -m \"";
-        val += new Data().DataAbreviada(true);
+        val += Data.code().DataAbreviada(true);
         val += " -- ";
-        val += new Hora(true).Timer();
+        val += Hora.code().Timer();
         val += " -- Nesse COMMIT";
         
         if(this.text.size() == 1){
@@ -288,18 +288,16 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     }//Saving()
     
     private String Export(String ext){
-            
-        Hora h = new Hora(true);
         
         var run = txt.Local(ext);
         
         var arqv = Reg.java ? "..\\" : "";
         arqv += "jar - ";
-        arqv += new Data().Load();
+        arqv += Data.code().Load();
         arqv += " - ";
-        arqv += Reg.Numb(h.Hour());
+        arqv += Reg.Numb(Hora.code().Hour());
         arqv += "h";
-        arqv += Reg.Numb(h.Min());
+        arqv += Reg.Numb(Hora.code().Min());
         arqv += "m - ";
         arqv += run;
         arqv += ".txt";
@@ -308,13 +306,13 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             var arqa = Reg.java ? "..\\" : "";
             arqa += "jar - ";
-            arqa += new Data().Load();
+            arqa += Data.code().Load();
             arqa += " - ";
-            arqa += Reg.Numb(h.Hour());
+            arqa += Reg.Numb(Hora.code().Hour());
             arqa += "h";
-            arqa += Reg.Numb(h.Min());
+            arqa += Reg.Numb(Hora.code().Min());
             arqa += "m";
-            arqa += Reg.Numb(h.Sec());
+            arqa += Reg.Numb(Hora.code().Sec());
             arqa += "s - ";
             arqa += run;
             arqa += ".txt";

@@ -95,14 +95,14 @@ public class init {
     
     private static void Println(boolean into){
         
-        var d = new Data();
+        //var d = new Data();
         
         var max = Reg.ide.length();
         max += 1;
         
         if(into){
             
-            var dm = d.DataCompleta("#");
+            var dm = Data.code().DataCompleta("#");
             var dn = dm.indexOf("#");
             
             Reg.Print(dm.substring(0, dn) + ",", dm.substring(dn+1) + "!", max);
@@ -122,7 +122,7 @@ public class init {
         
         if(into){
             
-            var note = !d.CompareTo(Reg.modify);
+            var note = !Data.code().CompareTo(Reg.modify);
             
             if(note) Reg.Print("", "", max);
             

@@ -491,4 +491,24 @@ public class Data {
         
     }//CompareTo(Data d, boolean code)
     
+    public static Data code(){return new Data();}
+    
+    // Function not user
+    public static boolean code(int a, int m, int d, boolean after){
+        
+        return after
+                ? new Data().CompareTo(new Data(a,m,d))
+                : new Data(a,m,d).CompareTo(new Data());
+    
+    }//code(int a, int m, int d, boolean after)
+    
+    // Function not user
+    public static boolean birthday(int a, int m, int d, boolean after){
+        
+        return after
+                ? new Data().CompareDay(new Data(a,m,d))
+                : new Data(a,m,d).CompareDay(new Data());
+    
+    }//birthday(int a, int m, int d, boolean after)
+    
 }//Data

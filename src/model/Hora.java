@@ -414,4 +414,15 @@ public class Hora {
         
     }//Good()
     
+    public static Hora code(){return new Hora(true);}
+    
+    // Function not user
+    public static boolean code(int h, int m, int s, boolean after){
+        
+        return after
+            ? new Hora(true).Compare(new Hora(h,m,s))
+            : new Hora(h,m,s).Compare(new Hora(true));
+    
+    }//code(int h, int m, int s, boolean after)
+    
 }//Hora
