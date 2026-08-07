@@ -27,10 +27,10 @@ public class xml_config {
         this.user = "";
         this.user_in = false;
         
-        this.local = new String[Arq.Folder(arq.getAbsolutePath()).size()];
+        this.local = new String[Arq.Folder(arq.Arq()).size()];
         
-        for(int i = 0; i < Arq.Folder(arq.getAbsolutePath()).size(); i++)
-        {this.local[i] = Arq.Folder(arq.getAbsolutePath()).get(i);}
+        for(int i = 0; i < Arq.Folder(arq.Arq()).size(); i++)
+        {this.local[i] = Arq.Folder(arq.Arq()).get(i);}
         
         if(Reg.xml(arq)){
             
@@ -465,19 +465,21 @@ public class xml_config {
         
         var col = "";
         
-        for(var i = 0; i < save.Read().getAbsolutePath().length(); i++){
+        var note = Arq.Files(save.Read().Arq());
+        
+        for(var i = 0; i < note.length(); i++){
             
-            switch(save.Read().getAbsolutePath().charAt(i)){
+            switch(note.charAt(i)){
                 
                 case '\'', '/' -> col = "";
                 
-                default -> col += save.Read().getAbsolutePath().charAt(i);
+                default -> col += note.charAt(i);
                 
-            }//switch(save.Read().getAbsolutePath().charAt(i))
+            }//switch(note.charAt(i))
             
-        }//for(var i = 0; i < save.Read().Arq().length(); i++)
+        }//for(var i = 0; i < note.length(); i++)
         
-        if(this.local.length > 1){//avoid error
+        if(this.local.length > 1){
             
             root += "\" folder=\"";
             
@@ -545,7 +547,7 @@ public class xml_config {
                 var a = "<file acept=\"";
                 a += doc.Cond().Desc();
                 a += "\">";
-                a += html_utf_8_characters.OutputForm(doc.File().getAbsolutePath());
+                a += html_utf_8_characters.OutputForm(doc.Local(true));
                 a += "</file>";
                 
                 exp.add(this.Tab(3, a));
@@ -753,6 +755,8 @@ public class xml_config {
         return value;
         
     }//Documents(Read d, String file_name)
+    
+    public String Documents(){return this.Documents("");}
     
     public Exec SaveFile(int pos, String file_name){
         

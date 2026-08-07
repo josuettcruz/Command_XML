@@ -30,7 +30,7 @@ public class xml_document {
     
     public xml_document(Read xhtml, boolean write_document_acept){
         
-        this.local = Arq.Files(xhtml.Arq());
+        this.local = xhtml.Arq();
         
         Data d = new Data(1972,1,1);
         Hora h = new Hora(0,0,0);
@@ -708,8 +708,6 @@ public class xml_document {
     
     public Exec Save(Arq xhtml){return xhtml.Save(xmls(Order.tab_space));}
     
-    public Exec Save(){return this.Save(new Arq(this.local));}
-    
     public boolean Del(String value){
         
         var execute = true;
@@ -847,7 +845,13 @@ public class xml_document {
         if(update) this.Update(new Data(), new Hora(true));
     
     }//setTitle(String title)
-
+    
+    public String Local(boolean Absolute){
+        
+        return Absolute ? Arq.Files(this.local) : this.local;
+        
+    }//Local(boolean Absolute)
+    
     public String getTitle() {return title;}
 
     public Data CreateDate() {return create_d;}
@@ -863,7 +867,5 @@ public class xml_document {
     public boolean Write(){return this.write_doc;}
 
     public List<xml_document_one> List() {return list;}
-    
-    public String Local(){return this.local;}
     
 }//xml_document

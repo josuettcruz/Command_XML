@@ -17,19 +17,16 @@ public class Read {
     
     private List<String> text;
     private String name;
-    private String getAbsolutePath;
     
     private boolean exec;
     
     public Read(String type, String msg){
         
-        this.getAbsolutePath = "";
+        this.name = "";
         
         this.text = new ArrayList();
         this.text.add(type);
         this.text.add(msg);
-        
-        this.name = msg;
         
         this.exec = false;
         
@@ -38,18 +35,14 @@ public class Read {
     public Read(String arq, List <String> read){
         
         this.name = arq;
-        this.text = read;
         
-        this.getAbsolutePath = Arq.Files(arq);
+        this.text = read;
         
         this.exec = true;
         
     }//Read(List <String> text)
     
     public String Arq(){return this.name;}
-    
-    public String getAbsolutePath()
-    {return this.getAbsolutePath;}
     
     public String Read(){
         

@@ -8,7 +8,7 @@ import confirm_cancel.*;
 import form.*;
 import model.*;
 import xml_rw.*;
-import file.Arq;
+import file.*;
 
 import static xml_rw.xml_config_file_cond.*;
 
@@ -59,6 +59,14 @@ public class Action {
         doc.Save(arq);
         
         return doc;
+        
+    }//xml_config()
+    
+    private static Exec xml_config(xml_config xml){
+        
+        Arq arq = new Arq(Reg.java ? "..\\config.xml" : "config.xml");
+        
+        return xml.Save(arq);
         
     }//xml_config()
     
@@ -731,17 +739,66 @@ public class Action {
     )
     {
         
+        xml_config xml = xml_config();
+        
         doc.Del(one.getTitle());
         
         one.setTitle(Action.Document(title));
         
         doc.Add(one, true);
         
-        doc.Save();
+        Arq arq = new Arq(doc.Local(true));
         
-        xml_config cod = xml_config();
+        if(arq.Val()){
+            
+            doc.Save(arq);
+            
+        } else {//if(arq.Val())
+            
+            var con = "";
+            
+            if(xml.Windows()){
+                
+                if(Arq.Dir(xml.Documents())){
+                    
+                    con += xml.Documents();
+                    
+                }//if(Arq.Dir(xml.Documents()))
+                
+            }//if(xml.Windows())
+            
+            con += Data.code.Load();
+            con += "_";
+            con += Reg.Numb(Hora.code.Hour());
+            con += "-";
+            con += Reg.Numb(Hora.code.Min());
+            con += "-";
+            con += Reg.Numb(Hora.code.Sec());
+            con += ".xml";
+            
+            doc.Save(new Arq(con));
+            
+        }//if(arq.Val())
         
-        // 07/08/2026 - 13:59
+        var read = xml.learn();
+        
+        List<String> node = new ArrayList();
+        
+        for(xml_config_one o : read) node.add(o.Local(true));
+        
+        var cod = Order.Proc(node, doc.Local(true));
+        
+        if(!read.isEmpty() && cod >= 0 && cod < read.size()) xml.Del(cod);
+
+        var rew = xml.learn().get(cod);
+
+        rew.Update(Data.code, Hora.code);
+
+        xml.Add(rew);
+        
+        var ok = xml_config(xml);
+        
+        if(!ok.Val()) Action.Err(ok.Type(), ok.Message());
         
     }//session
     

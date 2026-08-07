@@ -22,6 +22,7 @@ public class xml_config_one {
     
     private String title;
     private Read cmd;
+    
     private xml_config_file_cond cond;
     
     private Data insert_d;
@@ -41,11 +42,11 @@ public class xml_config_one {
         this.title = title;
         this.cmd = cmd;
         
-        if(Arq.Dir(cmd.getAbsolutePath(), true)){
+        if(Arq.Dir(Arq.Files(cmd.Arq()), true)){
             
             this.cond = write;
             
-        } else if(Arq.Dir(cmd.getAbsolutePath(), false)){//if - Arq.Dir
+        } else if(Arq.Dir(Arq.Files(cmd.Arq()), false)){//if - Arq.Dir
             
             this.cond = readonly;
             
@@ -94,6 +95,9 @@ public class xml_config_one {
     }//Update(Data d, Hora h)
     
     public void newTitle(String newtitle){this.title = newtitle;}
+    
+    public String Local(boolean Absolute)
+    {return Absolute ? Arq.Files(cmd.Arq()) : cmd.Arq();}
     
     public String Title(){return this.title;}
     
