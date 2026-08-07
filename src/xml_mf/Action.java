@@ -39,7 +39,13 @@ public class Action {
     
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
+    private final static String xhtml = Reg.java ?
+        "..\\config.xml" :
+        "config.xml";
+    
     private static void Temp(){
+        
+        //12:11 07/08/2026
         
         Exit();
         
