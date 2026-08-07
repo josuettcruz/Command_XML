@@ -491,7 +491,7 @@ public class Data {
         
     }//CompareTo(Data d, boolean code)
     
-    public static Data code(){return new Data();}
+    public static Data code = new Data();
     
     // Function not user
     public static boolean code(int a, int m, int d, boolean after){

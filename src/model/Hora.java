@@ -414,7 +414,7 @@ public class Hora {
         
     }//Good()
     
-    public static Hora code(){return new Hora(true);}
+    public static Hora code = new Hora(true);
     
     // Function not user
     public static boolean code(int h, int m, int s, boolean after){

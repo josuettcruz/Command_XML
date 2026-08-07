@@ -135,14 +135,14 @@ public class config implements
             
         } else if(this.list.size() == 1){//if(this.list.isEmpty())
             
-            var hora = Hora.code().TimerGood(true, " - ");
+            var hora = Hora.code.TimerGood(true, " - ");
             var p = this.list.get(0);
             
             if(p.length() < hora.length()+1){
                 
                 System.out.print(hora);
                 System.out.print(" -- ");
-                System.out.println(Data.code().DataAbreviada(true));
+                System.out.println(Data.code.DataAbreviada(true));
                 
             } else {//if(p.length() + 2 < h.length())
                 
@@ -159,8 +159,8 @@ public class config implements
                 if(p.length() > 1) if(p.charAt(p.length()-1) != '"') max++;
                 
                 Reg.Print(
-                    "\"" + Data.code().DataAbreviada(true) + "\"",
-                    "\"" + Hora.code().TimerGood(true) + "\"",
+                    "\"" + Data.code.DataAbreviada(true) + "\"",
+                    "\"" + Hora.code.TimerGood(true) + "\"",
                     max
                 );
                 
@@ -273,7 +273,11 @@ public class config implements
         
         Data d = new Data();
         
-        return title ? Data.code().DataAbreviada(this.week) : Data.code().DataCompleta(this.week);
+        return title ? Data.code.DataAbreviada(
+            this.week
+        ) : Data.code.DataCompleta(
+            this.week
+        );
         
     }
 

@@ -111,13 +111,13 @@ public class Action {
     
     public static void Exit(){
         
-        /* LOGICO ide_execute = Reg.java;              **
-        **                                             **
-        ** SE(ide_execute){                            **
-        **   ESCREVAL("System.out.println(\"...\");"); **
-        ** }                                           **
-        **                                             **
-        ** ESCREVAL("System.exit(0);");                */
+        if(Reg.java){
+            
+            System.out.println(Data.code.DataCompleta(true));
+            System.out.println(Hora.code.TimerGood(true));
+            System.out.println(Hora.Good());
+            
+        }
         
         System.exit(0);
         
@@ -155,7 +155,7 @@ public class Action {
         
     }//Err(String message)
     
-    public static String Document(String input){
+    private static String Document(String input){
         
         if(txt.text(input, exclude_document_function).isBlank()){
             

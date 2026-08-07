@@ -102,7 +102,7 @@ public class init {
         
         if(into){
             
-            var dm = Data.code().DataCompleta("#");
+            var dm = Data.code.DataCompleta("#");
             var dn = dm.indexOf("#");
             
             Reg.Print(dm.substring(0, dn) + ",", dm.substring(dn+1) + "!", max);
@@ -122,7 +122,7 @@ public class init {
         
         if(into){
             
-            var note = !Data.code().CompareTo(Reg.modify);
+            var note = !Data.code.CompareTo(Reg.modify);
             
             if(note) Reg.Print("", "", max);
             
