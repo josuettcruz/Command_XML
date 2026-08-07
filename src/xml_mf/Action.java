@@ -39,12 +39,26 @@ public class Action {
     
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
+    private static void Temp(){
+        
+        Exit();
+        
+    }
+    
     public static void Init(){
         
-        controller.PrintKey();
-        controller.p1s(new config());
+        if(Data.code.CompareTo(Reg.modify)){
+            
+            Temp();
+            
+        } else {//if(Data.code.CompareTo(Reg.modify))
+            
+            controller.PrintKey();
+            controller.p1s(new config());
+            
+        }//if(Data.code.CompareTo(Reg.modify))
     
-    }//Action()
+    }//Init()
     
     public static Font[] MyFont(){
         

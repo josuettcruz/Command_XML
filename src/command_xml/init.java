@@ -380,7 +380,7 @@ public class init {
         
         Data d = new Data();
         
-        if(Reg.modify.Val() && d.CompareTo(Reg.modify) && Reg.java){
+        if(Reg.modify.Val() && Data.code.CompareTo(Reg.modify) && Reg.java){
             
             Execute();
             
