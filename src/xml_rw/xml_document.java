@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class xml_document {
     
+    private String local;
     private List<xml_document_one> list;
     private String title;
     private Data create_d;
@@ -28,6 +29,8 @@ public class xml_document {
     private boolean xml_doc;
     
     public xml_document(Read xhtml, boolean write_document_acept){
+        
+        this.local = Arq.Files(xhtml.Arq());
         
         Data d = new Data(1972,1,1);
         Hora h = new Hora(0,0,0);
@@ -50,6 +53,8 @@ public class xml_document {
             this.xml_doc = !this.list.isEmpty();
             
         } else {//if(Reg.xml(xhtml))
+            
+            this.list = new ArrayList();
             
             this.xml_doc = false;
             
@@ -703,6 +708,8 @@ public class xml_document {
     
     public Exec Save(Arq xhtml){return xhtml.Save(xmls(Order.tab_space));}
     
+    public Exec Save(){return this.Save(new Arq(this.local));}
+    
     public boolean Del(String value){
         
         var execute = true;
@@ -856,5 +863,7 @@ public class xml_document {
     public boolean Write(){return this.write_doc;}
 
     public List<xml_document_one> List() {return list;}
+    
+    public String Local(){return this.local;}
     
 }//xml_document

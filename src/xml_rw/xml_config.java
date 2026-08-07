@@ -32,7 +32,15 @@ public class xml_config {
         for(int i = 0; i < Arq.Folder(arq.getAbsolutePath()).size(); i++)
         {this.local[i] = Arq.Folder(arq.getAbsolutePath()).get(i);}
         
-        if(Reg.xml(arq)) this.Event(arq);
+        if(Reg.xml(arq)){
+            
+            this.Event(arq);
+            
+        } else {//if(Reg.xml(arq))
+            
+            this.list = new ArrayList();
+            
+        }//if(Reg.xml(arq))
         
     }//xml_config(Read arq, Integer tab)
     

@@ -22,10 +22,6 @@ import java.util.List;
  */
 public class Action {
     
-    private final static String xhtml = Reg.java ?
-        "..\\config.xml" :
-        "config.xml";
-    
     public final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
         '0','1','2','3','4','5','6','7','8','9'};
@@ -54,40 +50,23 @@ public class Action {
         
     }//MyFont()
     
-    private static void Temp(){
+    private static xml_config xml_config(){
         
-        controller.p1s(
-            new folder_xml(
-                new xml_config(
-                    new Arq(xhtml).Read()
-                ),
-                MyFont()
-            )
-        );
+        Arq arq = new Arq(Reg.java ? "..\\config.xml" : "config.xml");
         
-    }//Temp()
+        xml_config doc = new xml_config(arq.Read());
+        
+        doc.Save(arq);
+        
+        return doc;
+        
+    }//xml_config()
     
     public static void Init(){
         
-        if(Data.code.CompareTo(Reg.modify)){
-            
-            controller.PrintKey();
-            controller.p1s(new config());
-            
-        } else {//if(Data.code.CompareTo(Reg.modify))
-            
-            try{
-                
-                Temp();
-                
-            }catch(Exception e){
-                
-                Action.Err("Exception", e.getMessage());
-                
-            }
-            
-        }//if(Data.code.CompareTo(Reg.modify))
-    
+        controller.PrintKey();
+        controller.p1s(new config());
+        
     }//Init()
     
     public static void newFont(Font font){EditFont = font;}
@@ -758,19 +737,11 @@ public class Action {
         
         doc.Add(one, true);
         
-        /* undefined Java code **
+        doc.Save();
         
-        Arq xml = new Arq([LOCAL DO ARQUIVO XML]);
+        xml_config cod = xml_config();
         
-        doc.Save(xml);
-        
-        xml_config comment = new xml_config(new Arq([ARQUIVO PADRÃO]).Read());
-        
-        comment.Del(doc.getTitle());
-        
-        comment.Add(xml.Read());
-        
-        ** undefined Java code */
+        // 07/08/2026 - 13:59
         
     }//session
     
