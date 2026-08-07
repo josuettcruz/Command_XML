@@ -22,6 +22,10 @@ import java.util.List;
  */
 public class Action {
     
+    private final static String xhtml = Reg.java ?
+        "..\\config.xml" :
+        "config.xml";
+    
     public final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
         '0','1','2','3','4','5','6','7','8','9'};
@@ -39,33 +43,6 @@ public class Action {
     
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
-    private final static String xhtml = Reg.java ?
-        "..\\config.xml" :
-        "config.xml";
-    
-    private static void Temp(){
-        
-        //12:11 07/08/2026
-        
-        Exit();
-        
-    }//Temp()
-    
-    public static void Init(){
-        
-        if(Data.code.CompareTo(Reg.modify)){
-            
-            Temp();
-            
-        } else {//if(Data.code.CompareTo(Reg.modify))
-            
-            controller.PrintKey();
-            controller.p1s(new config());
-            
-        }//if(Data.code.CompareTo(Reg.modify))
-    
-    }//Init()
-    
     public static Font[] MyFont(){
         
         java.awt.Font font[] = {
@@ -76,6 +53,42 @@ public class Action {
         return font;
         
     }//MyFont()
+    
+    private static void Temp(){
+        
+        controller.p1s(
+            new folder_xml(
+                new xml_config(
+                    new Arq(xhtml).Read()
+                ),
+                MyFont()
+            )
+        );
+        
+    }//Temp()
+    
+    public static void Init(){
+        
+        if(Data.code.CompareTo(Reg.modify)){
+            
+            controller.PrintKey();
+            controller.p1s(new config());
+            
+        } else {//if(Data.code.CompareTo(Reg.modify))
+            
+            try{
+                
+                Temp();
+                
+            }catch(Exception e){
+                
+                Action.Err("Exception", e.getMessage());
+                
+            }
+            
+        }//if(Data.code.CompareTo(Reg.modify))
+    
+    }//Init()
     
     public static void newFont(Font font){EditFont = font;}
     
