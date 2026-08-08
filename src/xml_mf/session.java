@@ -166,7 +166,7 @@ public class session implements Painel_3 {
                 if(lnk.Val()){
                     
                     lnk.Open();
-                    Action.Exit();
+                    Action.Exit(this.document);
                     
                 }//if(lnk.Val())
                 

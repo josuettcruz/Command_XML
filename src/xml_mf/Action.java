@@ -31,7 +31,7 @@ public class Action {
         new Domain(1, "Condicionar todo o texto."),
         new Domain(2, "Condicionar Texto."),
         new Domain(3, "Predefinir DATA/HORA"),
-        new Domain(4, "Separas por frase."),
+        new Domain(4, "Separar por frase."),
         new Domain(5, "Separar por textos da frase.")
     };
     
@@ -50,7 +50,7 @@ public class Action {
         
     }//MyFont()
     
-    private static Arq dll(){
+    private static Arq xml_config(){
         
         var file_name_path = "";
         
@@ -59,14 +59,6 @@ public class Action {
         file_name_path += "java-command_xml.xml";
         
         return new Arq(file_name_path);
-        
-    }//dll()
-    
-    private static xml_config xml_config(){
-        
-        xml_config doc = new xml_config(dll().Read());
-        
-        return doc;
         
     }//xml_config()
     
@@ -135,13 +127,120 @@ public class Action {
             
             System.out.println(Data.code.DataCompleta(true));
             System.out.println(Hora.code.TimerGood(true));
-            System.out.println(Hora.Good());
             
-        }
+            Arq arq = Action.xml_config();
+            
+            xml_config xml = new xml_config(arq.Read());
+            
+            if(arq.Val() && xml.Windows()){
+                
+                System.out.print("Ola: \"");
+                System.out.print(xml.UserWindows().toUpperCase());
+                System.out.print("\" ");
+                System.out.print(Hora.Good());
+                System.out.println("!");
+                
+            } else {//if(arq.Val() && xml.Windows())
+                
+                System.out.print(Hora.Good());
+                System.out.println("!");
+                
+            }//if(arq.Val() && xml.Windows())
+            
+            if(!xml.learn().isEmpty()){
+                
+                System.out.println();
+                
+                int ind = 0;
+                
+                var tot = 0;
+                
+                for(xml_config_one t : xml.learn())
+                {if(Arq.Dir(t.Local())) tot++;}
+                
+                for(xml_config_one t : xml.learn()){
+                    
+                    if(Arq.Dir(t.Local())){
+                        
+                        ind++;
+                        
+                        System.out.print("Arquivo: ");
+                        System.out.print(Reg.Numb(ind, tot, " de "));
+                        System.out.print(": \"");
+                        System.out.print(Arq.Files(t.Local()));
+                        System.out.print("\" - [");
+                        System.out.print(t.InsertData().DataAbreviada(true));
+                        
+                        if(!t.ModifyData().CompareTo(t.InsertData())){
+                            
+                            System.out.print("] [");
+                            System.out.print(t.ModifyData().DataAbreviada(true));
+                            
+                        }//if(!t.ModifyData().CompareTo(t.InsertData()))
+                        
+                        System.out.println("]");
+                        
+                    }//if(Arq.Dir(t.Local()))
+                    
+                }//for(xml_config_one t : xml.learn())
+                
+            }//if(!xml.learn().isEmpty())
+            
+        }//if(Reg.java)
         
         System.exit(0);
         
     }//Exit()
+    
+    public static void Exit(xml_document doc){
+        
+        if(Reg.java){
+            
+            System.out.println(Data.code.DataCompleta(true));
+            System.out.println(Hora.code.TimerGood(true));
+            
+            Arq arq = Action.xml_config();
+            
+            xml_config xml = new xml_config(arq.Read());
+            
+            if(arq.Val() && xml.Windows()){
+                
+                System.out.print("Ola: \"");
+                System.out.print(xml.UserWindows().toUpperCase());
+                System.out.print("\" ");
+                System.out.print(Hora.Good());
+                System.out.println("!");
+                
+            } else {//if(arq.Val() && xml.Windows())
+                
+                System.out.print(Hora.Good());
+                System.out.println("!");
+                
+            }//if(arq.Val() && xml.Windows())
+            
+            System.out.println(doc.Local());
+            
+            if(!doc.List().isEmpty()){
+                
+                System.out.println();
+                
+                for(int i = 0; i < doc.List().size(); i++){
+                    
+                    System.out.print("Título ");
+                    System.out.print(Reg.Numb(i+1, doc.List().size(), " de "));
+                    System.out.print(": \"");
+                    System.out.print(doc.List().get(i).getTitle());
+                    System.out.println("\"");
+                    
+                }//for(int i = 0; i < doc.List().size(); i++)
+                
+            }//if(!doc.List().isEmpty())
+            
+        }//if(Reg.java)
+        
+        System.exit(0);
+        
+    }//Exit(xml_document doc)
     
     public final static void Err(String type, String message){
         
@@ -213,33 +312,37 @@ public class Action {
         
         }//if(txt.phrase(message).size() > 1)
         
-        if(Reg.java && no_user_form){
+        if(no_user_form){
             
-            String print[] = {
-                new Data().DataAbreviada(true),
-                new Hora(true).TimerGood(true),
-                Hora.Good()
-            };
+            if(Reg.java){
+                
+                String print[] = {
+                    new Data().DataAbreviada(true),
+                    new Hora(true).TimerGood(true),
+                    Hora.Good()
+                };
+                
+                String println[] = {
+                    type,
+                    "Hove um erro no código do projeto!",
+                    message
+                };
+                
+                var tab = 0;
+                
+                for(String max : print)
+                {tab = max.length() > tab ? max.length() : tab;}
+                
+                tab++;
+                
+                for(var i = 0; i < print.length || i < println.length; i++)
+                {System.err.println(Reg.Tab(print[i],println[i],tab));}
+                
+            }//if(Reg.java)
             
-            String println[] = {
-                type,
-                "Hove um erro no código do projeto!",
-                message
-            };
+            System.exit(0);
             
-            var tab = 0;
-            
-            for(String max : print)
-            {tab = max.length() > tab ? max.length() : tab;}
-            
-            tab++;
-            
-            for(var i = 0; i < print.length || i < println.length; i++)
-            {System.err.println(Reg.Tab(print[i],println[i],tab));}
-            
-        }//if(Reg.java)
-        
-        if(no_user_form) System.exit(0);
+        }//if(no_user_form)
         
     }//Err(String message)
     
@@ -331,13 +434,13 @@ public class Action {
                     
                     cont += tm.get(i).length();
                     
-                    loop = cont <= max_str;
+                    loop = cont <= max_str && tm.get(i).length() < max_str;
                     
                     i++;
                     
                 }while(loop && i > 0 && i < tm.size());
                 
-            } else {//if(tm[0].length() < max_str)
+            } else {//if(tm.get(0).length() < max_str)
                 
                 var p = tm.get(0).toUpperCase();
                 
@@ -351,13 +454,16 @@ public class Action {
                     
                 }while(i > 0 && i < max_str && i < p.length());
                 
-            }//if(tm[0].length() < max_str)
+            }//if(tm.get(0).length() < max_str)
 
-        } else {//if(title && !t.isBlank())
+        } else if(title){//if(title && !t.isBlank())
             
             val += Hora.Good();
-            val += "!";
-            if(title) val += " Documento sem título.";
+            val += "! Documento sem título!";
+            
+        } else {//if(title && !t.isBlank())
+            
+            val += doc.ModifyDate().DataAbreviada(true);
             
         }//if(title && !t.isBlank())
         
@@ -751,11 +857,11 @@ public class Action {
         String tema = "";
         boolean next_line = false;
         
-        for(String v : input_text_area){
+        for(String line_text : input_text_area){
             
             if(next_line){
                 
-                Link lnk = new Link(v);
+                Link lnk = new Link(line_text);
                 
                 if(lnk.Val()){
                     
@@ -767,7 +873,7 @@ public class Action {
                         
                     } else {//if(txt.text(tema, exclude_document_function).is...
                         
-                        text_link = txt.text(tema, next_line);
+                        text_link = txt.text(tema, true);
                         
                     }//if(txt.text(tema, exclude_document_function).isBlank()...
                     
@@ -784,12 +890,12 @@ public class Action {
                 
             } else {//if(next_line)
                 
-                tema = v;
+                tema = line_text;
                 next_line = true;
                 
             }//if(next_line)
             
-        }//for(String val : input_text_area)
+        }//for(String line_text : input_text_area)
         
         if(next_line) tem.add(tema);
         
@@ -807,7 +913,7 @@ public class Action {
     )
     {
         
-        xml_config xml = xml_config();
+        xml_config xml = new xml_config(xml_config().Read());
         
         doc.Del(one.getTitle());
         
@@ -815,7 +921,7 @@ public class Action {
         
         doc.Add(one, true);
         
-        Arq arq = new Arq(doc.Local(true));
+        Arq arq = new Arq(doc.Local());
         
         if(arq.Val()){
             
@@ -854,7 +960,7 @@ public class Action {
         
         for(xml_config_one o : read) node.add(o.Local());
         
-        var cod = Order.Proc(node, doc.Local(true));
+        var cod = Order.Proc(node, doc.Local());
         
         xml_config_one rew;
         
@@ -870,14 +976,14 @@ public class Action {
             
             rew = new xml_config_one(
                 doc.getTitle(),
-                doc.Local(false)
+                doc.Local()
             );
             
         }//if(!read.isEmpty() && cod >= 0 && cod < read.size())
         
         xml.Add(rew);
         
-        var ok = xml.Save(dll());
+        var ok = xml.Save(xml_config());
         
         if(!ok.Val()) Action.Err(ok.Type(), ok.Message());
         

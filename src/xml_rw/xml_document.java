@@ -28,9 +28,31 @@ public class xml_document {
     private boolean write_doc;
     private boolean xml_doc;
     
+    private void InsertAdressLocal(String path){
+        
+        if(Arq.Dir(path)){
+            
+            this.local = Arq.Files(path);
+            
+        } else {//if(Arq.Dir(path))
+            
+            this.local = path;
+            
+        }//if(Arq.Dir(path)
+        
+    }//InsertAdressLocal(String path)
+    
     public xml_document(Read xhtml, boolean write_document_acept){
         
-        this.local = xhtml.Arq();
+        if(Arq.Dir(xhtml.Arq())){
+            
+            this.local = Arq.Files(xhtml.Arq());
+            
+        } else {//if(Arq.Dir(xhtml.Arq()))
+            
+            this.local = xhtml.Arq();
+            
+        }//if(Arq.Dir(xhtml.Arq()))
         
         Data d = new Data(1972,1,1);
         Hora h = new Hora(0,0,0);
@@ -846,11 +868,7 @@ public class xml_document {
     
     }//setTitle(String title)
     
-    public String Local(boolean Absolute){
-        
-        return Absolute ? Arq.Files(this.local) : this.local;
-        
-    }//Local(boolean Absolute)
+    public String Local(){return this.local;}
     
     public String getTitle() {return title;}
 
