@@ -14,7 +14,6 @@ import static xml_rw.xml_config_file_cond.*;
 
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -315,9 +314,9 @@ public class Action {
             
             }//if(equal)
             
-            var tm = txt.title(t, true).split(" ");
+            var tm = txt.phrase(t, exclude_document_function);
             
-            if(tm[0].length() < max_str){
+            if(tm.get(0).length() < max_str){
                 
                 var i = 0;
                 var cont = 0;
@@ -328,19 +327,19 @@ public class Action {
                     
                     if(i > 0) val += " ";
                     
-                    val += tm[i];
+                    val += tm.get(i);
                     
-                    cont += tm[i].length();
+                    cont += tm.get(i).length();
                     
                     loop = cont <= max_str;
                     
                     i++;
                     
-                }while(i > 0 && i < tm.length && loop);
+                }while(loop && i > 0 && i < tm.size());
                 
             } else {//if(tm[0].length() < max_str)
                 
-                var p = tm[0].toUpperCase();
+                var p = tm.get(0).toUpperCase();
                 
                 var i = 0;
                 
