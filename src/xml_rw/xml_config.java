@@ -547,7 +547,7 @@ public class xml_config {
                 var a = "<file acept=\"";
                 a += doc.Cond().Desc();
                 a += "\">";
-                a += html_utf_8_characters.OutputForm(doc.Local(true));
+                a += html_utf_8_characters.OutputForm(doc.Local());
                 a += "</file>";
                 
                 exp.add(this.Tab(3, a));
@@ -867,7 +867,7 @@ public class xml_config {
         
     }//Del(List<Integer> value)
     
-    public int Add(String t, Read r){
+    public int Add(String t, String local, Read r){
         
         var msg_position = -1;
         
@@ -876,7 +876,9 @@ public class xml_config {
         for(xml_config_one x : this.list)
         {o.Add(x, x.Title());}
         
-        var valid = o.Add(new xml_config_one(t, r, new Data(), new Hora(true)), t);
+        var l = Arq.Dir(Arq.Files(local)) ? Arq.Files(local) : local;
+        
+        var valid = o.Add(new xml_config_one(t, l, r, Data.code, Hora.code), t);
         
         if(valid){
             

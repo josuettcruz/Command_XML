@@ -50,23 +50,23 @@ public class Action {
         
     }//MyFont()
     
+    private static Arq dll(){
+        
+        var file_name_path = "";
+        
+        if(Reg.java) file_name_path += "\\..";
+        
+        file_name_path += "java-command_xml.xml";
+        
+        return new Arq(file_name_path);
+        
+    }//dll()
+    
     private static xml_config xml_config(){
         
-        Arq arq = new Arq(Reg.java ? "..\\config.xml" : "config.xml");
-        
-        xml_config doc = new xml_config(arq.Read());
-        
-        doc.Save(arq);
+        xml_config doc = new xml_config(dll().Read());
         
         return doc;
-        
-    }//xml_config()
-    
-    private static Exec xml_config(xml_config xml){
-        
-        Arq arq = new Arq(Reg.java ? "..\\config.xml" : "config.xml");
-        
-        return xml.Save(arq);
         
     }//xml_config()
     
@@ -784,19 +784,27 @@ public class Action {
         
         List<String> node = new ArrayList();
         
-        for(xml_config_one o : read) node.add(o.Local(true));
+        for(xml_config_one o : read) node.add(o.Local());
         
         var cod = Order.Proc(node, doc.Local(true));
         
-        if(!read.isEmpty() && cod >= 0 && cod < read.size()) xml.Del(cod);
-
-        var rew = xml.learn().get(cod);
-
-        rew.Update(Data.code, Hora.code);
-
-        xml.Add(rew);
+        if(!read.isEmpty() && cod >= 0 && cod < read.size()){
+            
+            xml.Del(cod);
+            
+            var rew = xml.learn().get(cod);
+            
+            rew.Update(Data.code, Hora.code);
+            
+            xml.Add(rew);
+            
+        } else {//if(!read.isEmpty() && cod >= 0 && cod < read.size())
+            
+            //xml_config_one c = new xml_config_one(doc.getTitle(), doc.Local(true), doc.[read], Data.code, Hora.code);
+            
+        }//if(!read.isEmpty() && cod >= 0 && cod < read.size())
         
-        var ok = xml_config(xml);
+        var ok = xml.Save(dll());
         
         if(!ok.Val()) Action.Err(ok.Type(), ok.Message());
         

@@ -21,6 +21,7 @@ import static xml_rw.xml_config_file_cond.not;
 public class xml_config_one {
     
     private String title;
+    private String local;
     private Read cmd;
     
     private xml_config_file_cond cond;
@@ -33,6 +34,7 @@ public class xml_config_one {
     
     public xml_config_one(
         String title,
+        String local,
         Read cmd,
         Data insert_d,
         Hora insert_h
@@ -40,6 +42,7 @@ public class xml_config_one {
     {
         
         this.title = title;
+        this.local = local;
         this.cmd = cmd;
         
         if(Arq.Dir(Arq.Files(cmd.Arq()), true)){
@@ -96,8 +99,7 @@ public class xml_config_one {
     
     public void newTitle(String newtitle){this.title = newtitle;}
     
-    public String Local(boolean Absolute)
-    {return Absolute ? Arq.Files(cmd.Arq()) : cmd.Arq();}
+    public String Local(){return this.local;}
     
     public String Title(){return this.title;}
     
