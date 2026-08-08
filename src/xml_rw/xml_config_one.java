@@ -22,7 +22,6 @@ public class xml_config_one {
     
     private String title;
     private String local;
-    private Read cmd;
     
     private xml_config_file_cond cond;
     
@@ -32,24 +31,67 @@ public class xml_config_one {
     private Data modify_d;
     private Hora modify_h;
     
+    private void InsertAdressLocal(String path){
+        
+        if(Arq.Dir(path)){
+            
+            this.local = Arq.Files(path);
+            
+        } else {//if(Arq.Dir(path))
+            
+            this.local = path;
+            
+        }//if(Arq.Dir(path)
+        
+    }//InsertAdressLocal(String path)
+    
     public xml_config_one(
         String title,
-        String local,
-        Read cmd,
+        String getAbsolutePath
+    )
+    {
+        
+        this.title = title;
+        this.InsertAdressLocal(getAbsolutePath);
+        
+        if(Arq.Dir(Arq.Files(getAbsolutePath), true)){
+            
+            this.cond = write;
+            
+        } else if(Arq.Dir(Arq.Files(getAbsolutePath), false)){//if - Arq.Dir
+            
+            this.cond = readonly;
+            
+        } else {//if - Arq.Dir
+            
+            this.cond = not;
+            
+        }//if - Arq.Dir
+        
+        this.insert_d = Data.code;
+        this.insert_h = Hora.code;
+        
+        this.modify_d = Data.code;
+        this.modify_h = Hora.code;
+        
+    }//public xml_config_one - 1 - 3
+    
+    public xml_config_one(
+        String title,
+        String getAbsolutePath,
         Data insert_d,
         Hora insert_h
     )
     {
         
         this.title = title;
-        this.local = local;
-        this.cmd = cmd;
+        this.InsertAdressLocal(getAbsolutePath);
         
-        if(Arq.Dir(Arq.Files(cmd.Arq()), true)){
+        if(Arq.Dir(Arq.Files(getAbsolutePath), true)){
             
             this.cond = write;
             
-        } else if(Arq.Dir(Arq.Files(cmd.Arq()), false)){//if - Arq.Dir
+        } else if(Arq.Dir(Arq.Files(getAbsolutePath), false)){//if - Arq.Dir
             
             this.cond = readonly;
             
@@ -65,11 +107,11 @@ public class xml_config_one {
         this.modify_d = insert_d;
         this.modify_h = insert_h;
         
-    }//public xml_config_one - 1 - 2
+    }//public xml_config_one - 2 - 3
     
     public xml_config_one(
         String title,
-        Read cmd,
+        String getAbsolutePath,
         xml_config_file_cond cond,
         Data insert_d,
         Hora insert_h,
@@ -79,7 +121,7 @@ public class xml_config_one {
     {
         
         this.title = title;
-        this.cmd = cmd;
+        this.InsertAdressLocal(getAbsolutePath);
         this.cond = cond;
         
         this.insert_d = insert_d;
@@ -88,7 +130,7 @@ public class xml_config_one {
         this.modify_d = modify_d;
         this.modify_h = modify_h;
         
-    }//public xml_config_one - 2 - 2
+    }//public xml_config_one - 3 - 3
     
     public void Update(Data d, Hora h){
         
@@ -96,6 +138,8 @@ public class xml_config_one {
         this.modify_h = h;
         
     }//Update(Data d, Hora h)
+    
+    public void Update(){this.Update(Data.code, Hora.code);}
     
     public void newTitle(String newtitle){this.title = newtitle;}
     
@@ -105,7 +149,7 @@ public class xml_config_one {
     
     public xml_config_file_cond Cond(){return this.cond;}
     
-    public Read File(){return this.cmd;}
+    //public Read File(){return this.cmd;}
     
     public Data InsertData(){return this.insert_d;}
     

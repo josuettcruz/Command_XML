@@ -14,6 +14,7 @@ import static xml_rw.xml_config_file_cond.*;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -145,7 +146,75 @@ public class Action {
     
     public final static void Err(String type, String message){
         
-        if(Reg.java){
+        var no_user_form = true;
+        
+        if(txt.phrase(message).size() > 1){
+        
+            List<String> tok = new ArrayList();
+            
+            String toc = "";
+            
+            for(String t : txt.phrase(message)){
+                
+                var new_t = false;
+                
+                if(t.length() > 1){
+                    
+                    final char[] end = {'.', ',', ';', ':'};
+                    
+                    var proc_end = 0;
+                    
+                    do{
+                        
+                        new_t = t.charAt(t.length()-1) == end[proc_end];
+                        
+                        proc_end++;
+                        
+                    }while(!new_t && proc_end > 0 && proc_end < end.length);
+                    
+                    if(!new_t){
+                        
+                        final char[] into = {'\'','"', '[', '(', '{'};
+                        
+                        var proc = 0;
+                        
+                        do{
+                            
+                            new_t = t.charAt(0) == end[proc_end];
+                            
+                            proc++;
+                            
+                        }while(!new_t && proc > 0 && proc < into.length);
+                        
+                    }//if(!new_t)
+                    
+                }//if(t.length() > 1)
+                
+                if(new_t){
+                    
+                    tok.add(toc);
+                    toc = "";
+                    
+                } else {//if(new_t)
+                    
+                    if(!toc.isBlank()) toc += " ";
+                    
+                    toc += t;
+                    
+                }//if(new_t)
+                
+            }//for(String t : txt.phrase(message))
+            
+            var tl = Hora.Good();
+            tl += " - \"";
+            tl += type.toUpperCase();
+            tl += "\"";
+            
+            no_user_form = !controller.Msg(tl, tok, true);
+        
+        }//if(txt.phrase(message).size() > 1)
+        
+        if(Reg.java && no_user_form){
             
             String print[] = {
                 new Data().DataAbreviada(true),
@@ -166,12 +235,12 @@ public class Action {
             
             tab++;
             
-            for(var i = 0; i < print.length && i < println.length; i++)
+            for(var i = 0; i < print.length || i < println.length; i++)
             {System.err.println(Reg.Tab(print[i],println[i],tab));}
             
         }//if(Reg.java)
         
-        System.exit(0);
+        if(no_user_form) System.exit(0);
         
     }//Err(String message)
     
@@ -788,21 +857,26 @@ public class Action {
         
         var cod = Order.Proc(node, doc.Local(true));
         
+        xml_config_one rew;
+        
         if(!read.isEmpty() && cod >= 0 && cod < read.size()){
             
             xml.Del(cod);
             
-            var rew = xml.learn().get(cod);
+            rew = xml.learn().get(cod);
             
-            rew.Update(Data.code, Hora.code);
-            
-            xml.Add(rew);
+            rew.Update();
             
         } else {//if(!read.isEmpty() && cod >= 0 && cod < read.size())
             
-            //xml_config_one c = new xml_config_one(doc.getTitle(), doc.Local(true), doc.[read], Data.code, Hora.code);
+            rew = new xml_config_one(
+                doc.getTitle(),
+                doc.Local(false)
+            );
             
         }//if(!read.isEmpty() && cod >= 0 && cod < read.size())
+        
+        xml.Add(rew);
         
         var ok = xml.Save(dll());
         
@@ -1102,7 +1176,7 @@ public class Action {
             controller.p1s(
                 new ReadWrite(
                     new xml_document(
-                        xml.learn().get(menu.index()).File(),
+                        new Arq(xml.learn().get(menu.index()).Local()).Read(),
                         xml.learn().get(menu.index()).Cond() == write
                     ),
                     MyFont(),

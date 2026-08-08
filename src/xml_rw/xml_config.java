@@ -190,7 +190,7 @@ public class xml_config {
                 o.Add(
                     new xml_config_one(
                         title,
-                        new Arq(file).Read(),
+                        file,
                         dll,
                         new Data(create_year, create_month, create_day),
                         new Hora(create_hour, create_minute, create_second),
@@ -419,7 +419,7 @@ public class xml_config {
             o.Add(
                 new xml_config_one(
                     title,
-                    new Arq(file).Read(),
+                    file,
                     dll,
                     new Data(create_year, create_month, create_day),
                     new Hora(create_hour, create_minute, create_second),
@@ -758,7 +758,7 @@ public class xml_config {
     
     public String Documents(){return this.Documents("");}
     
-    public Exec SaveFile(int pos, String file_name){
+    /*public Exec SaveFile(int pos, String file_name){
         
         if(pos >= 0 && pos < this.list.size() && !this.list.isEmpty()){
             
@@ -773,7 +773,7 @@ public class xml_config {
     }//SaveFile(int pos, String file_name)
     
     public Exec SaveDocument(int pos, String file_name)
-    {return this.SaveFile(pos, this.Documents(file_name));}
+    {return this.SaveFile(pos, this.Documents(file_name));}*/
     
     public boolean Del(String value){
         
@@ -867,7 +867,7 @@ public class xml_config {
         
     }//Del(List<Integer> value)
     
-    public int Add(String t, String local, Read r){
+    public int Add(String t, String local){
         
         var msg_position = -1;
         
@@ -878,7 +878,7 @@ public class xml_config {
         
         var l = Arq.Dir(Arq.Files(local)) ? Arq.Files(local) : local;
         
-        var valid = o.Add(new xml_config_one(t, l, r, Data.code, Hora.code), t);
+        var valid = o.Add(new xml_config_one(t, l, Data.code, Hora.code), t);
         
         if(valid){
             

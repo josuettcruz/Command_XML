@@ -104,7 +104,7 @@ public class controller {
 
                 var title = txt.title(setTtitle, true);
 
-                if(title.isBlank()) title = new Link(Reg.http).page(false);
+                if(title.isBlank()) title = new Link(Reg.http).dat(exit);
 
                 if(doc == null){
 
