@@ -71,25 +71,25 @@ public class Action {
     
     public static void newFont(Font font){EditFont = font;}
     
-    public static boolean newFont(String ttf){
+    private static boolean Value(String arq, String[] ext){
         
         if(
-            Arq.Dir(ttf, false) &&
-            !txt.text(ttf, exclude_document_function).isBlank()
+            Arq.Dir(arq, false) &&
+            !txt.text(arq, exclude_document_function).isBlank()
         )
         {
             
             final String[] otf = {"ttf", "otf"};
             
-            var ext = "";
+            var file = "";
             
-            for(var i = 0; i < ttf.length(); i++){
+            for(var i = 0; i < arq.length(); i++){
                 
-                switch(ttf.charAt(i)){
+                switch(arq.charAt(i)){
                     
-                    case '.' -> ext = "";
+                    case '.' -> file = "";
                     
-                    default -> ext += ttf.charAt(i);
+                    default -> file += arq.charAt(i);
                     
                 }//switch(ttf.charAt(i))
                 
@@ -97,13 +97,13 @@ public class Action {
             
             var aply = false;
             
-            if(!txt.arq(ext).isBlank()){
+            if(!txt.arq(file).isBlank() && ext.length > 1){
                 
                 var proc = 0;
                 
                 do{
                     
-                    aply = txt.arq(ext).equals(otf[proc]);
+                    aply = txt.arq(file).equals(ext[proc]);
                     
                     proc++;
                     
@@ -118,6 +118,14 @@ public class Action {
             return false;
             
         }//if(Arq.Dir(ttf, false) && !txt.text(ttf, exclude_document_function...
+        
+    }//Value(String arq, String[] ext)
+    
+    public static boolean newFont(String ttf){
+        
+        String tema[] = {"ttf", "otf"};
+        
+        return Value(ttf, tema);
         
     }//newFont(String ttf)
     
@@ -917,7 +925,7 @@ public class Action {
         
         doc.Del(one.getTitle());
         
-        one.setTitle(Action.Document(title));
+        one.setTitle(Document(title));
         
         doc.Add(one, true);
         
@@ -985,7 +993,7 @@ public class Action {
         
         var ok = xml.Save(xml_config());
         
-        if(!ok.Val()) Action.Err(ok.Type(), ok.Message());
+        if(!ok.Val()) Err(ok.Type(), ok.Message());
         
     }//session
     
@@ -996,15 +1004,15 @@ public class Action {
     )
     {
         
-        if(Action.newFont(title)){
+        if(newFont(title)){
             
             controller.p2(new newFont(doc, one, Arq.Files(title), MyFont()));
             
-        } else {//if(Action.newFont(title))
+        } else {//if(newFont(title))
             
-            Action.session(doc, one, title);
+            session(doc, one, title);
             
-        }//if(Action.newFont(title))
+        }//if(newFont(title))
         
     }//session_confirm
     
@@ -1205,7 +1213,7 @@ public class Action {
             novo.setTitle(
                 txt.text(
                     input,
-                    Action.exclude_document_function
+                    exclude_document_function
                 ).isBlank() ? "" : txt.title(input, true)
             );
             
@@ -1225,7 +1233,7 @@ public class Action {
         if(
             txt.text(
                 input,
-                Action.exclude_document_function
+                exclude_document_function
             ).isBlank()
         )
         {
