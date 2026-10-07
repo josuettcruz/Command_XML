@@ -101,8 +101,6 @@ public class newFont implements Painel_2{
     
     private void addFont(carregarFonte cod){
         
-        final var msg_err_font = "FontFormatException";
-        
         if(cod.Val()) Action.newFont(cod.Font()); 
         
         switch(this.form_selection){
@@ -113,24 +111,9 @@ public class newFont implements Painel_2{
                     
                     Action.Err("Erro", "xml == null");
                     
-                } else if(cod.Val()){//if(xml == null)
-                    
-                    controller.p1s(
-                        new folder_xml(
-                            this.xml,
-                            Action.MyFont()
-                        )
-                    );
-                    
                 } else {//if(xml == null)
                     
-                    controller.p1s(
-                        new folder_xml(
-                            this.xml,
-                            Action.MyFont(),
-                            msg_err_font
-                        )
-                    );
+                    Action.font_new(cod);
                     
                 }//if(xml == null)
                 
@@ -142,24 +125,9 @@ public class newFont implements Painel_2{
                     
                     Action.Err("Erro", "doc == null");
                     
-                } else if(cod.Val()){//if(xml == null)
-                    
-                    controller.p1m(
-                        new ReadWrite(
-                            this.doc,
-                            Action.MyFont()
-                        )
-                    );
-                    
                 } else {//if(xml == null)
                     
-                    controller.p1s(
-                        new ReadWrite(
-                            this.doc,
-                            Action.MyFont(),
-                            msg_err_font
-                        )
-                    );
+                    Action.font_new(doc, cod);
                     
                 }//if(xml == null)
                 
@@ -171,88 +139,9 @@ public class newFont implements Painel_2{
                     
                     Action.Err("Erro", "doc == null || one == null");
                     
-                } else if(cod.Val()){//if(xml == null)
-                    
-                    controller.p3(
-                        new session(
-                            this.doc,
-                            this.one,
-                            Action.MyFont()
-                        )
-                    );
-                    
                 } else {//if(xml == null)
                     
-                    xml_document_one temp = this.one;
-                    
-                    if(this.one.getTitle().isBlank()){
-                        
-                        temp.setTitle(msg_err_font);
-                        
-                    } else {//if(this.one.getTitle().isBlank())
-                        
-                        var array = txt.phrase(this.one.getTitle(), true);
-                        
-                        var contain = false;
-                        
-                        var txt1 = "";
-                        
-                        for(String t : txt.phrase(
-                            txt.arq(
-                                array.get(
-                                    array.size()-1)
-                                )
-                            )
-                        ) txt1 += t;
-                        
-                        var txt2 = "";
-                        
-                        for(String t : txt.phrase(
-                                txt.arq(
-                                    msg_err_font
-                                )
-                            )
-                        ) txt2 += t;
-                        
-                        if(array.size() > 1) contain = txt1.equals(txt2);
-                        
-                        temp.setTitle(
-                            contain
-                            ? this.one.getTitle()
-                            : this.one.getTitle()
-                            + " - "
-                            + msg_err_font
-                        );
-                        
-                    }//if(this.one.getTitle().isBlank())
-                    
-                    if(!cod.msg().isEmpty()){
-                        
-                        List<String> text = new ArrayList();
-                        
-                        text.add(new Data().DataAbreviada(false));
-                        text.add(new Hora(true).Timer());
-                        
-                        text.addAll(cod.msg());
-                        
-                        if(!this.one.getText().isEmpty()){
-                            
-                            text.add("");
-                            text.addAll(this.one.getText());
-                            
-                        }//if(!this.one.getText().isEmpty())
-                        
-                        temp.setText(text);
-                        
-                    }//if(!cod.msg().isEmpty())
-                    
-                    controller.p3(
-                        new session(
-                            this.doc,
-                            temp,
-                            Action.MyFont()
-                        )
-                    );
+                    Action.font_new(doc, one, cod);
                     
                 }//if(xml == null)
                 

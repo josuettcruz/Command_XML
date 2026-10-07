@@ -57,12 +57,6 @@ public class folder_xml implements Painel_1Single{
     
     public folder_xml(xml_config arq, Font f[])
     {this.init(arq, f, "");};
-    
-    public folder_xml(Font f[], String str)
-    {this.init(new xml_config(Action.xml_config().Read()), f, str);};
-    
-    public folder_xml(Font f[])
-    {this.init(new xml_config(Action.xml_config().Read()), f, "");};
 
     @Override
     public Font FontTitle() {

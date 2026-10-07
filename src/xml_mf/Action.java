@@ -50,7 +50,7 @@ public class Action {
         
     }//MyFont()
     
-    public static Arq xml_config(){
+    private static String xml_config(){
         
         var file_name_path = "";
         
@@ -58,9 +58,16 @@ public class Action {
         
         file_name_path += "java-command_xml.xml";
         
-        return new Arq(file_name_path);
+        return file_name_path;
         
     }//xml_config()
+    
+    private static boolean xml_val(){
+        return Arq.Dir(xml_config(), false);
+    }
+    
+    private static xml_config xml()
+    {return new xml_config(new Arq(xml_config()).Read());}
     
     public static void Init(){
         
@@ -129,6 +136,93 @@ public class Action {
         
     }//newFont(String ttf)
     
+    /* Transferir as ações da classe:            **
+    ** "newFont.java" do pacote "confirm_cancel" **
+    ** para a classe à baxo...                   **
+    ** Linha 222                                 */
+    
+    public static void font_new(carregarFonte f){
+        
+        if(xml_val() && f.Val()){
+            
+            Action.newFont(f.Font());
+            
+            controller.p1s(
+                new folder_xml(
+                    Action.xml(),
+                    Action.MyFont()
+                )
+            );
+            
+        } else if(xml_val()){//if(xml_val() && f.Val())
+            
+            controller.p1s(
+                new folder_xml(
+                    Action.xml(),
+                    Action.MyFont(),
+                    f.msg().get(0)
+                )
+            );
+            
+        } else {//if(xml_val() && f.Val())
+            
+            Action.Exit();
+            
+        }//if(xml_val() && f.Val())
+        
+    }//font_new(carregarFonte f)
+    
+    public static void font_new(xml_document doc, carregarFonte f){
+        
+        if(f.Val()){
+            
+            Action.newFont(f.Font());
+            
+            controller.p1s(new ReadWrite(doc, Action.MyFont()));
+            
+        } else {//if(f.Val())
+            
+            controller.p1s(new ReadWrite(doc, Action.MyFont(), f.msg().get(0)));
+            
+        }//if(f.Val())
+        
+    }//font_new(xml_document doc, carregarFonte f)
+    
+    public static void font_new(
+        xml_document doc,
+        xml_document_one one,
+        carregarFonte f
+    )
+    {
+        
+        if(f.Val()){
+            
+            Action.newFont(f.Font());
+            
+            controller.p3(new session(doc, one, Action.MyFont()));
+            
+        } else {//if(f.Val())
+            
+            List<String> note = new ArrayList();
+            
+            note.addAll(f.msg());
+            
+            if(!one.getText().isEmpty()) note.addAll(one.getText());
+            
+            var dat = one;
+            
+            dat.setText(note);
+            
+            controller.p3(new session(doc, dat, Action.MyFont()));
+            
+        }//if(f.Val())
+        
+    }//font_new(xml_document doc, xml_document_one one, carregarFonte f)
+    
+    /* Linha 139                                       **
+    ** ...acrencentar mais classes referêntes à classe **
+    ** "addFont(carregarFonte cod)"                    */
+    
     public static void Exit(){
         
         if(Reg.java){
@@ -136,14 +230,10 @@ public class Action {
             System.out.println(Data.code.DataCompleta(true));
             System.out.println(Hora.code.TimerGood(true));
             
-            Arq arq = Action.xml_config();
-            
-            xml_config xml = new xml_config(arq.Read());
-            
-            if(arq.Val() && xml.Windows()){
+            if(xml_val() && xml().Windows()){
                 
                 System.out.print("Ola: \"");
-                System.out.print(xml.UserWindows().toUpperCase());
+                System.out.print(xml().UserWindows().toUpperCase());
                 System.out.print("\" ");
                 System.out.print(Hora.Good());
                 System.out.println("!");
@@ -155,7 +245,7 @@ public class Action {
                 
             }//if(arq.Val() && xml.Windows())
             
-            if(!xml.learn().isEmpty()){
+            if(!xml().learn().isEmpty()){
                 
                 System.out.println();
                 
@@ -163,10 +253,10 @@ public class Action {
                 
                 var tot = 0;
                 
-                for(xml_config_one t : xml.learn())
+                for(xml_config_one t : xml().learn())
                 {if(Arq.Dir(t.Local())) tot++;}
                 
-                for(xml_config_one t : xml.learn()){
+                for(xml_config_one t : xml().learn()){
                     
                     if(Arq.Dir(t.Local())){
                         
@@ -207,24 +297,20 @@ public class Action {
             System.out.println(Data.code.DataCompleta(true));
             System.out.println(Hora.code.TimerGood(true));
             
-            Arq arq = Action.xml_config();
-            
-            xml_config xml = new xml_config(arq.Read());
-            
-            if(arq.Val() && xml.Windows()){
+            if(xml_val() && xml().Windows()){
                 
                 System.out.print("Ola: \"");
-                System.out.print(xml.UserWindows().toUpperCase());
+                System.out.print(xml().UserWindows().toUpperCase());
                 System.out.print("\" ");
                 System.out.print(Hora.Good());
                 System.out.println("!");
                 
-            } else {//if(arq.Val() && xml.Windows())
+            } else {//if(Action.xml_config().Val() && xml().Windows())
                 
                 System.out.print(Hora.Good());
                 System.out.println("!");
                 
-            }//if(arq.Val() && xml.Windows())
+            }//if(Action.xml_config().Val() && xml().Windows())
             
             System.out.println(doc.Local());
             
@@ -921,8 +1007,6 @@ public class Action {
     )
     {
         
-        xml_config xml = new xml_config(xml_config().Read());
-        
         doc.Del(one.getTitle());
         
         one.setTitle(Document(title));
@@ -939,11 +1023,11 @@ public class Action {
             
             var con = "";
             
-            if(xml.Windows()){
+            if(xml().Windows()){
                 
-                if(Arq.Dir(xml.Documents())){
+                if(Arq.Dir(xml().Documents())){
                     
-                    con += xml.Documents();
+                    con += xml().Documents();
                     
                 }//if(Arq.Dir(xml.Documents()))
                 
@@ -962,7 +1046,7 @@ public class Action {
             
         }//if(arq.Val())
         
-        var read = xml.learn();
+        var read = xml().learn();
         
         List<String> node = new ArrayList();
         
@@ -974,9 +1058,9 @@ public class Action {
         
         if(!read.isEmpty() && cod >= 0 && cod < read.size()){
             
-            xml.Del(cod);
+            xml().Del(cod);
             
-            rew = xml.learn().get(cod);
+            rew = xml().learn().get(cod);
             
             rew.Update();
             
@@ -989,9 +1073,9 @@ public class Action {
             
         }//if(!read.isEmpty() && cod >= 0 && cod < read.size())
         
-        xml.Add(rew);
+        xml().Add(rew);
         
-        var ok = xml.Save(xml_config());
+        var ok = xml().Save(new Arq(Action.xml_config()));
         
         if(!ok.Val()) Err(ok.Type(), ok.Message());
         
@@ -1304,27 +1388,5 @@ public class Action {
         }//if(newFont(input))
         
     }//folder_xml(Domain menu, String input)
-    
-    /* Transferir as ações da classe:               **
-    ** "newFont.java" do pacote "confirm_cancel"    **
-    ** para a classe à baxo.                        **
-    ** -------------------------------------------- **
-    ** acrencentar mais classes referêntes à classe **
-    ** "addFont(carregarFonte cod)"                 */
-    
-    public static void ReadWriteNewFont(){
-        
-        if(Action.xml_config().Val()){
-            
-            controller.p1s(
-                new folder_xml(
-                    new xml_config(Action.xml_config().Read()),
-                    Action.MyFont()
-                )
-            );
-            
-        }//if(Action.xml_config().Val())
-        
-    }//ReadWriteNewFont()
     
 }//Action
