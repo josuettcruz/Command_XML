@@ -163,12 +163,7 @@ public class newFont implements Painel_2{
                     
                 } else {//if(xml == null)
                     
-                    controller.p1s(
-                        new folder_xml(
-                            this.xml,
-                            Action.MyFont()
-                        )
-                    );
+                    Action.folder_xml();
                     
                 }//if(xml == null)
                 
@@ -182,12 +177,7 @@ public class newFont implements Painel_2{
                     
                 } else {//if(xml == null)
                     
-                    controller.p1m(
-                        new ReadWrite(
-                            this.doc,
-                            Action.MyFont()
-                        )
-                    );
+                    Action.ReadWrite(doc);
                     
                 }//if(xml == null)
                 
@@ -201,13 +191,7 @@ public class newFont implements Painel_2{
                     
                 } else {//if(xml == null)
                     
-                    controller.p3(
-                        new session(
-                            this.doc,
-                            this.one,
-                            Action.MyFont()
-                        )
-                    );
+                    Action.session(doc, one);
                     
                 }//if(xml == null)
                 

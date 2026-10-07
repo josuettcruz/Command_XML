@@ -39,7 +39,7 @@ public class Action {
     
     private static Font EditFont = new java.awt.Font("Verdana", 18, 0);
     
-    public static Font[] MyFont(){
+    private static Font[] MyFont(){
         
         java.awt.Font font[] = {
             new java.awt.Font("Impact", 12, 0),
@@ -1081,6 +1081,9 @@ public class Action {
         
     }//session
     
+    public static void session(xml_document doc, xml_document_one one)
+    {Action.session(doc, one, one.getTitle());}
+    
     public static void session_confirm(
         xml_document doc,
         xml_document_one one,
@@ -1284,7 +1287,7 @@ public class Action {
         
     }//session_cancel
     
-    public static void ReadWrite(xml_document doc,String input){
+    public static void ReadWrite(xml_document doc, String input){
         
         if(Action.newFont(input)){
             
@@ -1306,6 +1309,9 @@ public class Action {
         }//if(Action.newFont(input))
         
     }//ReadWrite(xml_document doc,String input)
+    
+    public static void ReadWrite(xml_document doc)
+    {Action.ReadWrite(doc, doc.getTitle());}
     
     public static void ReadWrite(
         xml_document doc,
@@ -1340,11 +1346,11 @@ public class Action {
         
     }//ReadWrite(xml_document doc, xml_document_one one, String input)
     
-    public static void folder_xml(xml_config xml, String input){
+    public static void folder_xml(String input){
         
         if(newFont(input)){
             
-            controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
+            controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
         } else {//if(newFont(input))
             
@@ -1357,24 +1363,27 @@ public class Action {
         
     }//folder_xml(String input)
     
-    public static void folder_xml(xml_config xml, Domain menu, String input){
+    public static void folder_xml()
+    {Action.folder_xml("");}
+    
+    public static void folder_xml(Domain menu, String input){
         
         if(newFont(input)){
             
-            controller.p2(new newFont(xml, Arq.Files(input), MyFont()));
+            controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
         } else if(
             menu.index() >= 0 &&
-            menu.index() < xml.learn().size() &&
-            !xml.learn().isEmpty()
+            menu.index() < xml().learn().size() &&
+            !xml().learn().isEmpty()
         )
         {
             
             controller.p1s(
                 new ReadWrite(
                     new xml_document(
-                        new Arq(xml.learn().get(menu.index()).Local()).Read(),
-                        xml.learn().get(menu.index()).Cond() == write
+                        new Arq(xml().learn().get(menu.index()).Local()).Read(),
+                        xml().learn().get(menu.index()).Cond() == write
                     ),
                     MyFont(),
                     txt.title(input, true)
@@ -1383,7 +1392,7 @@ public class Action {
             
         } else {//if(newFont(input))
             
-            folder_xml(xml, input);
+            folder_xml(input);
             
         }//if(newFont(input))
         
