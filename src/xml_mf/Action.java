@@ -1305,4 +1305,26 @@ public class Action {
         
     }//folder_xml(Domain menu, String input)
     
+    /* Transferir as ações da classe:               **
+    ** "newFont.java" do pacote "confirm_cancel"    **
+    ** para a classe à baxo.                        **
+    ** -------------------------------------------- **
+    ** acrencentar mais classes referêntes à classe **
+    ** "addFont(carregarFonte cod)"                 */
+    
+    public static void ReadWriteNewFont(){
+        
+        if(Action.xml_config().Val()){
+            
+            controller.p1s(
+                new folder_xml(
+                    new xml_config(Action.xml_config().Read()),
+                    Action.MyFont()
+                )
+            );
+            
+        }//if(Action.xml_config().Val())
+        
+    }//ReadWriteNewFont()
+    
 }//Action
