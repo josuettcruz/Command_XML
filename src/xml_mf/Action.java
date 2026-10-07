@@ -50,7 +50,7 @@ public class Action {
         
     }//MyFont()
     
-    private static Arq xml_config(){
+    public static Arq xml_config(){
         
         var file_name_path = "";
         
