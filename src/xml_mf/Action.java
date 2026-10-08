@@ -1000,7 +1000,7 @@ public class Action {
         
     }//session_textArea
     
-    private static void session(
+    public static void session(
         xml_document doc,
         xml_document_one one,
         String title
@@ -1080,9 +1080,6 @@ public class Action {
         if(!ok.Val()) Err(ok.Type(), ok.Message());
         
     }//session
-    
-    public static void session(xml_document doc, xml_document_one one)
-    {Action.session(doc, one, one.getTitle());}
     
     public static void session_confirm(
         xml_document doc,
@@ -1310,9 +1307,6 @@ public class Action {
         
     }//ReadWrite(xml_document doc,String input)
     
-    public static void ReadWrite(xml_document doc)
-    {Action.ReadWrite(doc, doc.getTitle());}
-    
     public static void ReadWrite(
         xml_document doc,
         xml_document_one one,
@@ -1362,9 +1356,6 @@ public class Action {
         }//if(newFont(input))
         
     }//folder_xml(String input)
-    
-    public static void folder_xml()
-    {Action.folder_xml("");}
     
     public static void folder_xml(Domain menu, String input){
         
