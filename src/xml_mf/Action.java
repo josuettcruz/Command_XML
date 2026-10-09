@@ -78,7 +78,7 @@ public class Action {
     
     public static void newFont(Font font){EditFont = font;}
     
-    private static boolean Value(String arq, String[] ext){
+    private static boolean newFont(String arq){
         
         if(
             Arq.Dir(arq, false) &&
@@ -104,13 +104,13 @@ public class Action {
             
             var aply = false;
             
-            if(!txt.arq(file).isBlank() && ext.length > 1){
+            if(!txt.arq(file).isBlank() && otf.length > 1){
                 
                 var proc = 0;
                 
                 do{
                     
-                    aply = txt.arq(file).equals(ext[proc]);
+                    aply = txt.arq(file).equals(otf[proc]);
                     
                     proc++;
                     
@@ -126,20 +126,7 @@ public class Action {
             
         }//if(Arq.Dir(ttf, false) && !txt.text(ttf, exclude_document_function...
         
-    }//Value(String arq, String[] ext)
-    
-    public static boolean newFont(String ttf){
-        
-        String tema[] = {"ttf", "otf"};
-        
-        return Value(ttf, tema);
-        
-    }//newFont(String ttf)
-    
-    /* Transferir as ações da classe:            **
-    ** "newFont.java" do pacote "confirm_cancel" **
-    ** para a classe à baxo...                   **
-    ** Linha 222                                 */
+    }//newFont(String arq)
     
     public static void font_new(carregarFonte f){
         
@@ -218,10 +205,6 @@ public class Action {
         }//if(f.Val())
         
     }//font_new(xml_document doc, xml_document_one one, carregarFonte f)
-    
-    /* Linha 139                                       **
-    ** ...acrencentar mais classes referêntes à classe **
-    ** "addFont(carregarFonte cod)"                    */
     
     public static void Exit(){
         
