@@ -218,15 +218,11 @@ public class Action {
                 System.out.print("Ola: \"");
                 System.out.print(xml().UserWindows().toUpperCase());
                 System.out.print("\" ");
-                System.out.print(Hora.Good());
-                System.out.println("!");
-                
-            } else {//if(arq.Val() && xml.Windows())
-                
-                System.out.print(Hora.Good());
-                System.out.println("!");
                 
             }//if(arq.Val() && xml.Windows())
+                
+            System.out.print(Hora.Good());
+            System.out.println("!");
             
             if(!xml().learn().isEmpty()){
                 
@@ -277,26 +273,6 @@ public class Action {
         
         if(Reg.java){
             
-            System.out.println(Data.code.DataCompleta(true));
-            System.out.println(Hora.code.TimerGood(true));
-            
-            if(xml_val() && xml().Windows()){
-                
-                System.out.print("Ola: \"");
-                System.out.print(xml().UserWindows().toUpperCase());
-                System.out.print("\" ");
-                System.out.print(Hora.Good());
-                System.out.println("!");
-                
-            } else {//if(Action.xml_config().Val() && xml().Windows())
-                
-                System.out.print(Hora.Good());
-                System.out.println("!");
-                
-            }//if(Action.xml_config().Val() && xml().Windows())
-            
-            System.out.println(doc.Local());
-            
             if(!doc.List().isEmpty()){
                 
                 System.out.println();
@@ -315,7 +291,7 @@ public class Action {
             
         }//if(Reg.java)
         
-        System.exit(0);
+        Exit();
         
     }//Exit(xml_document doc)
     
@@ -998,7 +974,23 @@ public class Action {
         
         Arq arq = new Arq(doc.Local());
         
-        if(arq.Val()){
+        /*SE([Arquivo de texto existir no endereço idicado no título]){
+            
+            TEXTO T = doc.getText().get(0).trim();
+            
+            SE(T == ""){
+                
+                ESCREVAL("O título deve ser o nome do documento");
+                
+            } SENÃO {
+                
+                ESCREVA("\"");
+                ESCREVA(T);
+                ESCREVAL("\" deve ser o título do documento!");
+                
+            }
+            
+        } else */if(arq.Val()){
             
             doc.Save(arq);
             
