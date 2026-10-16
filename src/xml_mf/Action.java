@@ -1041,24 +1041,75 @@ public class Action {
                     
                 } else {//if(next_line)
                     
+                    var validate = true;
                     var co = 0;
                     var tt = "";
                     var tl = "";
                     var tx = "";
                     
-                    for(var x = 0; x < tema.length(); x++){
+                    var x = 0;
+                    
+                    do{
                         
                         var ds = tema.charAt(x);
                         
                         switch(ds){
                             
-                            case '[' -> {if(co == 0) co = 1;}
+                            case '[' -> {
+                                
+                                if(co == 0){
+                                    
+                                    co = 1;
+                                    
+                                } else {//if(co == 0)
+                                    
+                                    validate = false;
+                                    
+                                }//if(co == 0)
                             
-                            case ']' -> {if(co == 1) co = 2;}
+                            }//case '['
                             
-                            case '(' -> {if(co == 2) co = 3;}
+                            case ']' -> {
+                                
+                                if(co == 1){
+                                    
+                                    co = 2;
+                                    
+                                } else {//if(co == 1)
+                                    
+                                    validate = false;
+                                    
+                                }//if(co == 1)
                             
-                            case ')' -> {if(co == 3) co = 4;}
+                            }//case ']'
+                            
+                            case '(' -> {
+                                
+                                if(co == 2){
+                                    
+                                    co = 3;
+                                    
+                                } else {//if(co == 2)
+                                    
+                                    validate = false;
+                                    
+                                }//if(co == 2)
+                            
+                            }//case '('
+                            
+                            case ')' -> {
+                                
+                                if(co == 3){
+                                    
+                                    co = 4;
+                                    
+                                } else {//if(co == 3)
+                                    
+                                    validate = false;
+                                    
+                                }//if(co == 3)
+                            
+                            }//case ')'
                             
                             default -> {
                                 
@@ -1078,38 +1129,41 @@ public class Action {
                             
                         }//switch(ds)
                         
-                        Link dom = new Link(tl);
+                        x++;
+                        
+                    }while(validate && x < tema.length());
+                        
+                    Link dom = new Link(tl);
+                    
+                    if(
+                        validate &&
+                        dom.Val() &&
+                        !txt.text(
+                            tt,
+                            exclude_document_function
+                        ).isBlank()
+                    )
+                    {
+                        
+                        dat.add(
+                            new xml_document_link(
+                                txt.text(tt, true),
+                                dom
+                            )
+                        );
                         
                         if(
-                            dom.Val() &&
                             !txt.text(
-                                tt,
+                                tx,
                                 exclude_document_function
                             ).isBlank()
-                        )
-                        {
-                            
-                            dat.add(
-                                new xml_document_link(
-                                    txt.text(tt, true),
-                                    dom
-                                )
-                            );
-                            
-                            if(
-                                !txt.text(
-                                    tx,
-                                    exclude_document_function
-                                ).isBlank()
-                            ) tem.add(txt.text(tx, true));
-                            
-                        } else {//if(dom.Val() && !txt.text(tt, exclude_docum...
-                            
-                            tem.add(tema);
-                            
-                        }//if(dom.Val() && !txt.text(tt, exclude_document_fun...
+                        ) tem.add(txt.text(tx, true));
                         
-                    }//for(var x = 0; x < tema.length(); x++)
+                    } else {//if(validate...
+                        
+                        tem.add(tema);
+                        
+                    }//if(validate...
                     
                 }//if(next_line)
                 
