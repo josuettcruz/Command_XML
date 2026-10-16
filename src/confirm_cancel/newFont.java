@@ -101,8 +101,6 @@ public class newFont implements Painel_2{
     
     private void addFont(carregarFonte cod){
         
-        if(cod.Val()) Action.newFont(cod.Font()); 
-        
         switch(this.form_selection){
             
             case folder_xml ->{
@@ -191,7 +189,7 @@ public class newFont implements Painel_2{
                     
                 } else {//if(xml == null)
                     
-                    Action.session(doc, one,"");
+                    Action.session(doc, one,one.getTitle(), true);
                     
                 }//if(xml == null)
                 

@@ -76,7 +76,7 @@ public class Action {
         
     }//Init()
     
-    public static void newFont(Font font){EditFont = font;}
+    private static void newFont(Font font){EditFont = font;}
     
     private static boolean newFont(String arq){
         
@@ -962,7 +962,8 @@ public class Action {
     public static void session(
         xml_document doc,
         xml_document_one one,
-        String title
+        String title,
+        boolean confirm
     )
     {
         
@@ -974,23 +975,23 @@ public class Action {
         
         Arq arq = new Arq(doc.Local());
         
-        /*SE([Arquivo de texto existir no endereço idicado no título]){
+        if(confirm/* and [ARQUIVO DE TEXTO DO TÍTULO DA PÁGINA ENCONTRADO!] */){
             
-            TEXTO T = doc.getText().get(0).trim();
+            /* TEXTO T = doc.getText().get(0).trim();                 **
+            **                                                        **
+            ** SE(T == ""){                                           **
+            **                                                        **
+            **     ESCREVAL("O título deve ser o nome do documento"); **
+            **                                                        **
+            ** } SENÃO {                                              **
+            **                                                        **
+            **     ESCREVA("\"");                                     **
+            **     ESCREVA(T);                                        **
+            **     ESCREVAL("\" deve ser o título do documento!");    **
+            **                                                        **
+            }                                                         */
             
-            SE(T == ""){
-                
-                ESCREVAL("O título deve ser o nome do documento");
-                
-            } SENÃO {
-                
-                ESCREVA("\"");
-                ESCREVA(T);
-                ESCREVAL("\" deve ser o título do documento!");
-                
-            }
-            
-        } else */if(arq.Val()){
+        } else if(arq.Val()){
             
             doc.Save(arq);
             
@@ -1069,7 +1070,7 @@ public class Action {
             
         } else {//if(newFont(title))
             
-            session(doc, one, title);
+            session(doc, one, title, true);
             
         }//if(newFont(title))
         
@@ -1096,7 +1097,7 @@ public class Action {
         
         one.setTitle(node);
         
-        session(doc, one, title);
+        session(doc, one, title, false);
         
     }//session_save_temp
     
