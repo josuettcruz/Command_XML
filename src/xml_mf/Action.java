@@ -1128,7 +1128,40 @@ public class Action {
                 
             }//if(page.size() > 1)
             
-            if(doc_one_title.isBlank()) doc_one_title = r.Arq();
+            if(doc_one_title.isBlank()){
+                
+                var t = r.Arq();
+                
+                var tema = "";
+                
+                for(var i = 0; i < t.length(); i++){
+                    
+                    switch(t.charAt(i)){
+                        
+                        case '.' ->{
+                            
+                            if(!doc_one_title.isBlank()) doc_one_title += ".";
+                            
+                            doc_one_title += tema;
+                            tema = "";
+                            
+                        }
+                        
+                        default -> tema += t.charAt(i);
+                        
+                    }//switch(t.charAt(i))
+                    
+                }//for(var i = 0; i < t.length(); i++)
+                
+                if(tema.length() > 3 || doc_one_title.isBlank()){
+                    
+                    if(!doc_one_title.isBlank()) doc_one_title += ".";
+                    
+                    doc_one_title += tema;
+                    
+                }//if(tema.length() > 3)
+                
+            }//if(doc_one_title.isBlank())
             
             controller.p3(
                 new session(
