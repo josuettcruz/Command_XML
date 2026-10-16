@@ -22,7 +22,7 @@ import form.pag2;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class DocumentNew implements Painel_2{
     
