@@ -1628,44 +1628,120 @@ public class Action {
     
     public static void folder_xml(String input){
         
-        if(newFont(input)){
+        if(newFont(txt.text(input, true))){
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
-        } else {//if(newFont(input))
+        } else if(txt.text(input, true).isBlank()){//if(newFont(txt.text(inpu...
             
-            /* Executar uma ação que só será possível   **
-            ** quando o projeto avançar                 **
-            ** para a criação do arquivo geral que      **
-            ** guardará todos os arquivos XMLs recenter */
+            Exit();
             
-        }//if(newFont(input))
+        } else {//if(newFont(txt.text(input, true)))
+            
+            if(input.contains("\\") && input.contains("/")){
+                
+                var tema = "";
+                var demo = "";
+                
+                var letter = false;
+                
+                for(var i = 0; i < input.length(); i++){
+                    
+                    switch(input.charAt(i)){
+                        
+                        case '\\', '/' ->{
+                            
+                            if(!tema.isBlank()) tema += "\\";
+                            
+                            tema += demo;
+                            demo = "";
+                            
+                            letter = false;
+                            
+                        }//case '\\', '/'
+                        
+                        case ' ' ->{if(letter) demo += " ";}
+                        
+                        default ->{
+                            
+                            demo += input.charAt(i);
+                            letter = true;
+                            
+                        }//default
+                        
+                    }//switch(ds)
+                    
+                }//for(var i = 0; i < input.length(); i++)
+                
+                if(letter && Arq.Dir(tema + "\\")){
+                    
+                    Arq a = new Arq(tema + "\\" + demo + ".xml");
+                    
+                    if(a.Val()){
+                        
+                        controller.p2(
+                            new DocumentNew(
+                                new xml_document(a.Read(), true),
+                                MyFont()
+                            )
+                        );
+                        
+                    } else {//if(a.Val())
+                        
+                        Exit();
+                        
+                    }//if(a.Val())
+                    
+                } else {//if(letter && Arq.Dir(tema + "\\"))
+                    
+                    Exit();
+                    
+                }//if(letter && Arq.Dir(tema + "\\"))
+                
+            } else {//if(input.contains("\\") && input.contains("/"))
+                
+                /* Aquí vai abrir o novo documento            **
+                ** dentro da pasta Documentoe                 **
+                ** ou na pasta original!                      **
+                ** ------------------------------------------ **
+                ** Vou parar um pouco depois do código à cima **
+                ** que está muito complexo!                   */
+                
+            }//if(input.contains("\\") && input.contains("/"))
+            
+        }//if(newFont(txt.text(input, true)))
         
     }//folder_xml(String input)
     
     public static void folder_xml(Domain menu, String input){
         
-        if(newFont(input)){
+        if(newFont(txt.text(input, true))){
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
         } else if(
             menu.index() >= 0 &&
             menu.index() < xml().learn().size() &&
-            !xml().learn().isEmpty()
+            !xml().learn().isEmpty() &&
+            txt.text(input, exclude_document_function).isBlank()
         )
         {
             
-            controller.p1s(
-                new ReadWrite(
+            
+            
+            controller.p2(
+                new DocumentNew(
                     new xml_document(
                         new Arq(xml().learn().get(menu.index()).Local()).Read(),
                         xml().learn().get(menu.index()).Cond() == write
                     ),
-                    MyFont(),
-                    txt.title(input, true)
+                    MyFont()
                 )
             );
+            
+        } else if(txt.text(input, exclude_document_function).isBlank()){//if(...
+            
+            Exit();
             
         } else {//if(newFont(input))
             
