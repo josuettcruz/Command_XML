@@ -8,7 +8,6 @@ import model.Data;
 import model.Hora;
 
 import file.Arq;
-import file.Read;
 
 import static xml_rw.xml_config_file_cond.write;
 import static xml_rw.xml_config_file_cond.readonly;
@@ -148,8 +147,6 @@ public class xml_config_one {
     public String Title(){return this.title;}
     
     public xml_config_file_cond Cond(){return this.cond;}
-    
-    //public Read File(){return this.cmd;}
     
     public Data InsertData(){return this.insert_d;}
     

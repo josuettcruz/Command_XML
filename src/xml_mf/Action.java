@@ -54,7 +54,7 @@ public class Action {
         
         var file_name_path = "";
         
-        if(Reg.java) file_name_path += "\\..";
+        if(Reg.java) file_name_path += "..\\";
         
         file_name_path += "java-command_xml.xml";
         
@@ -68,6 +68,113 @@ public class Action {
     
     private static xml_config xml()
     {return new xml_config(new Arq(xml_config()).Read());}
+    
+    private static List<String> Doc(){
+        
+        List<String> files = new ArrayList();
+        
+        if(xml().Windows()){
+            
+            var Documents = "C:\\Users\\";
+            Documents += xml().UserWindows();
+            Documents += "\\Documents\\";
+            
+            files.add(Documents);
+            
+        }//if(xml().Windows())
+        
+        if(!xml().learn().isEmpty()){
+            
+            Order<xml_config_one> data = new Order();
+            
+            for(xml_config_one x : xml().learn()){
+                
+                var t = x.Local();
+                var tema = "";
+                var demo = "";
+                
+                for(var i = 0; i < t.length(); i++){
+                    
+                    switch(t.charAt(i)){
+                        
+                        case '\\', '/' ->{
+                            
+                            demo = t;
+                            t = "";
+                            
+                        }//case '\\', '/'
+                        
+                        default -> tema += t.charAt(i);
+                        
+                    }//switch(tema.charAt(i))
+                    
+                }//for(var i = 0; i < t.length(); i++)
+                
+                data.Add(x, tema.isBlank() ? demo : tema);
+                
+            }//for(xml_config_one x : xml().learn())
+            
+            for(xml_config_one j : data.Return()){
+                
+                var t = j.Local();
+                var tema = "";
+                var demo = "";
+                
+                for(var i = 0; i < tema.length(); i++){
+                    
+                    switch(t.charAt(i)){
+                        
+                        case '\\', '/' ->{
+                            
+                            if(!demo.isBlank()){
+                                
+                                tema += demo;
+                                tema += "\\";
+                                
+                                demo = "";
+                                
+                            }//if(!demo.isBlank())
+                            
+                        }//case '\\', '/'
+                        
+                        default -> demo += t.charAt(i);
+                        
+                    }//switch(t.charAt(i))
+                    
+                }//for(var i = 0; i < tema.length(); i++)
+                
+                tema += "\\";
+                
+                files.add(tema);
+                
+            }//for(xml_config_one j : data.Return())
+            
+        }//if(!xml().learn().isEmpty())
+        
+        return files;
+        
+    }//Doc()
+    
+    private static List<Read> Doc(String file, boolean write){
+        
+        List<Read> files = new ArrayList();
+        
+        for(String val : Doc()){
+            
+            var arq = val;
+            arq += file;
+            
+            if(Arq.Dir(arq, write)){
+                
+                files.add(new Arq(arq).Read());
+                
+            }//if(Arq.Dir(arq, write))
+            
+        }//for(String val : Doc())
+        
+        return files;
+        
+    }//Doc(String file)
     
     public static void Init(){
         
@@ -975,27 +1082,67 @@ public class Action {
         
         Arq arq = new Arq(doc.Local());
         
-        if(confirm/* and [ARQUIVO DE TEXTO DO TÍTULO DA PÁGINA ENCONTRADO!] */){
+        var notepad = confirm && !Doc(title, false).isEmpty();
+        
+        if(notepad){
             
-            /* TEXTO T = doc.getText().get(0).trim();                 **
-            **                                                        **
-            ** SE(T == ""){                                           **
-            **                                                        **
-            **     ESCREVAL("O título deve ser o nome do documento"); **
-            **                                                        **
-            ** } SENÃO {                                              **
-            **                                                        **
-            **     ESCREVA("\"");                                     **
-            **     ESCREVA(T);                                        **
-            **     ESCREVAL("\" deve ser o título do documento!");    **
-            **                                                        **
-            }                                                         */
+            Read r = Doc(title, false).get(0);
             
-        } else if(arq.Val()){
+            var doc_one_title = "";
+            
+            List<String> page = one.getText();
+            
+            if(page.size() > 1){
+                
+                var proc = 0;
+                var loop = true;
+                
+                do{
+                    
+                    final var tlc = txt.text(
+                        page.get(proc),
+                        exclude_document_function
+                    );
+                    
+                    if(tlc.isBlank()){
+                        
+                        doc_one_title = tlc;
+                        loop = false;
+                        
+                    }//if(tlc.isBlank())
+                    
+                    proc++;
+                    
+                }while(loop && proc > 0 && proc < page.size());
+                
+            } else {//if(page.size() > 1)
+                
+                if(!page.isEmpty()){
+                    
+                    doc_one_title = txt.text(
+                        page.get(0),
+                        exclude_document_function
+                    );
+                
+                }//if(!page.isEmpty())
+                
+            }//if(page.size() > 1)
+            
+            if(doc_one_title.isBlank()) doc_one_title = r.Arq();
+            
+            controller.p3(
+                new session(
+                    doc,
+                    session_textArea(doc_one_title, r.content()),
+                    MyFont()
+                )
+            );
+            
+        } else if(arq.Val()){//if(notepad)
             
             doc.Save(arq);
             
-        } else {//if(arq.Val())
+        } else {//if(notepad)
             
             var con = "";
             
@@ -1020,7 +1167,7 @@ public class Action {
             
             doc.Save(new Arq(con));
             
-        }//if(arq.Val())
+        }//if(notepad)
         
         var read = xml().learn();
         

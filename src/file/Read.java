@@ -44,6 +44,8 @@ public class Read {
     
     public String Arq(){return this.name;}
     
+    public List<String> content(){return this.text;}
+    
     public String Read(){
         
         var txt = "";
