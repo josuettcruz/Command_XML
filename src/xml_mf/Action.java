@@ -1041,7 +1041,75 @@ public class Action {
                     
                 } else {//if(next_line)
                     
-                    tem.add(tema);
+                    var co = 0;
+                    var tt = "";
+                    var tl = "";
+                    var tx = "";
+                    
+                    for(var x = 0; x < tema.length(); x++){
+                        
+                        var ds = tema.charAt(x);
+                        
+                        switch(ds){
+                            
+                            case '[' -> {if(co == 0) co = 1;}
+                            
+                            case ']' -> {if(co == 1) co = 2;}
+                            
+                            case '(' -> {if(co == 2) co = 3;}
+                            
+                            case ')' -> {if(co == 3) co = 4;}
+                            
+                            default -> {
+                                
+                                if(ds == ' ') tx += " ";
+                                
+                                switch(co){
+                                    
+                                    case 1 -> tt += ds;
+                                    
+                                    case 3 -> tl += ds;
+                                    
+                                    case 0, 4 -> tx += ds;
+                                    
+                                }//switch(co)
+                                
+                            }//default
+                            
+                        }//switch(ds)
+                        
+                        Link dom = new Link(tl);
+                        
+                        if(
+                            dom.Val() &&
+                            !txt.text(
+                                tt,
+                                exclude_document_function
+                            ).isBlank()
+                        )
+                        {
+                            
+                            dat.add(
+                                new xml_document_link(
+                                    txt.text(tt, true),
+                                    dom
+                                )
+                            );
+                            
+                            if(
+                                !txt.text(
+                                    tx,
+                                    exclude_document_function
+                                ).isBlank()
+                            ) tem.add(txt.text(tx, true));
+                            
+                        } else {//if(dom.Val() && !txt.text(tt, exclude_docum...
+                            
+                            tem.add(tema);
+                            
+                        }//if(dom.Val() && !txt.text(tt, exclude_document_fun...
+                        
+                    }//for(var x = 0; x < tema.length(); x++)
                     
                 }//if(next_line)
                 
