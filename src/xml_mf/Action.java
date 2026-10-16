@@ -1066,7 +1066,7 @@ public class Action {
                                     validate = false;
                                     
                                 }//if(co == 0)
-                            
+                                
                             }//case '['
                             
                             case ']' -> {
@@ -1085,39 +1085,47 @@ public class Action {
                             
                             case '(' -> {
                                 
-                                if(co == 2){
+                                switch(co){
                                     
-                                    co = 3;
+                                    case 2  -> co = 3;
+                                    case 1  -> tt += " (";
+                                    default -> validate = false;
                                     
-                                } else {//if(co == 2)
-                                    
-                                    validate = false;
-                                    
-                                }//if(co == 2)
+                                }//switch(co)
                             
                             }//case '('
                             
                             case ')' -> {
                                 
-                                if(co == 3){
+                                switch(co){
                                     
-                                    co = 4;
+                                    case 3  -> co = 4;
+                                    case 1  -> tt += ") ";
+                                    default -> validate = false;
                                     
-                                } else {//if(co == 3)
-                                    
-                                    validate = false;
-                                    
-                                }//if(co == 3)
+                                }//switch(co)
                             
                             }//case ')'
                             
                             default -> {
                                 
-                                if(ds == ' ') tx += " ";
-                                
                                 switch(co){
                                     
                                     case 1 -> tt += ds;
+                                    
+                                    case 2 -> {
+                                        
+                                        if(ds == ' '){
+                                            
+                                            tx += " ";
+                                            
+                                        } else {//if(ds == ' ')
+                                            
+                                            validate = false;
+                                            
+                                        }//if(ds == ' ')
+                                        
+                                    }//case 2
                                     
                                     case 3 -> tl += ds;
                                     
@@ -1143,7 +1151,7 @@ public class Action {
                             exclude_document_function
                         ).isBlank()
                     )
-                    {
+                    {//if(validate...
                         
                         dat.add(
                             new xml_document_link(
