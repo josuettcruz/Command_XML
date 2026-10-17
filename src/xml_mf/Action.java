@@ -1673,7 +1673,7 @@ public class Action {
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
-        } else if(txt.text(input, true).isBlank()){//if(newFont(txt.text(inpu...
+        } else if(txt.text(input, exclude_document_function).isBlank()){//if(...
             
             Exit();
             
@@ -1685,6 +1685,7 @@ public class Action {
                 var demo = "";
                 
                 var letter = false;
+                var space = false;
                 
                 for(var i = 0; i < input.length(); i++){
                     
@@ -1701,9 +1702,21 @@ public class Action {
                             
                         }//case '\\', '/'
                         
-                        case ' ' ->{if(letter) demo += " ";}
+                        case ' ' -> {
+                            
+                            if(letter) space = true;
+                            
+                        }//case ' '
                         
                         default ->{
+                            
+                            if(space){
+                                
+                                demo += " ";
+                                
+                                space = false;
+                                
+                            }//if(space)
                             
                             demo += input.charAt(i);
                             letter = true;
@@ -1739,14 +1752,45 @@ public class Action {
                     
                 }//if(letter && Arq.Dir(tema + "\\"))
                 
+            } else if(txt.text(input, exclude_document_function).length() > 5){
+                
+                String tem;
+                
+                if(xml().Windows()){
+                    
+                    tem = "C:\\Users\\";
+                    tem += xml().UserWindows();
+                    tem += "\\Documents\\";
+                    
+                } else {//if(xml().Windows())
+                    
+                    tem = Reg.java ? "..\\" : "";
+                    
+                }//if(xml().Windows())
+                
+                tem += input;
+                tem += ".xml";
+                
+                Arq a = new Arq(tem);
+                
+                if(a.Val()){
+                    
+                    controller.p1s(
+                        new ReadWrite(
+                            new xml_document(a.Read(), true),
+                            MyFont()
+                        )
+                    );
+                    
+                } else {//if(a.Val())
+                    
+                    Action.Err(a.Type(), a.Message());
+                    
+                }//if(a.Val())
+                
             } else {//if(input.contains("\\") && input.contains("/"))
                 
-                /* Aquí vai abrir o novo documento            **
-                ** dentro da pasta Documentoe                 **
-                ** ou na pasta original!                      **
-                ** ------------------------------------------ **
-                ** Vou parar um pouco depois do código à cima **
-                ** que está muito complexo!                   */
+                Exit();
                 
             }//if(input.contains("\\") && input.contains("/"))
             
@@ -1779,10 +1823,6 @@ public class Action {
                     MyFont()
                 )
             );
-            
-        } else if(txt.text(input, exclude_document_function).isBlank()){//if(...
-            
-            Exit();
             
         } else {//if(newFont(input))
             
