@@ -1694,8 +1694,8 @@ public class Action {
                     
                     if(a.Val()){
                         
-                        controller.p2(
-                            new DocumentNew(
+                        controller.p1s(
+                            new ReadWrite(
                                 new xml_document(a.Read(), true),
                                 MyFont()
                             )
@@ -1744,8 +1744,8 @@ public class Action {
             
             
             
-            controller.p2(
-                new DocumentNew(
+            controller.p1s(
+                new ReadWrite(
                     new xml_document(
                         new Arq(xml().learn().get(menu.index()).Local()).Read(),
                         xml().learn().get(menu.index()).Cond() == write
