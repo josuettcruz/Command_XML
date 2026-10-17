@@ -1219,15 +1219,27 @@ public class Action {
     )
     {
         
-        doc.Del(one.getTitle());
-        
-        one.setTitle(Document(title));
-        
-        doc.Add(one, true);
-        
         Arq arq = new Arq(doc.Local());
         
         var notepad = confirm && !Doc(title, false).isEmpty();
+        
+        if(notepad){
+            
+            final boolean[] valid = {
+                Doc(title, false).get(0).Max() < 1000,
+                Doc(title, false).get(0).Read().length() < 1000000L,
+                Arq.Tam(Doc(title, false).get(0).Arq()) < 1073741824L
+            };
+            
+            var proc = 0;
+            
+            do{
+                
+                proc++;
+                
+            }while(notepad && proc > 0 && proc < valid.length);
+            
+        }//if(notepad)
         
         if(notepad){
             
@@ -1318,6 +1330,12 @@ public class Action {
             
         } else if(arq.Val()){//if(notepad)
             
+            doc.Del(one.getTitle());
+            
+            one.setTitle(Document(title));
+            
+            doc.Add(one, true);
+            
             doc.Save(arq);
             
         } else {//if(notepad)
@@ -1343,7 +1361,15 @@ public class Action {
             con += Reg.Numb(Hora.code.Sec());
             con += ".xml";
             
-            doc.Save(new Arq(con));
+            doc.Del(one.getTitle());
+            
+            one.setTitle(Document(title));
+            
+            doc.Add(one, true);
+            
+            var err = doc.Save(new Arq(con));
+            
+            if(!err.Val()) Action.Err(err.Type(), err.Message());
             
         }//if(notepad)
         
@@ -1666,7 +1692,7 @@ public class Action {
                         
                         case '\\', '/' ->{
                             
-                            if(!tema.isBlank()) tema += "\\";
+                            if(letter) tema += "\\";
                             
                             tema += demo;
                             demo = "";

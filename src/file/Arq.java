@@ -330,7 +330,7 @@ public class Arq {
         
         long date = init;
         
-        if(date < 0l) date = date - date*2l;
+        if(date < 0l) date = date - date*2L;
         
         File menu = new File(file);
         
@@ -340,7 +340,7 @@ public class Arq {
         
     }//Tam(String file, long init)
     
-    public static long Tam(String file){return Arq.Tam(file, 0l);}
+    public static long Tam(String file){return Arq.Tam(file, 0L);}
     
     public static boolean Dir(String file, boolean write){
         
@@ -454,6 +454,8 @@ public class Arq {
         
     }//Folder_Files(String diretory)
     
+    // verificar competência do código na linha 466
+    // Pode ser um erro?
     public static List<String> Folder(String diretory){
         
         List<String> AbsolutePath = new ArrayList();
