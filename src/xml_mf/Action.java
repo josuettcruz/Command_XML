@@ -24,7 +24,9 @@ public class Action {
     
     public final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
-        '0','1','2','3','4','5','6','7','8','9'};
+        '0','1','2','3','4','5','6','7','8','9',
+        '"','\'','@','#','$','%','&','*','-','_',
+        '|','/','\\'};
     
     public final static Domain[] session_option = {
         new Domain(0, "Selecione uma opção!"),
@@ -90,8 +92,8 @@ public class Action {
             for(xml_config_one x : xml().learn()){
                 
                 var t = x.Local();
-                var tema = "";
-                var demo = "";
+                var folder = "";
+                var file = "";
                 
                 for(var i = 0; i < t.length(); i++){
                     
@@ -99,18 +101,18 @@ public class Action {
                         
                         case '\\', '/' ->{
                             
-                            demo = t;
-                            t = "";
+                            folder = file;
+                            file = "";
                             
                         }//case '\\', '/'
                         
-                        default -> tema += t.charAt(i);
+                        default -> file += t.charAt(i);
                         
                     }//switch(tema.charAt(i))
                     
                 }//for(var i = 0; i < t.length(); i++)
                 
-                data.Add(x, tema.isBlank() ? demo : tema);
+                data.Add(x, file.isBlank() ? folder : file);
                 
             }//for(xml_config_one x : xml().learn())
             
@@ -119,6 +121,7 @@ public class Action {
                 var t = j.Local();
                 var tema = "";
                 var demo = "";
+                var control = false;
                 
                 for(var i = 0; i < tema.length(); i++){
                     
@@ -126,24 +129,36 @@ public class Action {
                         
                         case '\\', '/' ->{
                             
-                            if(!demo.isBlank()){
+                            if(!tema.isBlank()){
                                 
-                                tema += demo;
                                 tema += "\\";
+                                control = false;
                                 
-                                demo = "";
-                                
-                            }//if(!demo.isBlank())
+                            }//if(!tema.isBlank())
+                            
+                            tema += demo;
+                            demo = "";
                             
                         }//case '\\', '/'
                         
-                        default -> demo += t.charAt(i);
+                        case ' ' -> {
+                            
+                            if(control) demo += " ";
+                            
+                        }//case ' '
+                        
+                        default -> {
+                            
+                            demo += t.charAt(i);
+                            control = true;
+                            
+                        }//default
                         
                     }//switch(t.charAt(i))
                     
                 }//for(var i = 0; i < tema.length(); i++)
                 
-                tema += "\\";
+                if(control) tema += "\\";
                 
                 files.add(tema);
                 
