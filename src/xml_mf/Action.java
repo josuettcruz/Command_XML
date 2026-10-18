@@ -254,28 +254,17 @@ public class Action {
         
         if(xml_val() && f.Val()){
             
-            Action.newFont(f.Font());
+            newFont(f.Font());
             
-            controller.p1s(
-                new folder_xml(
-                    Action.xml(),
-                    Action.MyFont()
-                )
-            );
+            controller.p1s(new folder_xml(xml(),MyFont()));
             
         } else if(xml_val()){//if(xml_val() && f.Val())
             
-            controller.p1s(
-                new folder_xml(
-                    Action.xml(),
-                    Action.MyFont(),
-                    f.msg().get(0)
-                )
-            );
+            controller.p1s(new folder_xml(xml(),MyFont(),f.msg().get(0)));
             
         } else {//if(xml_val() && f.Val())
             
-            Action.Exit();
+            Exit();
             
         }//if(xml_val() && f.Val())
         
@@ -285,13 +274,13 @@ public class Action {
         
         if(f.Val()){
             
-            Action.newFont(f.Font());
+            newFont(f.Font());
             
-            controller.p1s(new ReadWrite(doc, Action.MyFont()));
+            controller.p1s(new ReadWrite(doc, MyFont()));
             
         } else {//if(f.Val())
             
-            controller.p1s(new ReadWrite(doc, Action.MyFont(), f.msg().get(0)));
+            controller.p1s(new ReadWrite(doc, MyFont(), f.msg().get(0)));
             
         }//if(f.Val())
         
@@ -306,9 +295,9 @@ public class Action {
         
         if(f.Val()){
             
-            Action.newFont(f.Font());
+            newFont(f.Font());
             
-            controller.p3(new session(doc, one, Action.MyFont()));
+            controller.p3(new session(doc, one, MyFont()));
             
         } else {//if(f.Val())
             
@@ -322,7 +311,7 @@ public class Action {
             
             dat.setText(note);
             
-            controller.p3(new session(doc, dat, Action.MyFont()));
+            controller.p3(new session(doc, dat, MyFont()));
             
         }//if(f.Val())
         
@@ -1369,7 +1358,7 @@ public class Action {
             
             var err = doc.Save(new Arq(con));
             
-            if(!err.Val()) Action.Err(err.Type(), err.Message());
+            if(!err.Val()) Err(err.Type(), err.Message());
             
         }//if(notepad)
         
@@ -1402,7 +1391,7 @@ public class Action {
         
         xml().Add(rew);
         
-        var ok = xml().Save(new Arq(Action.xml_config()));
+        var ok = xml().Save(new Arq(xml_config()));
         
         if(!ok.Val()) Err(ok.Type(), ok.Message());
         
@@ -1613,11 +1602,11 @@ public class Action {
     
     public static void ReadWrite(xml_document doc, String input){
         
-        if(Action.newFont(input)){
+        if(newFont(input)){
             
             controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
             
-        } else {//if(Action.newFont(input))
+        } else {//if(newFont(input))
             
             xml_document_one novo = new xml_document_one();
             
@@ -1630,7 +1619,7 @@ public class Action {
             
             controller.p2(new DocumentView(doc, novo, MyFont()));
             
-        }//if(Action.newFont(input))
+        }//if(newFont(input))
         
     }//ReadWrite(xml_document doc,String input)
     
@@ -1649,15 +1638,15 @@ public class Action {
         )
         {
             
-            if(Action.newFont(input)){
+            if(newFont(input)){
                 
                 controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
                 
-            } else {//if(Action.newFont(input))
+            } else {//if(newFont(input))
                 
                 controller.p2(new DocumentView(doc,one,MyFont()));
                 
-            }//if(Action.newFont(input))
+            }//if(newFont(input))
             
         } else {//if(txt.text...
             
@@ -1784,7 +1773,7 @@ public class Action {
                     
                 } else {//if(a.Val())
                     
-                    Action.Err(a.Type(), a.Message());
+                    Err(a.Type(), a.Message());
                     
                 }//if(a.Val())
                 
