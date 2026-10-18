@@ -1839,9 +1839,13 @@ public class Action {
                         tem += xml().UserWindows();
                         tem += "\\Documents\\";
                         
-                    } else {//if(xml().Windows())
+                    } else if(Reg.java){//if(xml().Windows())
                         
-                        tem = Reg.java ? "..\\" : "";
+                        tem = "..\\";
+                        
+                    } else {
+                        
+                        tem = "";
                         
                     }//if(xml().Windows())
                     
@@ -1870,9 +1874,8 @@ public class Action {
                             new ReadWrite(
                                 new xml_document(
                                     node.get(0),
-                                    Arq.Dir(Arq.Files(node.get(0).Arq()
-                                ), true)
-                            ),
+                                    Arq.Dir(Arq.Files(node.get(0).Arq()), true)
+                                ),
                             MyFont()
                         )
                     );
