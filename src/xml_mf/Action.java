@@ -1742,7 +1742,7 @@ public class Action {
                         
                     } else {//if(a.Val())
                         
-                        Exit();
+                        Err(a.Type(), a.Message());
                         
                     }//if(a.Val())
                     
