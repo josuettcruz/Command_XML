@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import model.txt;
 
 /**
  *
@@ -454,11 +455,11 @@ public class Arq {
         
     }//Folder_Files(String diretory)
     
-    // verificar competência do código na linha 466
-    // Pode ser um erro?
     public static List<String> Folder(String diretory){
         
         List<String> AbsolutePath = new ArrayList();
+        
+        /* Método antigo e duvidoso **
         
         var acept = false;
         var caracter = 0;
@@ -519,6 +520,11 @@ public class Arq {
             {AbsolutePath.addAll(Arq.Folder_Files(diretory));}
             
         }//if(acept)
+        
+        ** Abaixo está o método novo e por enquanto, confiável */
+        
+        if(txt.text(diretory).length() > 1 && new File(diretory).exists())
+        {AbsolutePath.addAll(Arq.Folder_Files(diretory));}
         
         return AbsolutePath;
         

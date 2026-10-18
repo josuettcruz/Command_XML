@@ -1741,41 +1741,143 @@ public class Action {
                     
                 }//if(letter && Arq.Dir(tema + "\\"))
                 
-            } else if(txt.text(input, exclude_document_function).length() > 5){
+            } else if(
+                txt.text(input, exclude_document_function).length() > 03 &&
+                txt.text(input, exclude_document_function).length() < 20
+            )
+            {//if(input.contains("\\") && input.contains("/"))
                 
-                String tem;
+                final char[] no_acept_char = {
+                    '!',
+                    '?',
+                    ':',
+                    ';',
+                    '@',
+                    '#',
+                    '$',
+                    '%',
+                    '¬',
+                    '&',
+                    '*',
+                    '+',
+                    '=',
+                    '§',
+                    '{',
+                    '}',
+                    '[',
+                    ']',
+                    '(',
+                    ')',
+                    '<',
+                    '>',
+                    '|'
+                };
                 
-                if(xml().Windows()){
+                var file = "";
+                var point = false;
+                var char_cont = 0;
+                
+                for(var i = 0; i < input.length(); i++){
                     
-                    tem = "C:\\Users\\";
-                    tem += xml().UserWindows();
-                    tem += "\\Documents\\";
+                    switch(input.charAt(i)){
+                        
+                        case '.' -> {
+                            
+                            if(char_cont >= 3){
+                                
+                                point = true;
+                                char_cont = 0;
+                                
+                            }//if(char_cont >= 3)
+                            
+                        }//case '.'
+                        
+                        default -> {
+                            
+                            var x = 0;
+                            var acept = true;
+                            
+                            do{
+                                
+                                acept = input.charAt(i) == no_acept_char[x];
+                                
+                                x++;
+                                
+                            }while(acept && x > 0 && x < no_acept_char.length);
+                            
+                            if(acept){
+                                
+                                if(point){
+                                    
+                                    file += ".";
+                                    point = false;
+                                    
+                                }//if(point)
+                                
+                                file += input.charAt(i);
+                                char_cont++;
+                                
+                            }//if(acept)
+                            
+                        }//default
+                        
+                    }//switch(input.charAt(i))
                     
-                } else {//if(xml().Windows())
+                }//for(var i = 0; i < input.length(); i++)
+                
+                file += ".xml";
+                
+                List<Read> node = Doc(file, false);
+                
+                if(node.isEmpty()){
                     
-                    tem = Reg.java ? "..\\" : "";
+                    String tem;
                     
-                }//if(xml().Windows())
-                
-                tem += input;
-                tem += ".xml";
-                
-                Arq a = new Arq(tem);
-                
-                if(a.Val()){
+                    if(xml().Windows()){
+                        
+                        tem = "C:\\Users\\";
+                        tem += xml().UserWindows();
+                        tem += "\\Documents\\";
+                        
+                    } else {//if(xml().Windows())
+                        
+                        tem = Reg.java ? "..\\" : "";
+                        
+                    }//if(xml().Windows())
+                    
+                    tem += file;
+                    
+                    Arq a = new Arq(tem);
+                    
+                    if(a.Val()){
+                        
+                        controller.p1s(
+                            new ReadWrite(
+                                new xml_document(a.Read(), true),
+                                MyFont()
+                            )
+                        );
+                        
+                    } else {//if(a.Val())
+                        
+                        Err(a.Type(), a.Message());
+                        
+                    }//if(a.Val())
+                    
+                } else {//if(node.isEmpty())
                     
                     controller.p1s(
-                        new ReadWrite(
-                            new xml_document(a.Read(), true),
+                            new ReadWrite(
+                                new xml_document(
+                                    node.get(0),
+                                    Arq.Dir(Arq.Files(node.get(0).Arq()
+                                ), true)
+                            ),
                             MyFont()
                         )
                     );
                     
-                } else {//if(a.Val())
-                    
-                    Err(a.Type(), a.Message());
-                    
-                }//if(a.Val())
+                }//if(node.isEmpty())
                 
             } else {//if(input.contains("\\") && input.contains("/"))
                 
