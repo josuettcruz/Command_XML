@@ -12,8 +12,6 @@ import file.*;
 
 import static xml_rw.xml_config_file_cond.*;
 
-import static xml_mf.Action_folder_xml.*;
-
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,6 +195,36 @@ public class Action {
         
         controller.PrintKey();
         controller.p1s(new config());
+        
+        /* CADEIA info_err;                                                 **
+        **                                                                  **
+        ** ESCREVAL("classe \"Action\" do pacote \"xml_mf\"");              **
+        **                                                                  **
+        ** ESCREVA("Observe o código minunciosamente e diga se ");          **
+        ** ESCREVAL("encontrou algum erro!");                               **
+        **                                                                  **
+        ** ESCREVAL("Deixe em branco se não encontrar nenhum erro!");       **
+        ** LEIA(info_err);                                                  **
+        **                                                                  **
+        ** SE(info_err == ""){                                              **
+        **                                                                  **
+        **    ESCREVA("A próxima etapa é: ");                               **
+        **    ESCREVAL("rodar o código!");                                  **
+        **                                                                  **
+        **    ESCREVA("Mas atenção, pode haver erros que não ");            **
+        **    ESCREVA("foi encontrado na visualização do código, mas ");    **
+        **    ESCREVA("pode ser que todo erro já tenha sido resolvido e "); **
+        **    ESCREVA("o código funcione normalmente!");                    **
+        **                                                                  **
+        ** } SENAO {                                                        **
+        **                                                                  **
+        **    ESCREVAL("Não mexer na função:");                             **
+        **                                                                  **
+        **    ESCREVAL("public static void Init()");                        **
+        **                                                                  **
+        **    ESCREVA("Mas ao invés disso, antes, resolver o problema ");   **
+        **    ESCREVA("encontrado e procurar novos erros.");                **
+        ** }                                                                */
         
     }//Init()
     
@@ -1891,12 +1919,11 @@ public class Action {
                     
                 } else {//if(node.isEmpty())
                     
+                    var learn = node.get(0);
+                    var write = Arq.Dir(Arq.Files(learn.Arq()), true);
+                    
                     controller.p1s(
-                            new ReadWrite(
-                                new xml_document(
-                                    node.get(0),
-                                    Arq.Dir(Arq.Files(node.get(0).Arq()), true)
-                                ),
+                            new ReadWrite(new xml_document(learn,write),
                             MyFont()
                         )
                     );
