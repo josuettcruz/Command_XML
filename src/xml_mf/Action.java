@@ -12,6 +12,8 @@ import file.*;
 
 import static xml_rw.xml_config_file_cond.*;
 
+import static xml_mf.Action_folder_xml.*;
+
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -1774,23 +1776,34 @@ public class Action {
                 };
                 
                 var file = "";
-                var point = false;
+                var point = 0;
                 var char_cont = 0;
+                
+                Action_folder_xml c = Action_folder_xml.none;
                 
                 for(var i = 0; i < input.length(); i++){
                     
                     switch(input.charAt(i)){
                         
-                        case '.' -> {
+                        case '.', '-','_' -> {
                             
                             if(char_cont >= 3){
                                 
-                                point = true;
+                                switch(input.charAt(i)){//intern
+                                    
+                                    case '.' -> c = Action_folder_xml.point;
+                                    
+                                    case '-' -> c = Action_folder_xml.hyphen;
+                                    
+                                    case '_' -> c = Action_folder_xml.underline;
+                                    
+                                }//switch(input.charAt(i)) - intern
+                                
                                 char_cont = 0;
                                 
                             }//if(char_cont >= 3)
                             
-                        }//case '.'
+                        }//case '.', '-', '_'
                         
                         default -> {
                             
@@ -1807,14 +1820,22 @@ public class Action {
                             
                             if(acept){
                                 
-                                if(point){
+                                if(point > 0){
                                     
-                                    file += ".";
-                                    point = false;
+                                    switch(c){
+                                        
+                                        case point, hyphen -> file += "-";
+                                        
+                                        case underline -> file += "_";
+                                        
+                                    }//switch(c)
+                                    
+                                    c = Action_folder_xml.none;
                                     
                                 }//if(point)
                                 
                                 file += input.charAt(i);
+                                
                                 char_cont++;
                                 
                             }//if(acept)
