@@ -2069,9 +2069,9 @@ public class Action {
                                     
                                     msg.add(d);
                                     
-                                    d = "";
-                                    
                                 }//if(valid) - 2 - 2
+                                
+                                d = "";
                                 
                             }//case '\\', '/'
                             
