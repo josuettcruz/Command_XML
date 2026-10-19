@@ -1982,7 +1982,11 @@ public class Action {
                     
                         controller.p1s(
                             new ReadWrite(
-                                new xml_document(cod.Read(), true), MyFont()
+                                new xml_document(
+                                    cod.Read(),
+                                    cod.Dir(true)
+                                ),
+                                MyFont()
                             )
                         );
                         
@@ -2033,16 +2037,41 @@ public class Action {
                             
                             case '\\', '/' -> {
                                 
-                                var cond1 = d.length() > 3;
-                                var cond2 = !d.contains(":");
+                                var valid = true;
                                 
-                                if(cond1 && cond2){
+                                var z = 0;
+                                
+                                do{
+                                    
+                                    valid = d.charAt(z) != ':';
+                                    
+                                    z++;
+                                    
+                                }while(valid && z > 0 && z < d.length());
+                                
+                                if(valid){//1 - 2
+                                
+                                    final String[] w = {"user", "users"};
+                                    
+                                    z = 0;
+                                    
+                                    do{
+                                        
+                                        valid = !txt.arq(d).equals(w[z]);
+                                        
+                                        z++;
+                                        
+                                    }while(valid && z > 0 && z < w.length);
+                                    
+                                }//if(valid) - 1 - 2
+                                
+                                if(valid){//2 - 2
                                     
                                     msg.add(d);
                                     
                                     d = "";
                                     
-                                }//if(cond1 && cond2)
+                                }//if(valid) - 2 - 2
                                 
                             }//case '\\', '/'
                             
@@ -2059,16 +2088,6 @@ public class Action {
                 }//case not
                 
             }//switch(id.Cond())
-            
-            controller.p1s(
-                new ReadWrite(
-                    new xml_document(
-                        new Arq(xml().learn().get(menu.index()).Local()).Read(),
-                        xml().learn().get(menu.index()).Cond() == write
-                    ),
-                    MyFont()
-                )
-            );
             
         } else {//if(newFont(input))
             

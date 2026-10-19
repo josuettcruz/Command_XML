@@ -373,6 +373,12 @@ public class Arq {
         
     }//Dir(String diretory)
     
+    public boolean Dir(boolean write){
+        
+        return Dir(Files(this.arq), write);
+    
+    }
+    
     private static boolean retreat(String value){
         
         if(value.isBlank()){
