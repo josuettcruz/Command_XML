@@ -52,6 +52,43 @@ public class Action {
         
     }//MyFont()
     
+    public static void Init(){
+        
+        controller.PrintKey();
+        controller.p1s(new config());
+        
+        /* CADEIA info_err;                                                 **
+        **                                                                  **
+        ** ESCREVAL("classe \"Action\" do pacote \"xml_mf\"");              **
+        **                                                                  **
+        ** ESCREVA("Observe o código minunciosamente e diga se ");          **
+        ** ESCREVAL("encontrou algum erro!");                               **
+        **                                                                  **
+        ** ESCREVAL("Deixe em branco se não encontrar nenhum erro!");       **
+        ** LEIA(info_err);                                                  **
+        **                                                                  **
+        ** SE(info_err == ""){                                              **
+        **                                                                  **
+        **    ESCREVA("A próxima etapa é: ");                               **
+        **    ESCREVAL("rodar o código!");                                  **
+        **                                                                  **
+        **    ESCREVA("Mas atenção, pode haver erros que não ");            **
+        **    ESCREVA("foi encontrado na visualização do código, mas ");    **
+        **    ESCREVA("pode ser que todo erro já tenha sido resolvido e "); **
+        **    ESCREVA("o código funcione normalmente!");                    **
+        **                                                                  **
+        ** } SENAO {                                                        **
+        **                                                                  **
+        **    ESCREVAL("Não mexer na função:");                             **
+        **                                                                  **
+        **    ESCREVAL("public static void Init()");                        **
+        **                                                                  **
+        **    ESCREVA("Mas ao invés disso, antes, resolver o problema ");   **
+        **    ESCREVA("encontrado e procurar novos erros.");                **
+        ** }                                                                */
+        
+    }//Init()
+    
     private static String xml_config(){
         
         var file_name_path = "";
@@ -190,43 +227,6 @@ public class Action {
         return files;
         
     }//Doc(String file)
-    
-    public static void Init(){
-        
-        controller.PrintKey();
-        controller.p1s(new config());
-        
-        /* CADEIA info_err;                                                 **
-        **                                                                  **
-        ** ESCREVAL("classe \"Action\" do pacote \"xml_mf\"");              **
-        **                                                                  **
-        ** ESCREVA("Observe o código minunciosamente e diga se ");          **
-        ** ESCREVAL("encontrou algum erro!");                               **
-        **                                                                  **
-        ** ESCREVAL("Deixe em branco se não encontrar nenhum erro!");       **
-        ** LEIA(info_err);                                                  **
-        **                                                                  **
-        ** SE(info_err == ""){                                              **
-        **                                                                  **
-        **    ESCREVA("A próxima etapa é: ");                               **
-        **    ESCREVAL("rodar o código!");                                  **
-        **                                                                  **
-        **    ESCREVA("Mas atenção, pode haver erros que não ");            **
-        **    ESCREVA("foi encontrado na visualização do código, mas ");    **
-        **    ESCREVA("pode ser que todo erro já tenha sido resolvido e "); **
-        **    ESCREVA("o código funcione normalmente!");                    **
-        **                                                                  **
-        ** } SENAO {                                                        **
-        **                                                                  **
-        **    ESCREVAL("Não mexer na função:");                             **
-        **                                                                  **
-        **    ESCREVAL("public static void Init()");                        **
-        **                                                                  **
-        **    ESCREVA("Mas ao invés disso, antes, resolver o problema ");   **
-        **    ESCREVA("encontrado e procurar novos erros.");                **
-        ** }                                                                */
-        
-    }//Init()
     
     private static void newFont(Font font){EditFont = font;}
     
@@ -881,6 +881,8 @@ public class Action {
                         
                         case 4, 5 -> {
                             
+                            var line = true;
+                            
                             var rd = "";
                             
                             for(String r : txt.phrase(value.get(i))){
@@ -889,8 +891,13 @@ public class Action {
                                     
                                     case '{', '[', '(' -> {
                                         
-                                        if(!rd.isBlank()) val.add(rd);
-                                        rd = r;
+                                        if(!rd.isBlank()){
+                                            
+                                            val.add(rd);
+                                            line = false;
+                                            rd = r;
+                                            
+                                        }//if(!rd.isBlank())
                                         
                                     }//case '{', '[', '('
                                     
@@ -908,9 +915,14 @@ public class Action {
                                             
                                             case 5 ->{
 
-                                                if(!rd.isBlank()) val.add(rd);
-                                                
-                                                rd = r;
+                                                if(!rd.isBlank()){
+                                                    
+                                                    val.add(rd);
+                                                    rd = r;
+                                                    
+                                                    line = false;
+                                                    
+                                                }//if(!rd.isBlank())
                                                 
                                             }//case 5
                                             
@@ -927,46 +939,50 @@ public class Action {
                                     
                                 }//switch(r.charAt(0))
                                 
-                                switch(r.charAt(r.length()-1)){
+                                if(line){
                                     
-                                    case '.' -> {
+                                    switch(r.charAt(r.length()-1)){
                                         
-                                        if(r.length() > 4){
+                                        case '.' -> {
+                                            
+                                            if(r.length() > 4){
+                                                
+                                                val.add(rd);
+                                                rd = "";
+                                                
+                                            }//if(r.length() > 4)
+                                            
+                                        }//case '.'
+                                        
+                                        case ',', '>', '"', '\'' ->{
+                                            
+                                            if(d.index() == 5){
+                                                
+                                                val.add(rd);
+                                                rd = "";
+                                                
+                                            }//if(d.index() == 5)
+                                            
+                                        }//case ',', '>', '"', '\''
+                                        
+                                        case '?',
+                                             '!',
+                                             ';',
+                                             ':',
+                                             '}',
+                                             ']',
+                                             ')' -> {
                                             
                                             val.add(rd);
                                             rd = "";
                                             
-                                        }//if(r.length() > 4)
-                                        
-                                    }//case '.'
+                                        }//cases
+                                             
+                                    }//switch(r.charAt(r.length()-1))
                                     
-                                    case ',', '>', '"', '\'' ->{
-                                        
-                                        if(d.index() == 5){
-                                            
-                                            val.add(rd);
-                                            rd = "";
-                                            
-                                        }//if(d.index() == 5)
-                                        
-                                    }//case ',', '>', '"', '\''
-                                    
-                                    case '?',
-                                         '!',
-                                         ';',
-                                         ':',
-                                         '}',
-                                         ']',
-                                         ')' -> {
-                                        
-                                        val.add(rd);
-                                        rd = "";
-                                        
-                                    }//cases
-                                         
-                                }//switch(r.charAt(r.length()-1))
+                                }//for(String r : txt.phrase(value.get(i)))
                                 
-                            }//for(String r : txt.phrase(value.get(i)))
+                            }//if(line)
                             
                             if(!rd.isBlank()) val.add(rd);
                             
@@ -1954,7 +1970,95 @@ public class Action {
         )
         {
             
+            xml_config_one id = xml().learn().get(menu.index());
             
+            switch(id.Cond()){
+                
+                case write ->{
+                    
+                    Arq cod = new Arq(id.Local());
+                    
+                    if(cod.Val()){
+                    
+                        controller.p1s(
+                            new ReadWrite(
+                                new xml_document(cod.Read(), true), MyFont()
+                            )
+                        );
+                        
+                    } else {//if(cod.Val())
+                        
+                        Err(cod.Type(), cod.Message());
+                        
+                    }//if(cod.Val())
+                    
+                }//case write
+                
+                case readonly ->{
+                    
+                    Arq cod = new Arq(id.Local());
+                    
+                    if(cod.Val()){
+                    
+                        controller.p1m(
+                            new ReadWrite(
+                                new xml_document(cod.Read(), false), MyFont()
+                            )
+                        );
+                        
+                    } else {//if(cod.Val())
+                        
+                        Err(cod.Type(), cod.Message());
+                        
+                    }//if(cod.Val())
+                    
+                }//case readonly
+                
+                case not ->{
+                    
+                    var title = Hora.Good();
+                    title += " arquivo removido!";
+                    
+                    List<String> msg = new ArrayList();
+                    
+                    msg.add(id.Title());
+                    
+                    var t = id.Local();
+                    var d = "";
+                    var x = 0;
+                    
+                    do{
+                        
+                        switch(t.charAt(x)){
+                            
+                            case '\\', '/' -> {
+                                
+                                var cond1 = d.length() > 3;
+                                var cond2 = !d.contains(":");
+                                
+                                if(cond1 && cond2){
+                                    
+                                    msg.add(d);
+                                    
+                                    d = "";
+                                    
+                                }//if(cond1 && cond2)
+                                
+                            }//case '\\', '/'
+                            
+                            default -> d += t.charAt(x);
+                            
+                        }//switch(t.charAt(i))
+                        
+                        x++;
+                        
+                    }while(x > 0 && x < t.length() && msg.size() < 10);
+                    
+                    if(!controller.Msg(title, msg, false)) Exit();
+                    
+                }//case not
+                
+            }//switch(id.Cond())
             
             controller.p1s(
                 new ReadWrite(
