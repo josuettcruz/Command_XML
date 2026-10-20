@@ -75,7 +75,7 @@ public class Action {
         **    ESCREVA("Mas atenção, pode haver erros que não ");            **
         **    ESCREVA("foi encontrado na visualização do código, mas ");    **
         **    ESCREVA("pode ser que todo erro já tenha sido resolvido e "); **
-        **    ESCREVA("o código funcione normalmente!");                    **
+        **    ESCREVA("que o código funcione normalmente!");                **
         **                                                                  **
         ** } SENAO {                                                        **
         **                                                                  **
@@ -85,6 +85,7 @@ public class Action {
         **                                                                  **
         **    ESCREVA("Mas ao invés disso, antes, resolver o problema ");   **
         **    ESCREVA("encontrado e procurar novos erros.");                **
+        **                                                                  **
         ** }                                                                */
         
     }//Init()
@@ -544,16 +545,14 @@ public class Action {
         
         if(txt.text(input, exclude_document_function).isBlank()){
             
-            var title = new Data().Load();
+            var title = Data.code.Load();
             title += "_";
             
-            Hora ds = new Hora(true);
-            
-            title += Reg.Numb(ds.Hour());
+            title += Reg.Numb(Hora.code.Hour());
             title += "-";
-            title += Reg.Numb(ds.Min());
+            title += Reg.Numb(Hora.code.Min());
             title += "-";
-            title += Reg.Numb(ds.Sec());
+            title += Reg.Numb(Hora.code.Sec());
             
             return title;
             
@@ -652,7 +651,7 @@ public class Action {
 
         } else if(title){//if(title && !t.isBlank())
             
-            val += Hora.Good();
+            val += Data.code.DataAbreviada(equal);
             val += "! Documento sem título!";
             
         } else {//if(title && !t.isBlank())
@@ -928,7 +927,7 @@ public class Action {
                                             
                                         }//switch(d.index())
                                         
-                                    }//case '{', '[', '('
+                                    }//case '"', '\''
                                     
                                     default ->{
                                         
@@ -945,16 +944,22 @@ public class Action {
                                         
                                         case '.' -> {
                                             
-                                            if(r.length() > 4){
+                                            if(r.length() > 3){
                                                 
                                                 val.add(rd);
                                                 rd = "";
                                                 
-                                            }//if(r.length() > 4)
+                                            }//if(r.length() > 3)
                                             
                                         }//case '.'
                                         
-                                        case ',', '>', '"', '\'' ->{
+                                        case ',',
+                                             '>',
+                                             '}',
+                                             ']',
+                                             ')',
+                                             '"',
+                                             '\'' ->{
                                             
                                             if(d.index() == 5){
                                                 
@@ -963,15 +968,12 @@ public class Action {
                                                 
                                             }//if(d.index() == 5)
                                             
-                                        }//case ',', '>', '"', '\''
+                                        }//cases
                                         
                                         case '?',
                                              '!',
                                              ';',
-                                             ':',
-                                             '}',
-                                             ']',
-                                             ')' -> {
+                                             ':' -> {
                                             
                                             val.add(rd);
                                             rd = "";
