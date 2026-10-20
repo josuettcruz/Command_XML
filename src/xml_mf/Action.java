@@ -1038,7 +1038,9 @@ public class Action {
     )
     {
         
-        one.setText(
+        var dat = one;
+        
+        dat.setText(
             session_ComboBox(
                 menu,
                 one.getText(),
@@ -1049,7 +1051,7 @@ public class Action {
         controller.p3(
             new session(
                 doc,
-                one,
+                dat,
                 MyFont()
             )
         );
