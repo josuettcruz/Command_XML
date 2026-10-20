@@ -239,7 +239,7 @@ public class Action {
         )
         {
             
-            final String[] otf = {"ttf", "otf"};
+            final String[] otf = {"ttf", "otf","TTF", "OTF"};
             
             var file = "";
             
@@ -257,19 +257,19 @@ public class Action {
             
             var aply = false;
             
-            if(!txt.arq(file).isBlank() && otf.length > 1){
+            if(!file.trim().isBlank() && otf.length > 1){
                 
                 var proc = 0;
                 
                 do{
                     
-                    aply = txt.arq(file).equals(otf[proc]);
+                    aply = file.equals(otf[proc]);
                     
                     proc++;
                     
                 }while(!aply && proc > 0 && proc < otf.length);
                 
-            }//if(!txt.arq(ext).isBlank())
+            }//if(!file.trim().isBlank() && otf.length > 1)
             
             return aply;
             
@@ -287,11 +287,11 @@ public class Action {
             
             newFont(f.Font());
             
-            controller.p1s(new folder_xml(xml(),MyFont()));
+            controller.p1s(new folder_xml(xml(), MyFont()));
             
         } else if(xml_val()){//if(xml_val() && f.Val())
             
-            controller.p1s(new folder_xml(xml(),MyFont(),f.msg().get(0)));
+            controller.p1s(new folder_xml(xml(), MyFont(), f.msg().get(0)));
             
         } else {//if(xml_val() && f.Val())
             
@@ -559,14 +559,19 @@ public class Action {
         
         if(txt.text(input, exclude_document_function).isBlank()){
             
-            var title = Data.code.Load();
-            title += "_";
-            
+            var title = Data.code.DataAbreviada(false);
+            title += " - ";
             title += Reg.Numb(Hora.code.Hour());
-            title += "-";
+            title += "h";
             title += Reg.Numb(Hora.code.Min());
-            title += "-";
-            title += Reg.Numb(Hora.code.Sec());
+            title += "m";
+            
+            if(Hora.code.Sec() > 0){
+                
+                title += Reg.Numb(Hora.code.Sec());
+                title += "s";
+                
+            }//if(Hora.code.Sec() > 0)
             
             return title;
             
@@ -642,7 +647,7 @@ public class Action {
                     cont += tm.get(i).length();
                     
                     var cond1 = cont <= max_str;
-                    var cond2 = tm.get(i).length() < max_str;
+                    var cond2 = tm.get(i).length() <= max_str;
                     
                     loop = cond1 && cond2;
                     
@@ -1093,11 +1098,11 @@ public class Action {
         String tema = "";
         boolean next_line = false;
         
-        for(String line_text : val_text_area){
+        for(String t : val_text_area){
             
             if(next_line){
                 
-                Link lnk = new Link(line_text);
+                Link lnk = new Link(tema);
                 
                 if(lnk.Val()){
                     
@@ -1105,11 +1110,19 @@ public class Action {
                     
                     if(txt.text(tema, exclude_document_function).isBlank()){
                         
-                        text_link = lnk.dat(false);
+                        if(lnk.dat(false).length() >= 5){
+                            
+                            text_link = lnk.dat(false);
+                            
+                        } else {//if(lnk.dat(false).length() >= 5)
+                            
+                            text_link = lnk.page(true);
+                            
+                        }//if(lnk.dat(false).length() >= 5)
                         
                     } else {//if(txt.text(tema, exclude_document_function).is...
                         
-                        text_link = txt.text(tema, true);
+                        text_link = txt.text(t);
                         
                     }//if(txt.text(tema, exclude_document_function).isBlank()...
                     
@@ -1252,15 +1265,15 @@ public class Action {
                     
                 }//if(next_line)
                 
-                tema = "";
                 next_line = false;
                 
             } else {//if(next_line)
                 
-                tema = line_text;
                 next_line = true;
                 
             }//if(next_line)
+            
+            tema = t;
             
         }//for(String line_text : val_text_area)
         

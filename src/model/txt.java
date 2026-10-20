@@ -146,7 +146,7 @@ public class txt {
     
     public static String text(String text){
         
-        final char[] exclude = {'_','-'};
+        final char[] exclude = {'_','|'};
         
         return text(text, exclude);
         
@@ -285,7 +285,7 @@ public class txt {
     
     public static List<String> phrase(String text){
         
-        final char[] exclude = {'_','-'};
+        final char[] exclude = {'_','|'};
         
         return phrase(text, exclude);
         
@@ -293,7 +293,8 @@ public class txt {
     
     public static String capitalize(String phrase){
         
-        if(phrase.trim().isBlank()) phrase = "Classe: \"TXT\"\nPacote: \"MODEL\"";
+        if(phrase.trim().isBlank())
+        {phrase = "Classe: \"TXT\"\nPacote: \"MODEL\"";}
         
         if(phrase.trim().isBlank()){
             
@@ -461,7 +462,7 @@ public class txt {
                     }while(t > 0 && t < articles.length && article);
 
                     if(article)
-                    txt += capitalize(p);
+                    {txt += capitalize(p);}
 
                 }//if(note)
 
@@ -475,7 +476,8 @@ public class txt {
     
     public static String arq(String text){
         
-        if(text.trim().isBlank()) text = "Classe: \"TXT\"\nPacote: \"MODEL\"";
+        if(text.trim().isBlank())
+        {text = "Classe: \"TXT\"\nPacote: \"MODEL\"";}
         
         var txt = "";
         
