@@ -187,7 +187,6 @@ public class session implements Painel_3 {
                         menu[cont],
                         this.document,
                         this.document_one,
-                        this.Font(),
                         row
                     );
                     
@@ -224,7 +223,6 @@ public class session implements Painel_3 {
                         this.option,
                         this.document,
                         this.document_one,
-                        this.Font(),
                         row
                     );
                     

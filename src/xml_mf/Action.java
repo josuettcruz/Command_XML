@@ -415,6 +415,20 @@ public class Action {
         
         if(Reg.java){
             
+            System.out.println(Data.code.DataCompleta(true));
+            System.out.println(Hora.code.TimerGood(true));
+            
+            if(xml_val() && xml().Windows()){
+                
+                System.out.print("Ola: \"");
+                System.out.print(xml().UserWindows().toUpperCase());
+                System.out.print("\" ");
+                
+            }//if(arq.Val() && xml.Windows())
+                
+            System.out.print(Hora.Good());
+            System.out.println("!");
+            
             if(!doc.List().isEmpty()){
                 
                 System.out.println();
@@ -433,7 +447,7 @@ public class Action {
             
         }//if(Reg.java)
         
-        Exit();
+        System.exit(0);
         
     }//Exit(xml_document doc)
     
@@ -627,7 +641,10 @@ public class Action {
                     
                     cont += tm.get(i).length();
                     
-                    loop = cont <= max_str && tm.get(i).length() < max_str;
+                    var cond1 = cont <= max_str;
+                    var cond2 = tm.get(i).length() < max_str;
+                    
+                    loop = cond1 && cond2;
                     
                     i++;
                     
@@ -884,7 +901,7 @@ public class Action {
                             
                             var rd = "";
                             
-                            for(String r : txt.phrase(value.get(i))){
+                            for(String r : txt.phrase(t)){
                                 
                                 switch(r.charAt(0)){
                                     
@@ -982,7 +999,7 @@ public class Action {
                                              
                                     }//switch(r.charAt(r.length()-1))
                                     
-                                }//for(String r : txt.phrase(value.get(i)))
+                                }//for(String r : txt.phrase(t))
                                 
                             }//if(line)
                             
@@ -1012,7 +1029,6 @@ public class Action {
         Domain menu,
         xml_document doc,
         xml_document_one one,
-        Font font[],
         int row
     )
     {
@@ -1029,7 +1045,7 @@ public class Action {
             new session(
                 doc,
                 one,
-                font
+                MyFont()
             )
         );
         
@@ -1050,7 +1066,7 @@ public class Action {
             
         }//if(!val.getUrl().isEmpty())
         
-        if(!val.getText().isEmpty())value.addAll(val.getText());
+        if(!val.getText().isEmpty()) value.addAll(val.getText());
         
         return value;
         
@@ -1058,9 +1074,13 @@ public class Action {
     
     public static xml_document_one session_textArea(
         String title,
-        List<String> input_text_area
+        List<String> text_area
     )
     {
+        
+        List<String> val_text_area = new ArrayList();
+        val_text_area.addAll(text_area);
+        val_text_area.add("");
         
         xml_document_one val = new xml_document_one();
         
@@ -1073,7 +1093,7 @@ public class Action {
         String tema = "";
         boolean next_line = false;
         
-        for(String line_text : input_text_area){
+        for(String line_text : val_text_area){
             
             if(next_line){
                 
@@ -1222,7 +1242,7 @@ public class Action {
                                 tx,
                                 exclude_document_function
                             ).isBlank()
-                        ) tem.add(txt.text(tx, true));
+                        ) {tem.add(txt.text(tx, true));}
                         
                     } else {//if(validate...
                         
@@ -1242,9 +1262,7 @@ public class Action {
                 
             }//if(next_line)
             
-        }//for(String line_text : input_text_area)
-        
-        if(next_line) tem.add(tema);
+        }//for(String line_text : val_text_area)
         
         val.setText(tem);
         val.setUrl(dat);
@@ -1378,7 +1396,26 @@ public class Action {
             
             doc.Add(one, true);
             
-            doc.Save(arq);
+            var e = doc.Save(arq);
+            
+            if(e.Val()){
+                
+                if(Reg.java){
+                    
+                    System.out.print("Salvo: ");
+                    System.out.print(Data.code.DataAbreviada(true));
+                    System.out.print(" - ");
+                    System.out.print(Hora.code.TimerGood(false));
+                    System.out.print(" - ");
+                    System.out.print(one.getTitle());
+                    
+                }//if(Reg.java)
+                
+            } else {//if(e.Val())
+                
+                Err(e.Type(), e.Message());
+                
+            }//if(e.Val())
             
         } else {//if(notepad)
             
@@ -1409,9 +1446,24 @@ public class Action {
             
             doc.Add(one, true);
             
-            var err = doc.Save(new Arq(con));
+            var e = doc.Save(new Arq(con));
             
-            if(!err.Val()) Err(err.Type(), err.Message());
+            if(e.Val()){
+                
+                if(Reg.java){
+                    
+                    System.out.print(Hora.code.TimerGood(false));
+                    System.out.print(" - Arquivo: \"");
+                    System.out.print(doc.getTitle());
+                    System.out.println("\" salvo!");
+                    
+                }//if(Reg.java)
+                
+            } else {//if(e.Val())
+                
+                Err(e.Type(), e.Message());
+                
+            }//if(e.Val())
             
         }//if(notepad)
         
@@ -1475,18 +1527,19 @@ public class Action {
         String title
     ){
         
+        final var t = txt.text(one.getTitle(), true);
+        
         var node = "~";
             
-        node += txt.text(one.getTitle()).charAt(0) == '~'
-            ? txt.AddRepeat(one.getTitle())
-            : one.getTitle();
-        
-        if(txt.phrase(title, exclude_document_function).size() > 1){
+        if(t.charAt(0) == '~'){
             
-            node += " - ";
-            node += title;
+            node += txt.AddRepeat(t.substring(1));
             
-        }//if(txt.phrase(title, exclude_document_function).size() > 1)
+        } else {
+            
+            node += t;
+            
+        }
         
         one.setTitle(node);
         
@@ -2027,70 +2080,14 @@ public class Action {
                 
                 case not ->{
                     
-                    var title = Hora.Good();
-                    title += " arquivo removido!";
-                    
-                    List<String> msg = new ArrayList();
-                    
-                    msg.add(id.Title());
-                    
-                    var t = id.Local();
-                    var d = "";
-                    var x = 0;
-                    
-                    do{
-                        
-                        switch(t.charAt(x)){
-                            
-                            case '\\', '/' -> {
-                                
-                                var valid = true;
-                                
-                                var z = 0;
-                                
-                                do{
-                                    
-                                    valid = d.charAt(z) != ':';
-                                    
-                                    z++;
-                                    
-                                }while(valid && z > 0 && z < d.length());
-                                
-                                if(valid){//1 - 2
-                                
-                                    final String[] w = {"user", "users"};
-                                    
-                                    z = 0;
-                                    
-                                    do{
-                                        
-                                        valid = !txt.arq(d).equals(w[z]);
-                                        
-                                        z++;
-                                        
-                                    }while(valid && z > 0 && z < w.length);
-                                    
-                                }//if(valid) - 1 - 2
-                                
-                                if(valid){//2 - 2
-                                    
-                                    msg.add(d);
-                                    
-                                }//if(valid) - 2 - 2
-                                
-                                d = "";
-                                
-                            }//case '\\', '/'
-                            
-                            default -> d += t.charAt(x);
-                            
-                        }//switch(t.charAt(i))
-                        
-                        x++;
-                        
-                    }while(x > 0 && x < t.length() && msg.size() < 10);
-                    
-                    if(!controller.Msg(title, msg, false)) Exit();
+                    /* Abrir o formulário que mostra todos os               **
+                    ** itens indisponíveis!                                 **
+                    ** Esse mesmo formulário vai ser a tela inicial         **
+                    ** sempre que a condição de:                            **
+                    ** EXISTE ARQUIVOS INDISPONÍVEIS?                       **
+                    ** for verdadeira!                                      **
+                    ** coso contrário, diretamente o formulário referente à **
+                    ** "xml_config"                                         */
                     
                 }//case not
                 
