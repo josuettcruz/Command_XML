@@ -161,7 +161,7 @@ public class Action {
                 var demo = "";
                 var control = false;
                 
-                for(var i = 0; i < tema.length(); i++){
+                for(var i = 0; i < t.length(); i++){
                     
                     switch(t.charAt(i)){
                         
@@ -1039,14 +1039,18 @@ public class Action {
         
         List<String> value = new ArrayList();
         
-        for(xml_document_link l : val.getUrl()){
+        if(!val.getUrl().isEmpty()){
             
-            value.add(l.name());
-            value.add(l.lnk().getLink(true));
+            for(xml_document_link l : val.getUrl()){
+                
+                value.add(l.name());
+                value.add(l.lnk().getLink(true));
+                
+            }//for(xml_document_link l : val.getUrl())
             
-        }//for(xml_document_link l : val.getUrl())
+        }//if(!val.getUrl().isEmpty())
         
-        for(String t : val.getText()) value.add(t);
+        if(!val.getText().isEmpty())value.addAll(val.getText());
         
         return value;
         
@@ -1093,8 +1097,9 @@ public class Action {
                     
                 } else {//if(next_line)
                     
+                    var c = Action_md.before;
+                    
                     var validate = true;
-                    var co = 0;
                     var tt = "";
                     var tl = "";
                     var tx = "";
@@ -1109,9 +1114,9 @@ public class Action {
                             
                             case '[' -> {
                                 
-                                if(co == 0){
+                                if(c == Action_md.before){
                                     
-                                    co = 1;
+                                    c = Action_md.name;
                                     
                                 } else {//if(co == 0)
                                     
@@ -1123,9 +1128,9 @@ public class Action {
                             
                             case ']' -> {
                                 
-                                if(co == 1){
+                                if(c == Action_md.name){
                                     
-                                    co = 2;
+                                    c = Action_md.middle;
                                     
                                 } else {//if(co == 1)
                                     
@@ -1137,10 +1142,10 @@ public class Action {
                             
                             case '(' -> {
                                 
-                                switch(co){
+                                switch(c){
                                     
-                                    case 2  -> co = 3;
-                                    case 1  -> tt += " (";
+                                    case middle  -> c = Action_md.href;
+                                    case name  -> tt += " (";
                                     default -> validate = false;
                                     
                                 }//switch(co)
@@ -1149,10 +1154,10 @@ public class Action {
                             
                             case ')' -> {
                                 
-                                switch(co){
+                                switch(c){
                                     
-                                    case 3  -> co = 4;
-                                    case 1  -> tt += ") ";
+                                    case href  -> c = Action_md.after;
+                                    case name  -> tt += ") ";
                                     default -> validate = false;
                                     
                                 }//switch(co)
@@ -1161,11 +1166,11 @@ public class Action {
                             
                             default -> {
                                 
-                                switch(co){
+                                switch(c){
                                     
-                                    case 1 -> tt += ds;
+                                    case name -> tt += ds;
                                     
-                                    case 2 -> {
+                                    case middle -> {
                                         
                                         if(ds == ' '){
                                             
@@ -1179,9 +1184,9 @@ public class Action {
                                         
                                     }//case 2
                                     
-                                    case 3 -> tl += ds;
+                                    case href -> tl += ds;
                                     
-                                    case 0, 4 -> tx += ds;
+                                    case before, after -> tx += ds;
                                     
                                 }//switch(co)
                                 
