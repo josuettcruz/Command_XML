@@ -1265,8 +1265,6 @@ public class Action {
                     
                 }//if(next_line)
                 
-                next_line = false;
-                
             } else {//if(next_line)
                 
                 next_line = true;
