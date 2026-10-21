@@ -8,7 +8,7 @@ package xml_mf;
  *
  * @author joaot
  */
-public enum Action_md {
+public enum md_href {
     
     before, name, middle, href, after;
     

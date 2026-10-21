@@ -1132,7 +1132,7 @@ public class Action {
                     
                 } else {//if(next_line)
                     
-                    var c = Action_md.before;
+                    var c = md_href.before;
                     
                     var validate = true;
                     var tt = "";
@@ -1149,9 +1149,9 @@ public class Action {
                             
                             case '[' -> {
                                 
-                                if(c == Action_md.before){
+                                if(c == md_href.before){
                                     
-                                    c = Action_md.name;
+                                    c = md_href.name;
                                     
                                 } else {//if(co == 0)
                                     
@@ -1163,9 +1163,9 @@ public class Action {
                             
                             case ']' -> {
                                 
-                                if(c == Action_md.name){
+                                if(c == md_href.name){
                                     
-                                    c = Action_md.middle;
+                                    c = md_href.middle;
                                     
                                 } else {//if(co == 1)
                                     
@@ -1179,7 +1179,7 @@ public class Action {
                                 
                                 switch(c){
                                     
-                                    case middle  -> c = Action_md.href;
+                                    case middle  -> c = md_href.href;
                                     case name  -> tt += " (";
                                     default -> validate = false;
                                     
@@ -1191,7 +1191,7 @@ public class Action {
                                 
                                 switch(c){
                                     
-                                    case href  -> c = Action_md.after;
+                                    case href  -> c = md_href.after;
                                     case name  -> tt += ") ";
                                     default -> validate = false;
                                     
