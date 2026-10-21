@@ -11,6 +11,10 @@ import model.txt;
 
 import java.util.List;
 import java.util.ArrayList;
+import model.Reg;
+import static xml_mf.md_href.before;
+import static xml_mf.md_href.middle;
+import static xml_mf.md_href.name;
 import xml_rw.xml_document_link;
 
 /**
@@ -21,15 +25,21 @@ public class Object_xml_document_one {
     
     private xml_document_one doc;
     
+    private String one_line_text;
+    private String one_line_link_name;
+    private Link one_line_link_href;
+    
     public Object_xml_document_one(xml_document_one doc){
         
         this.doc = doc;
         
     }//Object_xml_document_one(xml_document_one doc)
     
-    public Object_xml_document_one(List<String> val){
+    public Object_xml_document_one(List<String> val, String title){
         
         if(!val.isEmpty()){
+            
+            var tl = txt.title(title, true);
             
             var max = val.size();
             
@@ -51,19 +61,235 @@ public class Object_xml_document_one {
             List<String> text_area = new ArrayList();
             List<xml_document_link> link = new ArrayList();
             
+            var tema = "";
+            
             for(var x = 0; x < max; x++){
                 
-                //code.this - 08:39 21/10/2026
+                var md = this.MakeDown(text_line[x]);
+                
+                if(md){
+                    
+                    text_area.add(this.one_line_text);
+                    
+                    link.add(
+                        new xml_document_link(
+                            this.one_line_link_name,
+                            this.one_line_link_href
+                        )
+                    );
+                    
+                    this.one_line_text = "";
+                    this.one_line_link_name = "";
+                    this.one_line_link_href = new Link("");
+                    
+                    tema = "";
+                    
+                } else if(next_link[x]){//if(md)
+                    
+                    tema = text_line[x];
+                    
+                } else if(tema.isBlank()){//if(md)
+                    
+                    text_area.add(text_line[x]);
+                    
+                } else {//if(md)
+                    
+                    var lnk = new Link(text_line[x]);
+                    
+                    String tx;
+                    
+                    var true1 = tema.trim().isBlank();
+                    var true2 = new Link(tema).Val();
+                    
+                    var clear = true1 || true2;
+                    
+                    if(clear && lnk.dat(false).length() >= 5){//if(clear...
+                        
+                        tx = lnk.dat(false);
+                        
+                    } else if(
+                        clear &&
+                        lnk.page(false).length() > 5 &&
+                        lnk.page(false).length() < 10
+                    )
+                    {//if(clear...
+                        
+                        tx = lnk.page(false);
+                        
+                    } else if(clear){//if(clear...
+                        
+                        tx = lnk.page(true);
+                        
+                    } else {//if(clear...
+                        
+                        tx = tema;
+                        
+                    }//if(clear...
+                    
+                    link.add(new xml_document_link(tx,lnk));
+                    
+                    tema = "";
+                    
+                }//if(md)
                 
             }//for(var x = 0; x < max; x++)
             
+            this.doc = new xml_document_one(tl,link,text_area);
+            
         }//if(!val.isEmpty())
         
-    }//Object_xml_document_one(xml_document_one doc)
+    }//Object_xml_document_one(List<String> val, String title)
+    
+    private boolean MakeDown(String line){
+        
+        var valid = true;
+        
+        var text = "";
+        var name = "";
+        var link = "";
+        
+        var x = 0;
+        
+        do{
+            
+            md_href cod = md_href.before;
+            
+            char ds = line.charAt(x);
+            
+            switch(ds){
+                
+                case '[' ->{
+                    
+                    switch(cod){
+                        
+                        case before -> cod = md_href.name;
+                        
+                        default -> valid = false;
+                        
+                    }//switch(cod)
+                    
+                }//case '['
+                
+                case ']' ->{
+                    
+                    switch(cod){
+                        
+                        case name -> cod = md_href.middle;
+                        
+                        default -> valid = false;
+                        
+                    }//switch(cod)
+                    
+                }//case ']'
+                
+                case '(' ->{
+                    
+                    switch(cod){
+                        
+                        case middle -> cod = md_href.href;
+                        
+                        case name -> name += " (";
+                        
+                        case before, after -> text += " (";
+                        
+                        case href -> valid = false;
+                        
+                    }//switch(cod)
+                    
+                }//case '('
+                
+                case ')' ->{
+                    
+                    switch(cod){
+                        
+                        case href -> cod = md_href.after;
+                        
+                        case name -> name += ") ";
+                        
+                        case before, after -> text += ") ";
+                        
+                        case middle -> valid = false;
+                        
+                    }//switch(cod)
+                    
+                }//case ')'
+                
+                case ' ' ->{
+                    
+                    switch(cod){
+                        
+                        case before, after, middle -> text += " ";
+                        
+                        case href -> link += " ";
+                        
+                        case name -> name += " ";
+                        
+                        
+                    }//switch(cod)
+                    
+                }//case ' '
+                
+                default ->{
+                    
+                    switch(cod){
+                        
+                        case before, after -> text += ds;
+                        
+                        case href -> link += ds;
+                        
+                        case name -> name += ds;
+                        
+                        case middle -> valid = false;
+                        
+                    }//switch(cod)
+                    
+                }//default
+                
+            }//switch(ds)
+            
+            x++;
+            
+        }while(valid && x > 0 && x < line.length());
+        
+        if(valid){
+            
+            var acept = false;
+            
+            Link lnk = new Link(link);
+            
+            if(lnk.Val()){
+                
+                final char[] no_char = {'\\','\'','"',
+                    '<','>','{','}','[',']','(',')','|','/','_'};
+                
+                var cond1 = txt.text(text, no_char).length() >= 5;
+                var cond2 = txt.text(name, no_char).length() >= 5;
+                
+                acept = cond1 && cond2;
+                
+                if(acept){
+                    
+                    this.one_line_text = txt.text(text, true);
+                    
+                    this.one_line_link_name = txt.text(name,no_char);
+                    this.one_line_link_href = lnk;
+                    
+                }//if(acept)
+                
+            }//if(lnk.Val())
+            
+            return acept;
+            
+        } else {//if(valid)
+            
+            return false;
+            
+        }//if(valid)
+        
+    }//MakeDown(String line)
     
     /* public static xml_document_one session_textArea **
     ** classe Action                                   **
-    ** Linhas 1082-1285                                **
     
     public static xml_document_one session_textArea(
         String title,
@@ -271,8 +497,7 @@ public class Object_xml_document_one {
     }//session_textArea
     
     ** public static xml_document_one session_textArea **
-    ** classe Action                                   **
-    ** Linhas 1082-1285                                */
+    ** classe Action                                   */
     
     public List<String> textArea(){
         
@@ -294,5 +519,7 @@ public class Object_xml_document_one {
         return text_area;
         
     }//session_Document
+    
+    public xml_document_one Doc(){return this.doc;}
     
 }//Object_xml_document_one

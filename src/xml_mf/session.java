@@ -125,7 +125,7 @@ public class session implements Painel_3 {
     @Override
     public List<String> TextArea() {
         
-        return Action.session_Document(this.document_one);
+        return new Object_xml_document_one(this.document_one).textArea();
         
     }
 
