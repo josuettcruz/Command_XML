@@ -5,6 +5,8 @@
 package xml_mf;
 
 import xml_rw.xml_document_one;
+import xml_rw.xml_document_link;
+import model.Link;
 import model.txt;
 
 import java.util.List;
@@ -27,7 +29,35 @@ public class Object_xml_document_one {
     
     public Object_xml_document_one(List<String> val){
         
-        //21/10/2026
+        if(!val.isEmpty()){
+            
+            var max = val.size();
+            
+            String[] text_line = new String[max];
+            
+            boolean[] next_link = new boolean[max];
+            
+            var before_link = false;
+            
+            for(var proc_list = max-1; proc_list >= 0; proc_list--){
+                
+                text_line[proc_list] = val.get(proc_list);
+                next_link[proc_list] = before_link;
+                
+                before_link = new Link(val.get(proc_list)).Val();
+                
+            }//for(var proc_list = max-1; proc_list >= 0; proc_list--)
+            
+            List<String> text_area = new ArrayList();
+            List<xml_document_link> link = new ArrayList();
+            
+            for(var x = 0; x < max; x++){
+                
+                //code.this - 08:39 21/10/2026
+                
+            }//for(var x = 0; x < max; x++)
+            
+        }//if(!val.isEmpty())
         
     }//Object_xml_document_one(xml_document_one doc)
     
