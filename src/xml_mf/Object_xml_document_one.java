@@ -154,6 +154,8 @@ public class Object_xml_document_one {
             
         }//if(!val.isEmpty())
         
+        this.one_line_link_href.clear();
+        
     }//Object_xml_document_one(List<String> val, String title)
     
     private boolean MakeDown(String line){
@@ -287,7 +289,7 @@ public class Object_xml_document_one {
                     this.one_line_text = txt.text(text, true);
                     this.one_line_link_name = txt.text(name,no_char);
                     
-                    this.one_line_link_href.add(lnk);
+                    this.one_line_link_href.addLast(lnk);
                     
                 }//if(acept)
                 
