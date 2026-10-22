@@ -5,17 +5,19 @@
 package xml_mf;
 
 import xml_rw.xml_document_one;
-import xml_rw.xml_document_link;
 import model.Link;
 import model.txt;
+import xml_rw.xml_document_link;
 
 import java.util.List;
 import java.util.ArrayList;
-import model.Reg;
-import static xml_mf.md_href.before;
-import static xml_mf.md_href.middle;
-import static xml_mf.md_href.name;
-import xml_rw.xml_document_link;
+import java.util.LinkedList;
+
+import static xml_mf.md_href.before; // 1 de 5
+import static xml_mf.md_href.name;   // 2 de 5
+import static xml_mf.md_href.middle; // 3 de 5
+import static xml_mf.md_href.href;   // 4 de 5
+import static xml_mf.md_href.after;  // 5 de 5
 
 /**
  *
@@ -27,15 +29,30 @@ public class Object_xml_document_one {
     
     private String one_line_text;
     private String one_line_link_name;
-    private Link one_line_link_href;
+    
+    //Java LinkedList - -- Consulta na WEB
+    private LinkedList<Link> one_line_link_href;
+    //https://www.w3schools.com/java/java_linkedlist.asp
+    
+    private void initComponent(){
+        
+        this.one_line_text = "";
+        this.one_line_link_name = "";
+        this.one_line_link_href = new LinkedList<>();
+        
+    }//initComponent()
     
     public Object_xml_document_one(xml_document_one doc){
+        
+        this.initComponent();
         
         this.doc = doc;
         
     }//Object_xml_document_one(xml_document_one doc)
     
     public Object_xml_document_one(List<String> val, String title){
+        
+        this.initComponent();
         
         if(!val.isEmpty()){
             
@@ -74,13 +91,12 @@ public class Object_xml_document_one {
                     link.add(
                         new xml_document_link(
                             this.one_line_link_name,
-                            this.one_line_link_href
+                            this.one_line_link_href.getLast()
                         )
                     );
                     
                     this.one_line_text = "";
                     this.one_line_link_name = "";
-                    this.one_line_link_href = new Link("");
                     
                     tema = "";
                     
@@ -220,10 +236,9 @@ public class Object_xml_document_one {
                         
                         case before, after, middle -> text += " ";
                         
-                        case href -> link += " ";
-                        
                         case name -> name += " ";
                         
+                        case href -> link += " ";
                         
                     }//switch(cod)
                     
@@ -255,7 +270,7 @@ public class Object_xml_document_one {
             
             var acept = false;
             
-            Link lnk = new Link(link);
+            Link lnk = new Link(link.trim());
             
             if(lnk.Val()){
                 
@@ -270,9 +285,9 @@ public class Object_xml_document_one {
                 if(acept){
                     
                     this.one_line_text = txt.text(text, true);
-                    
                     this.one_line_link_name = txt.text(name,no_char);
-                    this.one_line_link_href = lnk;
+                    
+                    this.one_line_link_href.add(lnk);
                     
                 }//if(acept)
                 
