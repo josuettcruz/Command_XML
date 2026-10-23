@@ -208,27 +208,6 @@ public class Action {
         
     }//Doc()
     
-    private static List<Read> Doc(String file, boolean write){
-        
-        List<Read> files = new ArrayList();
-        
-        for(String val : Doc()){
-            
-            var arq = val;
-            arq += file;
-            
-            if(Arq.Dir(arq, write)){
-                
-                files.add(new Arq(arq).Read());
-                
-            }//if(Arq.Dir(arq, write))
-            
-        }//for(String val : Doc())
-        
-        return files;
-        
-    }//Doc(String file)
-    
     private static void newFont(Font font){EditFont = font;}
     
     private static boolean newFont(String arq){
@@ -561,17 +540,7 @@ public class Action {
             
             var title = Data.code.DataAbreviada(false);
             title += " - ";
-            title += Reg.Numb(Hora.code.Hour());
-            title += "h";
-            title += Reg.Numb(Hora.code.Min());
-            title += "m";
-            
-            if(Hora.code.Sec() > 0){
-                
-                title += Reg.Numb(Hora.code.Sec());
-                title += "s";
-                
-            }//if(Hora.code.Sec() > 0)
+            title += Hora.code.Timer();
             
             return title;
             
@@ -1066,17 +1035,19 @@ public class Action {
     )
     {
         
+        var file = Texto.arq_no_extension(title);
+        
         Arq arq = new Arq(doc.Local());
         
-        var notepad = confirm && !Doc(title, false).isEmpty();
+        var notepad = file.length() >= 1;
         
-        if(notepad){
+        if(file.isBlank()){
             
-            final boolean[] valid = {
-                Doc(title, false).get(0).Max() < 1000,
-                Doc(title, false).get(0).Read().length() < 1000000L,
-                Arq.Tam(Doc(title, false).get(0).Arq()) < 1073741824L
-            };
+            notepad = false;
+            
+        } else {
+            
+            Read r;
             
             var proc = 0;
             
@@ -1084,99 +1055,13 @@ public class Action {
                 
                 proc++;
                 
-            }while(notepad && proc > 0 && proc < valid.length);
+            }while(!notepad && proc > 0 && proc < file.length());
             
-        }//if(notepad)
+        }
         
         if(notepad){
             
-            Read r = Doc(title, false).get(0);
-            
-            var doc_one_title = "";
-            
-            List<String> page = one.getText();
-            
-            if(page.size() > 1){
-                
-                var proc = 0;
-                var loop = true;
-                
-                do{
-                    
-                    final var tlc = Texto.text(
-                        page.get(proc),
-                        exclude_document_function
-                    );
-                    
-                    if(tlc.isBlank()){
-                        
-                        doc_one_title = tlc;
-                        loop = false;
-                        
-                    }//if(tlc.isBlank())
-                    
-                    proc++;
-                    
-                }while(loop && proc > 0 && proc < page.size());
-                
-            } else {//if(page.size() > 1)
-                
-                if(!page.isEmpty()){
-                    
-                    doc_one_title = Texto.text(
-                        page.get(0),
-                        exclude_document_function
-                    );
-                
-                }//if(!page.isEmpty())
-                
-            }//if(page.size() > 1)
-            
-            if(doc_one_title.isBlank()){
-                
-                var t = r.Arq();
-                
-                var tema = "";
-                
-                for(var i = 0; i < t.length(); i++){
-                    
-                    switch(t.charAt(i)){
-                        
-                        case '.' ->{
-                            
-                            if(!doc_one_title.isBlank()) doc_one_title += ".";
-                            
-                            doc_one_title += tema;
-                            tema = "";
-                            
-                        }
-                        
-                        default -> tema += t.charAt(i);
-                        
-                    }//switch(t.charAt(i))
-                    
-                }//for(var i = 0; i < t.length(); i++)
-                
-                if(tema.length() > 3 || doc_one_title.isBlank()){
-                    
-                    if(!doc_one_title.isBlank()) doc_one_title += ".";
-                    
-                    doc_one_title += tema;
-                    
-                }//if(tema.length() > 3)
-                
-            }//if(doc_one_title.isBlank())
-            
-            controller.p3(
-                new session(
-                    doc,
-                    new Object_xml_document_one(
-                        r.content(),
-                        doc_one_title
-                    ).Doc(),
-                    MyFont()
-                )
-            );
+            // 10:57 23/10/2026
             
         } else if(arq.Val()){//if(notepad)
             
@@ -1209,6 +1094,8 @@ public class Action {
             
         } else {//if(notepad)
             
+            final var p = Texto.arq_no_extension(doc.getTitle());
+            
             var con = "";
             
             if(xml().Windows()){
@@ -1221,13 +1108,30 @@ public class Action {
                 
             }//if(xml.Windows())
             
+            Hora h = Hora.code;
+            
             con += Data.code.Load();
-            con += "_";
-            con += Reg.Numb(Hora.code.Hour());
-            con += "-";
-            con += Reg.Numb(Hora.code.Min());
-            con += "-";
-            con += Reg.Numb(Hora.code.Sec());
+            con += " - ";
+            con += Reg.Numb(h.Hour());
+            con += "h";
+            con += Reg.Numb(h.Min());
+            con += "m";
+            
+            if(h.Sec() > 0){
+                
+                con += Reg.Numb(h.Sec());
+                con += "s";
+                
+            }//if(h.Sec() > 0)
+            
+            if(p.length() <= 20){
+                
+                con += " - ";
+                
+                con += p;
+                
+            }//if(p.length() <= 20)
+            
             con += ".xml";
             
             doc.Del(one.getTitle());
@@ -1564,7 +1468,7 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            // 10:40 23/10/2026 -- code new this
+            // 10:58 23/10/2026 -- code new this
             
         }//if(newFont(Texto.text(input, true)))
         
