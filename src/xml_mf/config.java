@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
@@ -227,7 +227,7 @@ public class config implements
         
         for(String string : value){
             
-            var tema = txt.text(string, this.exclude_char);
+            var tema = Texto.text(string, this.exclude_char);
             
             if(!tema.isBlank())
             {val.add(tema);}
@@ -240,9 +240,9 @@ public class config implements
     
     private String Submit(String input){
         
-        var val = txt.text(input, this.exclude_char);
+        var val = Texto.text(input, this.exclude_char);
         
-        var m = txt.phrase(val, true).size();
+        var m = Texto.phrase(val, true).size();
         
         if(val.length() > 100 && m == 1){
             
@@ -258,11 +258,11 @@ public class config implements
             
         } else if(m < 8){//if(val.length() > 100 && m == 1)
             
-            return txt.title(val, true);
+            return Texto.title(val, true);
             
         } else {//if(val.length() > 100 && m == 1)
             
-            return txt.arq(val);
+            return Texto.arq(val);
             
         }//if(val.length() > 100 && m == 1)
         
@@ -399,7 +399,7 @@ public class config implements
                 boolean[] doc = new boolean[cod.length];
                 
                 var dol = "";
-                for(String t : txt.phrase(input, tem)) dol += t;
+                for(String t : Texto.phrase(input, tem)) dol += t;
                 
                 for(int i = 0; i < cod.length; i++)
                 {doc[i] = dol.equalsIgnoreCase(cod[i]);}
@@ -573,9 +573,9 @@ public class config implements
                 
                 for(int add = 0; add < text.size(); add++){
                     
-                    var insert = txt.text(text.get(add), tem);
+                    var insert = Texto.text(text.get(add), tem);
                     
-                    if(add == row) insert = txt.arq(insert);
+                    if(add == row) insert = Texto.arq(insert);
                     
                     none.add(insert);
                     
@@ -602,7 +602,7 @@ public class config implements
             
             case enter, confirm, ctrl_enter ->{
                 
-                var doc = txt.text(input, tem);
+                var doc = Texto.text(input, tem);
                 
                 final String[] cod = {"exit","sair","finalizar","encerrar"};
                 
@@ -613,7 +613,7 @@ public class config implements
                 do{
                     var note = "";
                     
-                    for(String t : txt.phrase(input, tem)) note += t;
+                    for(String t : Texto.phrase(input, tem)) note += t;
                     
                     out = note.equalsIgnoreCase(cod[cont]);
                     
@@ -629,7 +629,7 @@ public class config implements
                     
                     List<String> none = new ArrayList();
                     none.addAll(this.Println(text));
-                    none.add(txt.text(doc, this.exclude_char));
+                    none.add(Texto.text(doc, this.exclude_char));
                     
                     controller.p3(new config(none,this.user_area));
                     

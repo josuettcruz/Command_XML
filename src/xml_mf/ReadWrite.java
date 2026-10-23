@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
@@ -74,7 +74,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
         
         xml_document_one novo = new xml_document_one();
         
-        novo.setTitle(txt.text(input, Action.exclude_document_function).isBlank() ? "" : txt.title(input, true));
+        novo.setTitle(Texto.text(input, Action.exclude_document_function).isBlank() ? "" : Texto.title(input, true));
         
         controller.p2(new DocumentView(this.document, novo, this.Font()));
         
@@ -115,9 +115,9 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
             
             for(int id = 0; id < this.document.List().size(); id++){
                 
-                var tema = txt.text(this.document.List().get(id).getTitle());
+                var tema = Texto.text(this.document.List().get(id).getTitle());
                 
-                demo.add(new Domain(id,txt.title(tema, true)));
+                demo.add(new Domain(id,Texto.title(tema, true)));
                 
             }//for(int cont = 0; cont < this.document.List().size(); cont++)
             

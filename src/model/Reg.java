@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
@@ -74,7 +74,7 @@ public class Reg {
             
         var compare = "";
         
-        for(String t : txt.phrase(xmls))
+        for(String t : Texto.phrase(xmls))
         {compare += t.toLowerCase();}
         
         var proc = 0;
@@ -84,7 +84,7 @@ public class Reg {
             
             var validate = "";
             
-            for(String t : txt.phrase(r.Read(proc)))
+            for(String t : Texto.phrase(r.Read(proc)))
             {validate += t.toLowerCase();}
             
             valid = compare.equals(validate);

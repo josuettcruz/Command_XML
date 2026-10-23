@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_rw;
@@ -123,7 +123,7 @@ public class xml_config {
                 )
                 {
                     
-                    this.user = txt.text(t.txt(), true);
+                    this.user = Texto.text(t.txt(), true);
                     
                 }//if -- if(this.user.isBlank())
                 
@@ -506,10 +506,10 @@ public class xml_config {
             
         }//avoid error
         
-        if(!txt.text(this.user, true).isBlank()){
+        if(!Texto.text(this.user, true).isBlank()){
             
             root += "\" user=\"";
-            root += txt.text(this.user, true);
+            root += Texto.text(this.user, true);
             
         }//if(!this.user.trim().isBlank())
         

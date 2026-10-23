@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
@@ -118,9 +118,9 @@ public class folder_xml implements Painel_1Single{
             
             for(var id = 0; id < this.document.learn().size(); id++){
                 
-                var t = txt.text(this.document.learn().get(id).Title());
+                var t = Texto.text(this.document.learn().get(id).Title());
                 
-                demo.add(new Domain(id,txt.title(t, true)));
+                demo.add(new Domain(id,Texto.title(t, true)));
                 
             }//for(var id = 0; id < this.document.learn().size(); id++)
             

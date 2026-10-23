@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
@@ -106,7 +106,7 @@ public class session implements Painel_3 {
     @Override
     public String InputText() {
         
-        var t = txt.text(this.document_one.getTitle());
+        var t = Texto.text(this.document_one.getTitle());
         
         return t.isBlank() ? "" : t;
         

@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package command_xml;
@@ -49,7 +49,7 @@ public class init {
         
         var prt = "";
         
-        for(String p : txt.phrase(note.getLink(false), cod)){
+        for(String p : Texto.phrase(note.getLink(false), cod)){
             
             var insert = true;
             
@@ -77,7 +77,7 @@ public class init {
             }while(insert && proc > 0 && proc < not.length);
             
             if(insert && !into)
-            {insert = !txt.arq(note.dat(false)).contains(txt.arq(p));}
+            {insert = !Texto.arq(note.dat(false)).contains(Texto.arq(p));}
                 
             if(insert && p.length() > 2){
                 
@@ -87,7 +87,7 @@ public class init {
                 
             }//if(insert && p.length() > 2)
             
-        }//for(String p : txt.phrase(note.getLink(false), cod))
+        }//for(String p : Texto.phrase(note.getLink(false), cod))
         
         Reg.Print(note.dat(into), prt, max);
         
@@ -317,7 +317,7 @@ public class init {
         
         var sum = 0;
         
-        for(String p : txt.phrase(t.Read(), exclude)) sum += p.length();
+        for(String p : Texto.phrase(t.Read(), exclude)) sum += p.length();
         
         return sum >= 5 && t.Val();
         

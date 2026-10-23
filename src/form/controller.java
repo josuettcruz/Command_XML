@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package form;
@@ -88,7 +88,7 @@ public class controller {
         
         for(String myText : value){
             
-            var com = txt.text(myText, true);
+            var com = Texto.text(myText, true);
             
             if(!com.isBlank()) text.add(com);
             
@@ -102,7 +102,7 @@ public class controller {
             
             try{
 
-                var title = txt.title(setTtitle, true);
+                var title = Texto.title(setTtitle, true);
 
                 if(title.isBlank()) title = new Link(Reg.http).dat(exit);
 

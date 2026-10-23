@@ -1,10 +1,10 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_rw;
 
-import model.txt;
+import model.Texto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +34,14 @@ public class Order<cmd> {
         
         var validate = "";
         
-        for(String t : txt.phrase(text)) validate += txt.arq(t);
+        for(String t : Texto.phrase(text)) validate += Texto.arq(t);
         
         do{
             
             var valid = "";
             
-            for(String t : txt.phrase(this.command.get(i).Title()))
-            {valid += txt.arq(t);}
+            for(String t : Texto.phrase(this.command.get(i).Title()))
+            {valid += Texto.arq(t);}
             
             value = !validate.equalsIgnoreCase(valid);
             
@@ -84,7 +84,7 @@ public class Order<cmd> {
                 
                 if(val[i]){
                     
-                    if(txt.min(this.command.get(i).Title(), compare)){
+                    if(Texto.min(this.command.get(i).Title(), compare)){
                         
                         value.add((cmd) this.command.get(i).Code());
                         
@@ -93,7 +93,7 @@ public class Order<cmd> {
                         val[i] = false;
                         loop = false;
                         
-                    }//if(txt.min(this.command.get(i).Title(), compare))
+                    }//if(Texto.min(this.command.get(i).Title(), compare))
                     
                 }//if(val[i])
                 
@@ -113,20 +113,20 @@ public class Order<cmd> {
         
         var value = -1;
         
-        if(txt.phrase(search).size() > 1){
+        if(Texto.phrase(search).size() > 1){
             
             var i = 0;
             var loop = true;
             
             var validate = "";
             
-            for(String t : txt.phrase(search)) validate += txt.arq(t);
+            for(String t : Texto.phrase(search)) validate += Texto.arq(t);
             
             do{
                 
                 var valid = "";
                 
-                for(String t : txt.phrase(proc.get(i))) valid += txt.arq(t);
+                for(String t : Texto.phrase(proc.get(i))) valid += Texto.arq(t);
                 
                 if(validate.equals(valid)){
                     
@@ -139,7 +139,7 @@ public class Order<cmd> {
                 
             }while(loop && i > 0 && i < proc.size());
             
-        }//if(txt.phrase(search).size() > 1)
+        }//if(Texto.phrase(search).size() > 1)
         
         return value;
         

@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author josue
  */
-public class txt {
+public class Texto {
     
     public static String text(String text, boolean remove_char){
         
@@ -734,7 +734,7 @@ public class txt {
                         
                         space = true;
                         
-                    }//if(i > 0 && !txt.isBlank())
+                    }//if(i > 0 && !Texto.isBlank())
                     
                 }//case ' '
                 
@@ -762,11 +762,11 @@ public class txt {
                         
                         val = false;
                         
-                    } else {//if(txt.length() >= 2)
+                    } else {//if(Texto.length() >= 2)
                         
                         txt += "_";
                         
-                    }//if(txt.length() >= 2)
+                    }//if(Texto.length() >= 2)
                     
                 }//cases
                 

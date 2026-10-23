@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
@@ -52,7 +52,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         this.input = "";
         
         this.text = new ArrayList();
-        this.text.addAll(Arrays.asList(txt.text(text, true).split("\n")));
+        this.text.addAll(Arrays.asList(Texto.text(text, true).split("\n")));
         
     }//commit(String text)
     
@@ -90,7 +90,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 var space = false;
                 
-                for(String t : txt.phrase(this.text.get(d))){
+                for(String t : Texto.phrase(this.text.get(d))){
                     
                     if(space){
                         
@@ -149,7 +149,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                     }//if(quot && t.length() > 1)
                     
-                }//for(String t : txt.phrase(this.text.get(d), space))
+                }//for(String t : Texto.phrase(this.text.get(d), space))
                 
                 if(point && this.text.get(d).length() > 1){
                     
@@ -171,7 +171,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
                 if(quot_end_line) val += "'";
                 
-            }//for(String t : txt.phrase(this.text.get(d)))
+            }//for(String t : Texto.phrase(this.text.get(d)))
             
         }//if(this.text.size() == 1)
         
@@ -203,7 +203,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             var space = false;
             
-            for(String y : txt.phrase(x, true)){
+            for(String y : Texto.phrase(x, true)){
                 
                 if(space){
                     
@@ -261,7 +261,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 }
                 
-            }//for(String y : txt.phrase(x, true))
+            }//for(String y : Texto.phrase(x, true))
                 
             if(point && x.length() > 1){
 
@@ -289,7 +289,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private String Export(String ext){
         
-        var run = txt.Local(ext);
+        var run = Texto.Local(ext);
         
         var arqv = Reg.java ? "..\\" : "";
         arqv += "jar - ";
@@ -397,15 +397,15 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                         val += "::";
                         
-                    } else if(i < txt.length()-1){//if(i < txt.length()-1 && ...
+                    } else if(i < txt.length()-1){//if(i < Texto.length()-1 && ...
                         
                         val += ":";
                         
-                    } else {//if(i < txt.length()-1 && mude)
+                    } else {//if(i < Texto.length()-1 && mude)
                         
                         val += ".";
                         
-                    }//if(i < txt.length()-1 && mude)
+                    }//if(i < Texto.length()-1 && mude)
                     
                     mude = false;
                     
@@ -419,9 +419,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 }//default
                 
-            }//switch(txt.charAt(i))
+            }//switch(Texto.charAt(i))
             
-        }//for(int i = 0; i < txt.length(); i++)
+        }//for(int i = 0; i < Texto.length(); i++)
         
         return val;
         
@@ -440,7 +440,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             var t = "";
             
-            for(String tema : txt.phrase(x, true)){
+            for(String tema : Texto.phrase(x, true)){
                 
                 var y = Tem(tema);
                 
@@ -459,7 +459,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     if(t.isBlank()){
                         
-                        t += point && velod ? txt.capitalize(y) : y;
+                        t += point && velod ? Texto.capitalize(y) : y;
                         
                     } else {
                         
@@ -498,7 +498,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                 }//if(t.length() > 1)
                 
-            }//for(String t : txt.phrase(tema, true))
+            }//for(String t : Texto.phrase(tema, true))
             
             //if(points) t += "!";
             
@@ -514,14 +514,14 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             do{
                 
                 var note = "";
-                for(String t : txt.phrase(ext, this.ten)) note += t;
+                for(String t : Texto.phrase(ext, this.ten)) note += t;
                 document = !note.equalsIgnoreCase(this.notpad[cont]);
                 cont++;
                 
             }while(document && cont > 0 && cont < notpad.length);
             
             var bas = "";
-            for(String t : txt.phrase(ext, this.ten)) bas += t;
+            for(String t : Texto.phrase(ext, this.ten)) bas += t;
             
             var test1 = bas.equalsIgnoreCase(this.base);
             var test2 = Arq.Dir(this.Export(ext), true);
@@ -536,7 +536,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                     
                     var note = "";
                     
-                    for(String t : txt.phrase(ext, this.ten)) note += t;
+                    for(String t : Texto.phrase(ext, this.ten)) note += t;
                     
                     err = new Arq(this.Export(note)).Save(this.Saving()).Message();
                     
@@ -583,7 +583,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                         
                         final char[] dem = {'"', '>'};
                         
-                        var p = txt.text(t, dem);
+                        var p = Texto.text(t, dem);
                         
                         if(p.length() > 2 && p.length() < max){
                             
@@ -595,7 +595,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                                 
                                 for(String c : p.split(",")){
                                     
-                                    System.out.print(txt.text(c));
+                                    System.out.print(Texto.text(c));
                                     
                                     if(log){
                                         
@@ -619,7 +619,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                                 
                             } else {//if(p.contains(",") && lob == 0)
                                 
-                                System.out.println(txt.text(p));
+                                System.out.println(Texto.text(p));
                                 
                             }//if(p.contains(",") && lob == 0)
                             
@@ -651,19 +651,19 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         var note = "";
         
-        for(String t : txt.phrase(run, this.ten)) note += t;
+        for(String t : Texto.phrase(run, this.ten)) note += t;
         
         if(note.isBlank()){
             
             controller.p1s(new commit(this.text, this.base));
             
-        } else if(txt.Local(note).equalsIgnoreCase(note)){//if(note.isBlank())
+        } else if(Texto.Local(note).equalsIgnoreCase(note)){//if(note.isBlank())
             
             this.Event(run, true);
             
         } else {//if(note.isBlank())
             
-            controller.p1m(new commit(this.text, txt.Local(run)));
+            controller.p1m(new commit(this.text, Texto.Local(run)));
             
         }//if(note.isBlank())
         
@@ -791,7 +791,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
             }//if(this.input.isBlank())
             
-            value += txt.text(receive.get(add));
+            value += Texto.text(receive.get(add));
             
             d.add(new Domain(add+1, value));
             

@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
@@ -243,7 +243,7 @@ public class Hora {
     
     public Hora(String t){
         
-        if(txt.text(t).isBlank()){
+        if(Texto.text(t).isBlank()){
             
             this.hora = LocalTime.of(0, 0, 0);
             this.error = "Nenhum valor inserido!";

@@ -1,12 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
 
 import xml_rw.xml_document_one;
 import model.Link;
-import model.txt;
+import model.Texto;
 import xml_rw.xml_document_link;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class Object_xml_document_one {
         
         if(!val.isEmpty()){
             
-            var tl = txt.title(title, true);
+            var tl = Texto.title(title, true);
             
             var max = val.size();
             
@@ -279,15 +279,15 @@ public class Object_xml_document_one {
                 final char[] no_char = {'\\','\'','"',
                     '<','>','{','}','[',']','(',')','|','/','_'};
                 
-                var cond1 = txt.text(text, no_char).length() >= 5;
-                var cond2 = txt.text(name, no_char).length() >= 5;
+                var cond1 = Texto.text(text, no_char).length() >= 5;
+                var cond2 = Texto.text(name, no_char).length() >= 5;
                 
                 acept = cond1 && cond2;
                 
                 if(acept){
                     
-                    this.one_line_text = txt.text(text, true);
-                    this.one_line_link_name = txt.text(name,no_char);
+                    this.one_line_text = Texto.text(text, true);
+                    this.one_line_link_name = Texto.text(name,no_char);
                     
                     this.one_line_link_href.addLast(lnk);
                     
@@ -339,7 +339,7 @@ public class Object_xml_document_one {
                     
                     String text_link;
                     
-                    if(txt.text(tema, exclude_document_function).isBlank()){
+                    if(Texto.text(tema, exclude_document_function).isBlank()){
                         
                         if(lnk.dat(false).length() >= 5){
                             
@@ -351,11 +351,11 @@ public class Object_xml_document_one {
                             
                         }//if(lnk.dat(false).length() >= 5)
                         
-                    } else {//if(txt.text(tema, exclude_document_function).is...
+                    } else {//if(Texto.text(tema, exclude_document_function).is...
                         
-                        text_link = txt.text(t);
+                        text_link = Texto.text(t);
                         
-                    }//if(txt.text(tema, exclude_document_function).isBlank()...
+                    }//if(Texto.text(tema, exclude_document_function).isBlank()...
                     
                     dat.add(new xml_document_link(text_link,lnk));
                     
@@ -467,7 +467,7 @@ public class Object_xml_document_one {
                     if(
                         validate &&
                         dom.Val() &&
-                        !txt.text(
+                        !Texto.text(
                             tt,
                             exclude_document_function
                         ).isBlank()
@@ -476,17 +476,17 @@ public class Object_xml_document_one {
                         
                         dat.add(
                             new xml_document_link(
-                                txt.text(tt, true),
+                                Texto.text(tt, true),
                                 dom
                             )
                         );
                         
                         if(
-                            !txt.text(
+                            !Texto.text(
                                 tx,
                                 exclude_document_function
                             ).isBlank()
-                        ) {tem.add(txt.text(tx, true));}
+                        ) {tem.add(Texto.text(tx, true));}
                         
                     } else {//if(validate...
                         

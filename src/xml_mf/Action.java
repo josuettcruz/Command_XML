@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
@@ -235,7 +235,7 @@ public class Action {
         
         if(
             Arq.Dir(arq, false) &&
-            !txt.text(arq, exclude_document_function).isBlank()
+            !Texto.text(arq, exclude_document_function).isBlank()
         )
         {
             
@@ -273,11 +273,11 @@ public class Action {
             
             return aply;
             
-        } else {//if(Arq.Dir(ttf, false) && !txt.text(ttf, exclude_document_f...
+        } else {//if(Arq.Dir(ttf, false) && !Texto.text(ttf, exclude_document_f...
             
             return false;
             
-        }//if(Arq.Dir(ttf, false) && !txt.text(ttf, exclude_document_function...
+        }//if(Arq.Dir(ttf, false) && !Texto.text(ttf, exclude_document_function...
         
     }//newFont(String arq)
     
@@ -455,13 +455,13 @@ public class Action {
         
         var no_user_form = true;
         
-        if(txt.phrase(message).size() > 1){
+        if(Texto.phrase(message).size() > 1){
         
             List<String> tok = new ArrayList();
             
             String toc = "";
             
-            for(String t : txt.phrase(message)){
+            for(String t : Texto.phrase(message)){
                 
                 var new_t = false;
                 
@@ -510,7 +510,7 @@ public class Action {
                     
                 }//if(new_t)
                 
-            }//for(String t : txt.phrase(message))
+            }//for(String t : Texto.phrase(message))
             
             var tl = Hora.Good();
             tl += " - \"";
@@ -519,7 +519,7 @@ public class Action {
             
             no_user_form = !controller.Msg(tl, tok, true);
         
-        }//if(txt.phrase(message).size() > 1)
+        }//if(Texto.phrase(message).size() > 1)
         
         if(no_user_form){
             
@@ -557,7 +557,7 @@ public class Action {
     
     private static String Document(String input){
         
-        if(txt.text(input, exclude_document_function).isBlank()){
+        if(Texto.text(input, exclude_document_function).isBlank()){
             
             var title = Data.code.DataAbreviada(false);
             title += " - ";
@@ -575,11 +575,11 @@ public class Action {
             
             return title;
             
-        } else {//if(txt.text(doc.getTitle(), exclude).isBlank())
+        } else {//if(Texto.text(doc.getTitle(), exclude).isBlank())
             
-            return txt.title(input, true);
+            return Texto.title(input, true);
             
-        }//if(txt.text(doc.getTitle(), exclude).isBlank())
+        }//if(Texto.text(doc.getTitle(), exclude).isBlank())
         
     }//Document(String input)
     
@@ -589,7 +589,7 @@ public class Action {
         var m = doc.ModifyDate();
         var equal = c.CompareTo(m, true);
         
-        var t = txt.title(doc.getTitle(), true);
+        var t = Texto.title(doc.getTitle(), true);
         
         var val = "";
         
@@ -629,7 +629,7 @@ public class Action {
             
             }//if(equal)
             
-            var tm = txt.phrase(t, exclude_document_function);
+            var tm = Texto.phrase(t, exclude_document_function);
             
             if(tm.get(0).length() < max_str){
                 
@@ -688,7 +688,7 @@ public class Action {
     
     private static int month_ComboBox(String value){
         
-        if(txt.arq(value).isBlank()){
+        if(Texto.arq(value).isBlank()){
             
             return -1;
             
@@ -716,7 +716,7 @@ public class Action {
             
             var tx = "";
             
-            var dm = txt.arq(value);
+            var dm = Texto.arq(value);
             
             for(int i = 0; i < dm.length(); i++){
                 
@@ -742,7 +742,7 @@ public class Action {
                     
                 }while(in_loop && cont > 0 && cont < month.length);
                 
-            }//for(int i = 0; i < txt.arq(value).length(); i++)
+            }//for(int i = 0; i < Texto.arq(value).length(); i++)
             
             var proc = 0;
             var loop = true;
@@ -787,7 +787,7 @@ public class Action {
                 
                 var text_line = new Link(line).Val()
                     ? line
-                    : txt.text(line, true);
+                    : Texto.text(line, true);
                 
                 if(text_line.isBlank()){
                     
@@ -819,7 +819,7 @@ public class Action {
                 if(
                     i == row &&
                     !new Link(value.get(i)).Val() &&
-                    !txt.text(value.get(i)).isBlank()
+                    !Texto.text(value.get(i)).isBlank()
                 )
                 {
                     
@@ -827,7 +827,7 @@ public class Action {
                     
                     switch(d.index()){
                         
-                        case 2 -> val.add(txt.text(t));
+                        case 2 -> val.add(Texto.text(t));
                         
                         case 3 -> {
                             
@@ -845,7 +845,7 @@ public class Action {
                                 var month = init;
                                 var day = init;
                                 
-                                for(String tm : txt.phrase(t, true)){
+                                for(String tm : Texto.phrase(t, true)){
                                     
                                     var dat = month_ComboBox(tm);
                                     
@@ -906,7 +906,7 @@ public class Action {
                             
                             var rd = "";
                             
-                            for(String r : txt.phrase(t)){
+                            for(String r : Texto.phrase(t)){
                                 
                                 switch(r.charAt(0)){
                                     
@@ -1004,7 +1004,7 @@ public class Action {
                                              
                                     }//switch(r.charAt(r.length()-1))
                                     
-                                }//for(String r : txt.phrase(t))
+                                }//for(String r : Texto.phrase(t))
                                 
                             }//if(line)
                             
@@ -1020,7 +1020,7 @@ public class Action {
                     
                     val.add(value.get(i));
                     
-                }//if(i == row && !new Link(value.get(i)).Val() && !txt.text(...
+                }//if(i == row && !new Link(value.get(i)).Val() && !Texto.text(...
                 
             }//for(var i = 0; i < value.getText().size(); i++)
             
@@ -1103,7 +1103,7 @@ public class Action {
                 
                 do{
                     
-                    final var tlc = txt.text(
+                    final var tlc = Texto.text(
                         page.get(proc),
                         exclude_document_function
                     );
@@ -1123,7 +1123,7 @@ public class Action {
                 
                 if(!page.isEmpty()){
                     
-                    doc_one_title = txt.text(
+                    doc_one_title = Texto.text(
                         page.get(0),
                         exclude_document_function
                     );
@@ -1317,13 +1317,13 @@ public class Action {
         String title
     ){
         
-        final var t = txt.text(one.getTitle(), true);
+        final var t = Texto.text(one.getTitle(), true);
         
         var node = "~";
             
         if(t.charAt(0) == '~'){
             
-            node += txt.AddRepeat(t.substring(1));
+            node += Texto.AddRepeat(t.substring(1));
             
         } else {
             
@@ -1346,8 +1346,8 @@ public class Action {
         
         var txt1 = "";
         
-        for(String p : txt.phrase(one.getTitle()))
-        {txt1 += txt.arq(p);}
+        for(String p : Texto.phrase(one.getTitle()))
+        {txt1 += Texto.arq(p);}
         
         var proc = 0;
         var find = -1;
@@ -1356,8 +1356,8 @@ public class Action {
             
             var txt_a1 = "";
             
-            for(String p : txt.phrase(doc.List().get(proc).getTitle()))
-            {txt_a1 += txt.arq(p);}
+            for(String p : Texto.phrase(doc.List().get(proc).getTitle()))
+            {txt_a1 += Texto.arq(p);}
             
             if(txt1.equals(txt_a1)) find = proc;
             
@@ -1375,8 +1375,8 @@ public class Action {
                 
                 for(String x : done.getText()){
                     
-                    if(!txt.phrase(x).isEmpty())
-                    {for(String y : txt.phrase(x)) {txt2 += txt.arq(y);}}
+                    if(!Texto.phrase(x).isEmpty())
+                    {for(String y : Texto.phrase(x)) {txt2 += Texto.arq(y);}}
                     
                 }//for(String x : done.getText())
                 
@@ -1388,53 +1388,53 @@ public class Action {
                 
                 for(String x : one.getText()){
                     
-                    if(!txt.phrase(x).isEmpty())
-                    {for(String y : txt.phrase(x)) {txt3 += txt.arq(y);}}
+                    if(!Texto.phrase(x).isEmpty())
+                    {for(String y : Texto.phrase(x)) {txt3 += Texto.arq(y);}}
                     
                 }//for(String x : one.getText())
                 
             }//if(!one.getText().isEmpty())
             
             var cond1a = txt2.equals(txt3);
-            var cond1b = txt.text(txt2,exclude_document_function).isBlank();
+            var cond1b = Texto.text(txt2,exclude_document_function).isBlank();
             var cond1 = cond1a || cond1b;
             
             var txt4 = "";
             
-            if(!txt.phrase(title).isEmpty()){
+            if(!Texto.phrase(title).isEmpty()){
                 
-                for(String x : txt.phrase(title)){
+                for(String x : Texto.phrase(title)){
                     
-                    if(!txt.phrase(x).isEmpty()){
+                    if(!Texto.phrase(x).isEmpty()){
                         
-                        for(String y : txt.phrase(x))
-                        {txt4 += txt.arq(y);}
+                        for(String y : Texto.phrase(x))
+                        {txt4 += Texto.arq(y);}
                         
-                    }//if(!txt.phrase(x).isEmpty())
+                    }//if(!Texto.phrase(x).isEmpty())
                     
-                }//for(String x : txt.phrase(title))
+                }//for(String x : Texto.phrase(title))
                 
-            }//if(!txt.phrase(title).isEmpty())
+            }//if(!Texto.phrase(title).isEmpty())
             
             var txt5 = "";
             
-            if(!txt.phrase(done.getTitle()).isEmpty()){
+            if(!Texto.phrase(done.getTitle()).isEmpty()){
                 
-                for(String x : txt.phrase(done.getTitle())){
+                for(String x : Texto.phrase(done.getTitle())){
                     
-                    if(!txt.phrase(x).isEmpty()){
+                    if(!Texto.phrase(x).isEmpty()){
                         
-                        for(String y : txt.phrase(x))
-                        {txt5 += txt.arq(y);}
+                        for(String y : Texto.phrase(x))
+                        {txt5 += Texto.arq(y);}
                         
-                    }//if(!txt.phrase(x).isEmpty())
+                    }//if(!Texto.phrase(x).isEmpty())
                     
-                }//for(String x : txt.phrase(title))
+                }//for(String x : Texto.phrase(title))
                 
-            }//if(!txt.phrase(title).isEmpty())
+            }//if(!Texto.phrase(title).isEmpty())
             
             var cond2a = txt4.equals(txt5);
-            var cond2b = txt.text(txt4,exclude_document_function).isBlank();
+            var cond2b = Texto.text(txt4,exclude_document_function).isBlank();
             var cond2 = cond2a || cond2b;
             
             if(cond1 && cond2){
@@ -1443,7 +1443,7 @@ public class Action {
                     new ReadWrite(
                         doc,
                         MyFont(),
-                        txt.text(title, true)
+                        Texto.text(title, true)
                     )
                 );
                 
@@ -1465,7 +1465,7 @@ public class Action {
                 
                 do{
                     
-                    cond = txt.phrase(
+                    cond = Texto.phrase(
                         cod.get(letter),
                         exclude_document_function
                     ).isEmpty();
@@ -1482,7 +1482,7 @@ public class Action {
                     new ReadWrite(
                         doc,
                         MyFont(),
-                        txt.text(title, true)
+                        Texto.text(title, true)
                     )
                 );
                 
@@ -1507,10 +1507,10 @@ public class Action {
             xml_document_one novo = new xml_document_one();
             
             novo.setTitle(
-                txt.text(
+                Texto.text(
                     input,
                     exclude_document_function
-                ).isBlank() ? "" : txt.title(input, true)
+                ).isBlank() ? "" : Texto.title(input, true)
             );
             
             controller.p2(new DocumentView(doc, novo, MyFont()));
@@ -1527,7 +1527,7 @@ public class Action {
     {
         
         if(
-            txt.text(
+            Texto.text(
                 input,
                 exclude_document_function
             ).isBlank()
@@ -1544,25 +1544,25 @@ public class Action {
                 
             }//if(newFont(input))
             
-        } else {//if(txt.text...
+        } else {//if(Texto.text...
             
             ReadWrite(doc, input);
             
-        }//if(txt.text...
+        }//if(Texto.text...
         
     }//ReadWrite(xml_document doc, xml_document_one one, String input)
     
     public static void folder_xml(String input){
         
-        if(newFont(txt.text(input, true))){
+        if(newFont(Texto.text(input, true))){
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
-        } else if(txt.text(input, exclude_document_function).isBlank()){//if(...
+        } else if(Texto.text(input, exclude_document_function).isBlank()){//if(...
             
             Exit();
             
-        } else {//if(newFont(txt.text(input, true)))
+        } else {//if(newFont(Texto.text(input, true)))
             
             if(input.contains("\\") && input.contains("/")){
                 
@@ -1638,8 +1638,8 @@ public class Action {
                 }//if(letter && Arq.Dir(tema + "\\"))
                 
             } else if(
-                txt.text(input, exclude_document_function).length() > 03 &&
-                txt.text(input, exclude_document_function).length() < 20
+                Texto.text(input, exclude_document_function).length() > 03 &&
+                Texto.text(input, exclude_document_function).length() < 20
             )
             {//if(input.contains("\\") && input.contains("/"))
                 
@@ -1802,13 +1802,13 @@ public class Action {
                 
             }//if(input.contains("\\") && input.contains("/"))
             
-        }//if(newFont(txt.text(input, true)))
+        }//if(newFont(Texto.text(input, true)))
         
     }//folder_xml(String input)
     
     public static void folder_xml(Domain menu, String input){
         
-        if(newFont(txt.text(input, true))){
+        if(newFont(Texto.text(input, true))){
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
@@ -1816,7 +1816,7 @@ public class Action {
             menu.index() >= 0 &&
             menu.index() < xml().learn().size() &&
             !xml().learn().isEmpty() &&
-            txt.text(input, exclude_document_function).isBlank()
+            Texto.text(input, exclude_document_function).isBlank()
         )
         {
             

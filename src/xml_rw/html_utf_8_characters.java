@@ -1,11 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_rw;
 
 import model.Link;
-import model.txt;
+import model.Texto;
 
 /**
  *
@@ -121,11 +121,11 @@ public class html_utf_8_characters {
     
     public static String InputForm(String value){
         
-        if(txt.text(value, true).isBlank()){
+        if(Texto.text(value, true).isBlank()){
             
             return "";
             
-        } else {//if(txt.text(value, true).isBlank())
+        } else {//if(Texto.text(value, true).isBlank())
             
             var val = "";
             
@@ -187,17 +187,17 @@ public class html_utf_8_characters {
             
             return val;
             
-        }//if(txt.text(value, true).isBlank())
+        }//if(Texto.text(value, true).isBlank())
         
     }//InputForm(String value)
     
     public static String OutputForm(String value){
         
-        if(txt.text(value, true).isBlank()){
+        if(Texto.text(value, true).isBlank()){
             
             return "";
             
-        } else {//if(txt.text(value, true).isBlank())
+        } else {//if(Texto.text(value, true).isBlank())
             
             var open = 0;
             var close = 0;
@@ -280,7 +280,7 @@ public class html_utf_8_characters {
             
             return val;
             
-        }//if(txt.text(value, true).isBlank())
+        }//if(Texto.text(value, true).isBlank())
         
     }//OutputForm(String value)
     

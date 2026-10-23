@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_mf;
@@ -54,7 +54,7 @@ public class GitCommit implements Painel_2{
             
             var date = true;
             
-            for(String t : txt.phrase(r.Arq(), c)){
+            for(String t : Texto.phrase(r.Arq(), c)){
                 
                 var dat = !this.dat(t) || date;
                 
@@ -88,7 +88,7 @@ public class GitCommit implements Painel_2{
                     
                 }//if(t.equalsIgnoreCase(sept[a]) && a < sept.length)
                 
-            }//for(String t : txt.phrase(r.Arq(), c))
+            }//for(String t : Texto.phrase(r.Arq(), c))
             
             var text = Reg.Tab(" " + Reg.Numb(cod-1,arq.size()," <> "),nom,g);
             
@@ -104,7 +104,7 @@ public class GitCommit implements Painel_2{
         
         final char[] d = {'-'};
         
-        List<String> dem = txt.phrase(t, d);
+        List<String> dem = Texto.phrase(t, d);
         
         var val = true;
         var add = 0;

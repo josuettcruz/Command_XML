@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package file;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import model.txt;
+import model.Texto;
 
 /**
  *
@@ -175,7 +175,7 @@ public class Arq {
                     
                     this.text.add(in);
                     
-                }//for(String in : txt.split("\n"))
+                }//for(String in : Texto.split("\n"))
                 
             }//try (FileWriter line = new FileWriter(this.arq))
             
@@ -191,7 +191,7 @@ public class Arq {
         
         return msg;
         
-    }//Write(String txt, boolean add)
+    }//Write(String Texto, boolean add)
     
     private Exec Write(List<String> txt, boolean add){
         
@@ -251,7 +251,7 @@ public class Arq {
                         
                     }//if(in.contains("\n"))
                     
-                }//for(String in : txt)
+                }//for(String in : Texto)
                 
             }//try (FileWriter line = new FileWriter(this.arq))
             
@@ -267,7 +267,7 @@ public class Arq {
         
         return msg;
         
-    }//Write(List<String> txt, boolean add)
+    }//Write(List<String> Texto, boolean add)
     
     public Exec Save(String[] write){
         
@@ -529,7 +529,7 @@ public class Arq {
         
         ** Abaixo está o método novo e por enquanto, confiável */
         
-        if(txt.text(diretory).length() > 1 && new File(diretory).exists())
+        if(Texto.text(diretory).length() > 1 && new File(diretory).exists())
         {AbsolutePath.addAll(Arq.Folder_Files(diretory));}
         
         return AbsolutePath;

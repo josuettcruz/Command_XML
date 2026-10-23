@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package xml_rw;
@@ -172,11 +172,11 @@ public class xml_document {
                         
                         tent = o.Add(
                             new xml_document_one(
-                                txt.AddRepeat(title_one),
+                                Texto.AddRepeat(title_one),
                                 url,
                                 textarea
                             ),
-                            txt.AddRepeat(title_one)
+                            Texto.AddRepeat(title_one)
                         );
                         
                         cont++;
@@ -492,11 +492,11 @@ public class xml_document {
 
                     tent = o.Add(
                         new xml_document_one(
-                            txt.AddRepeat(title_one),
+                            Texto.AddRepeat(title_one),
                             url,
                             textarea
                         ),
-                        txt.AddRepeat(title_one)
+                        Texto.AddRepeat(title_one)
                     );
 
                     cont++;
