@@ -1061,7 +1061,7 @@ public class Action {
         
         if(notepad){
             
-            // 10:57 23/10/2026
+            // 11:42 23/10/2026 -- code new this
             
         } else if(arq.Val()){//if(notepad)
             
@@ -1468,7 +1468,7 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            // 10:58 23/10/2026 -- code new this
+            // 11:42 23/10/2026 -- code new this
             
         }//if(newFont(Texto.text(input, true)))
         
