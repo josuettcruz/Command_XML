@@ -882,4 +882,141 @@ public class Texto {
         
     }//AddRepeat(String repeated)
     
+    public static String arq_no_extension(String file_name){
+        
+        var tema = text(file_name, true);
+        
+        var t = "";
+        
+        if(!tema.isBlank()){
+            
+            final char[] acept_char = {
+                ' ',
+                '0',
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                'q',
+                'w',
+                'e',
+                'é',
+                'è',
+                'ê',
+                'r',
+                't',
+                'y',
+                'ý',
+                'u',
+                'ú',
+                'ù',
+                'û',
+                'i',
+                'í',
+                'í',
+                'ì',
+                'o',
+                'ô',
+                'õ',
+                'ó',
+                'ò',
+                'p',
+                'a',
+                'ã',
+                'â',
+                'á',
+                'à',
+                's',
+                'd',
+                'f',
+                'g',
+                'h',
+                'j',
+                'k',
+                'l',
+                'z',
+                'x',
+                'c',
+                'ç',
+                'v',
+                'b',
+                'n',
+                'm',
+                '&'
+            };
+            
+            for(var x = 0; x < tema.length(); x++){
+                
+                var y = 0;
+                var loop = true;
+                
+                do{
+                    
+                    if(tema.toLowerCase().charAt(x) == acept_char[y]){
+                        
+                        t += tema.charAt(x);
+                        
+                        loop = false;
+                        
+                    }//if(tema.toLowerCase().charAt(x) == acept_char[y])
+                    
+                    y++;
+                    
+                }while(loop && y > 0 && y < acept_char.length);
+                
+            }//for(var x = 0; x < tema.length(); x++)
+            
+        }//if(!tema.isBlank())
+        
+        if(t.isBlank()){
+            
+            return "";
+            
+        } else {//if(t.isBlank())
+            
+            var val = "";
+            
+            var c = char_specific.other;
+            
+            for(var i = 0; i < t.length(); i++){
+                
+                switch(t.charAt(i)){
+                    
+                    case '.' -> c = char_specific.point;
+                    
+                    case '-' -> c = char_specific.hyphen;
+                    
+                    case '_' -> c = char_specific.underline;
+                    
+                    default -> {
+                        
+                        switch(c){
+                            
+                            case point, hyphen -> val += "-";
+                            
+                            case underline -> val += "_";
+                            
+                        }//switch(c)
+                        
+                        c = char_specific.other;
+                        
+                        val += t.charAt(i);
+                        
+                    }//default
+                    
+                }//switch(t.charAt(i))
+                
+            }//for(var i = 0; i < t.length(); i++)
+            
+            return val;
+            
+        }//if(t.isBlank())
+        
+    }//arq_no_extension(String file_name)
+    
 }//txt

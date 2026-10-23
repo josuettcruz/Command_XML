@@ -2,14 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
  */
-package xml_mf;
+package model;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
-public enum Action_folder_xml {
-    
-    none, point, hyphen, underline;
-    
-}
+public enum char_specific {other, point, hyphen, underline;}
