@@ -1,3 +1,7 @@
+// PAUSED CODE: 25/10/2026 - 11:14
+// Line: "1184"
+// Line: "1542"
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -1027,7 +1031,7 @@ public class Action {
         
     }//session_combobox
     
-    public static void session(
+    public static void session_save(
         xml_document doc,
         xml_document_one one,
         String title,
@@ -1035,35 +1039,9 @@ public class Action {
     )
     {
         
-        var file = Texto.arq_no_extension(title);
-        
         Arq arq = new Arq(doc.Local());
         
-        var notepad = file.length() >= 1;
-        
-        if(file.isBlank()){
-            
-            notepad = false;
-            
-        } else {
-            
-            Read r;
-            
-            var proc = 0;
-            
-            do{
-                
-                proc++;
-                
-            }while(!notepad && proc > 0 && proc < file.length());
-            
-        }
-        
-        if(notepad){
-            
-            // 11:42 23/10/2026 -- code new this
-            
-        } else if(arq.Val()){//if(notepad)
+        if(arq.Val()){//if(notepad)
             
             doc.Del(one.getTitle());
             
@@ -1193,6 +1171,99 @@ public class Action {
         var ok = xml().Save(new Arq(xml_config()));
         
         if(!ok.Val()) Err(ok.Type(), ok.Message());
+        
+    }//session_save
+    
+    public static void session_open(
+        xml_document doc,
+        xml_document_one one,
+        Read r
+    )
+    {
+        
+        // PAUSED CODE
+        
+    }//session_open
+    
+    public static void session(
+        xml_document doc,
+        xml_document_one one,
+        String title,
+        boolean confirm
+    ){
+        
+        if(confirm){
+            
+            var cod = Texto.arq_no_extension(title);
+            
+            if(cod.length() >= 3 && cod.length() <= 20){
+                
+                final var t0 = cod + ".txt";
+                
+                var proc = 0;
+                var next = true;
+                
+                do{
+                    
+                    if(Arq.Dir(cod, false)){
+                        
+                        if(Arq.Tam(t0) < 1073741824L){
+                            
+                            var r = new Arq(Arq.Files(t0)).Read();
+                            
+                            if(r.Max() < 1000) session_open(doc, one, r);
+                            
+                            next = false;
+                            
+                        }//if(Arq.Tam(cod) < 1073741824L)
+                        
+                    }//if(Arq.Dir(cod, false))
+                    
+                    proc++;
+                    
+                }while(next && proc > 0 && proc < Doc().size());
+                
+                if(next){
+                    
+                    final var t1 = cod + ".TXT";
+                    
+                    proc = 0;
+                    
+                    do{
+                        
+                        if(Arq.Dir(cod, false)){
+                            
+                            if(Arq.Tam(t1) < 1073741824L){
+                                
+                                var r = new Arq(Arq.Files(t0)).Read();
+                                
+                                if(r.Max() < 1000) session_open(doc, one, r);
+                                
+                                next = false;
+                                
+                            }//if(Arq.Tam(cod) < 1073741824L)
+                            
+                        }//if(Arq.Dir(cod, false))
+                        
+                        proc++;
+                        
+                    }while(next && proc > 0 && proc < Doc().size());
+                    
+                }//if(next)
+                
+                if(next) Action.session_save(doc, one, title, true);
+                
+            } else {//if(cod.length() >= 3 && cod.length() <= 20)
+                
+                Action.session_save(doc, one, title, true);
+                
+            }//if(cod.length() >= 3 && cod.length() <= 20)
+            
+        } else {//if(confirm)
+            
+            Action.session_save(doc, one, title, false);
+            
+        }//if(confirm)
         
     }//session
     
@@ -1468,7 +1539,7 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            // 11:42 23/10/2026 -- code new this
+            // PAUSED CODE
             
         }//if(newFont(Texto.text(input, true)))
         
