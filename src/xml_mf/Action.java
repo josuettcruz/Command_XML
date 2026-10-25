@@ -1196,7 +1196,36 @@ public class Action {
             
             var cod = Texto.arq_no_extension(title);
             
-            if(cod.length() >= 3 && cod.length() <= 20){
+            var cond1 = cod.length() >= 3;
+            
+            var cond2 = cod.length() <= 20;
+            
+            var acept = true;
+            
+            if(cond1 && cond2){
+                
+                var t = one.getText();
+                
+                var proc = 0;
+                
+                do{
+                    
+                    acept = Texto.text(
+                        t.get(proc),
+                        exclude_document_function
+                    ).isBlank();
+                    
+                    proc++;
+                    
+                }while(acept && proc > 0 && proc < t.size());
+                
+            } else {//if(cond1 && cond2)
+                
+                acept = false;
+                
+            }//if(cond1 && cond2)
+            
+            if(acept){
                 
                 var proc = 0;
                 var next = true;
@@ -1265,11 +1294,11 @@ public class Action {
                 
                 if(next) Action.session_save(doc, one, title, true);
                 
-            } else {//if(cod.length() >= 3 && cod.length() <= 20)
+            } else {//if(acept)
                 
                 Action.session_save(doc, one, title, true);
                 
-            }//if(cod.length() >= 3 && cod.length() <= 20)
+            }//if(acept)
             
         } else {//if(confirm)
             
