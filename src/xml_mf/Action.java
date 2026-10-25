@@ -1041,7 +1041,7 @@ public class Action {
         
         Arq arq = new Arq(doc.Local());
         
-        if(arq.Val()){//if(notepad)
+        if(arq.Val()){
             
             doc.Del(one.getTitle());
             
@@ -1070,7 +1070,7 @@ public class Action {
                 
             }//if(e.Val())
             
-        } else {//if(notepad)
+        } else {//if(arq.Val())
             
             final var p = Texto.arq_no_extension(doc.getTitle());
             
@@ -1137,7 +1137,7 @@ public class Action {
                 
             }//if(e.Val())
             
-        }//if(notepad)
+        }//if(arq.Val())
         
         var read = xml().learn();
         
