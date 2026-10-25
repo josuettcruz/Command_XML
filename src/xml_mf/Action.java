@@ -1198,22 +1198,28 @@ public class Action {
             
             if(cod.length() >= 3 && cod.length() <= 20){
                 
-                final var t0 = cod + ".txt";
-                
                 var proc = 0;
                 var next = true;
                 
                 do{
                     
-                    if(Arq.Dir(cod, false)){
+                    var tl = Doc().get(proc);
+                    tl += cod;
+                    tl += ".txt";
+                    
+                    if(Arq.Dir(tl, false)){
                         
-                        if(Arq.Tam(t0) < 1073741824L){
+                        if(Arq.Tam(tl) < 1073741824L){
                             
-                            var r = new Arq(Arq.Files(t0)).Read();
+                            var r = new Arq(Arq.Files(tl)).Read();
                             
-                            if(r.Max() < 1000) session_open(doc, one, r);
-                            
-                            next = false;
+                            if(r.Max() < 1000){
+                                
+                                session_open(doc, one, r);
+                                
+                                next = false;
+                                
+                            }//if(r.Max() < 1000)
                             
                         }//if(Arq.Tam(cod) < 1073741824L)
                         
@@ -1225,21 +1231,27 @@ public class Action {
                 
                 if(next){
                     
-                    final var t1 = cod + ".TXT";
+                    var tl = Doc().get(proc);
+                    tl += cod;
+                    tl += ".TXT";
                     
                     proc = 0;
                     
                     do{
                         
-                        if(Arq.Dir(cod, false)){
+                        if(Arq.Dir(tl, false)){
                             
-                            if(Arq.Tam(t1) < 1073741824L){
+                            if(Arq.Tam(tl) < 1073741824L){
                                 
-                                var r = new Arq(Arq.Files(t0)).Read();
+                                var r = new Arq(Arq.Files(tl)).Read();
                                 
-                                if(r.Max() < 1000) session_open(doc, one, r);
-                                
-                                next = false;
+                                if(r.Max() < 1000){
+                                    
+                                    session_open(doc, one, r);
+                                    
+                                    next = false;
+                                    
+                                }//if(r.Max() < 1000)
                                 
                             }//if(Arq.Tam(cod) < 1073741824L)
                             
