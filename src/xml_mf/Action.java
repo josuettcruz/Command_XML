@@ -1,6 +1,6 @@
-// PAUSED CODE: 25/10/2026 - 11:14
+// PAUSED CODE: 25/10/2026 - 14:08
 // Line: "1184"
-// Line: "1542"
+// Line: "1721"
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
@@ -1200,9 +1200,11 @@ public class Action {
             
             var cond2 = cod.length() <= 20;
             
-            var acept = true;
+            boolean acept;
             
             if(cond1 && cond2){
+                
+                acept = true;
                 
                 var t = one.getText();
                 
@@ -1244,9 +1246,26 @@ public class Action {
                             
                             if(r.Max() < 1000){
                                 
-                                session_open(doc, one, r);
+                                var l = 0;
                                 
-                                next = false;
+                                do{
+                                    
+                                    if(
+                                        Texto.phrase(
+                                            r.Read(l),
+                                            exclude_document_function
+                                        ).size() > 1
+                                    )
+                                    {
+                                        
+                                        session_open(doc, one, r);
+                                        next = false;
+                                        
+                                    }//if(Texto.phrase(r.Read(l), exclude...
+                                    
+                                    l++;
+                                    
+                                }while(next && l > 0 && l < r.Max());
                                 
                             }//if(r.Max() < 1000)
                             
@@ -1258,7 +1277,109 @@ public class Action {
                     
                 }while(next && proc > 0 && proc < Doc().size());
                 
-                if(next){
+                if(next){//1 -- 3
+                    
+                    var tl = Doc().get(proc);
+                    tl += cod;
+                    tl += ".md";
+                    
+                    proc = 0;
+                    
+                    do{
+                        
+                        if(Arq.Dir(tl, false)){
+                            
+                            if(Arq.Tam(tl) < 1073741824L){
+                                
+                                var r = new Arq(Arq.Files(tl)).Read();
+                                
+                                if(r.Max() < 1000){
+                                    
+                                    var l = 0;
+                                    
+                                    do{
+                                        
+                                        if(
+                                            Texto.phrase(
+                                                r.Read(l),
+                                                exclude_document_function
+                                            ).size() > 1
+                                        )
+                                        {
+                                            
+                                            session_open(doc, one, r);
+                                            next = false;
+                                            
+                                        }//if(Texto.phrase(r.Read(l), exclude...
+                                        
+                                        l++;
+                                        
+                                    }while(next && l > 0 && l < r.Max());
+                                    
+                                }//if(r.Max() < 1000)
+                                
+                            }//if(Arq.Tam(cod) < 1073741824L)
+                            
+                        }//if(Arq.Dir(cod, false))
+                        
+                        proc++;
+                        
+                    }while(next && proc > 0 && proc < Doc().size());
+                    
+                }//if(next) -- 1 -- 3
+                
+                if(next){//2 -- 3
+                    
+                    var tl = Doc().get(proc);
+                    tl += cod;
+                    tl += ".MD";
+                    
+                    proc = 0;
+                    
+                    do{
+                        
+                        if(Arq.Dir(tl, false)){
+                            
+                            if(Arq.Tam(tl) < 1073741824L){
+                                
+                                var r = new Arq(Arq.Files(tl)).Read();
+                                
+                                if(r.Max() < 1000){
+                                    
+                                    var l = 0;
+                                    
+                                    do{
+                                        
+                                        if(
+                                            Texto.phrase(
+                                                r.Read(l),
+                                                exclude_document_function
+                                            ).size() > 1
+                                        )
+                                        {
+                                            
+                                            session_open(doc, one, r);
+                                            next = false;
+                                            
+                                        }//if(Texto.phrase(r.Read(l), exclude...
+                                        
+                                        l++;
+                                        
+                                    }while(next && l > 0 && l < r.Max());
+                                    
+                                }//if(r.Max() < 1000)
+                                
+                            }//if(Arq.Tam(cod) < 1073741824L)
+                            
+                        }//if(Arq.Dir(cod, false))
+                        
+                        proc++;
+                        
+                    }while(next && proc > 0 && proc < Doc().size());
+                    
+                }//if(next) -- 2 -- 3
+                
+                if(next){//3 -- 3
                     
                     var tl = Doc().get(proc);
                     tl += cod;
@@ -1276,9 +1397,26 @@ public class Action {
                                 
                                 if(r.Max() < 1000){
                                     
-                                    session_open(doc, one, r);
+                                    var l = 0;
                                     
-                                    next = false;
+                                    do{
+                                        
+                                        if(
+                                            Texto.phrase(
+                                                r.Read(l),
+                                                exclude_document_function
+                                            ).size() > 1
+                                        )
+                                        {
+                                            
+                                            session_open(doc, one, r);
+                                            next = false;
+                                            
+                                        }//if(Texto.phrase(r.Read(l), exclude...
+                                        
+                                        l++;
+                                        
+                                    }while(next && l > 0 && l < r.Max());
                                     
                                 }//if(r.Max() < 1000)
                                 
@@ -1290,7 +1428,7 @@ public class Action {
                         
                     }while(next && proc > 0 && proc < Doc().size());
                     
-                }//if(next)
+                }//if(next) -- 3 -- 3
                 
                 if(next) session_save(doc, one, title, true);
                 
