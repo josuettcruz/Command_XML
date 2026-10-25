@@ -1292,17 +1292,17 @@ public class Action {
                     
                 }//if(next)
                 
-                if(next) Action.session_save(doc, one, title, true);
+                if(next) session_save(doc, one, title, true);
                 
             } else {//if(acept)
                 
-                Action.session_save(doc, one, title, true);
+                session_save(doc, one, title, true);
                 
             }//if(acept)
             
         } else {//if(confirm)
             
-            Action.session_save(doc, one, title, false);
+            session_save(doc, one, title, false);
             
         }//if(confirm)
         
