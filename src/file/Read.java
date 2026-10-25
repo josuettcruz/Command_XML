@@ -74,22 +74,17 @@ public class Read {
     
     public String Read(int num){
         
-        if(num < 0)
-            num = num - num * 2;
+        if(num < 0) num = num - num * 2;
         
         if(!this.text.isEmpty() && num > 0 && num <= this.text.size()){
             
             return this.text.get(num-1);
             
-        } else if(!this.text.isEmpty()){
-            
-            return Reg.Numb(this.text.size(),num, " [") + "]";
-            
-        } else {
+        } else {//if(!this.text.isEmpty() && num > 0 && num <= this.text.size())
             
             return "";
             
-        }
+        }//if(!this.text.isEmpty() && num > 0 && num <= this.text.size())
         
     }//Read(int num)
     

@@ -1,6 +1,6 @@
-// PAUSED CODE: 25/10/2026 - 14:08
-// Line: "1184"
-// Line: "1721"
+// PAUSED CODE: 25/10/2026 - 17:43
+// Line: "1191"
+// Line: "1703"
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
@@ -25,6 +25,8 @@ import java.util.List;
  * @author josue
  */
 public class Action {
+    
+    private final static long mb = 1073741824L;
     
     public final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
@@ -542,9 +544,15 @@ public class Action {
         
         if(Texto.text(input, exclude_document_function).isBlank()){
             
+            var h = Hora.code;
+            
             var title = Data.code.DataAbreviada(false);
-            title += " - ";
-            title += Hora.code.Timer();
+            title += " --> ";
+            title += Reg.Numb(h.Hour());
+            title += ":";
+            title += Reg.Numb(h.Min());
+            title += ":";
+            title += Reg.Numb(h.Sec());
             
             return title;
             
@@ -1178,10 +1186,48 @@ public class Action {
         xml_document doc,
         xml_document_one one,
         Read r
+    ){
+        
+        // PAUSED CODE THIS
+        
+    }//session_open
+    
+    public static void session_open(
+        xml_document doc,
+        xml_document_one one,
+        String title,
+        Read r
     )
     {
         
-        // PAUSED CODE
+        if(r.Max() <= 100){
+            
+            var next = true;
+            
+            var num = 1;
+            
+            do{
+                
+                var text = Texto.text(r.Read(num), exclude_document_function);
+                
+                if(text.length() >= 3){
+                    
+                    Action.session_open(doc, one, r);
+                    next = false;
+                    
+                }//if(text.length() >= 3)
+                
+                num++;
+                
+            }while(next && num > 1 && num <= r.Max());
+            
+            if(next) session_save(doc, one, title, true);;
+            
+        } else {//if(r.Max() <= 100)
+            
+            session_save(doc, one, title, true);
+            
+        }//if(r.Max() <= 100)
         
     }//session_open
     
@@ -1194,241 +1240,177 @@ public class Action {
         
         if(confirm){
             
-            var cod = Texto.arq_no_extension(title);
+            var c = Texto.text(title, exclude_document_function);
             
-            var cond1 = cod.length() >= 3;
+            var cond1 = !Action.Document("").equalsIgnoreCase(title);
             
-            var cond2 = cod.length() <= 20;
+            var cond2 = c.length() >= 3;
+            
+            var cond3 = c.length() <= 20 || c.contains("\\") || c.contains("/");
             
             boolean acept;
             
-            if(cond1 && cond2){
+            if(cond1 && cond2 && cond3){
                 
                 acept = true;
                 
-                var t = one.getText();
-                
-                var proc = 0;
-                
-                do{
+                if(!one.getText().isEmpty()){
                     
-                    acept = Texto.text(
-                        t.get(proc),
-                        exclude_document_function
-                    ).isBlank();
+                    var t = one.getText();
                     
-                    proc++;
+                    var proc = 0;
                     
-                }while(acept && proc > 0 && proc < t.size());
+                    do{
+                        
+                        acept = Texto.text(
+                            t.get(proc),
+                            exclude_document_function
+                        ).isBlank();
+                        
+                        proc++;
+                        
+                    }while(acept && proc > 0 && proc < t.size());
+                    
+                }//if(!one.getText().isEmpty())
                 
-            } else {//if(cond1 && cond2)
+            } else {//if(cond1 && cond2 && cond3)
                 
                 acept = false;
                 
-            }//if(cond1 && cond2)
+            }//if(cond1 && cond2 && cond3)
             
             if(acept){
                 
-                var proc = 0;
                 var next = true;
+                
+                final String[] ext = {"txt", "md", "MD", "TXT", "ini"};
+                
+                var x = 0;
                 
                 do{
                     
-                    var tl = Doc().get(proc);
-                    tl += cod;
-                    tl += ".txt";
-                    
-                    if(Arq.Dir(tl, false)){
+                    if(title.contains("\\") || title.contains("//")){
                         
-                        if(Arq.Tam(tl) < 1073741824L){
+                        var sub = "";
+                        
+                        List<String> node = new ArrayList();
+                        
+                        for(var y = 0; y < title.length(); y++){
                             
-                            var r = new Arq(Arq.Files(tl)).Read();
+                            var ds = title.charAt(y);
                             
-                            if(r.Max() < 1000){
+                            switch(ds){
                                 
-                                var l = 0;
-                                
-                                do{
+                                case '\\', '/' -> {
                                     
-                                    if(
-                                        Texto.phrase(
-                                            r.Read(l),
-                                            exclude_document_function
-                                        ).size() > 1
-                                    )
-                                    {
+                                    var tema = Texto.arq_no_extension(sub);
+                                    
+                                    if(tema.length() >= 3){
                                         
-                                        session_open(doc, one, r);
+                                        node.add(tema);
+                                        
+                                        sub = "";
+                                        
+                                    }//if(tema.length() >= 3)
+                                    
+                                }//case '\\', '/'
+                                
+                                default -> sub += ds;
+                                
+                            }//switch(ds)
+                            
+                        }//for(var y = 0; y < title.length(); y++)
+                        
+                        if(node.size() > 1){
+                            
+                            var y = 0;
+                            
+                            var demo = "";
+                            
+                            do{
+                                
+                                if(y > 0) demo += "\\";
+                                
+                                demo += Texto.arq_no_extension(node.get(y));
+                                
+                                y++;
+                                
+                            }while(y > 0 && y < node.size());
+                            
+                            demo += ".";
+                            demo += ext[x];
+                            
+                            y = 0;
+                            
+                            do{
+                                
+                                if(Arq.Dir(demo, false)){
+                                    
+                                    if(Arq.Tam(demo) <= mb){
+                                        
+                                        session_open(
+                                            doc,
+                                            one,
+                                            title,
+                                            new Arq(demo).Read()
+                                        );
+                                        
                                         next = false;
                                         
-                                    }//if(Texto.phrase(r.Read(l), exclude...
+                                    }//if(Arq.Tam(demo) <= mb)
                                     
-                                    l++;
-                                    
-                                }while(next && l > 0 && l < r.Max());
+                                }//if(Arq.Dir(demo, false))
                                 
-                            }//if(r.Max() < 1000)
+                                y++;
+                                
+                            }while(next && y > 0 && y < Doc().size());
                             
-                        }//if(Arq.Tam(cod) < 1073741824L)
-                        
-                    }//if(Arq.Dir(cod, false))
-                    
-                    proc++;
-                    
-                }while(next && proc > 0 && proc < Doc().size());
-                
-                if(next){//1 -- 3
-                    
-                    var tl = Doc().get(proc);
-                    tl += cod;
-                    tl += ".md";
-                    
-                    proc = 0;
-                    
-                    do{
-                        
-                        if(Arq.Dir(tl, false)){
+                        } else {//if(node.size() > 1)
                             
-                            if(Arq.Tam(tl) < 1073741824L){
-                                
-                                var r = new Arq(Arq.Files(tl)).Read();
-                                
-                                if(r.Max() < 1000){
-                                    
-                                    var l = 0;
-                                    
-                                    do{
-                                        
-                                        if(
-                                            Texto.phrase(
-                                                r.Read(l),
-                                                exclude_document_function
-                                            ).size() > 1
-                                        )
-                                        {
-                                            
-                                            session_open(doc, one, r);
-                                            next = false;
-                                            
-                                        }//if(Texto.phrase(r.Read(l), exclude...
-                                        
-                                        l++;
-                                        
-                                    }while(next && l > 0 && l < r.Max());
-                                    
-                                }//if(r.Max() < 1000)
-                                
-                            }//if(Arq.Tam(cod) < 1073741824L)
+                            session_save(doc, one, title, true);
                             
-                        }//if(Arq.Dir(cod, false))
-                        
-                        proc++;
-                        
-                    }while(next && proc > 0 && proc < Doc().size());
-                    
-                }//if(next) -- 1 -- 3
-                
-                if(next){//2 -- 3
-                    
-                    var tl = Doc().get(proc);
-                    tl += cod;
-                    tl += ".MD";
-                    
-                    proc = 0;
-                    
-                    do{
-                        
-                        if(Arq.Dir(tl, false)){
+                            next = false;
                             
-                            if(Arq.Tam(tl) < 1073741824L){
-                                
-                                var r = new Arq(Arq.Files(tl)).Read();
-                                
-                                if(r.Max() < 1000){
-                                    
-                                    var l = 0;
-                                    
-                                    do{
-                                        
-                                        if(
-                                            Texto.phrase(
-                                                r.Read(l),
-                                                exclude_document_function
-                                            ).size() > 1
-                                        )
-                                        {
-                                            
-                                            session_open(doc, one, r);
-                                            next = false;
-                                            
-                                        }//if(Texto.phrase(r.Read(l), exclude...
-                                        
-                                        l++;
-                                        
-                                    }while(next && l > 0 && l < r.Max());
-                                    
-                                }//if(r.Max() < 1000)
-                                
-                            }//if(Arq.Tam(cod) < 1073741824L)
+                        }//if(node.size() > 1)
+                        
+                    } else {//if(title.contains("\\") || title.contains("//"))
+                        
+                        var y = 0;
+                        
+                        do{
                             
-                        }//if(Arq.Dir(cod, false))
-                        
-                        proc++;
-                        
-                    }while(next && proc > 0 && proc < Doc().size());
-                    
-                }//if(next) -- 2 -- 3
-                
-                if(next){//3 -- 3
-                    
-                    var tl = Doc().get(proc);
-                    tl += cod;
-                    tl += ".TXT";
-                    
-                    proc = 0;
-                    
-                    do{
-                        
-                        if(Arq.Dir(tl, false)){
+                            var tema = Doc().get(y);
+                            tema += "\\";
+                            tema += Texto.arq_no_extension(title);
+                            tema += ".";
+                            tema += ext[x];
                             
-                            if(Arq.Tam(tl) < 1073741824L){
+                            if(Arq.Dir(tema, false)){
                                 
-                                var r = new Arq(Arq.Files(tl)).Read();
+                                if(Arq.Tam(tema) <= mb){
+                                    
+                                    Action.session_open(
+                                        doc,
+                                        one,
+                                        title,
+                                        new Arq(tema).Read()
+                                    );
+                                    
+                                    next = false;
+                                    
+                                }//if(Arq.Tam(tema) <= mb)
                                 
-                                if(r.Max() < 1000){
-                                    
-                                    var l = 0;
-                                    
-                                    do{
-                                        
-                                        if(
-                                            Texto.phrase(
-                                                r.Read(l),
-                                                exclude_document_function
-                                            ).size() > 1
-                                        )
-                                        {
-                                            
-                                            session_open(doc, one, r);
-                                            next = false;
-                                            
-                                        }//if(Texto.phrase(r.Read(l), exclude...
-                                        
-                                        l++;
-                                        
-                                    }while(next && l > 0 && l < r.Max());
-                                    
-                                }//if(r.Max() < 1000)
-                                
-                            }//if(Arq.Tam(cod) < 1073741824L)
+                            }//if(Arq.Dir(tema, false))
                             
-                        }//if(Arq.Dir(cod, false))
+                            y++;
+                            
+                        }while(next && y > 0 && y < Doc().size());
                         
-                        proc++;
-                        
-                    }while(next && proc > 0 && proc < Doc().size());
+                    }//if(title.contains("\\") || title.contains("//"))
                     
-                }//if(next) -- 3 -- 3
+                    x++;
+                    
+                }while(next && x > 0 && x < ext.length);
                 
                 if(next) session_save(doc, one, title, true);
                 
@@ -1718,7 +1700,7 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            // PAUSED CODE
+            // PAUSED CODE THIS
             
         }//if(newFont(Texto.text(input, true)))
         
