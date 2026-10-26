@@ -67,9 +67,9 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         
         var val = "git commit -m \"";
         val += new Data().DataAbreviada(true);
-        val += " --> ";
+        val += " -- ";
         val += new Hora(true).TimerGood(false, " - ");
-        val += " --> Nesse COMMIT";
+        val += " -- Nesse COMMIT";
         
         if(this.text.size() == 1){
             
