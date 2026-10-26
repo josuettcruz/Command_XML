@@ -22,7 +22,7 @@ import model.Reg;
 
 /**
  *
- * @author joaot
+ * @author josue
  */
 public class DocumentView implements Painel_2{
     

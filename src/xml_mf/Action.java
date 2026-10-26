@@ -1,6 +1,6 @@
 // PAUSED CODE: 25/10/2026 - 17:43
-// Line: "1191"
-// Line: "1703"
+// Line: "1204"
+// Line: "1657"
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
@@ -1255,7 +1255,7 @@ public class Action {
             
             var validate = Texto.text(title, exclude_document_function);
             
-            var cond1 = !Action.Document("").equalsIgnoreCase(title);
+            var cond1 = !Document("").equalsIgnoreCase(title);
             
             var cond2 = validate.length() >= 3;
             
@@ -1410,7 +1410,7 @@ public class Action {
                                 
                                 if(Arq.Tam(tema) <= mb){
                                     
-                                    Action.session_open(
+                                    session_open(
                                         doc,
                                         one,
                                         title,
@@ -1482,11 +1482,11 @@ public class Action {
             
             node += Texto.AddRepeat(t.substring(1));
             
-        } else {
+        } else {//if(t.charAt(0) == '~')
             
             node += t;
             
-        }
+        }//if(t.charAt(0) == '~')
         
         one.setTitle(node);
         
@@ -1501,155 +1501,88 @@ public class Action {
     )
     {
         
-        var txt1 = "";
+        final var v1 = one.getTitle();
         
-        for(String p : Texto.phrase(one.getTitle()))
-        {txt1 += Texto.arq(p);}
+        var var1 = "";
         
-        var proc = 0;
-        var find = -1;
+        if(Texto.text(v1, exclude_document_function).length() > 1){
+            
+            for(String t : Texto.phrase(v1, exclude_document_function))
+            {var1 += Texto.arq(t);}
+            
+        }//if(Texto.text(var1, exclude_document_function).length() > 1)
         
-        do{
-            
-            var txt_a1 = "";
-            
-            for(String p : Texto.phrase(doc.List().get(proc).getTitle()))
-            {txt_a1 += Texto.arq(p);}
-            
-            if(txt1.equals(txt_a1)) find = proc;
-            
-            proc++;
-            
-        }while(find < 0 && proc > 0 && proc < doc.List().size());
+        final var v2 = one.getTitle();
         
-        if(find >= 0){
+        var var2 = "";
+        
+        if(Texto.text(v2, exclude_document_function).length() > 1){
             
-            xml_document_one done = doc.List().get(find);
+            for(String t : Texto.phrase(v2, exclude_document_function))
+            {var2 += Texto.arq(t);}
             
-            var txt2 = "";
+        }//if(Texto.text(var1, exclude_document_function).length() > 1)
+        
+        var no_save_temp = var1.equals(var2);
+        
+        if(no_save_temp)
+        {no_save_temp = Texto.text(var2, exclude_document_function).isBlank();}
+        
+        if(no_save_temp && !one.getText().isEmpty() && doc.List().size() > 1){
             
-            if(done.getText().isEmpty()){
+            var t1 = "";
+            
+            List<String> p = new ArrayList();
+            
+            for(xml_document_one t : doc.List()) p.add(t.getTitle());
+            
+            var proc = Order.Proc(p, one.getTitle());
+            
+            if(proc >= 0 && proc < doc.List().size()){
                 
-                for(String x : done.getText()){
-                    
-                    if(!Texto.phrase(x).isEmpty())
-                    {for(String y : Texto.phrase(x)) {txt2 += Texto.arq(y);}}
-                    
-                }//for(String x : done.getText())
+                List<String> demo = doc.List().get(proc).getText();
                 
-            }//if(done.getText().isEmpty())
+                if(!demo.isEmpty()){
+                    
+                    for(String x : demo)
+                    {for(String y : Texto.phrase(x)) t1 += Texto.arq(y);}
+                    
+                }//if(!demo.isEmpty())
+                
+            }//if(proc >= 0 && proc < doc.List().size())
             
-            var txt3 = "";
-            
-            if(!one.getText().isEmpty()){
+            if(!t1.isBlank()){
+                
+                var t2 = "";
                 
                 for(String x : one.getText()){
                     
-                    if(!Texto.phrase(x).isEmpty())
-                    {for(String y : Texto.phrase(x)) {txt3 += Texto.arq(y);}}
+                    for(String y : Texto.phrase(x))
+                    {t2 += Texto.arq(y);}
                     
                 }//for(String x : one.getText())
                 
-            }//if(!one.getText().isEmpty())
+                no_save_temp = t1.equals(t2);
             
-            var cond1a = txt2.equals(txt3);
-            var cond1b = Texto.text(txt2,exclude_document_function).isBlank();
-            var cond1 = cond1a || cond1b;
+            }//if(!t1.isBlank())
             
-            var txt4 = "";
+        }//if(no_save_temp && !one.getText().isEmpty() && doc.List().size() > 1)
             
-            if(!Texto.phrase(title).isEmpty()){
-                
-                for(String x : Texto.phrase(title)){
-                    
-                    if(!Texto.phrase(x).isEmpty()){
-                        
-                        for(String y : Texto.phrase(x))
-                        {txt4 += Texto.arq(y);}
-                        
-                    }//if(!Texto.phrase(x).isEmpty())
-                    
-                }//for(String x : Texto.phrase(title))
-                
-            }//if(!Texto.phrase(title).isEmpty())
+        if(no_save_temp){
             
-            var txt5 = "";
+            controller.p1s(
+                new ReadWrite(
+                    doc,
+                    MyFont(),
+                    Texto.text(title, true)
+                )
+            );
             
-            if(!Texto.phrase(done.getTitle()).isEmpty()){
-                
-                for(String x : Texto.phrase(done.getTitle())){
-                    
-                    if(!Texto.phrase(x).isEmpty()){
-                        
-                        for(String y : Texto.phrase(x))
-                        {txt5 += Texto.arq(y);}
-                        
-                    }//if(!Texto.phrase(x).isEmpty())
-                    
-                }//for(String x : Texto.phrase(title))
-                
-            }//if(!Texto.phrase(title).isEmpty())
+        } else {//if(no_save_temp)
             
-            var cond2a = txt4.equals(txt5);
-            var cond2b = Texto.text(txt4,exclude_document_function).isBlank();
-            var cond2 = cond2a || cond2b;
+            session_save_temp(doc, one, title);
             
-            if(cond1 && cond2){
-                
-                controller.p1m(
-                    new ReadWrite(
-                        doc,
-                        MyFont(),
-                        Texto.text(title, true)
-                    )
-                );
-                
-            } else {//if(cond1 && cond2)
-                
-                session_save_temp(doc, one, title);
-                
-            }//if(cond1 && cond2)
-                
-        } else {//if(find >= 0)
-            
-            var cond = true;
-            
-            if(!one.getText().isEmpty()){
-                
-                var cod = one.getText();
-                
-                var letter = 0;
-                
-                do{
-                    
-                    cond = Texto.phrase(
-                        cod.get(letter),
-                        exclude_document_function
-                    ).isEmpty();
-                    
-                    letter++;
-                    
-                }while(cond && letter > 0 && letter < cod.size());
-                
-            }//if(!one.getText().isEmpty())
-            
-            if(cond){
-                
-                controller.p1m(
-                    new ReadWrite(
-                        doc,
-                        MyFont(),
-                        Texto.text(title, true)
-                    )
-                );
-                
-            } else {//if(cond)
-                
-                session_save_temp(doc, one, title);
-                
-            }//if(cond)
-            
-        }//if(find >= 0)
+        }//if(no_save_temp)
         
     }//session_cancel
     
