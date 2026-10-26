@@ -66,10 +66,10 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     private String Commit(){
         
         var val = "git commit -m \"";
-        val += Data.code.DataAbreviada(true);
-        val += " -- ";
-        val += Hora.code.Timer();
-        val += " -- Nesse COMMIT";
+        val += new Data().DataAbreviada(true);
+        val += " --> ";
+        val += new Hora(true).TimerGood(false, " - ");
+        val += " --> Nesse COMMIT";
         
         if(this.text.size() == 1){
             
