@@ -1,6 +1,6 @@
 /* PAUSED CODE  **
-** Line: "1197" **
-** Line: "1653" */
+** Line: "1192" **
+** Line: "1648" */
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
@@ -268,21 +268,17 @@ public class Action {
     
     public static void font_new(carregarFonte f){
         
-        if(xml_val() && f.Val()){
+        if(f.Val()){
             
             newFont(f.Font());
             
             controller.p1s(new folder_xml(xml(), MyFont()));
             
-        } else if(xml_val()){//if(xml_val() && f.Val())
+        } else {//if(f.Val())
             
             controller.p1s(new folder_xml(xml(), MyFont(), f.msg().get(0)));
             
-        } else {//if(xml_val() && f.Val())
-            
-            Exit();
-            
-        }//if(xml_val() && f.Val())
+        }//if(f.Val())
         
     }//font_new(carregarFonte f)
     
@@ -317,15 +313,9 @@ public class Action {
             
         } else {//if(f.Val())
             
-            List<String> note = new ArrayList();
-            
-            note.addAll(f.msg());
-            
-            if(!one.getText().isEmpty()) note.addAll(one.getText());
-            
             var dat = one;
             
-            dat.setText(note);
+            dat.setTitle(f.msg().get(0));
             
             controller.p3(new session(doc, dat, MyFont()));
             
@@ -382,7 +372,9 @@ public class Action {
                             
                         }//if(!t.ModifyData().CompareTo(t.InsertData()))
                         
-                        System.out.println("]");
+                        System.out.print("] ");
+                        
+                        System.out.println(t.Title());
                         
                     }//if(Arq.Dir(t.Local()))
                     
@@ -427,9 +419,8 @@ public class Action {
                     
                     System.out.print("Título ");
                     System.out.print(Reg.Numb(i+1, doc.List().size(), " de "));
-                    System.out.print(": \"");
-                    System.out.print(doc.List().get(i).getTitle());
-                    System.out.println("\"");
+                    System.out.print(": ");
+                    System.out.println(doc.List().get(i).getTitle());
                     
                 }//for(int i = 0; i < doc.List().size(); i++)
                 
@@ -547,12 +538,21 @@ public class Action {
     
     private static String Document(String input){
         
-        if(Texto.text(input, exclude_document_function).isBlank()){
+        var text = Texto.text(input, new char[] {'/','\\','|','_'});
+        
+        var cond1 = text.length() > 1;
+        var cond2 = Texto.text(input, exclude_document_function).length() > 2;
+        
+        if(cond1 && cond2){
+            
+            return Texto.title(text, true);
+            
+        } else {//if(cond1 && cond2)
             
             var h = Hora.code;
             
-            var title = Data.code.DataAbreviada(false);
-            title += " --> ";
+            var title = Data.code.Load();
+            title += " | ";
             title += Reg.Numb(h.Hour());
             title += ":";
             title += Reg.Numb(h.Min());
@@ -561,11 +561,7 @@ public class Action {
             
             return title;
             
-        } else {//if(Texto.text(doc.getTitle(), exclude).isBlank())
-            
-            return Texto.title(input, true);
-            
-        }//if(Texto.text(doc.getTitle(), exclude).isBlank())
+        }//if(cond1 && cond2)
         
     }//Document(String input)
     
@@ -1044,8 +1040,7 @@ public class Action {
     private static void session_save(
         xml_document doc,
         xml_document_one one,
-        String title,
-        boolean confirm
+        String title
     )
     {
         
@@ -1227,11 +1222,11 @@ public class Action {
                 
             }while(next && num > 1 && num <= r.Max());
             
-            if(next) session_save(doc, one, title, true);;
+            if(next) session_save(doc, one, title);
             
         } else {//if(r.Max() <= 100)
             
-            session_save(doc, one, title, true);
+            session_save(doc, one, title);
             
         }//if(r.Max() <= 100)
         
@@ -1379,7 +1374,7 @@ public class Action {
                             
                         } else {//if(node.size() > 1)
                             
-                            session_save(doc, one, title, true);
+                            session_save(doc, one, title);
                             
                             next = false;
                             
@@ -1424,17 +1419,17 @@ public class Action {
                     
                 }while(next && x > 0 && x < ext.length);
                 
-                if(next) session_save(doc, one, title, true);
+                if(next) session_save(doc, one, title);
                 
             } else {//if(acept)
                 
-                session_save(doc, one, title, true);
+                session_save(doc, one, title);
                 
             }//if(acept)
             
         } else {//if(confirm)
             
-            session_save(doc, one, title, false);
+            session_save(doc, one, title);
             
         }//if(confirm)
         
