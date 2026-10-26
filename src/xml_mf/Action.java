@@ -1,7 +1,3 @@
-/* PAUSED CODE  **
-** Line: "1192" **
-** Line: "1648" */
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -538,7 +534,12 @@ public class Action {
     
     private static String Document(String input){
         
-        var text = Texto.text(input, new char[] {'/','\\','|','_'});
+        var text = Texto.text(
+            input, new char[] {
+                '~', '/','\\','|','_',
+                '^', '`', '´'
+            }
+        );
         
         var cond1 = text.length() > 1;
         var cond2 = Texto.text(input, exclude_document_function).length() > 2;
@@ -552,11 +553,11 @@ public class Action {
             var h = Hora.code;
             
             var title = Data.code.Load();
-            title += " | ";
+            title += " - ";
             title += Reg.Numb(h.Hour());
-            title += ":";
+            title += "-";
             title += Reg.Numb(h.Min());
-            title += ":";
+            title += "-";
             title += Reg.Numb(h.Sec());
             
             return title;
@@ -1189,7 +1190,9 @@ public class Action {
         Read r
     ){
         
-        // PAUSED CODE
+        /* Abrir o arquivo de texto **
+        ** para poder colocá-lo no  **
+        ** arquivo XML              */
         
     }//session_open
     
@@ -1246,8 +1249,8 @@ public class Action {
             var cond1 = validate.length() >= 3;
             
             var cond2 = validate.length() <= 20 || Texto.contains(
-                    validate,
-                    new char[]{'\\','/'}
+                validate,
+                new char[]{'\\','/'}
             );
             
             boolean acept;
@@ -1645,7 +1648,11 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            // PAUSED CODE
+            /* Abrir um formulário que já foi criado          **
+            ** e espera ser editado                           **
+            ** para abrí-lo se estiver itens marcados com "~" **
+            ** ou abrir o ReadWrite se não houver nenhum      **
+            ** arquivo marcado com "~"                        */
             
         }//if(newFont(Texto.text(input, true)))
         
