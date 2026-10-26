@@ -1,6 +1,6 @@
 /* PAUSED CODE  **
-** Line: "1204" **
-** Line: "1660" */
+** Line: "1197" **
+** Line: "1653" */
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
@@ -620,7 +620,7 @@ public class Action {
             if(tm.get(0).length() < max_str){
                 
                 var i = 0;
-                var cont = 0;
+                var cont_char = 0;
                 
                 boolean loop;
                 
@@ -630,12 +630,9 @@ public class Action {
                     
                     val += tm.get(i);
                     
-                    cont += tm.get(i).length();
+                    cont_char += tm.get(i).length();
                     
-                    var cond1 = cont <= max_str;
-                    var cond2 = tm.get(i).length() <= max_str;
-                    
-                    loop = cond1 && cond2;
+                    loop = cont_char <= max_str;
                     
                     i++;
                     
@@ -1087,15 +1084,11 @@ public class Action {
             
             final var win = "C:\\Users\\" + xml().Documents() + "\\Documents\\";
             
-            final var p = Texto.arq_no_extension(doc.getTitle());
-            
             String con;
             
             if(xml().Windows() && Arq.Dir(win)){
                 
-                con = "C:\\Users\\";
-                con += xml().Documents();
-                con += "\\Documents\\";
+                con = win;
                 
             } else if(Reg.java){//if(xml().Windows() && Arq.Dir(win))
                 
@@ -1123,11 +1116,11 @@ public class Action {
                 
             }//if(h.Sec() > 0)
             
-            if(p.length() <= 20){
+            if(doc.getTitle().length() <= 20){
                 
                 con += " - ";
                 
-                con += p;
+                con += Texto.arq(doc.getTitle());
                 
             }//if(p.length() <= 20)
             
@@ -1328,9 +1321,9 @@ public class Action {
                                         
                                         node.add(tema);
                                         
-                                        sub = "";
-                                        
                                     }//if(tema.length() >= 3)
+                                    
+                                    sub = "";
                                     
                                 }//case '\\', '/'
                                 
