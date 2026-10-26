@@ -417,6 +417,11 @@ public class Action {
             if(!doc.List().isEmpty()){
                 
                 System.out.println();
+                System.out.println("_".repeat(doc.getTitle().length()));
+                System.out.println(doc.getTitle());
+                System.out.println();
+                System.out.println("-".repeat(doc.getTitle().length()));
+                System.out.println();
                 
                 for(int i = 0; i < doc.List().size(); i++){
                     
@@ -1047,9 +1052,9 @@ public class Action {
     )
     {
         
-        Arq arq = new Arq(doc.Local());
-        
-        if(arq.Val()){
+        if(Arq.Dir(doc.Local(), true)){
+            
+            Arq arq = new Arq(doc.Local());
             
             doc.Del(one.getTitle());
             
@@ -1078,7 +1083,7 @@ public class Action {
                 
             }//if(e.Val())
             
-        } else {//if(arq.Val())
+        } else {//if(Arq.Dir(doc.Local(), true))
             
             final var win = "C:\\Users\\" + xml().Documents() + "\\Documents\\";
             
@@ -1153,7 +1158,7 @@ public class Action {
                 
             }//if(e.Val())
             
-        }//if(arq.Val())
+        }//if(Arq.Dir(doc.Local(), true))
         
         var read = xml().learn();
         
@@ -1248,13 +1253,16 @@ public class Action {
         
         if(confirm){
             
-            var c = Texto.text(title, exclude_document_function);
+            var validate = Texto.text(title, exclude_document_function);
             
             var cond1 = !Action.Document("").equalsIgnoreCase(title);
             
-            var cond2 = c.length() >= 3;
+            var cond2 = validate.length() >= 3;
             
-            var cond3 = c.length() <= 20 || c.contains("\\") || c.contains("/");
+            var cond3 = validate.length() <= 20 || Texto.contains(
+                    validate,
+                    new char[]{'\\','/'}
+            );
             
             boolean acept;
             
@@ -1293,13 +1301,16 @@ public class Action {
                 
                 final String[] ext = {"txt", "md", "MD", "TXT", "ini"};
                 
-                var address = Texto.contains(title, new char[] {'/','\\'});
+                var address_complete_files = Texto.contains(
+                    title,
+                    new char[] {'/','\\'}
+                );
                 
                 var x = 0;
                 
                 do{
                     
-                    if(address){
+                    if(address_complete_files){
                         
                         var sub = "";
                         
@@ -1383,7 +1394,7 @@ public class Action {
                             
                         }//if(node.size() > 1)
                         
-                    } else {//if(address)
+                    } else {//if(address_complete_files)
                         
                         var y = 0;
                         
@@ -1416,7 +1427,7 @@ public class Action {
                             
                         }while(next && y > 0 && y < Doc().size());
                         
-                    }//if(address)
+                    }//if(address_complete_files)
                     
                     x++;
                     
