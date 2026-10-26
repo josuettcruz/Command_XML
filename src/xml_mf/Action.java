@@ -1080,19 +1080,27 @@ public class Action {
             
         } else {//if(arq.Val())
             
+            final var win = "C:\\Users\\" + xml().Documents() + "\\Documents\\";
+            
             final var p = Texto.arq_no_extension(doc.getTitle());
             
-            var con = "";
+            String con;
             
-            if(xml().Windows()){
+            if(xml().Windows() && Arq.Dir(win)){
                 
-                if(Arq.Dir(xml().Documents())){
-                    
-                    con += xml().Documents();
-                    
-                }//if(Arq.Dir(xml.Documents()))
+                con = "C:\\Users\\";
+                con += xml().Documents();
+                con += "\\Documents\\";
                 
-            }//if(xml.Windows())
+            } else if(Reg.java){//if(xml().Windows() && Arq.Dir(win))
+                
+                con = "..\\";
+                
+            } else {//if(xml().Windows() && Arq.Dir(win))
+                
+                con = "";
+                
+            }//if(xml().Windows() && Arq.Dir(win))
             
             Hora h = Hora.code;
             
@@ -1289,7 +1297,7 @@ public class Action {
                 
                 do{
                     
-                    if(title.contains("\\") || title.contains("//")){
+                    if(title.contains("\\") || title.contains("/")){
                         
                         var sub = "";
                         
@@ -1373,7 +1381,7 @@ public class Action {
                             
                         }//if(node.size() > 1)
                         
-                    } else {//if(title.contains("\\") || title.contains("//"))
+                    } else {//if(title.contains("\\") || title.contains("/"))
                         
                         var y = 0;
                         
@@ -1406,7 +1414,7 @@ public class Action {
                             
                         }while(next && y > 0 && y < Doc().size());
                         
-                    }//if(title.contains("\\") || title.contains("//"))
+                    }//if(title.contains("\\") || title.contains("/"))
                     
                     x++;
                     
