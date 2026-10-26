@@ -1,6 +1,6 @@
-// PAUSED CODE: 25/10/2026 - 17:43
-// Line: "1204"
-// Line: "1657"
+/* PAUSED CODE  **
+** Line: "1204" **
+** Line: "1660" */
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.Texto to change this license
@@ -1044,7 +1044,7 @@ public class Action {
         
     }//session_combobox
     
-    public static void session_save(
+    private static void session_save(
         xml_document doc,
         xml_document_one one,
         String title,
@@ -1195,17 +1195,17 @@ public class Action {
         
     }//session_save
     
-    public static void session_open(
+    private static void session_open(
         xml_document doc,
         xml_document_one one,
         Read r
     ){
         
-        // PAUSED CODE THIS
+        // PAUSED CODE
         
     }//session_open
     
-    public static void session_open(
+    private static void session_open(
         xml_document doc,
         xml_document_one one,
         String title,
@@ -1255,18 +1255,16 @@ public class Action {
             
             var validate = Texto.text(title, exclude_document_function);
             
-            var cond1 = !Document("").equalsIgnoreCase(title);
+            var cond1 = validate.length() >= 3;
             
-            var cond2 = validate.length() >= 3;
-            
-            var cond3 = validate.length() <= 20 || Texto.contains(
+            var cond2 = validate.length() <= 20 || Texto.contains(
                     validate,
                     new char[]{'\\','/'}
             );
             
             boolean acept;
             
-            if(cond1 && cond2 && cond3){
+            if(cond1 && cond2){
                 
                 acept = true;
                 
@@ -1289,11 +1287,11 @@ public class Action {
                     
                 }//if(!one.getText().isEmpty())
                 
-            } else {//if(cond1 && cond2 && cond3)
+            } else {//if(cond1 && cond2)
                 
                 acept = false;
                 
-            }//if(cond1 && cond2 && cond3)
+            }//if(cond1 && cond2)
             
             if(acept){
                 
@@ -1468,7 +1466,7 @@ public class Action {
         
     }//session_confirm
     
-    public static void session_save_temp(
+    private static void session_save_temp(
         xml_document doc,
         xml_document_one one,
         String title
@@ -1544,8 +1542,17 @@ public class Action {
                 
                 if(!demo.isEmpty()){
                     
-                    for(String x : demo)
-                    {for(String y : Texto.phrase(x)) t1 += Texto.arq(y);}
+                    for(String x : demo){
+                        
+                        for(
+                            String y :
+                            Texto.phrase(
+                                x,
+                                exclude_document_function
+                            )
+                        ) t1 += Texto.arq(y);
+                        
+                    }//for(String x : demo)
                     
                 }//if(!demo.isEmpty())
                 
@@ -1555,15 +1562,11 @@ public class Action {
                 
                 var t2 = "";
                 
-                for(String x : one.getText()){
-                    
-                    for(String y : Texto.phrase(x))
-                    {t2 += Texto.arq(y);}
-                    
-                }//for(String x : one.getText())
+                for(String x : one.getText())
+                {for(String y : Texto.phrase(x)) t2 += Texto.arq(y);}
                 
                 no_save_temp = t1.equals(t2);
-            
+                
             }//if(!t1.isBlank())
             
         }//if(no_save_temp && !one.getText().isEmpty() && doc.List().size() > 1)
@@ -1654,7 +1657,7 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            // PAUSED CODE THIS
+            // PAUSED CODE
             
         }//if(newFont(Texto.text(input, true)))
         
