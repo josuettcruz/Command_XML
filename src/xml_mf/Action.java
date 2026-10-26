@@ -109,7 +109,7 @@ public class Action {
     }//xml_config()
     
     private static boolean xml_val(){
-        return Arq.Dir(xml_config(), false);
+        return Arq.Dir(xml_config(), true);
     }
     
     private static xml_config xml()
