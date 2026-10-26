@@ -1293,11 +1293,13 @@ public class Action {
                 
                 final String[] ext = {"txt", "md", "MD", "TXT", "ini"};
                 
+                var address = Texto.contains(title, new char[] {'/','\\'});
+                
                 var x = 0;
                 
                 do{
                     
-                    if(title.contains("\\") || title.contains("/")){
+                    if(address){
                         
                         var sub = "";
                         
@@ -1381,7 +1383,7 @@ public class Action {
                             
                         }//if(node.size() > 1)
                         
-                    } else {//if(title.contains("\\") || title.contains("/"))
+                    } else {//if(address)
                         
                         var y = 0;
                         
@@ -1414,7 +1416,7 @@ public class Action {
                             
                         }while(next && y > 0 && y < Doc().size());
                         
-                    }//if(title.contains("\\") || title.contains("/"))
+                    }//if(address)
                     
                     x++;
                     

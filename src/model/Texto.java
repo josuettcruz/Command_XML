@@ -1019,4 +1019,94 @@ public class Texto {
         
     }//arq_no_extension(String file_name)
     
+    public static boolean contains(String text, char[] contains){
+        
+        var contain = text.length() > contains.length && contains.length > 1;
+        
+        if(contain){
+            
+            var x = 0;
+            
+            do{
+                
+                var y = 0;
+                
+                do{
+                    
+                    contain = text.charAt(x) == contains[y];
+                    
+                    y++;
+                    
+                }while(!contain && y > 0 && y < contains.length);
+                
+                x++;
+                
+            }while(!contain && x > 0 && x < text.length());
+            
+        }//if(contain)
+        
+        return contain;
+        
+    }//contains(String text, char[] contain)
+    
+    public static int indexOf(String text, char proc, boolean first){
+        
+        final var init = -1;
+        
+        var value = init;
+        
+        if(text.length() > 1){
+            
+            if(first){
+                
+                var x = 0;
+                
+                do{
+                    
+                    if(text.charAt(x) == proc) value = x;
+                    
+                    x++;
+                    
+                }while(value == init && x > 0 && x < text.length());
+                
+            } else {//if(first)
+                
+                final var last = text.length()-1;
+                
+                var x = last;
+                
+                do{
+                    
+                    if(text.charAt(x) == proc) value = x;
+                    
+                    x--;
+                    
+                }while(value == init && x >= 0 && x < last);
+                
+            }//if(first)
+            
+        }//if(text.length() > 1)
+        
+        return value;
+        
+    }//indexOf(String text, char proc, boolean first)
+    
+    public static List<Integer> indexOf(String text, char proc){
+        
+        List<Integer> value = new ArrayList();
+        
+        if(text.length() > 1){
+            
+            for(var x = 0; x < text.length(); x++){
+                
+                if(text.charAt(x) == proc) value.add(x);
+                
+            }//for(var x = 0; x < text.length(); x++)
+            
+        }//if(text.length() > 1)
+        
+        return value;
+        
+    }//indexOf(String text, char proc, boolean first)
+    
 }//txt
