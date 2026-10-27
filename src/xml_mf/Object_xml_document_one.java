@@ -56,7 +56,7 @@ public class Object_xml_document_one {
         
         if(!val.isEmpty()){
             
-            var tl = Texto.title(title, true);
+            var tl = Texto.title(title);
             
             var max = val.size();
             

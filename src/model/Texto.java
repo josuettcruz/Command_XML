@@ -365,7 +365,7 @@ public class Texto {
         
     }//capitalize(String phrase)
     
-    public static String title(String text, boolean remove_char){
+    public static String title(String text){
         
         if(text.trim().isBlank()) text = "Classe: \"TXT\"\nPacote: \"MODEL\"";
         
@@ -409,7 +409,7 @@ public class Texto {
             
             var note = true;
             
-            for(String p : phrase(text, remove_char)){
+            for(String p : phrase(text, true)){
                 
                 if(note){
                     

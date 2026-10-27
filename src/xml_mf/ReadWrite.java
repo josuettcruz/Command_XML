@@ -74,7 +74,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
         
         xml_document_one novo = new xml_document_one();
         
-        novo.setTitle(Texto.text(input, Action.exclude_document_function).isBlank() ? "" : Texto.title(input, true));
+        novo.setTitle(Texto.text(input, Action.exclude_document_function).isBlank() ? "" : Texto.title(input));
         
         controller.p2(new DocumentView(this.document, novo, this.Font()));
         
@@ -117,7 +117,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                 
                 var tema = Texto.text(this.document.List().get(id).getTitle());
                 
-                demo.add(new Domain(id,Texto.title(tema, true)));
+                demo.add(new Domain(id,Texto.title(tema)));
                 
             }//for(int cont = 0; cont < this.document.List().size(); cont++)
             

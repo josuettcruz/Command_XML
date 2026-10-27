@@ -546,7 +546,7 @@ public class Action {
         
         if(cond1 && cond2){
             
-            return Texto.title(text, true);
+            return Texto.title(text);
             
         } else {//if(cond1 && cond2)
             
@@ -572,7 +572,7 @@ public class Action {
         var m = doc.ModifyDate();
         var equal = c.CompareTo(m, true);
         
-        var t = Texto.title(doc.getTitle(), true);
+        var t = Texto.title(doc.getTitle());
         
         var val = "";
         
@@ -1165,6 +1165,8 @@ public class Action {
             
             rew = xml().learn().get(cod);
             
+            rew.newTitle(one.getTitle());
+            
             rew.Update();
             
         } else {//if(!read.isEmpty() && cod >= 0 && cod < read.size())
@@ -1592,7 +1594,7 @@ public class Action {
                 Texto.text(
                     input,
                     exclude_document_function
-                ).isBlank() ? "" : Texto.title(input, true)
+                ).isBlank() ? "" : Texto.title(input)
             );
             
             controller.p2(new DocumentView(doc, novo, MyFont()));

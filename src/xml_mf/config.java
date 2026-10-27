@@ -258,7 +258,7 @@ public class config implements
             
         } else if(m < 8){//if(val.length() > 100 && m == 1)
             
-            return Texto.title(val, true);
+            return Texto.title(val);
             
         } else {//if(val.length() > 100 && m == 1)
             

@@ -102,7 +102,7 @@ public class controller {
             
             try{
 
-                var title = Texto.title(setTtitle, true);
+                var title = Texto.title(setTtitle);
 
                 if(title.isBlank()) title = new Link(Reg.http).dat(exit);
 

@@ -120,7 +120,7 @@ public class folder_xml implements Painel_1Single{
                 
                 var t = Texto.text(this.document.learn().get(id).Title());
                 
-                demo.add(new Domain(id,Texto.title(t, true)));
+                demo.add(new Domain(id,Texto.title(t)));
                 
             }//for(var id = 0; id < this.document.learn().size(); id++)
             
