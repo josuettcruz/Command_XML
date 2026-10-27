@@ -22,8 +22,6 @@ import java.util.List;
  */
 public class Action {
     
-    private final static long mb = 1073741824L;
-    
     public final static char[] exclude_document_function = {'<','>',':',';',
         '.',',','!','?', '{','}','[',']','(',')',
         '0','1','2','3','4','5','6','7','8','9',
@@ -1387,7 +1385,7 @@ public class Action {
                                 
                                 if(Arq.Dir(demo, false)){
                                     
-                                    if(Arq.Tam(demo) <= mb){
+                                    if(Reg.MegaByte(demo, false)){
                                         
                                         session_open(
                                             doc,
@@ -1398,7 +1396,7 @@ public class Action {
                                         
                                         next = false;
                                         
-                                    }//if(Arq.Tam(demo) <= mb)
+                                    }//if(Reg.MegaByte(demo, false))
                                     
                                 }//if(Arq.Dir(demo, false))
                                 
@@ -1428,7 +1426,7 @@ public class Action {
                             
                             if(Arq.Dir(tema, false)){
                                 
-                                if(Arq.Tam(tema) <= mb){
+                                if(Reg.MegaByte(tema, false)){
                                     
                                     session_open(
                                         doc,
@@ -1439,7 +1437,7 @@ public class Action {
                                     
                                     next = false;
                                     
-                                }//if(Arq.Tam(tema) <= mb)
+                                }//if(Reg.MegaByte(tema, false))
                                 
                             }//if(Arq.Dir(tema, false))
                             

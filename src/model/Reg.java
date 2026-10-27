@@ -262,4 +262,18 @@ public class Reg {
         
     }//Numb(int numb, int max, String sep)
     
+    public static boolean MegaByte(String file, boolean write){
+        
+        if(Arq.Dir(file, write)){
+            
+            return Arq.Tam(file) <= 1073741824L;
+            
+        } else {//if(Arq.Dir(file, write))
+            
+            return false;
+            
+        }//if(Arq.Dir(file, write))
+        
+    }//MegaByte(String file, boolean write)
+    
 }//Reg
