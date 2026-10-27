@@ -1078,7 +1078,9 @@ public class Action {
             
         } else {//if(Arq.Dir(doc.Local(), true))
             
-            final var win = "C:\\Users\\" + xml().Documents() + "\\Documents\\";
+            final var win = "C:\\Users\\"
+                + xml().Documents()
+                + "\\Documents\\";
             
             String con;
             
@@ -1096,7 +1098,9 @@ public class Action {
                 
             }//if(xml().Windows() && Arq.Dir(win))
             
-            Hora h = Hora.code;
+            var t = Texto.phrase(Texto.arq_no_extension(doc.getTitle()), true);
+            
+            Hora h = new Hora(true);
             
             con += Data.code.Load();
             con += " - ";
@@ -1112,13 +1116,40 @@ public class Action {
                 
             }//if(h.Sec() > 0)
             
-            if(doc.getTitle().length() <= 20){
+            if(t.size() >= 1){
+                
+                final var m = 20;
                 
                 con += " - ";
                 
-                con += Texto.arq(doc.getTitle());
+                if(t.size() > 1){
+                    
+                    var x = 0;
+                    var c = 0;
+                    
+                    do{
+                        
+                        if(x > 0) con += " ";
+                        
+                        con += t.get(x);
+                        
+                        c += t.get(x).length();
+                        
+                        x++;
+                        
+                    }while(c < m && x > 0 && x < t.size());
+                    
+                } else if(t.get(0).length() > m){//if(t.size() > 1)
+                    
+                    con += t.get(0);
+                    
+                } else {//if(t.size() > 1)
+                    
+                    con += t.get(0);
+                    
+                }//if(t.size() > 1)
                 
-            }//if(p.length() <= 20)
+            }//if(t.size() >= 1)
             
             con += ".xml";
             
@@ -1436,7 +1467,7 @@ public class Action {
             
         }//if(confirm)
         
-    }//session
+    }//session_submit
     
     public static void session_confirm(
         xml_document doc,
@@ -1619,8 +1650,6 @@ public class Action {
                 
             } else {//if(newFont(input))
                 
-                controller.p3(new session(doc, one, MyFont()));
-                
                 session(doc, one);
                 
             }//if(newFont(input))
@@ -1684,8 +1713,7 @@ public class Action {
                                 new xml_document(
                                     cod.Read(),
                                     cod.Dir(true)
-                                ),
-                                MyFont()
+                                ), MyFont()
                             )
                         );
                         
@@ -1705,7 +1733,10 @@ public class Action {
                     
                         controller.p1m(
                             new ReadWrite(
-                                new xml_document(cod.Read(), false), MyFont()
+                                new xml_document(
+                                    cod.Read(),
+                                    false
+                                ), MyFont()
                             )
                         );
                         
