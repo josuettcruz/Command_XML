@@ -1244,12 +1244,10 @@ public class Action {
         
         if(confirm){
             
-            var validate = Texto.text(title, exclude_document_function);
+            var cond1 = Texto.text(title).length() >= 3;
             
-            var cond1 = validate.length() >= 3;
-            
-            var cond2 = validate.length() <= 20 || Texto.contains(
-                validate,
+            var cond2 = Texto.text(title).length() <= 20 || Texto.contains(
+                title,
                 new char[]{'\\','/'}
             );
             

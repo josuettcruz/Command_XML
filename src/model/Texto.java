@@ -488,7 +488,7 @@ public class Texto {
             
             if(space){
                 
-                if(demo) txt += "-";
+                if(demo) txt += "_";
                 
             } else {//if(line)
                 
@@ -506,22 +506,42 @@ public class Texto {
                          'ã',
                          'â',
                          'ä',
-                         'ª' -> txt += "a";
+                         'ª' -> {
+                        
+                        txt += "a";
+                        demo = true;
+                        
+                    }
                          
                     case 'c',
-                         'ç' -> txt += "c";
+                         'ç' -> {
+                        
+                        txt += "c";
+                        demo = true;
+                        
+                    }
                             
                     case 'e',
                          'é',
                          'è',
                          'ê',
-                         'ë' -> txt += "e";
+                         'ë' -> {
+                        
+                        txt += "e";
+                        demo = true;
+                        
+                    }
                             
                     case 'i',
                          'í',
                          'ì',
                          'î',
-                         'ï' -> txt += "i";
+                         'ï' -> {
+                        
+                        txt += "i";
+                        demo = true;
+                        
+                    }
                             
                     case 'o',
                          'ó',
@@ -529,16 +549,31 @@ public class Texto {
                          'õ',
                          'ô',
                          'ö',
-                         'º' -> txt += "o";
+                         'º' -> {
+                        
+                        txt += "o";
+                        demo = true;
+                        
+                    }
                             
                     case 'u',
                          'ú',
                          'ù',
                          'û',
-                         'ü' -> txt += "u";
+                         'ü' -> {
+                        
+                        txt += "u";
+                        demo = true;
+                        
+                    }
                             
                     case 'y',
-                         'ý' -> txt += "y";
+                         'ý' -> {
+                        
+                        txt += "y";
+                        demo = true;
+                        
+                    }
                         
                     case '_',
                         '\n',
@@ -588,10 +623,10 @@ public class Texto {
                          '￿',
                          '' -> {
                         
-                        if(i > 0 && i < p.length()-1 && demo) txt += "_";
+                        if(i > 0 && i < p.length()-1 && demo) txt += "-";
                         demo = false;
                         
-                    }
+                    }//case
                     
                     default -> {
                         
