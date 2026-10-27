@@ -1237,7 +1237,7 @@ public class Action {
         
     }//session_open
     
-    public static void session(
+    private static void session_submit(
         xml_document doc,
         xml_document_one one,
         String title,
@@ -1451,7 +1451,7 @@ public class Action {
             
         } else {//if(newFont(title))
             
-            session(doc, one, title, true);
+            session_submit(doc, one, title, true);
             
         }//if(newFont(title))
         
@@ -1479,7 +1479,7 @@ public class Action {
         
         one.setTitle(node);
         
-        session(doc, one, title, false);
+        session_submit(doc, one, title, false);
         
     }//session_save_temp
     
@@ -1580,26 +1580,21 @@ public class Action {
         
     }//session_cancel
     
+    public static void session(xml_document doc, xml_document_one one)
+    {controller.p3(new session(doc, one, MyFont()));}
+    
     public static void ReadWrite(xml_document doc, String input){
+            
+        xml_document_one novo = new xml_document_one();
         
-        if(newFont(input)){
-            
-            controller.p2(new newFont(doc, Arq.Files(input), MyFont()));
-            
-        } else {//if(newFont(input))
-            
-            xml_document_one novo = new xml_document_one();
-            
-            novo.setTitle(
-                Texto.text(
-                    input,
-                    exclude_document_function
-                ).isBlank() ? "" : Texto.title(input)
-            );
-            
-            controller.p2(new DocumentView(doc, novo, MyFont()));
-            
-        }//if(newFont(input))
+        novo.setTitle(
+            Texto.text(
+                input,
+                exclude_document_function
+            ).isBlank() ? "" : Texto.title(input)
+        );
+        
+        controller.p2(new DocumentView(doc, novo, MyFont()));
         
     }//ReadWrite(xml_document doc,String input)
     
@@ -1624,7 +1619,9 @@ public class Action {
                 
             } else {//if(newFont(input))
                 
-                controller.p2(new DocumentView(doc,one,MyFont()));
+                controller.p3(new session(doc, one, MyFont()));
+                
+                session(doc, one);
                 
             }//if(newFont(input))
             

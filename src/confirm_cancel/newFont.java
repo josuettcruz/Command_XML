@@ -189,7 +189,7 @@ public class newFont implements Painel_2{
                     
                 } else {//if(xml == null)
                     
-                    Action.session(doc, one,one.getTitle(), true);
+                    Action.session(doc, one);
                     
                 }//if(xml == null)
                 
