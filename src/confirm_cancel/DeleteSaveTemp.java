@@ -11,6 +11,7 @@ import form.Painel_2;
 import form.pag2;
 import java.awt.Font;
 import java.util.List;
+import xml_mf.Action;
 
 /**
  *
@@ -20,15 +21,44 @@ public class DeleteSaveTemp implements Painel_2{
     
     private final String not = "Ação indisponpivel!";
     
-    public DeleteSaveTemp(xml_document doc){
+    private Font font_title;
+    private Font font_text;
+    
+    public DeleteSaveTemp(xml_document doc, Font[] f){
         
-        /* Esse painel vai exibir:           **
-        ** todos os itens marcados com "~"   **
-        ** e só irá aparecer,                **
-        ** quando um ou mais itens dentro do **
-        ** documento DOC tiver essa marcação */
+        try{
+            
+            this.font_title = f[0];
+            this.font_text = f[1];
+            
+            /* Esse painel vai exibir:           **
+            ** todos os itens marcados com "~"   **
+            ** e só irá aparecer,                **
+            ** quando um ou mais itens dentro do **
+            ** documento DOC tiver essa marcação */
+            
+        }catch(NullPointerException err){//throw
+
+            Action.Err("NullPointerException", err.getMessage());
+            
+        }catch(Exception err){//throw
+
+            Action.Err("Exception", err.getMessage());
+            
+        }//throw
         
     }//DeleteSaveTemp(xml_document doc)
+    
+    public Font[] Font(){
+        
+        java.awt.Font font[] = {
+            this.font_title,
+            this.font_text
+        };
+        
+        return font;
+        
+    }//Font()
 
     @Override
     public String Title(boolean title) {

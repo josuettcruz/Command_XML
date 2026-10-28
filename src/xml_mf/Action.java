@@ -1277,7 +1277,7 @@ public class Action {
             
             var cond1 = Texto.text(title).length() >= 3;
             
-            var cond2 = Texto.text(title).length() <= 20 || Texto.contains(
+            var cond2 = Texto.text(title).length() <= 15 || Texto.contains(
                 title,
                 new char[]{'\\','/'}
             );
@@ -1379,30 +1379,22 @@ public class Action {
                             demo += ".";
                             demo += ext[x];
                             
-                            y = 0;
-                            
-                            do{
+                            if(Arq.Dir(demo, false)){
                                 
-                                if(Arq.Dir(demo, false)){
+                                if(Reg.MegaByte(demo, false)){
                                     
-                                    if(Reg.MegaByte(demo, false)){
-                                        
-                                        session_open(
-                                            doc,
-                                            one,
-                                            title,
-                                            new Arq(demo).Read()
-                                        );
-                                        
-                                        next = false;
-                                        
-                                    }//if(Reg.MegaByte(demo, false))
+                                    session_open(
+                                        doc,
+                                        one,
+                                        title,
+                                        new Arq(demo).Read()
+                                    );
                                     
-                                }//if(Arq.Dir(demo, false))
+                                    next = false;
+                                    
+                                }//if(Reg.MegaByte(demo, false))
                                 
-                                y++;
-                                
-                            }while(next && y > 0 && y < Doc().size());
+                            }//if(Arq.Dir(demo, false))
                             
                         } else {//if(node.size() > 1)
                             
@@ -1691,7 +1683,7 @@ public class Action {
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
-        } else if(Texto.text(input, exclude_document_function).isBlank()){//if(...
+        } else if(Texto.text(input, exclude_document_function).isBlank()){
             
             Exit();
             
@@ -1709,7 +1701,7 @@ public class Action {
     
     public static void folder_xml_submit(Domain menu, String input){
         
-        if(newFont(Texto.text(input, true))){
+        if(newFont(Texto.text(input, true)) && xml_val()){
             
             controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
             
@@ -1717,7 +1709,8 @@ public class Action {
             menu.index() >= 0 &&
             menu.index() < xml().learn().size() &&
             !xml().learn().isEmpty() &&
-            Texto.text(input, exclude_document_function).isBlank()
+            Texto.text(input, exclude_document_function).isBlank() &&
+            xml_val()
         )
         {
             
@@ -1786,9 +1779,13 @@ public class Action {
                 
             }//switch(id.Cond())
             
-        } else {//if(newFont(input))
+        } else if(xml_val()){//if(newFont(input))
             
             folder_xml_submit(input);
+            
+        } else {//if(newFont(input))
+            
+            Exit();
             
         }//if(newFont(input))
         
