@@ -148,7 +148,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                 
             }//case remove, delet, backspace 
             
-            case add, key -> Action.ReadWrite(this.document, input);
+            case add, key -> Action.ReadWrite_submit(this.document, input);
                     
             case open, enter -> {
                 
@@ -159,7 +159,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                     
                     if(vol.get(proc).Select()){
                         
-                        Action.ReadWrite(
+                        Action.ReadWrite_submit(
                             this.document,
                             this.document.List().get(proc),
                             input
@@ -173,7 +173,7 @@ public class ReadWrite implements Painel_1Single, Painel_1Multiple {
                     
                 }while(void_selected && proc > 0 && proc < vol.size());
                 
-                if(void_selected) Action.ReadWrite(this.document, input);
+                if(void_selected) Action.ReadWrite_submit(this.document, input);
                 
             }//case open, enter
             

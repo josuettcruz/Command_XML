@@ -1609,10 +1609,21 @@ public class Action {
         
     }//session_cancel
     
-    public static void session(xml_document doc, xml_document_one one)
-    {controller.p3(new session(doc, one, MyFont()));}
+    public static void session(xml_document doc, xml_document_one one){
+        
+        if(xml_val()){
+            
+            controller.p3(new session(doc, one, MyFont()));
+            
+        } else {//if(xml_val())
+            
+            Exit(doc);
+            
+        }//if(xml_val())
     
-    public static void ReadWrite(xml_document doc, String input){
+    }//session(xml_document doc, xml_document_one one)
+    
+    public static void ReadWrite_submit(xml_document doc, String input){
             
         xml_document_one novo = new xml_document_one();
         
@@ -1625,9 +1636,9 @@ public class Action {
         
         controller.p2(new DocumentView(doc, novo, MyFont()));
         
-    }//ReadWrite(xml_document doc,String input)
+    }//ReadWrite_submit(xml_document doc,String input)
     
-    public static void ReadWrite(
+    public static void ReadWrite_submit(
         xml_document doc,
         xml_document_one one,
         String input
@@ -1654,13 +1665,27 @@ public class Action {
             
         } else {//if(Texto.text...
             
-            ReadWrite(doc, input);
+            ReadWrite_submit(doc, input);
             
         }//if(Texto.text...
         
-    }//ReadWrite(xml_document doc, xml_document_one one, String input)
+    }//ReadWrite_submit(xml_document doc, xml_document_one one, String input)
     
-    public static void folder_xml(String input){
+    public static void ReadWrite(xml_document doc){
+        
+        if(xml_val()){
+            
+            controller.p1s(new ReadWrite(doc, MyFont()));
+            
+        } else {//if(xml_val())
+            
+            Exit(doc);
+            
+        }//if(xml_val())
+    
+    }//ReadWrite(xml_document doc)
+    
+    public static void folder_xml_submit(String input){
         
         if(newFont(Texto.text(input, true))){
             
@@ -1680,9 +1705,9 @@ public class Action {
             
         }//if(newFont(Texto.text(input, true)))
         
-    }//folder_xml(String input)
+    }//folder_xml_submit(String input)
     
-    public static void folder_xml(Domain menu, String input){
+    public static void folder_xml_submit(Domain menu, String input){
         
         if(newFont(Texto.text(input, true))){
             
@@ -1763,10 +1788,24 @@ public class Action {
             
         } else {//if(newFont(input))
             
-            folder_xml(input);
+            folder_xml_submit(input);
             
         }//if(newFont(input))
         
-    }//folder_xml(Domain menu, String input)
+    }//folder_xml_submit(Domain menu, String input)
+    
+    public static void folder_xml(){
+        
+        if(xml_val()){
+            
+            controller.p1s(new folder_xml(xml(),MyFont()));
+            
+        } else {//if(xml_val())
+            
+            Exit();
+            
+        }//if(xml_val())
+    
+    }//folder_xml()
     
 }//Action
