@@ -1517,8 +1517,21 @@ public class Action {
         
         if(Texto.text(v1, exclude_document_function).length() > 1){
             
-            for(String t : Texto.phrase(v1, exclude_document_function))
-            {var1 += Texto.arq(t);}
+            var t = Texto.phrase(v1, exclude_document_function);
+            
+            if(!t.isEmpty()){
+                
+                if(t.size() == 1){
+                    
+                    var1 += Texto.arq(t.get(0));
+                    
+                } else {//if(t.size() == 1)
+                    
+                    for(String text : t) var1 += Texto.arq(text);
+                    
+                }//if(t.size() == 1)
+                
+            }//if(!t.isEmpty())
             
         }//if(Texto.text(var1, exclude_document_function).length() > 1)
         
@@ -1528,15 +1541,25 @@ public class Action {
         
         if(Texto.text(v2, exclude_document_function).length() > 1){
             
-            for(String t : Texto.phrase(v2, exclude_document_function))
-            {var2 += Texto.arq(t);}
+            var t = Texto.phrase(v2, exclude_document_function);
+            
+            if(!t.isEmpty()){
+                
+                if(t.size() == 1){
+                    
+                    var2 += Texto.arq(t.get(0));
+                    
+                } else {//if(t.size() == 1)
+                    
+                    for(String text : t) var2 += Texto.arq(text);
+                    
+                }//if(t.size() == 1)
+                
+            }//if(!t.isEmpty())
             
         }//if(Texto.text(var1, exclude_document_function).length() > 1)
         
-        var no_save_temp = var1.equals(var2);
-        
-        if(no_save_temp)
-        {no_save_temp = Texto.text(var2, exclude_document_function).isBlank();}
+        var no_save_temp = var1.equals(var2) || var1.isBlank();
         
         if(no_save_temp && !one.getText().isEmpty() && doc.List().size() > 1){
             
@@ -1556,13 +1579,25 @@ public class Action {
                     
                     for(String x : demo){
                         
-                        for(
-                            String y :
-                            Texto.phrase(
-                                x,
-                                exclude_document_function
-                            )
-                        ) t1 += Texto.arq(y);
+                        if(!x.isBlank()){
+                            
+                            var t = Texto.phrase(x, exclude_document_function);
+                            
+                            if(t.isEmpty()){
+                                
+                                if(t.size() == 1){
+                                    
+                                    t1 += Texto.arq(t.get(0));
+                                    
+                                } else {//if(t.size() == 1)
+                                    
+                                    for(String txt : t) t1 += Texto.arq(txt);
+                                    
+                                }//if(t.size() == 1)
+                                
+                            }//if(t.isEmpty())
+                            
+                        }//if(!x.isEmpty())
                         
                     }//for(String x : demo)
                     
@@ -1570,9 +1605,63 @@ public class Action {
                 
             }//if(proc >= 0 && proc < doc.List().size())
             
-            if(!t1.isBlank()){
+            if(t1.isBlank()){
+                
+                var c = one.getText();
                 
                 var t2 = "";
+                
+                if(!c.isEmpty()){
+                    
+                    if(c.size() == 1){
+                        
+                        var t = Texto.phrase(
+                            c.get(0),
+                            exclude_document_function
+                        );
+                        
+                        if(!t.isEmpty()){
+                            
+                            if(t.size() == 1){
+                                
+                                t2 += Texto.arq(t.get(0));
+                                
+                            } else {//if(t.size() == 1)
+                                
+                                for(String text : t) t2 += Texto.arq(text);
+                                
+                            }//if(t.size() == 1)
+                            
+                        }//if(!t.isEmpty())
+                        
+                    } else {//if(c.size() == 1)
+                        
+                        for(String dat : c){
+                            
+                            var t = Texto.phrase(
+                                dat,
+                                exclude_document_function
+                            );
+                            
+                            if(!t.isEmpty()){
+                                
+                                if(t.size() == 1){
+                                    
+                                    t2 += Texto.arq(t.get(0));
+                                    
+                                } else {//if(t.size() == 1)
+                                    
+                                    for(String txt : t) t2 += Texto.arq(txt);
+                                    
+                                }//if(t.size() == 1)
+                                
+                            }//if(!t.isEmpty())
+                            
+                        }//for(String dat : c)
+                        
+                    }//if(c.size() == 1)
+                    
+                }//if(!c.isEmpty())
                 
                 for(String x : one.getText())
                 {for(String y : Texto.phrase(x)) t2 += Texto.arq(y);}
