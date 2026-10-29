@@ -780,7 +780,89 @@ public class Action {
                         
                     }//if(line_blank)
                     
-                    aplication.add(text_line);
+                    var tem = Texto.phrase(text_line, true);
+                    
+                    if(tem.size() > 1){
+                        
+                        var doc = "";
+                        var space = false;
+                        
+                        var aspas = Texto.ContChar(tem.get(0), '"');
+                        
+                        if(aspas > 2) aspas = 2;
+                        
+                        var amp = false;
+                        
+                        for(String t : tem){
+                            
+                            if(aspas == 1) amp = !amp;
+                            
+                            if(space){
+                                
+                                doc += " ";
+                                
+                            } else {//if(space)
+                                
+                                space = true;
+                                
+                            }//if(space)
+                            
+                            switch(aspas){//1 - 2
+                                
+                                case 1 -> {
+                                    
+                                    if(!amp){
+                                        
+                                        // https://www.w3schools.com/charsets/ref_html_entities_l.asp
+                                        // https://www.w3schools.com/charsets/tryit.asp?deci=8220
+                                        doc += "{{ldquo}}";
+                                        amp = true;
+                                    
+                                    }//if(!amp)
+                                
+                                }//case
+                                
+                                case 2 -> doc += "\"";
+                                
+                            }//switch(aspas) - 1 - 2
+                            
+                            
+                            doc += Texto.replace(t, '"');
+                            
+                            switch(aspas){//2 - 2
+                                
+                                case 1 -> {
+                                    
+                                    if(amp){
+                                        
+                                        // https://www.w3schools.com/charsets/ref_html_entities_r.asp
+                                        // https://www.w3schools.com/charsets/tryit.asp?deci=8221
+                                        doc += "{{rdquo}}";
+                                        amp = false;
+                                    
+                                    }//if(amp)
+                                
+                                }//case
+                                
+                                case 2 -> doc += "\"";
+                                
+                            }//switch(aspas) - 2 - 2
+                            
+                            aspas = Texto.ContChar(t, '"');
+                            
+                            if(aspas > 2) aspas = 2;
+                            
+                        }//for(String t : tem)
+                        
+                        if(amp) doc += "{{rdquor}}";
+                        
+                        aplication.add(doc);
+                        
+                    } else {//if(tem.size() > 1)
+                        
+                        aplication.add(text_line);
+                        
+                    }//if(tem.size() > 1)
                     
                 }//if(t.isBlank())
                 
@@ -1114,7 +1196,7 @@ public class Action {
                 
             }//if(h.Sec() > 0)
             
-            if(t.size() >= 1){
+            if(!t.isEmpty()){
                 
                 final var m = 20;
                 
@@ -1147,7 +1229,7 @@ public class Action {
                     
                 }//if(t.size() > 1)
                 
-            }//if(t.size() >= 1)
+            }//if(!t.isEmpty())
             
             con += ".xml";
             
@@ -1662,9 +1744,6 @@ public class Action {
                     }//if(c.size() == 1)
                     
                 }//if(!c.isEmpty())
-                
-                for(String x : one.getText())
-                {for(String y : Texto.phrase(x)) t2 += Texto.arq(y);}
                 
                 no_save_temp = t1.equals(t2);
                 

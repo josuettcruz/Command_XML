@@ -1126,15 +1126,15 @@ public class Texto {
         
     }//indexOf(String text, char proc, boolean first)
     
-    public static List<Integer> indexOf(String text, char proc){
+    public static int ContChar(String text, char proc){
         
-        List<Integer> value = new ArrayList();
+        int value = 0;
         
         if(text.length() > 1){
             
             for(var x = 0; x < text.length(); x++){
                 
-                if(text.charAt(x) == proc) value.add(x);
+                if(text.charAt(x) == proc) value++;
                 
             }//for(var x = 0; x < text.length(); x++)
             
@@ -1143,5 +1143,60 @@ public class Texto {
         return value;
         
     }//indexOf(String text, char proc, boolean first)
+    
+    public static String replace(String txt, char remove){
+        
+        if(txt.length() > 1){
+            
+            var value = "";
+            
+            for(int i = 0; i < txt.length(); i++){
+                
+                if(txt.charAt(i) != remove) value += txt.charAt(i);
+                
+            }//for(int i = 0; i < txt.length(); i++)
+            
+            return value;
+            
+        } else {//if(txt.length() > 1)
+            
+            return "null";
+            
+        }//if(txt.length() > 1)
+        
+    }//replace(String txt, char remove)
+    
+    public static String replace(String txt, char[] remove){
+        
+        if(txt.length() > 1 && remove.length > 1){
+            
+            var value = "";
+            
+            for(int i = 0; i < txt.length(); i++){
+                
+                var proc = 0;
+                var insert = true;
+                
+                do{
+                    
+                    insert = txt.charAt(i) != remove[proc];
+                    
+                    proc++;
+                    
+                }while(insert && proc > 0 && proc < remove.length);
+                
+                if(insert) value += txt.charAt(i);
+                
+            }//for(int i = 0; i < txt.length(); i++)
+            
+            return value;
+            
+        } else {//if(txt.length() > 1 && remove.length > 1)
+            
+            return "null";
+            
+        }//if(txt.length() > 1 && remove.length > 1)
+        
+    }//replace(String txt, char remove)
     
 }//txt
