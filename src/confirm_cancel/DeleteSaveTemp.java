@@ -11,6 +11,7 @@ import form.Painel_2;
 import form.pag2;
 import java.awt.Font;
 import java.util.List;
+import java.util.ArrayList;
 import xml_mf.Action;
 
 /**
@@ -23,6 +24,7 @@ public class DeleteSaveTemp implements Painel_2{
     
     private Font font_title;
     private Font font_text;
+    private xml_document doc;
     
     public DeleteSaveTemp(xml_document doc, Font[] f){
         
@@ -30,6 +32,7 @@ public class DeleteSaveTemp implements Painel_2{
             
             this.font_title = f[0];
             this.font_text = f[1];
+            this.doc = doc;
             
             /* Esse painel vai exibir:           **
             ** todos os itens marcados com "~"   **
@@ -62,32 +65,45 @@ public class DeleteSaveTemp implements Painel_2{
 
     @Override
     public String Title(boolean title) {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "ESCLUIR ou RESTAURAR";
     }
 
     @Override
     public Font FontTitle() {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.font_title;
     }
 
     @Override
     public Font ListFont() {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.font_text;
     }
 
     @Override
     public List<Domain> ListMode() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        List<Domain> lts = new ArrayList();
+        
+        for(var i = 0; i < this.doc.List().size(); i++){
+            
+            var t = this.doc.List().get(i).getTitle();
+            
+            if(t.charAt(0) == '~' && t.length() > 1)
+            lts.add(new Domain(i,t.substring(1)));
+            
+        }//for(var i = 0; i < this.doc.List().size(); i++)
+        
+        return lts;
+        
     }
 
     @Override
-    public boolean SelectionMultiple() {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public boolean SelectionMultiple() {return true;}
 
     @Override
     public void Command(pag2 op, List<Domain> value) {
-        // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        // void
+        
     }
     
-}
+}//DeleteSaveTemp

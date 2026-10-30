@@ -11,7 +11,9 @@ import form.Painel_2;
 import form.pag2;
 import java.awt.Font;
 import java.util.List;
+import java.util.ArrayList;
 import xml_mf.Action;
+import xml_rw.xml_config_file_cond;
 
 /**
  *
@@ -23,6 +25,7 @@ public class DeletDocumentNot implements Painel_2{
     
     private Font font_title;
     private Font font_text;
+    private xml_config xml;
     
     public DeletDocumentNot(xml_config xml, Font[] f){
         
@@ -30,6 +33,7 @@ public class DeletDocumentNot implements Painel_2{
             
             this.font_title = f[0];
             this.font_text = f[1];
+            this.xml = xml;
             
             /* Esse é o formulário          **
             ** que deverá aparecer          **
@@ -62,32 +66,46 @@ public class DeletDocumentNot implements Painel_2{
 
     @Override
     public String Title(boolean title) {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "Remover itens indisponíveis?";
     }
 
     @Override
     public Font FontTitle() {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.font_title;
     }
 
     @Override
     public Font ListFont() {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return this.font_text;
     }
 
     @Override
     public List<Domain> ListMode() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        List<Domain> lts = new ArrayList();
+        
+        for(var i = 0; i < this.xml.learn().size(); i++){
+            
+            var d = this.xml.learn().get(i).Cond();
+            var t = this.xml.learn().get(i).Title();
+            
+            if(d == xml_config_file_cond.not)
+            lts.add(new Domain(i,this.xml.learn().get(i).Title()));
+            
+        }//for(var i = 0; i < this.xml.learn().size(); i++)
+        
+        return lts;
+        
     }
 
     @Override
-    public boolean SelectionMultiple() {
-        throw new UnsupportedOperationException(this.not); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    public boolean SelectionMultiple() {return true;}
 
     @Override
     public void Command(pag2 op, List<Domain> value) {
-        // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        // void
+        
     }
     
-}
+}//DeletDocumentNot
