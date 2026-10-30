@@ -40,7 +40,9 @@ public class Reg {
         "/xml/xml_usedfor.asp"
     );
     
-    public final static boolean java = Arq.Dir("manifest.mf", true);
+    public final static boolean java = Arq.Dir("manifest.mf", true) &&
+            Arq.Dir("build.xml", true) &&
+            Arq.Dir("src");
     
     private final static int result = 28;
     

@@ -49,21 +49,11 @@ public class Dimension {
     
     private String List(int num){
         
-        String str = "";
+        return Reg.java ? "..\\" : ""
+            + this.name[num >= 0 && num < this.name.length ? num : 0]
+            + ".csv";
         
-        if(num >= 0 && num < this.name.length){
-            
-            if(Reg.java) str += "\\..";
-            
-            str += this.name[num];
-            
-            str += ".csv";
-            
-        }//for(var i = 0; i < str.length; i++)
-        
-        return str;
-        
-    }//List()
+    }//List(int num)
     
     private String Save(){
         
@@ -72,10 +62,12 @@ public class Dimension {
             + ";top="
             + Reg.Numb(this.top, 1000);
     
-    }
-        
+    }//Save()
     
-    private void New(){
+    private void Reset(){
+        
+        this.left = 0;
+        this.top = 0;
         
         Arq a = new Arq(this.List(0));
         
@@ -91,105 +83,83 @@ public class Dimension {
             
         }//if(a.Val())
         
-    }//New()
+    }//Reset()
     
     private void Fill(Read r){
         
         if(r.Read().length() >= this.Save().length()){
             
-            var value = false;
-            var type = "";
-            var val = "";
+            List<DimensionOne> demo = new ArrayList();
             
-            List<String> type_mode = new ArrayList();
-            List<String> val_mode = new ArrayList();
+            var txt = "";
             
-            var txt = r.Read();
-            
-            for(var x = 0; x < txt.length(); x++){
+            for(var x = 0; x < r.Read().length(); x++){
                 
-                switch(txt.charAt(x)){
-                    
-                    case '=' -> {
-                        
-                        type_mode.add(type);
-                        type = "";
-                        
-                        value = true;
-                    
-                    }//case '='
+                switch(r.Read().charAt(x)){
                     
                     case ';' -> {
                         
-                        val_mode.add(val);
-                        val = "";
+                        if(txt.length() > DimensionOne.vetor)
+                        {demo.add(new DimensionOne(txt));}
                         
-                        value = false;
-                    
+                        txt = "";
+                        
                     }//case ';'
                     
-                    default ->{
-                        
-                        if(value){
-                            
-                            type += txt.charAt(x);
-                            
-                        } else {//if(value)
-                            
-                            val += txt.charAt(x);
-                            
-                        }//if(value)
-                        
-                    }//default
+                    default -> txt += r.Read().charAt(x);
                     
-                }//switch(txt.charAt(x))
+                }//switch(r.Read().charAt(x))
                 
-            }//for(var x = 0; x < txt.length(); x++)
+            }//for(var x = 0; x < r.Read().length(); x++)
             
-            var cond1 = type_mode.size() == val_mode.size();
-            var cond2 = type_mode.size() >= 2;
-            var cond3 = val_mode.size() >= 2;
-            
-            if(cond1 && cond2 && cond3){
+            if(demo.size() >= 2){
                 
                 var newl = true;
                 var newt = true;
                 
-                if(type_mode.get(0).equalsIgnoreCase("left")){
+                for(DimensionOne d : demo){
                     
-                    this.left = new Num(val_mode.get(0)).Num();
-                    newl = false;
+                    switch(d.Type()){
+                        
+                        case "left" -> {
+                            
+                            if(newl && d.Val().Val()){
+                                
+                                this.left = d.Val().Num();
+                                
+                                newl = false;
+                                
+                            }//if(newl && d.Value().Val())
+                            
+                        }//case "left"
+                        
+                        case "top" -> {
+                            
+                            if(newt && d.Val().Val()){
+                                
+                                this.top = d.Val().Num();
+                                
+                                newt = false;
+                                
+                            }//if(newl && d.Value().Val())
+                            
+                        }//case "top"
+                        
+                    }//switch(d.Type())
                     
-                }//if(type_mode.get(0).equalsIgnoreCase("left"))
+                }//for(DimensionOne d : demo)
                 
-                if(type_mode.get(1).equalsIgnoreCase("top")){
-                    
-                    this.top = new Num(val_mode.get(1)).Num();
-                    newt = false;
-                    
-                }//if(type_mode.get(1).equalsIgnoreCase("top"))
+                if(newl || newt) this.Reset();
                 
-                if(type_mode.get(1).equalsIgnoreCase("left") && newl){
-                    
-                    this.left = new Num(val_mode.get(1)).Num();
-                    newl = false;
-                    
-                }//if(type_mode.get(1).equalsIgnoreCase("left") && newl)
+            } else {//if(demo.size() >= 2)
                 
-                if(type_mode.get(0).equalsIgnoreCase("top") && newt){
-                    
-                    this.top = new Num(val_mode.get(0)).Num();
-                    newt = false;
-                    
-                }//if(type_mode.get(0).equalsIgnoreCase("top") && newt)
+                this.Reset();
                 
-                if(newl || newt) this.New();
-                
-            }//if(cond1 && cond2 && cond3)
+            }//if(demo.size() >= 2)
             
         } else {//if(r.Read().length() >= tema.length())
             
-            //var tema = "regth=0;";
+            this.Reset();
             
         }//if(r.Read().length() >= tema.length())
         
@@ -216,7 +186,7 @@ public class Dimension {
             
         }while(loop && proc > 0 && proc < this.name.length);
         
-        if(loop) this.New();
+        if(loop) this.Reset();
         
     }//Exec()
     
