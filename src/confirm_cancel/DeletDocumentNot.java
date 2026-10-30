@@ -21,8 +21,6 @@ import xml_rw.xml_config_file_cond;
  */
 public class DeletDocumentNot implements Painel_2{
     
-    private final String not = "Ação indisponpivel!";
-    
     private Font font_title;
     private Font font_text;
     private xml_config xml;
