@@ -87,7 +87,6 @@ public class DeletDocumentNot implements Painel_2{
         for(var i = 0; i < this.xml.learn().size(); i++){
             
             var d = this.xml.learn().get(i).Cond();
-            var t = this.xml.learn().get(i).Title();
             
             if(d == xml_config_file_cond.not)
             lts.add(new Domain(i,this.xml.learn().get(i).Title()));
