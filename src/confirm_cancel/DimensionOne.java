@@ -12,17 +12,18 @@ import model.Num;
  */
 public class DimensionOne {
     
-    public final static int vetor = 2;
-    
     private String type;
     private String value;
+    
+    public static boolean Valid(String cell)
+    {return cell.length() > 2;}
     
     public DimensionOne(String cell){
         
         this.type = "";
         this.value = "";
         
-        if(cell.length() > vetor){
+        if(Valid(cell)){
             
             var divide = false;
             
@@ -58,6 +59,6 @@ public class DimensionOne {
     
     public String Type(){return this.type;}
     
-    public Num Val(){return new Num(this.value);}
+    public Num Int(){return new Num(this.value);}
     
 }//DimensionOne 

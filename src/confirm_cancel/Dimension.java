@@ -7,7 +7,6 @@ package confirm_cancel;
 import file.*;
 
 import model.Reg;
-import model.Num;
 
 import xml_mf.Action;
 
@@ -43,7 +42,26 @@ public class Dimension {
         this.left = 0;
         this.top = 0;
         
-        this.Exec();
+        var proc = 0;
+        var loop = true;
+        
+        do{
+            
+            var t = this.List(proc);
+            
+            if(Arq.Dir(t, true)){
+                
+                this.Fill(new Arq(t).Read());
+                this.local = proc;
+                loop = false;
+                
+            }//if(t, true))
+            
+            proc++;
+            
+        }while(loop && proc > 0 && proc < this.name.length);
+        
+        if(loop) this.Reset();
         
     }//Dimension()
     
@@ -99,7 +117,7 @@ public class Dimension {
                     
                     case ';' -> {
                         
-                        if(txt.length() > DimensionOne.vetor)
+                        if(DimensionOne.Valid(txt))
                         {demo.add(new DimensionOne(txt));}
                         
                         txt = "";
@@ -123,9 +141,9 @@ public class Dimension {
                         
                         case "left" -> {
                             
-                            if(newl && d.Val().Val()){
+                            if(newl && d.Int().Val()){
                                 
-                                this.left = d.Val().Num();
+                                this.left = d.Int().Num();
                                 
                                 newl = false;
                                 
@@ -135,9 +153,9 @@ public class Dimension {
                         
                         case "top" -> {
                             
-                            if(newt && d.Val().Val()){
+                            if(newt && d.Int().Val()){
                                 
-                                this.top = d.Val().Num();
+                                this.top = d.Int().Num();
                                 
                                 newt = false;
                                 
@@ -165,30 +183,9 @@ public class Dimension {
         
     }//Fill(String text)
     
-    private void Exec(){
-        
-        var proc = 0;
-        var loop = true;
-        
-        do{
-            
-            var t = this.List(proc);
-            
-            if(Arq.Dir(t, true)){
-                
-                this.Fill(new Arq(t).Read());
-                this.local = proc;
-                loop = false;
-                
-            }//if(t, true))
-            
-            proc++;
-            
-        }while(loop && proc > 0 && proc < this.name.length);
-        
-        if(loop) this.Reset();
-        
-    }//Exec()
+    public int Left(){return this.left;}
+    
+    public int Top(){return this.top;}
     
     public void Save(int new_left, int new_top){
         

@@ -317,6 +317,31 @@ public class Action {
         
     }//font_new(xml_document doc, xml_document_one one, carregarFonte f)
     
+    private static void End(boolean normal){
+        
+        if(normal){
+            
+            var left = controller.Dim(d.left);
+            
+            if(left < 0) left = 0;
+            
+            var top = controller.Dim(d.top);
+            
+            if(top < 0) top = 0;
+            
+            Dimension dim = new Dimension();
+            
+            var op1 = dim.Left() != left;
+            var op2 = dim.Top() != top;
+            
+            if(op1 || op2) dim.Save(left, top);
+            
+        }//if(normal)
+        
+        System.exit(0);
+        
+    }//End()
+    
     public static void Exit(){
         
         if(Reg.java){
@@ -378,7 +403,7 @@ public class Action {
             
         }//if(Reg.java)
         
-        System.exit(0);
+        End(true);
         
     }//Exit()
     
@@ -422,7 +447,7 @@ public class Action {
             
         }//if(Reg.java)
         
-        System.exit(0);
+        End(true);
         
     }//Exit(xml_document doc)
     
@@ -524,7 +549,7 @@ public class Action {
                 
             }//if(Reg.java)
             
-            System.exit(0);
+            End(false);
             
         }//if(no_user_form)
         
