@@ -8,8 +8,6 @@ import file.*;
 
 import model.Reg;
 
-import xml_mf.Action;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +33,15 @@ public class Dimension {
     private int left;
     private int top;
     
+    private void Reset(){
+        
+        this.left = 0;
+        this.top = 0;
+        
+        new Arq(this.List(0)).Save(this.Save());
+        
+    }//Reset()
+    
     public Dimension(){
         
         this.local = 0;
@@ -47,11 +54,88 @@ public class Dimension {
         
         do{
             
-            var t = this.List(proc);
+            var name_file = this.List(proc);
             
-            if(Arq.Dir(t, true)){
+            if(Arq.Dir(name_file, true)){
                 
-                this.Fill(new Arq(t).Read());
+                Read r = new Arq(name_file).Read();
+
+                if(r.Read().length() >= this.Save().length()){
+
+                    List<DimensionOne> demo = new ArrayList();
+
+                    var txt = "";
+
+                    for(var x = 0; x < r.Read().length(); x++){
+
+                        switch(r.Read().charAt(x)){
+
+                            case ';' -> {
+
+                                if(DimensionOne.Valid(txt))
+                                {demo.add(new DimensionOne(txt));}
+
+                                txt = "";
+
+                            }//case ';'
+
+                            default -> txt += r.Read().charAt(x);
+
+                        }//switch(r.Read().charAt(x))
+
+                    }//for(var x = 0; x < r.Read().length(); x++)
+
+                    if(demo.size() >= 2){
+
+                        var newl = true;
+                        var newt = true;
+
+                        for(DimensionOne d : demo){
+
+                            switch(d.Type()){
+
+                                case "left" -> {
+
+                                    if(newl && d.Int().Val()){
+
+                                        this.left = d.Int().Num();
+
+                                        newl = false;
+
+                                    }//if(newl && d.Value().Val())
+
+                                }//case "left"
+
+                                case "top" -> {
+
+                                    if(newt && d.Int().Val()){
+
+                                        this.top = d.Int().Num();
+
+                                        newt = false;
+
+                                    }//if(newl && d.Value().Val())
+
+                                }//case "top"
+
+                            }//switch(d.Type())
+
+                        }//for(DimensionOne d : demo)
+
+                        if(newl || newt) this.Reset();
+
+                    } else {//if(demo.size() >= 2)
+
+                        this.Reset();
+
+                    }//if(demo.size() >= 2)
+
+                } else {//if(r.Read().length() >= tema.length())
+
+                    this.Reset();
+
+                }//if(r.Read().length() >= tema.length())
+
                 this.local = proc;
                 loop = false;
                 
@@ -82,127 +166,11 @@ public class Dimension {
     
     }//Save()
     
-    private void Reset(){
-        
-        this.left = 0;
-        this.top = 0;
-        
-        Arq a = new Arq(this.List(0));
-        
-        if(a.Val()){
-            
-            Exec s = a.Save(this.Save());
-            
-            if(!s.Val()) Action.Err(s.Type(), s.Message());
-            
-        } else {//if(a.Val())
-            
-            Action.Err(a.Type(), a.Message());
-            
-        }//if(a.Val())
-        
-    }//Reset()
-    
-    private void Fill(Read r){
-        
-        if(r.Read().length() >= this.Save().length()){
-            
-            List<DimensionOne> demo = new ArrayList();
-            
-            var txt = "";
-            
-            for(var x = 0; x < r.Read().length(); x++){
-                
-                switch(r.Read().charAt(x)){
-                    
-                    case ';' -> {
-                        
-                        if(DimensionOne.Valid(txt))
-                        {demo.add(new DimensionOne(txt));}
-                        
-                        txt = "";
-                        
-                    }//case ';'
-                    
-                    default -> txt += r.Read().charAt(x);
-                    
-                }//switch(r.Read().charAt(x))
-                
-            }//for(var x = 0; x < r.Read().length(); x++)
-            
-            if(demo.size() >= 2){
-                
-                var newl = true;
-                var newt = true;
-                
-                for(DimensionOne d : demo){
-                    
-                    switch(d.Type()){
-                        
-                        case "left" -> {
-                            
-                            if(newl && d.Int().Val()){
-                                
-                                this.left = d.Int().Num();
-                                
-                                newl = false;
-                                
-                            }//if(newl && d.Value().Val())
-                            
-                        }//case "left"
-                        
-                        case "top" -> {
-                            
-                            if(newt && d.Int().Val()){
-                                
-                                this.top = d.Int().Num();
-                                
-                                newt = false;
-                                
-                            }//if(newl && d.Value().Val())
-                            
-                        }//case "top"
-                        
-                    }//switch(d.Type())
-                    
-                }//for(DimensionOne d : demo)
-                
-                if(newl || newt) this.Reset();
-                
-            } else {//if(demo.size() >= 2)
-                
-                this.Reset();
-                
-            }//if(demo.size() >= 2)
-            
-        } else {//if(r.Read().length() >= tema.length())
-            
-            this.Reset();
-            
-        }//if(r.Read().length() >= tema.length())
-        
-    }//Fill(String text)
-    
     public int Left(){return this.left;}
     
     public int Top(){return this.top;}
     
-    public void Save(int new_left, int new_top){
-        
-        Arq a = new Arq(this.List(this.local));
-        
-        if(a.Val()){
-            
-            Exec e = a.Save(this.Save());
-            
-            if(!e.Val()) Action.Err(e.Type(), e.Message());
-            
-        } else {//if(a.Val())
-            
-            Action.Err(a.Type(), a.Message());
-            
-        }//if(a.Val())
-        
-    }//Save(int left, int top)
+    public Exec Save(int new_left, int new_top)
+    {return new Arq(this.List(this.local)).Save(this.Save());}
     
 }//Dimension
