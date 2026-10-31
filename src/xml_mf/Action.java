@@ -545,7 +545,7 @@ public class Action {
                 
             }//if(Reg.java)
             
-            End();
+            System.exit(0);
             
         }//if(no_user_form)
         
