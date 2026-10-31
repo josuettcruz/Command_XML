@@ -843,7 +843,7 @@ public class Action {
                                 
                                 }//case
                                 
-                                case 2 -> doc += "\"";
+                                case 2 -> doc += "{{ldquo}}";
                                 
                             }//switch(aspas) - 1 - 2
                             
@@ -865,7 +865,7 @@ public class Action {
                                 
                                 }//case
                                 
-                                case 2 -> doc += "\"";
+                                case 2 -> doc += "{{rdquo}}";
                                 
                             }//switch(aspas) - 2 - 2
                             
