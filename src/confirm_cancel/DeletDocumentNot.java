@@ -15,6 +15,12 @@ import java.util.ArrayList;
 import xml_mf.Action;
 import xml_rw.xml_config_file_cond;
 
+import static form.pag2.confirm;
+import static form.pag2.cancel;
+import static form.pag2.enter;
+import static form.pag2.del;
+import static form.pag2.backspace;
+
 /**
  *
  * @author josue
@@ -101,7 +107,39 @@ public class DeletDocumentNot implements Painel_2{
     @Override
     public void Command(pag2 op, List<Domain> value) {
         
-        // void
+        switch(op){
+            
+            case confirm ->{
+                
+                // code
+                
+            }//case confirm
+            
+            case cancel ->{
+                
+                // code
+                
+            }//case cancel
+            
+            case enter ->{
+                
+                // code
+                
+            }//case enter
+            
+            case del ->{
+                
+                // code
+                
+            }//case del
+            
+            case backspace ->{
+                
+                // code
+                
+            }//case backspace
+            
+        }//switch(op)
         
     }
     
