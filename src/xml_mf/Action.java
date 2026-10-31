@@ -319,11 +319,11 @@ public class Action {
     
     private static void End(){
         
-        var left = controller.Dim(d.left);
+        var left = controller.Dim(dimension.left);
         
         if(left < 0) left = 0;
         
-        var top = controller.Dim(d.top);
+        var top = controller.Dim(dimension.top);
         
         if(top < 0) top = 0;
         
@@ -1028,7 +1028,7 @@ public class Action {
                                                 
                                             }//case 5
                                             
-                                        }//switch(d.index())
+                                        }//switch(dimension.index())
                                         
                                     }//case '"', '\''
                                     
@@ -1069,7 +1069,7 @@ public class Action {
                                                 val.add(rd);
                                                 rd = "";
                                                 
-                                            }//if(d.index() == 5)
+                                            }//if(dimension.index() == 5)
                                             
                                         }//cases
                                         
@@ -1095,7 +1095,7 @@ public class Action {
                         
                         default -> val.add(t);
                         
-                    }//switch(d.index())
+                    }//switch(dimension.index())
                     
                 } else {//if(i == row && !new Link(value.get(i)).Val() &&...
                     

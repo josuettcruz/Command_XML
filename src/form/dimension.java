@@ -9,4 +9,4 @@ package form;
  *
  * @author josue
  */
-public enum d {left, top, height, width;}
+public enum dimension {left, top, height, width;}

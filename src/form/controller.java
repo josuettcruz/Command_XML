@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static form.d.*;
+import static form.dimension.*;
 
 /**
  *
@@ -40,7 +40,7 @@ public class controller {
         
     }//Position(int right, int top, int width, int height)
     
-    public static int Dim(d op){
+    public static int Dim(dimension op){
         
         int val = -1;
         
@@ -62,7 +62,7 @@ public class controller {
         
         return val;
         
-    }//Dim(d op)
+    }//Dim(dimension op)
     
     public static boolean Msg(String setTtitle, List<String> msg, boolean exit){
         
