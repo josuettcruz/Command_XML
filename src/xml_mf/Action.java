@@ -2003,9 +2003,17 @@ public class Action {
         
         if(reset.Val()){
             
-            xml.Save(reset);
+            var code = xml.Save(reset);
             
-            folder_xml();
+            if(code.Val()){
+                
+                controller.p1s(new folder_xml(xml,MyFont()));
+                
+            } else {//if(code.Val())
+                
+                Err(code.Type(), code.Message());
+                
+            }//if(code.Val())
             
         } else {//if(reset.Val())
             
