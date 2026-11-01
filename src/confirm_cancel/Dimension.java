@@ -7,6 +7,8 @@ package confirm_cancel;
 import file.*;
 
 import model.Reg;
+import model.Data;
+import model.Hora;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,25 +35,37 @@ public class Dimension {
     private int left;
     private int top;
     
-    private String text = "left="
-            + this.left
-            + ";top="
-            + this.top;
-    
     private String List(int num){
         
         return Reg.java ? "..\\" : ""
             + this.name[num > 0 && num < this.name.length ? num : 0]
-            + ".csv";
+            + ".ini";
         
     }//List(int num)
+    
+    private String Tema(){
+        
+        String txt = new Hora(false).Timer();
+        txt += " ";
+        txt += Data.code.DataAbreviada(false);
+        txt += " - ";
+        txt += this.List(this.local);
+        txt += ".ini\nleft=";
+        txt += this.left;
+        txt += ";top=";
+        txt += this.top;
+        txt += ";";
+        
+        return txt;
+        
+    }//Tema()
     
     private void Reset(){
         
         this.left = 0;
         this.top = 0;
         
-        new Arq(this.List(0)).Save(this.text);
+        new Arq(this.List(0)).Save(this.Tema());
         
     }//Reset()
     
@@ -73,7 +87,7 @@ public class Dimension {
                 
                 var tema = new Arq(name_file).Read().Read();
                 
-                if(tema.length() >= this.text.length()){
+                if(tema.length() >= this.Tema().length()){
                     
                     List<DimensionOne> demo = new ArrayList();
                     
@@ -105,7 +119,7 @@ public class Dimension {
                         
                         for(DimensionOne d : demo){
                             
-                            switch(d.Type()){
+                            switch(d.Type().trim()){
                                 
                                 case "left" -> {
                                     
@@ -131,7 +145,7 @@ public class Dimension {
                                     
                                 }//case "top"
                                 
-                            }//switch(d.Type())
+                            }//switch(d.Type().trim())
                             
                         }//for(DimensionOne d : demo)
                         
@@ -167,6 +181,6 @@ public class Dimension {
     public int Top(){return this.top;}
     
     public Exec Save(int new_left, int new_top)
-    {return new Arq(this.List(this.local)).Save(this.text);}
+    {return new Arq(this.List(this.local)).Save(this.Tema());}
     
 }//Dimension

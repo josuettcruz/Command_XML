@@ -778,6 +778,9 @@ public class Action {
             
         } else if(d.index() == 1){//if(value.isEmpty())
             
+            final String open = "{{ldquo}}";
+            final String close = "{{rdquo}}";
+            
             List<String> aplication = new ArrayList();
             
             var line_blank = false;
@@ -836,14 +839,14 @@ public class Action {
                                         
                                         // https://www.w3schools.com/charsets/ref_html_entities_l.asp
                                         // https://www.w3schools.com/charsets/tryit.asp?deci=8220
-                                        doc += "{{ldquo}}";
+                                        doc += open;
                                         amp = true;
                                     
                                     }//if(!amp)
                                 
                                 }//case
                                 
-                                case 2 -> doc += "{{ldquo}}";
+                                case 2 -> doc += open;
                                 
                             }//switch(aspas) - 1 - 2
                             
@@ -858,14 +861,14 @@ public class Action {
                                         
                                         // https://www.w3schools.com/charsets/ref_html_entities_r.asp
                                         // https://www.w3schools.com/charsets/tryit.asp?deci=8221
-                                        doc += "{{rdquo}}";
+                                        doc += close;
                                         amp = false;
                                     
                                     }//if(amp)
                                 
                                 }//case
                                 
-                                case 2 -> doc += "{{rdquo}}";
+                                case 2 -> doc += close;
                                 
                             }//switch(aspas) - 2 - 2
                             
@@ -875,7 +878,7 @@ public class Action {
                             
                         }//for(String t : tem)
                         
-                        if(amp) doc += "{{rdquor}}";
+                        if(amp) doc += close;
                         
                         aplication.add(doc);
                         
@@ -1993,5 +1996,23 @@ public class Action {
         }//if(xml_val())
     
     }//folder_xml()
+    
+    public static void folder_xml(xml_config xml){
+        
+        Arq reset = new Arq(xml_config());
+        
+        if(reset.Val()){
+            
+            xml.Save(reset);
+            
+            folder_xml();
+            
+        } else {//if(reset.Val())
+            
+            Err(reset.Type(), reset.Message());
+            
+        }//if(reset.Val())
+    
+    }//folder_xml(xml_config xml)
     
 }//Action
