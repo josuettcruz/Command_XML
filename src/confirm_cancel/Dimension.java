@@ -50,7 +50,9 @@ public class Dimension {
         txt += Data.code.DataAbreviada(false);
         txt += " - ";
         txt += this.List(this.local);
-        txt += ".ini\nleft=";
+        txt += ".ini\n";
+        
+        txt += "left=";
         txt += this.left;
         txt += ";top=";
         txt += this.top;
