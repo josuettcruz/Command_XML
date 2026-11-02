@@ -31,10 +31,12 @@ public class Action {
     public final static Domain[] session_option = {
         new Domain(0, "Selecione uma opção!"),
         new Domain(1, "Condicionar todo o texto."),
-        new Domain(2, "Condicionar Texto."),
+        new Domain(2, "Converter em Título."),
         new Domain(3, "Predefinir DATA/HORA"),
         new Domain(4, "Separar por frase."),
-        new Domain(5, "Separar por textos da frase.")
+        new Domain(5, "Separar por textos da frase."),
+        new Domain(6, "Condicionar como frase."),
+        new Domain(6, "Deixar tudo maiúscolo!")
     };
     
     public final static int max_session_option = 5;
@@ -569,15 +571,20 @@ public class Action {
             
         } else {//if(cond1 && cond2)
             
-            var h = Hora.code;
+            var h = new Hora(true);
             
             var title = Data.code.Load();
             title += " - ";
             title += Reg.Numb(h.Hour());
             title += "-";
             title += Reg.Numb(h.Min());
-            title += "-";
-            title += Reg.Numb(h.Sec());
+            
+            if(h.Sec() > 0){
+                
+                title += "-";
+                title += Reg.Numb(h.Sec());
+                
+            }//if(h.Sec() > 0)
             
             return title;
             
@@ -911,7 +918,7 @@ public class Action {
                     
                     switch(d.index()){
                         
-                        case 2 -> val.add(Texto.text(t));
+                        case 2 -> val.add(Texto.title(t));
                         
                         case 3 -> {
                             
@@ -1096,6 +1103,58 @@ public class Action {
                             
                         }//case 4, 5
                         
+                        case 6 -> {
+                            
+                            if(
+                                Texto.text(
+                                    t,
+                                    exclude_document_function
+                                ).length() > 1
+                            )
+                            {
+                                
+                                var tema = Texto.phrase(t, true);
+                                
+                                if(tema.size() > 1){
+                                    
+                                    var text = "";
+                                    
+                                    var cap = true;
+                                    
+                                    for(String txt : tema){
+                                        
+                                        if(cap){
+                                            
+                                            text += Texto.capitalize(txt);
+                                            cap = false;
+                                            
+                                        } else {//if(cap)
+                                            
+                                            text += " ";
+                                            text += txt.toLowerCase();
+                                            
+                                        }//if(cap)
+                                        
+                                    }//for(String txt : tema)
+                                    
+                                    val.add(text);
+                                    
+                                } else {//if(tema.size() > 1)
+                                    
+                                    val.add(Texto.capitalize(t));
+                                    
+                                }//if(tema.size() > 1)
+                                
+                            } else {//if(Texto.text(t, exclude_document_funct...
+                                
+                                val.add(t);
+                                
+                            }//if(Texto.text(t, exclude_document_function).le...
+                            
+                        }//case 6
+                        
+                        case 7 -> val.add(t.toUpperCase());
+                        
                         default -> val.add(t);
                         
                     }//switch(dimension.index())
@@ -1206,6 +1265,7 @@ public class Action {
             
             Hora h = new Hora(true);
             
+            con += "Arq - ";
             con += Data.code.Load();
             con += " - ";
             con += Reg.Numb(h.Hour());
@@ -1468,19 +1528,15 @@ public class Action {
                         
                         if(node.size() > 1){
                             
-                            var y = 0;
-                            
                             var demo = "";
                             
-                            do{
+                            for(var y = 0; y < node.size(); y++){
                                 
                                 if(y > 0) demo += "\\";
                                 
                                 demo += Texto.arq_no_extension(node.get(y));
                                 
-                                y++;
-                                
-                            }while(y > 0 && y < node.size());
+                            }//for(var y = 0; y < node.size(); y++)
                             
                             demo += ".";
                             demo += ext[x];
@@ -1517,7 +1573,6 @@ public class Action {
                         do{
                             
                             var tema = Doc().get(y);
-                            tema += "\\";
                             tema += Texto.arq_no_extension(title);
                             tema += ".";
                             tema += ext[x];
@@ -1617,7 +1672,7 @@ public class Action {
     )
     {
         
-        final var v1 = one.getTitle();
+        final var v1 = title;
         
         var var1 = "";
         
