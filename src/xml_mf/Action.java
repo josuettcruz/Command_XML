@@ -28,14 +28,19 @@ public class Action {
         '"','\'','@','#','$','%','&','*','-','_',
         '|','/','\\'};
     
+    /*  private static List<String> session_ComboBox( **
+    **      Domain d,                                 **
+    **      List<String> value,                       **
+    **      int row                                   **
+    **  )                                             */
     public final static Domain[] session_option = {
         new Domain(0, "Selecione uma opção!"),
         new Domain(1, "Condicionar todo o texto."),
         new Domain(2, "Predefinir DATA/HORA"),
         new Domain(3, "Separar por frase."),
-        new Domain(4, "Separar por textos da frase."),
-        new Domain(5, "Converter em Título."),
+        new Domain(4, "Separar por textos."),
         new Domain(6, "Condicionar como frase."),
+        new Domain(5, "Converter em Título."),
         new Domain(7, "Deixar tudo maiúscolo!")
     };
     
@@ -329,12 +334,12 @@ public class Action {
         
         if(top < 0) top = 0;
         
-        Dimension dim = new Dimension();
+        Dimension doc = new Dimension();
         
-        var op1 = dim.Left() != left;
-        var op2 = dim.Top() != top;
+        var op1 = doc.Left() != left;
+        var op2 = doc.Top() != top;
         
-        if(op1 || op2) dim.Save(left, top);
+        if(op1 || op2) doc.Save(left, top);
         
         System.exit(0);
         
@@ -453,7 +458,7 @@ public class Action {
         
         var no_user_form = true;
         
-        if(Texto.phrase(message).size() > 1){
+        if(Texto.text(message, exclude_document_function).length() > 10){
         
             List<String> tok = new ArrayList();
             
@@ -517,7 +522,7 @@ public class Action {
             
             no_user_form = !controller.Msg(tl, tok, true);
         
-        }//if(Texto.phrase(message).size() > 1)
+        }//if(Texto.text(message, exclude_document_function).length() > 10)
         
         if(no_user_form){
             
@@ -571,20 +576,9 @@ public class Action {
             
         } else {//if(cond1 && cond2)
             
-            var h = new Hora(true);
-            
             var title = Data.code.Load();
             title += " - ";
-            title += Reg.Numb(h.Hour());
-            title += "-";
-            title += Reg.Numb(h.Min());
-            
-            if(h.Sec() > 0){
-                
-                title += "-";
-                title += Reg.Numb(h.Sec());
-                
-            }//if(h.Sec() > 0)
+            title += new Hora(true).Timer();
             
             return title;
             
@@ -692,13 +686,11 @@ public class Action {
         
     }//OverrideTitle(xml_document doc, boolean title)
     
-    private static int month_ComboBox(String value){
+    private static int month_ComboBox(String text){
         
-        if(Texto.arq(value).isBlank()){
-            
-            return -1;
-            
-        } else {
+        int value = -1;
+        
+        if(Texto.arq(text).length() > 2){
             
             final Domain month[] = {
                 new Domain(1,"jan"),
@@ -718,46 +710,45 @@ public class Action {
                 new Domain(12,"dec")
             };
             
-            var val = -1;
-            
             var tx = "";
             
-            var dm = Texto.arq(value);
+            var dm = Texto.arq(text);
+            
+            var proc = 0;
             
             for(int i = 0; i < dm.length(); i++){
                 
-                var cont = 0;
                 var in_loop = true;
                 
                 do{
                     
                     var charAt = tx.isBlank() ? 0 : tx.length()-1;
                     
-                    if(charAt < month[cont].Text().length()){
+                    if(charAt < month[proc].Text().length()){
                         
-                        if(month[cont].Text().charAt(charAt) == dm.charAt(i)){
+                        if(month[proc].Text().charAt(charAt) == dm.charAt(i)){
                             
-                            tx += month[cont].Text().charAt(charAt);
+                            tx += month[proc].Text().charAt(charAt);
                             in_loop = false;
                             
-                        }//if(month[cont].Text().charAt(charAt) == dm.charAt(i))
+                        }//if(month[proc].Text().charAt(charAt) == dm.charAt(i))
                         
                     }//if(charAt < dm.length())
                     
-                    cont++;
+                    proc++;
                     
-                }while(in_loop && cont > 0 && cont < month.length);
+                }while(in_loop && proc > 0 && proc < month.length);
                 
-            }//for(int i = 0; i < Texto.arq(value).length(); i++)
+            }//for(int i = 0; i < Texto.arq(text).length(); i++)
             
-            var proc = 0;
+            proc = 0;
             var loop = true;
             
             do{
                 
                 if(tx.equalsIgnoreCase(month[proc].Text())){
                     
-                    val = month[proc].index();
+                    value = month[proc].index();
                     loop = false;
                     
                 }//if(tx.equalsIgnoreCase(month[proc].Text()))
@@ -766,11 +757,11 @@ public class Action {
                 
             }while(loop && proc > 0 && proc < month.length);
             
-            return val;
-            
-        }//if(!text.isBlank())
+        }//if(Texto.arq(text).length() > 2)
         
-    }//month_ComboBox(String value)
+        return value;
+        
+    }//month_ComboBox(String text)
     
     private static List<String> session_ComboBox(
         Domain d,
@@ -794,15 +785,14 @@ public class Action {
             
             for(String line : value){
                 
-                var text_line = new Link(line).Val()
-                    ? line
-                    : Texto.text(line, true);
-                
-                if(text_line.isBlank()){
+                if(line.isBlank() || new Link(line).Val()){
+                    
+                    if(new Link(line).Val())
+                    {aplication.add(line);}
                     
                     line_blank = true;
                     
-                } else {//if(text_line.isBlank())
+                } else {//if(line.isBlank() || new Link(line).Val())
                     
                     if(line_blank){
                         
@@ -811,9 +801,15 @@ public class Action {
                         
                     }//if(line_blank)
                     
-                    var tem = Texto.phrase(text_line, true);
-                    
-                    if(tem.size() > 1){
+                    if(
+                        Texto.text(
+                            line,
+                            exclude_document_function
+                        ).length() > 5
+                    )
+                    {
+                        
+                        var tem = Texto.phrase(line, true);
                         
                         var doc = "";
                         var space = false;
@@ -889,13 +885,13 @@ public class Action {
                         
                         aplication.add(doc);
                         
-                    } else {//if(tem.size() > 1)
+                    } else {//if(Texto.text(line, exclude_document_function)....
                         
-                        aplication.add(text_line);
+                        aplication.add(line);
                         
-                    }//if(tem.size() > 1)
+                    }//if(Texto.text(line, exclude_document_function).length(...
                     
-                }//if(t.isBlank())
+                }//if(line.isBlank() || new Link(line).Val())
                 
             }//for(String val : value)
             
@@ -991,7 +987,7 @@ public class Action {
                         
                         case 3, 4 -> {
                             
-                            var line = true;
+                            var line = false;
                             
                             var rd = "";
                             
@@ -1004,7 +1000,6 @@ public class Action {
                                         if(!rd.isBlank()){
                                             
                                             val.add(rd);
-                                            line = false;
                                             rd = r;
                                             
                                         }//if(!rd.isBlank())
@@ -1018,8 +1013,8 @@ public class Action {
                                             case 3 ->{
                                                 
                                                 if(!rd.isBlank()) rd += " ";
-                                                
                                                 rd += r;
+                                                line = true;
                                                 
                                             }//case 3
                                             
@@ -1029,8 +1024,6 @@ public class Action {
                                                     
                                                     val.add(rd);
                                                     rd = r;
-                                                    
-                                                    line = false;
                                                     
                                                 }//if(!rd.isBlank())
                                                 
@@ -1044,6 +1037,7 @@ public class Action {
                                         
                                         if(!rd.isBlank()) rd += " ";
                                         rd += r;
+                                        line = true;
                                         
                                     }//default
                                     
@@ -1101,9 +1095,7 @@ public class Action {
                             
                         }//case 3, 4
                         
-                        case 5 -> val.add(Texto.title(t));
-                        
-                        case 6 -> {
+                        case 5 -> {
                             
                             if(
                                 Texto.text(
@@ -1151,7 +1143,9 @@ public class Action {
                                 
                             }//if(Texto.text(t, exclude_document_function).le...
                             
-                        }//case 6
+                        }//case 5
+                        
+                        case 6 -> val.add(Texto.title(t));
                         
                         case 7 -> val.add(t.toUpperCase());
                         

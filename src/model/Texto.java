@@ -158,7 +158,8 @@ public class Texto {
         
         if(text.trim().isBlank()){
             
-            tem.add("");
+            tem.add("null");
+            tem.add("null");
             
         } else {//if(text.trim().isBlank())
             
@@ -1163,39 +1164,6 @@ public class Texto {
             return "null";
             
         }//if(txt.length() > 1)
-        
-    }//replace(String txt, char remove)
-    
-    public static String replace(String txt, char[] remove){
-        
-        if(txt.length() > 1 && remove.length > 1){
-            
-            var value = "";
-            
-            for(int i = 0; i < txt.length(); i++){
-                
-                var proc = 0;
-                var insert = true;
-                
-                do{
-                    
-                    insert = txt.charAt(i) != remove[proc];
-                    
-                    proc++;
-                    
-                }while(insert && proc > 0 && proc < remove.length);
-                
-                if(insert) value += txt.charAt(i);
-                
-            }//for(int i = 0; i < txt.length(); i++)
-            
-            return value;
-            
-        } else {//if(txt.length() > 1 && remove.length > 1)
-            
-            return "null";
-            
-        }//if(txt.length() > 1 && remove.length > 1)
         
     }//replace(String txt, char remove)
     
