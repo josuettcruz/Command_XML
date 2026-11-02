@@ -31,12 +31,12 @@ public class Action {
     public final static Domain[] session_option = {
         new Domain(0, "Selecione uma opção!"),
         new Domain(1, "Condicionar todo o texto."),
-        new Domain(2, "Converter em Título."),
-        new Domain(3, "Predefinir DATA/HORA"),
-        new Domain(4, "Separar por frase."),
-        new Domain(5, "Separar por textos da frase."),
+        new Domain(2, "Predefinir DATA/HORA"),
+        new Domain(3, "Separar por frase."),
+        new Domain(4, "Separar por textos da frase."),
+        new Domain(5, "Converter em Título."),
         new Domain(6, "Condicionar como frase."),
-        new Domain(6, "Deixar tudo maiúscolo!")
+        new Domain(7, "Deixar tudo maiúscolo!")
     };
     
     public final static int max_session_option = 5;
@@ -918,9 +918,7 @@ public class Action {
                     
                     switch(d.index()){
                         
-                        case 2 -> val.add(Texto.title(t));
-                        
-                        case 3 -> {
+                        case 2 -> {
                             
                             var data = new Data(t.trim());
                             
@@ -989,9 +987,9 @@ public class Action {
                                 
                             }//if(data.Val())
                             
-                        }//case 3
+                        }//case 2
                         
-                        case 4, 5 -> {
+                        case 3, 4 -> {
                             
                             var line = true;
                             
@@ -1017,15 +1015,15 @@ public class Action {
                                         
                                         switch(d.index()){
                                             
-                                            case 4 ->{
+                                            case 3 ->{
                                                 
                                                 if(!rd.isBlank()) rd += " ";
                                                 
                                                 rd += r;
                                                 
-                                            }//case 4
+                                            }//case 3
                                             
-                                            case 5 ->{
+                                            case 4 ->{
 
                                                 if(!rd.isBlank()){
                                                     
@@ -1036,7 +1034,7 @@ public class Action {
                                                     
                                                 }//if(!rd.isBlank())
                                                 
-                                            }//case 5
+                                            }//case 4
                                             
                                         }//switch(dimension.index())
                                         
@@ -1074,12 +1072,12 @@ public class Action {
                                              '"',
                                              '\'' ->{
                                             
-                                            if(d.index() == 5){
+                                            if(d.index() == 4){
                                                 
                                                 val.add(rd);
                                                 rd = "";
                                                 
-                                            }//if(dimension.index() == 5)
+                                            }//if(dimension.index() == 4)
                                             
                                         }//cases
                                         
@@ -1101,7 +1099,9 @@ public class Action {
                             
                             if(!rd.isBlank()) val.add(rd);
                             
-                        }//case 4, 5
+                        }//case 3, 4
+                        
+                        case 5 -> val.add(Texto.title(t));
                         
                         case 6 -> {
                             
