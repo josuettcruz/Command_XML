@@ -43,7 +43,7 @@ public class DeletDocumentNot implements Painel_2{
             ** que deverá aparecer          **
             ** quando um ou mais documentos **
             ** presentes no arquivo XML     **
-            ** estiver ausente              */
+            ** estiver ausente!             */
 
         }catch(NullPointerException err){//throw
 

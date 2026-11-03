@@ -40,11 +40,11 @@ public class DeleteSaveTemp implements Painel_2{
             this.font_text = f[1];
             this.doc = doc;
             
-            /* Esse painel vai exibir:           **
-            ** todos os itens marcados com "~"   **
-            ** e só irá aparecer,                **
-            ** quando um ou mais itens dentro do **
-            ** documento DOC tiver essa marcação */
+            /* Esse painel vai exibir:            **
+            ** todos os itens marcados com "~"    **
+            ** e só irá aparecer,                 **
+            ** quando um ou mais itens dentro do  **
+            ** documento DOC tiver essa marcação! */
             
         }catch(NullPointerException err){//throw
 
