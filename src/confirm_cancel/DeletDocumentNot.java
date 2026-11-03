@@ -9,17 +9,19 @@ import xml_rw.xml_config;
 import form.Domain;
 import form.Painel_2;
 import form.pag2;
-import java.awt.Font;
-import java.util.List;
-import java.util.ArrayList;
-import xml_mf.Action;
-import xml_rw.xml_config_file_cond;
+import xml_mf.*;
+import xml_rw.*;
 
 import static form.pag2.confirm;
 import static form.pag2.cancel;
 import static form.pag2.enter;
 import static form.pag2.del;
 import static form.pag2.backspace;
+
+import java.awt.Font;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -111,36 +113,36 @@ public class DeletDocumentNot implements Painel_2{
             
             case confirm, enter, del, backspace ->{
                 
-                List<Integer> delet = new ArrayList();
+                List<Integer> cod = new ArrayList();
                 
                 for(Domain d : value){
                     
-                    if(d.Select()) delet.add(d.index());
-                    
+                    if(d.Select())
+                    {cod.add(d.index());}
+                
                 }//for(Domain d : value)
                 
-                if(delet.isEmpty()){
+                if(cod.isEmpty()){
                     
                     Action.folder_xml();
                     
-                } else {//if(delet.isEmpty())
+                } else {//if(cod.isEmpty())
                     
-                    xml_config doc = this.xml;
+                    xml_config new_xml = this.xml;
                     
-                    if(delet.size() == 1){
+                    if(cod.size() == 1){
                         
-                        doc.Del(delet.get(0));
+                        new_xml.Del(cod.get(0));
                         
-                    } else {//if(delet.size() == 1)
+                    } else {//if(cod.size() == 1)
                         
-                        for(var x = delet.size()-1; x >= 0; x--)
-                        {doc.Del(delet.get(x));}
+                        new_xml.Del(cod);
                         
-                    }//if(delet.size() == 1)
+                    }//if(cod.size() == 1)
                     
-                    Action.folder_xml(doc);
+                    Action.folder_xml(new_xml);
                     
-                }//if(delet.isEmpty())
+                }//if(cod.isEmpty())
                 
             }//case confirm, enter
             
