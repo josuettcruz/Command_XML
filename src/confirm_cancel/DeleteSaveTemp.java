@@ -13,6 +13,7 @@ import java.awt.Font;
 import java.util.List;
 import java.util.ArrayList;
 import xml_mf.Action;
+import model.Reg;
 
 import static form.pag2.confirm;
 import static form.pag2.cancel;
@@ -25,8 +26,6 @@ import static form.pag2.backspace;
  * @author josue
  */
 public class DeleteSaveTemp implements Painel_2{
-    
-    private final String not = "Ação indisponpivel!";
     
     private Font font_title;
     private Font font_text;
@@ -110,35 +109,70 @@ public class DeleteSaveTemp implements Painel_2{
         
         switch(op){
             
-            case confirm ->{
+            case cancel, enter ->{
                 
-                // code
+                Action.ReadWrite(this.doc);
                 
-            }//case confirm
+            }//case cancel, enter
             
-            case cancel ->{
+            default ->{
                 
-                // code
+                List<Integer> tem = new ArrayList();
                 
-            }//case cancel
-            
-            case enter ->{
+                for(Domain d : value){
+                    
+                    switch(op){
+                        
+                        case confirm -> tem.add(d.index());
+                        
+                        case del, backspace ->{
+                            
+                            if(d.Select())
+                            {tem.add(d.index());}
+                        
+                        }//case del, backspace
+                        
+                    }//switch(op)
+                    
+                }//for(Domain d : value)
                 
-                // code
+                if(tem.isEmpty()){
+                    
+                    Action.ReadWrite(this.doc);
+                    
+                } else{//if(tem.isEmpty())
+                    
+                    xml_document val = this.doc;
+                    
+                    String txt;
+                    
+                    if(tem.size() == 1){
+                        
+                        val.Del(tem.get(0));
+                        
+                        txt = this.doc.List().get(tem.get(0)).getTitle();
+                        
+                    } else {//if(tem.size() == 1)
+                        
+                        val.Del(tem);
+
+                        txt = Reg.Numb(
+                            tem.size(),
+                            this.doc.List().size(),
+                            " de "
+                        );
+                        
+                        txt += " inte";
+                        txt += tem.size() == 1 ? "m" : "ns";
+                        txt += " excluídos!";
+                        
+                    }//if(tem.size() == 1)
+                    
+                    Action.ReadWrite_submit(val, txt);
+                    
+                }//if(tem.isEmpty())
                 
-            }//case enter
-            
-            case del ->{
-                
-                // code
-                
-            }//case del
-            
-            case backspace ->{
-                
-                // code
-                
-            }//case backspace
+            }//default
             
         }//switch(op)
         
