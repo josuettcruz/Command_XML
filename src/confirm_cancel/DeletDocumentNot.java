@@ -111,14 +111,63 @@ public class DeletDocumentNot implements Painel_2{
         
         switch(op){
             
-            case confirm, enter, del, backspace ->{
+            case confirm ->{
                 
                 List<Integer> cod = new ArrayList();
                 
-                for(Domain d : value){
+                for(var x = 0; x < this.xml.learn().size(); x++){
                     
-                    if(d.Select())
-                    {cod.add(d.index());}
+                    switch(this.xml.learn().get(x).Cond()){
+                        
+                        case not -> cod.add(x);
+                        
+                    }//switch(this.xml.learn().get(x).Cond())
+                    
+                }//for(var x = 0; x < this.xml.learn().size(); x++)
+                
+                if(cod.isEmpty()){
+                    
+                    Action.folder_xml();
+                    
+                } else {//if(cod.isEmpty())
+                    
+                    var doc = this.xml;
+                    
+                    if(cod.size() == 1){
+                        
+                        doc.Del(cod.get(0));
+                        
+                    } else {//if(cod.size() == 1)
+                        
+                        doc.Del(cod);
+                        
+                    }//if(cod.size() == 1)
+                    
+                    Action.folder_xml(doc);
+                    
+                }//if(cod.isEmpty())
+                
+            }//case confirm
+            
+            case del, backspace ->{
+                
+                List<Integer> cod = new ArrayList();
+                
+                for(var x = 0; x < value.size(); x++){
+                    
+                    if(value.get(x).Select()){
+                        
+                        if(
+                            this.xml.learn().get(value.get(x).index()).Cond()
+                            == xml_config_file_cond.not
+                        )
+                        {
+                            
+                            cod.add(value.get(x).index());
+                        
+                        }//if(this.xml.learn().get(value.get(x).index()).Cond...
+                        
+                    }//if(value.get(x).Select())
                 
                 }//for(Domain d : value)
                 
@@ -144,13 +193,9 @@ public class DeletDocumentNot implements Painel_2{
                     
                 }//if(cod.isEmpty())
                 
-            }//case confirm, enter
+            }//case del, backspace
             
-            case cancel ->{
-                
-                Action.folder_xml();
-                
-            }//case cancel
+            case cancel, enter -> Action.folder_xml();
             
         }//switch(op)
         
