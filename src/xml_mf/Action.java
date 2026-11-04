@@ -1407,7 +1407,7 @@ public class Action {
                 
                 if(text.length() >= 3){
                     
-                    Action.session_open(doc, one, r);
+                    session_open(doc, one, r);
                     next = false;
                     
                 }//if(text.length() >= 3)

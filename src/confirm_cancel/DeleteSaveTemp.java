@@ -137,79 +137,79 @@ public class DeleteSaveTemp implements Painel_2{
         
         if(this.err){
             
-            controller.Msg(this.className(), this.ErrMessage(), true);
+            controller.Msg(this.className(), this.ErrMessage(), false);
             
         } else {//if(this.err)
-
+            
             switch(op){
-
+                
                 case cancel, enter ->{
-
+                    
                     Action.ReadWrite(this.doc);
-
+                    
                 }//case cancel, enter
-
+                
                 default ->{
-
+                    
                     List<Integer> tem = new ArrayList();
-
+                    
                     for(Domain d : value){
-
+                        
                         switch(op){
-
+                            
                             case confirm -> tem.add(d.index());
-
+                            
                             case del, backspace ->{
-
+                                
                                 if(d.Select())
                                 {tem.add(d.index());}
-
+                                
                             }//case del, backspace
-
+                            
                         }//switch(op)
-
+                        
                     }//for(Domain d : value)
-
+                    
                     if(tem.isEmpty()){
-
+                        
                         Action.ReadWrite(this.doc);
-
+                        
                     } else{//if(tem.isEmpty())
-
+                        
                         xml_document val = this.doc;
-
+                        
                         String txt;
-
+                        
                         if(tem.size() == 1){
-
+                            
                             val.Del(tem.get(0));
-
+                            
                             txt = this.doc.List().get(tem.get(0)).getTitle();
-
+                            
                         } else {//if(tem.size() == 1)
-
+                            
                             val.Del(tem);
-
+                            
                             txt = Reg.Numb(
                                 tem.size(),
                                 this.doc.List().size(),
                                 " de "
                             );
-
+                            
                             txt += " inte";
                             txt += tem.size() == 1 ? "m" : "ns";
                             txt += " excluídos!";
-
+                            
                         }//if(tem.size() == 1)
-
+                        
                         Action.ReadWrite_submit(val, txt);
-
+                        
                     }//if(tem.isEmpty())
-
+                    
                 }//default
-
+                
             }//switch(op)
-
+            
         }//if(this.err)
         
     }

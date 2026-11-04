@@ -139,100 +139,101 @@ public class DeletDocumentNot implements Painel_2{
         
         if(this.err){
             
-            controller.Msg(this.className(), this.ErrMessage(), true);
+            controller.Msg(this.className(), this.ErrMessage(), false);
             
         } else {//if(this.err)
-
+            
             switch(op){
-
+                
                 case confirm ->{
-
+                    
                     List<Integer> cod = new ArrayList();
-
+                    
                     for(var x = 0; x < this.xml.learn().size(); x++){
-
+                        
                         switch(this.xml.learn().get(x).Cond()){
-
+                            
                             case not -> cod.add(x);
-
+                            
                         }//switch(this.xml.learn().get(x).Cond())
-
+                        
                     }//for(var x = 0; x < this.xml.learn().size(); x++)
-
+                    
                     if(cod.isEmpty()){
-
+                        
                         Action.folder_xml();
-
+                        
                     } else {//if(cod.isEmpty())
-
+                        
                         var doc = this.xml;
-
+                        
                         if(cod.size() == 1){
-
+                            
                             doc.Del(cod.get(0));
-
+                            
                         } else {//if(cod.size() == 1)
-
+                            
                             doc.Del(cod);
-
+                            
                         }//if(cod.size() == 1)
-
+                        
                         Action.folder_xml(doc);
-
+                        
                     }//if(cod.isEmpty())
-
+                    
                 }//case confirm
-
+                
                 case del, backspace ->{
-
+                    
                     List<Integer> cod = new ArrayList();
-
+                    
                     for(var x = 0; x < value.size(); x++){
-
+                        
                         if(value.get(x).Select()){
-
+                            
                             if(
-                                this.xml.learn().get(value.get(x).index()).Cond()
-                                == xml_config_file_cond.not
+                                this.xml.learn().get(
+                                    value.get(x).index()
+                                ).Cond() == xml_config_file_cond.not
                             )
                             {
-
+                                
                                 cod.add(value.get(x).index());
-
+                                
                             }//if(this.xml.learn().get(value.get(x).index()).Cond...
-
+                            
                         }//if(value.get(x).Select())
-
+                        
                     }//for(Domain d : value)
-
+                    
                     if(cod.isEmpty()){
-
+                        
                         Action.folder_xml();
-
+                        
                     } else {//if(cod.isEmpty())
-
+                        
                         xml_config new_xml = this.xml;
-
+                        
                         if(cod.size() == 1){
-
+                            
                             new_xml.Del(cod.get(0));
-
+                            
                         } else {//if(cod.size() == 1)
-
+                            
                             new_xml.Del(cod);
-
+                            
                         }//if(cod.size() == 1)
-
+                        
                         Action.folder_xml(new_xml);
-
+                        
                     }//if(cod.isEmpty())
-
+                    
                 }//case del, backspace
-
+                
                 case cancel, enter -> Action.folder_xml();
-
+                
             }//switch(op)
-
+            
         }//if(this.err)
         
     }
