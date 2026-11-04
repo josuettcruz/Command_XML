@@ -1167,4 +1167,75 @@ public class Texto {
         
     }//replace(String txt, char remove)
     
+    public static String substring(String text, char separator, boolean first){
+        
+        String val = text(text, true);
+        
+        if(val.length() > 1){
+            
+            var txt = "";
+            
+            if(first){
+                
+                var add = 0;
+                var loop = true;
+                
+                do{
+                    
+                    if(val.charAt(add) == separator){
+                        
+                        loop = false;
+                        
+                    } else {//if(val.charAt(add) == separator)
+                        
+                        txt += val.charAt(add);
+                        
+                    }//if(val.charAt(add) == separator)
+                    
+                    add++;
+                    
+                }while(loop && add > 0 && add < val.length());
+                
+            } else {//if(first)
+                
+                var clear = false;
+                
+                for(var add = 0; add < val.length(); add++){
+                    
+                    if(val.charAt(add) == separator){
+                        
+                        clear = true;
+                        
+                    } else if(val.charAt(add) == ' '){//if(val.charAt(add) ==...
+                        
+                        if(!txt.isBlank()) txt += " ";
+                        
+                    } else {//if(val.charAt(add) == separator)
+                        
+                        if(clear){
+                            
+                            txt = "";
+                            
+                            clear = false;
+                            
+                        }//if(clear)
+                        
+                        txt += val.charAt(add);
+                        
+                    }//if(val.charAt(add) == separator)
+                    
+                }//for(var add = 0; add < val.length(); add++)
+                
+            }//if(first)
+            
+            return txt;
+            
+        } else {//if(val.length() > 1)
+            
+            return "";
+            
+        }//if(val.length() > 1)
+        
+    }//substring(String text, char separator, boolean first)
+    
 }//txt

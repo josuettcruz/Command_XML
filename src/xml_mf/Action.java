@@ -1943,15 +1943,9 @@ public class Action {
     
     public static void folder_xml_submit(xml_document doc){
         
-        /* Fazer a comunicação entre  **
-        ** o formulário:              **
-        ** folder_xml & ReadWrite     **
-        ** criando um documento novo  **
-        ** ou abrndo um já existente! */
-        
         if(doc.List().isEmpty()){
             
-            Action.ReadWrite(doc, false);
+            ReadWrite(doc, false);
             
         } else {//if(doc.List().isEmpty())
             
@@ -1973,7 +1967,7 @@ public class Action {
                 
             } else {//if(temp)
                 
-                Action.ReadWrite(doc, false);
+                ReadWrite(doc, false);
                 
             }//if(temp)
             
@@ -2046,46 +2040,20 @@ public class Action {
                     
                     boolean next;
                     
-                    if(Arq.Dir(txt, false)){
+                    var file = txt;
+                    file += ".xml";
+                    
+                    if(Arq.Dir(file, false)){
                         
                         next = false;
                         
-                        Arq a = new Arq(txt);
+                        Arq a = new Arq(file);
                         
                         if(a.Val()){
                             
-                            final var title = Texto.text(dir.get(dir.size()-1));
-                            
-                            var index = 0;
-                            var loop = true;
-                            
-                            do{
-                                
-                                loop = title.charAt(index) != '.';
-                                
-                                index++;
-                                
-                            }while(loop && index > 0 && index < title.length());
-                            
-                            String input_title;
-                            
-                            if(loop){
-                                
-                                input_title = title;
-                                
-                            } else if(index > 2){//if(loop)
-                                
-                                input_title = title.substring(0, index-1);
-                                
-                            } else {//if(loop)
-                                
-                                input_title = title.substring(0, index);
-                                
-                            }//if(loop)
-                            
-                            Action.ReadWrite_submit(
+                            ReadWrite(
                                 new xml_document(a.Read(),Arq.Dir(txt, true)),
-                                Texto.title(input_title)
+                                Arq.Dir(file, true)
                             );
                             
                         } else {//if(a.Val())
@@ -2099,6 +2067,36 @@ public class Action {
                         next = true;
                         
                     }//if(Arq.Dir(txt, false))
+                    
+                    if(next){
+                        
+                        file = txt;
+                        file += ".XML";
+                        
+                        if(Arq.Dir(file, false)){
+                            
+                            next = false;
+                            
+                            Arq b = new Arq(file);
+                            
+                            if(b.Val()){
+                                
+                                ReadWrite(
+                                    new xml_document(
+                                        b.Read(),
+                                        Arq.Dir(txt, true)
+                                    ), Arq.Dir(file, true)
+                                );
+                                
+                            } else {//if(b.Val())
+                                
+                                Err(b.Type(),b.Message());
+                                
+                            }//if(b.Val())
+                            
+                        }//if(Arq.Dir(file, false))
+                        
+                    }//if(next)
                     
                     if(next){
                         
@@ -2120,21 +2118,25 @@ public class Action {
                             
                         }//if(dir.size() == 2)
                         
-                        if(Arq.Dir(txt) && Texto.arq_no_extension(input).length() > 1){
+                        if(
+                            Arq.Dir(txt) &&
+                            Texto.arq_no_extension(input).length() > 1
+                        )
+                        {
                             
-                            var file = txt;
-                            file += Texto.arq_no_extension(input);
-                            file += ".xml";
+                            var file_name = txt;
+                            file_name += Texto.arq_no_extension(input);
+                            file_name += ".xml";
                             
-                            Arq b = new Arq(file);
+                            Arq b = new Arq(file_name);
                             
                             if(b.Val()){
                                 
                                 Action.ReadWrite(
                                     new xml_document(
                                         b.Read(),
-                                        Arq.Dir(file, true)
-                                    ), false
+                                        Arq.Dir(file_name, true)
+                                    ), true
                                 );
                                 
                             } else {//if(a.Val())
