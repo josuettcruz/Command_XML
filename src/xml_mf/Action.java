@@ -1932,7 +1932,7 @@ public class Action {
             
         } else {//if(doc.List().isEmpty())
             
-            var temp = false; // no_save_temp -> sem documentos temporádios.
+            var temp = false;
             
             var x = 0;
             
