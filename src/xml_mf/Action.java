@@ -1918,7 +1918,7 @@ public class Action {
     
     }//ReadWrite(xml_document doc)
     
-    public static void folder_xml_submit(Arq a){
+    public static void folder_xml_submit(xml_document doc){
         
         /* Fazer a comunicação entre  **
         ** o formulário:              **
@@ -1926,27 +1926,35 @@ public class Action {
         ** criando um documento novo  **
         ** ou abrndo um já existente! */
         
-        if(a.Val()){
+        if(doc.List().isEmpty()){
             
-            xml_document doc = new xml_document(a.Read(), a.Dir(true));
+            Action.ReadWrite(doc);
             
-            if(doc.List().isEmpty()){
+        } else {//if(doc.List().isEmpty())
+            
+            var temp = false; // no_save_temp -> sem documentos temporádios.
+            
+            var x = 0;
+            
+            do{
+                
+                temp = doc.List().get(x).getTitle().charAt(0) == '~';
+                
+                x++;
+                
+            }while(!temp && x > 0 && x < doc.List().size());
+            
+            if(temp){
+                
+                controller.p2(new DeleteSaveTemp(doc, MyFont()));
+                
+            } else {//if(temp)
                 
                 Action.ReadWrite(doc);
                 
-            } else {//if(doc.List().isEmpty())
-                
-                var no_save_temp = true;
-                
-                // 11:53 04/11/2026
-                
-            }//if(doc.List().isEmpty())
+            }//if(temp)
             
-        } else {//if(a.Val())
-            
-            Err(a.Type(), a.Message());
-            
-        }//if(a.Val())
+        }//if(doc.List().isEmpty())
         
     }//folder_xml_submit(Read r)
     
@@ -1994,12 +2002,10 @@ public class Action {
                     
                     if(cod.Val()){
                     
-                        controller.p1s(
-                            new ReadWrite(
-                                new xml_document(
-                                    cod.Read(),
-                                    cod.Dir(true)
-                                ), MyFont()
+                        folder_xml_submit(
+                            new xml_document(
+                                cod.Read(),
+                                cod.Dir(true)
                             )
                         );
                         
@@ -2017,12 +2023,10 @@ public class Action {
                     
                     if(cod.Val()){
                     
-                        controller.p1m(
-                            new ReadWrite(
-                                new xml_document(
-                                    cod.Read(),
-                                    false
-                                ), MyFont()
+                        folder_xml_submit(
+                            new xml_document(
+                                cod.Read(),
+                                false
                             )
                         );
                         
