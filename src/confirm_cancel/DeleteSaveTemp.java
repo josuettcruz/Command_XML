@@ -8,6 +8,7 @@ import xml_rw.xml_document;
 
 import form.Domain;
 import form.Painel_2;
+import form.controller;
 import form.pag2;
 import java.awt.Font;
 import java.util.List;
@@ -31,6 +32,8 @@ public class DeleteSaveTemp implements Painel_2{
     private Font font_text;
     private xml_document doc;
     
+    private boolean err;
+    
     public DeleteSaveTemp(xml_document doc, Font[] f){
         
         try{
@@ -45,13 +48,15 @@ public class DeleteSaveTemp implements Painel_2{
             ** quando um ou mais itens dentro do  **
             ** documento DOC tiver essa marcação! */
             
-        }catch(NullPointerException err){//throw
-
-            Action.Err("NullPointerException", err.getMessage());
+            this.err = false;
             
-        }catch(Exception err){//throw
+        }catch(NullPointerException msg){//throw
 
-            Action.Err("Exception", err.getMessage());
+            Action.Err("NullPointerException", msg.getMessage());
+            
+        }catch(Exception msg){//throw
+
+            Action.Err("Exception", msg.getMessage());
             
         }//throw
         
@@ -67,6 +72,20 @@ public class DeleteSaveTemp implements Painel_2{
         return font;
         
     }//Font()
+    
+    private String className(){return "DeleteSaveTemp";}
+    
+    private List<String> ErrMessage(){
+        
+        List<String> tema = new ArrayList();
+        
+        tema.add("Erro inesperado!");
+        tema.add("classe \"" + this.className() + "\"");
+        tema.add("Pacote \"xml_rw.xml_document\"");
+        
+        return tema;
+        
+    }//ErrMessage()
 
     @Override
     public String Title(boolean title) {
@@ -97,6 +116,15 @@ public class DeleteSaveTemp implements Painel_2{
             
         }//for(var i = 0; i < this.doc.List().size(); i++)
         
+        if(lts.isEmpty()){
+            
+            this.err = true;
+            
+            for(var i = 0; i < this.ErrMessage().size(); i++)
+            {lts.add(new Domain(i,this.ErrMessage().get(i)));}
+            
+        }//if(lts.isEmpty())
+        
         return lts;
         
     }
@@ -107,74 +135,82 @@ public class DeleteSaveTemp implements Painel_2{
     @Override
     public void Command(pag2 op, List<Domain> value) {
         
-        switch(op){
+        if(this.err){
             
-            case cancel, enter ->{
-                
-                Action.ReadWrite(this.doc);
-                
-            }//case cancel, enter
+            controller.Msg(this.className(), this.ErrMessage(), true);
             
-            default ->{
-                
-                List<Integer> tem = new ArrayList();
-                
-                for(Domain d : value){
-                    
-                    switch(op){
-                        
-                        case confirm -> tem.add(d.index());
-                        
-                        case del, backspace ->{
-                            
-                            if(d.Select())
-                            {tem.add(d.index());}
-                        
-                        }//case del, backspace
-                        
-                    }//switch(op)
-                    
-                }//for(Domain d : value)
-                
-                if(tem.isEmpty()){
-                    
-                    Action.ReadWrite(this.doc);
-                    
-                } else{//if(tem.isEmpty())
-                    
-                    xml_document val = this.doc;
-                    
-                    String txt;
-                    
-                    if(tem.size() == 1){
-                        
-                        val.Del(tem.get(0));
-                        
-                        txt = this.doc.List().get(tem.get(0)).getTitle();
-                        
-                    } else {//if(tem.size() == 1)
-                        
-                        val.Del(tem);
+        } else {//if(this.err)
 
-                        txt = Reg.Numb(
-                            tem.size(),
-                            this.doc.List().size(),
-                            " de "
-                        );
-                        
-                        txt += " inte";
-                        txt += tem.size() == 1 ? "m" : "ns";
-                        txt += " excluídos!";
-                        
-                    }//if(tem.size() == 1)
-                    
-                    Action.ReadWrite_submit(val, txt);
-                    
-                }//if(tem.isEmpty())
-                
-            }//default
-            
-        }//switch(op)
+            switch(op){
+
+                case cancel, enter ->{
+
+                    Action.ReadWrite(this.doc);
+
+                }//case cancel, enter
+
+                default ->{
+
+                    List<Integer> tem = new ArrayList();
+
+                    for(Domain d : value){
+
+                        switch(op){
+
+                            case confirm -> tem.add(d.index());
+
+                            case del, backspace ->{
+
+                                if(d.Select())
+                                {tem.add(d.index());}
+
+                            }//case del, backspace
+
+                        }//switch(op)
+
+                    }//for(Domain d : value)
+
+                    if(tem.isEmpty()){
+
+                        Action.ReadWrite(this.doc);
+
+                    } else{//if(tem.isEmpty())
+
+                        xml_document val = this.doc;
+
+                        String txt;
+
+                        if(tem.size() == 1){
+
+                            val.Del(tem.get(0));
+
+                            txt = this.doc.List().get(tem.get(0)).getTitle();
+
+                        } else {//if(tem.size() == 1)
+
+                            val.Del(tem);
+
+                            txt = Reg.Numb(
+                                tem.size(),
+                                this.doc.List().size(),
+                                " de "
+                            );
+
+                            txt += " inte";
+                            txt += tem.size() == 1 ? "m" : "ns";
+                            txt += " excluídos!";
+
+                        }//if(tem.size() == 1)
+
+                        Action.ReadWrite_submit(val, txt);
+
+                    }//if(tem.isEmpty())
+
+                }//default
+
+            }//switch(op)
+
+        }//if(this.err)
         
     }
     
