@@ -1918,6 +1918,16 @@ public class Action {
     
     }//ReadWrite(xml_document doc)
     
+    public static void folder_xml_submit(Read r){
+        
+        /* Fazer a comunicação entre  **
+        ** o formulário:              **
+        ** folder_xml & ReadWrite     **
+        ** criando um documento novo  **
+        ** ou abrndo um já existente! */
+        
+    }//folder_xml_submit(Read r)
+    
     public static void folder_xml_submit(String input){
         
         if(newFont(Texto.text(input, true))){
@@ -1930,11 +1940,8 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            /* Abrir um formulário que já foi criado          **
-            ** e espera ser editado                           **
-            ** para abrí-lo se estiver itens marcados com "~" **
-            ** ou abrir o ReadWrite se não houver nenhum      **
-            ** arquivo marcado com "~"                        */
+            /* Criar um novo formulário  **
+            ** ou abrir um já existente! */
             
         }//if(newFont(Texto.text(input, true)))
         
@@ -2007,14 +2014,7 @@ public class Action {
                 
                 case not ->{
                     
-                    /* Abrir o formulário que mostra todos os               **
-                    ** itens indisponíveis!                                 **
-                    ** Esse mesmo formulário vai ser a tela inicial         **
-                    ** sempre que a condição de:                            **
-                    ** EXISTE ARQUIVOS INDISPONÍVEIS?                       **
-                    ** for verdadeira!                                      **
-                    ** coso contrário, diretamente o formulário referente à **
-                    ** "xml_config"                                         */
+                    controller.p2(new DeletDocumentNot(xml(), MyFont()));
                     
                 }//case not
                 
