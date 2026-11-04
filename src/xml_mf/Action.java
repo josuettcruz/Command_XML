@@ -1502,13 +1502,8 @@ public class Action {
                                 
                                 case '\\', '/' -> {
                                     
-                                    var tema = Texto.arq_no_extension(sub);
-                                    
-                                    if(tema.length() >= 3){
-                                        
-                                        node.add(tema);
-                                        
-                                    }//if(tema.length() >= 3)
+                                    if(!Texto.arq_no_extension(sub).isBlank())
+                                    {node.add(Texto.arq_no_extension(sub));}
                                     
                                     sub = "";
                                     
@@ -1904,9 +1899,37 @@ public class Action {
         
     }//ReadWrite_submit(xml_document doc, xml_document_one one, String input)
     
-    public static void ReadWrite(xml_document doc){
+    public static void ReadWrite(xml_document doc, boolean new_doc){
         
         if(xml_val()){
+            
+            if(new_doc){
+                
+                xml_config x = xml();
+                
+                var id = x.Proc(doc.getTitle());
+                
+                if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()){
+                    
+                    xml_config_one save = x.learn().get(id);
+                    
+                    save.Update();
+                    
+                    x.Del(id);
+                    
+                    x.Add(save);
+                    
+                } else {//if(x.learn().isEmpty() && id >= 0 && id < x.learn()...
+                    
+                    x.Add(new xml_config_one(doc.getTitle(), doc.Local()));
+                    
+                }//if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()
+                
+                Exec val = x.Save(new Arq(Action.xml_config()));
+                
+                if(!val.Val()) Err(val.Type(), val.Message());
+                
+            }//if(new_doc)
             
             controller.p1s(new ReadWrite(doc, MyFont()));
             
@@ -1928,7 +1951,7 @@ public class Action {
         
         if(doc.List().isEmpty()){
             
-            Action.ReadWrite(doc);
+            Action.ReadWrite(doc, false);
             
         } else {//if(doc.List().isEmpty())
             
@@ -1950,13 +1973,26 @@ public class Action {
                 
             } else {//if(temp)
                 
-                Action.ReadWrite(doc);
+                Action.ReadWrite(doc, false);
                 
             }//if(temp)
             
         }//if(doc.List().isEmpty())
         
-    }//folder_xml_submit(Read r)
+    }//folder_xml_submit(xml_document doc)
+    
+    private static void folder_xml_new_document(String input){
+        
+        /* Vai criar um novo documento e          **
+        ** salvá-lo no XML de configuração        **
+        **                                        **
+        ** -------------------------------------- **
+        **                                        **
+        ** Têm algo que eu gostaria de fazer      **
+        ** nessa função que vou tentar me lembrar **
+        ** depois que retornar da pausa!          */
+        
+    }//folder_xml_new_document(String input)
     
     public static void folder_xml_submit(String input){
         
@@ -1970,8 +2006,162 @@ public class Action {
             
         } else {//if(newFont(Texto.text(input, true)))
             
-            /* Criar um novo formulário  **
-            ** ou abrir um já existente! */
+            final char[] d = {'/','\\'};
+            
+            if(Texto.contains(input, d) && Texto.text(input, d).length() > 5){
+                
+                List<String> dir = new ArrayList();
+                String txt = "";
+                
+                for(var c = 0; c < input.length(); c++){
+                    
+                    switch(input.charAt(c)){
+                        
+                        case '/', '\\' ->{
+                            
+                            if(!Texto.arq_no_extension(txt).isBlank())
+                            {dir.add(Texto.arq_no_extension(txt));}
+                            
+                            txt = "";
+                            
+                        }//case '/', '\\'
+                        
+                        default -> txt += input.charAt(c);
+                        
+                    }//switch(input.charAt(c))
+                    
+                }//for(var c = 0; c < input.length(); c++)
+                
+                if(dir.size() > 1){
+                    
+                    txt = "";
+                    
+                    for(var p = 0; p < dir.size(); p++){
+                        
+                        if(p > 0) txt += "\\";
+                        
+                        txt += dir.get(p);
+                        
+                    }//for(var p = 0; p < dir.size(); p++)
+                    
+                    boolean next;
+                    
+                    if(Arq.Dir(txt, false)){
+                        
+                        next = false;
+                        
+                        Arq a = new Arq(txt);
+                        
+                        if(a.Val()){
+                            
+                            final var title = Texto.text(dir.get(dir.size()-1));
+                            
+                            var index = 0;
+                            var loop = true;
+                            
+                            do{
+                                
+                                loop = title.charAt(index) != '.';
+                                
+                                index++;
+                                
+                            }while(loop && index > 0 && index < title.length());
+                            
+                            String input_title;
+                            
+                            if(loop){
+                                
+                                input_title = title;
+                                
+                            } else if(index > 2){//if(loop)
+                                
+                                input_title = title.substring(0, index-1);
+                                
+                            } else {//if(loop)
+                                
+                                input_title = title.substring(0, index);
+                                
+                            }//if(loop)
+                            
+                            Action.ReadWrite_submit(
+                                new xml_document(a.Read(),Arq.Dir(txt, true)),
+                                Texto.title(input_title)
+                            );
+                            
+                        } else {//if(a.Val())
+                            
+                            Err(a.Type(),a.Message());
+                            
+                        }//if(a.Val())
+                        
+                    } else {//if(Arq.Dir(txt, false))
+                        
+                        next = true;
+                        
+                    }//if(Arq.Dir(txt, false))
+                    
+                    if(next){
+                        
+                        if(dir.size() == 2){
+                            
+                            txt = dir.get(0);
+                            
+                        } else {//if(dir.size() == 2)
+                            
+                            txt = "";
+                            
+                            for(var x = 0; x < dir.size()-1; x++){
+                                
+                                if(x > 0) txt += "\\";
+                                
+                                txt += dir.get(x);
+                                
+                            }//for(var x = 0; x < dir.size()-1; x++)
+                            
+                        }//if(dir.size() == 2)
+                        
+                        if(Arq.Dir(txt) && Texto.arq_no_extension(input).length() > 1){
+                            
+                            var file = txt;
+                            file += Texto.arq_no_extension(input);
+                            file += ".xml";
+                            
+                            Arq b = new Arq(file);
+                            
+                            if(b.Val()){
+                                
+                                Action.ReadWrite(
+                                    new xml_document(
+                                        b.Read(),
+                                        Arq.Dir(file, true)
+                                    ), false
+                                );
+                                
+                            } else {//if(a.Val())
+                                
+                                Err(b.Type(),b.Message());
+                                
+                            }//if(a.Val())
+                            
+                        } else {//if(Arq.Dir(txt) && Texto.arq_no_extension(i...
+                            
+                            folder_xml_new_document(input);
+                            
+                        }//if(Arq.Dir(txt) && Texto.arq_no_extension(input).l...
+                        
+                    }//if(next)
+                    
+                } else {//if(dir.size() > 1)
+                    
+                    folder_xml_new_document(input);
+                    
+                }//if(dir.size() > 1)
+                
+            } else {//if(Texto.contains(input, d) && Texto.text(input, d).len...
+                
+                folder_xml_new_document(input);
+                
+            }//if(Texto.contains(input, d) && Texto.text(input, d).length() > 5)
             
         }//if(newFont(Texto.text(input, true)))
         

@@ -175,7 +175,7 @@ public class newFont implements Painel_2{
                     
                 } else {//if(xml == null)
                     
-                    Action.ReadWrite(doc);
+                    Action.ReadWrite(doc, false);
                     
                 }//if(xml == null)
                 
