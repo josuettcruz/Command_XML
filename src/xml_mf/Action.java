@@ -1975,18 +1975,203 @@ public class Action {
         
     }//folder_xml_submit(xml_document doc)
     
-    private static void folder_xml_new_document(String input){
+    private static void not_folder_xml_new_file(String input){
         
-        /* Vai criar um novo documento e          **
-        ** salvá-lo no XML de configuração        **
-        **                                        **
-        ** -------------------------------------- **
-        **                                        **
-        ** Têm algo que eu gostaria de fazer      **
-        ** nessa função que vou tentar me lembrar **
-        ** depois que retornar da pausa!          */
+        List<String> txt = new ArrayList();
         
-    }//folder_xml_new_document(String input)
+        txt.add("\"" + Texto.title(input) + "\"");
+        txt.add(Hora.Good() + "!");
+        txt.add("Houve um problema na hora de");
+        txt.add("criar um novo arquivo!");
+        txt.add("Talvez você esteja usando uma");
+        txt.add("unidade:");
+        txt.add("SOMENTE LEITURA");
+        
+        controller.Msg(Texto.Local(input), txt, true);
+        
+    }//not_folder_xml_new_file()
+    
+    private static void folder_xml_new_file(String input){
+        
+        String win;
+        
+        if(xml().Windows()){
+            
+            win = "C:\\Users\\";
+            win += xml().Documents();
+            win += "\\Documents\\";
+            
+        } else if(Reg.java){//if(xml().Windows())
+            
+            win = "..\\";
+            
+        } else {//if(xml().Windows())
+            
+            win = "";
+            
+        }//if(xml().Windows())
+        
+        if(Arq.Dir(win)){
+            
+            var file = win;
+            file += Texto.arq_no_extension(input);
+            file += ".xml";
+            
+            Arq a = new Arq(file);
+            
+            if(a.Val()){
+                
+                Action.ReadWrite(new xml_document(a.Read(), true), true);
+                
+            } else {//if(a.Val())
+                
+                Err(a.Type(),a.Message());
+                
+            }//if(a.Val())
+            
+        } else if(Doc().size() > 1){//if(Arq.Dir(win))
+            
+            var loop = true;
+            var x = 1;
+            
+            do{
+                
+                if(Arq.Dir(Doc().get(x))){
+                    
+                    var file = Doc().get(x);
+                    file += Texto.arq_no_extension(input);
+                    file += ".xml";
+                    
+                    Arq b = new Arq(file);
+                    
+                    if(b.Val()){
+                        
+                        ReadWrite(new xml_document(b.Read(), true), true);
+                        
+                    } else {//if(b.Val())
+                        
+                        Err(b.Type(),b.Message());
+                        
+                    }//if(b.Val())
+                    
+                    loop = false;
+                    
+                }//if(Arq.Dir(Doc().get(x)))
+                
+                x++;
+                
+            }while(loop && x > 1 && x < Doc().size());
+            
+            if(loop) not_folder_xml_new_file(input);
+            
+        } else {//if(Arq.Dir(win))
+            
+            not_folder_xml_new_file(input);
+            
+        }//if(Arq.Dir(win))
+        
+    }//folder_xml_new_file(String file)
+    
+    private static void folder_xml_file_no_folder(String input){
+        
+        if(!xml().learn().isEmpty()){
+            
+            var t1 = "";
+            
+            for(String t : Texto.phrase(input, exclude_document_function))
+            {t1 += Texto.arq(t);}
+            
+            if(xml().learn().size() == 1){
+                
+                var t2 = "";
+                
+                for(
+                        String t : Texto.phrase(
+                        xml().learn().get(0).Title(),
+                        exclude_document_function
+                    )
+                ) {t2 += Texto.arq(t);}
+                
+                var local = xml().learn().get(0).Local();
+                
+                if(t1.equals(t2) && Arq.Dir(local, false)){
+                    
+                    Arq a = new Arq(local);
+                    
+                    if(a.Val()){
+                        
+                        Action.ReadWrite(
+                            new xml_document(a.Read(), Arq.Dir(local, true)),
+                            true
+                        );
+                        
+                    } else {//if(a.Val())
+                        
+                        Err(a.Type(), a.Message());
+                        
+                    }//if(a.Val())
+                    
+                } else {//if(t1.equals(t2) && Arq.Dir(local, false))
+                    
+                    folder_xml_new_file(input);
+                    
+                }//if(t1.equals(t2) && Arq.Dir(local, false))
+                
+            } else {//if(xml().learn().size() == 1)
+                
+                var proc = 0;
+                var loop = true;
+                
+                do{
+                    
+                    xml_config_one d = xml().learn().get(proc);
+                    
+                    var t2 = "";
+                    
+                    for(String t : Texto.phrase(
+                            d.Title(),
+                            exclude_document_function
+                        )
+                    ) {t2 += Texto.arq(t);}
+                    
+                    if(t1.equals(t2) && Arq.Dir(d.Local(), false)){
+                        
+                        Arq b = new Arq(d.Local());
+                        
+                        if(b.Val()){
+                            
+                            Action.ReadWrite(
+                                new xml_document(
+                                    b.Read(),
+                                    Arq.Dir(d.Local(), true)
+                                ), true
+                            );
+                            
+                        } else {//if(b.Val())
+                            
+                            Err(b.Type(), b.Message());
+                            
+                        }//if(b.Val())
+                        
+                        loop = false;
+                        
+                    }//if(t1.equals(t2) && Arq.Dir(d.Local(), false))
+                    
+                    proc++;
+                    
+                }while(loop && proc > 0 && proc < xml().learn().size());
+                
+                if(loop) folder_xml_new_file(input);
+                
+            }//if(xml().learn().size() == 1)
+            
+        } else {//if(!xml().learn().isEmpty())
+            
+            folder_xml_new_file(input);
+            
+        }//if(!xml().learn().isEmpty())
+        
+    }//folder_xml_file_no_folder(String input)
     
     public static void folder_xml_submit(String input){
         
@@ -2147,7 +2332,7 @@ public class Action {
                             
                         } else {//if(Arq.Dir(txt) && Texto.arq_no_extension(i...
                             
-                            folder_xml_new_document(input);
+                            folder_xml_file_no_folder(input);
                             
                         }//if(Arq.Dir(txt) && Texto.arq_no_extension(input).l...
                         
@@ -2155,13 +2340,13 @@ public class Action {
                     
                 } else {//if(dir.size() > 1)
                     
-                    folder_xml_new_document(input);
+                    folder_xml_file_no_folder(input);
                     
                 }//if(dir.size() > 1)
                 
             } else {//if(Texto.contains(input, d) && Texto.text(input, d).len...
                 
-                folder_xml_new_document(input);
+                folder_xml_file_no_folder(input);
                 
             }//if(Texto.contains(input, d) && Texto.text(input, d).length() > 5)
             
