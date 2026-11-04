@@ -1918,13 +1918,35 @@ public class Action {
     
     }//ReadWrite(xml_document doc)
     
-    public static void folder_xml_submit(Read r){
+    public static void folder_xml_submit(Arq a){
         
         /* Fazer a comunicação entre  **
         ** o formulário:              **
         ** folder_xml & ReadWrite     **
         ** criando um documento novo  **
         ** ou abrndo um já existente! */
+        
+        if(a.Val()){
+            
+            xml_document doc = new xml_document(a.Read(), a.Dir(true));
+            
+            if(doc.List().isEmpty()){
+                
+                Action.ReadWrite(doc);
+                
+            } else {//if(doc.List().isEmpty())
+                
+                var no_save_temp = true;
+                
+                // 11:53 04/11/2026
+                
+            }//if(doc.List().isEmpty())
+            
+        } else {//if(a.Val())
+            
+            Err(a.Type(), a.Message());
+            
+        }//if(a.Val())
         
     }//folder_xml_submit(Read r)
     
