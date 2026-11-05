@@ -1991,7 +1991,7 @@ public class Action {
         
     }//not_folder_xml_new_file()
     
-    private static void folder_xml_new_file(String input){
+    private static void folder_xml_new_file_no_empty(String input){
         
         String win;
         
@@ -2070,11 +2070,23 @@ public class Action {
             
         }//if(Arq.Dir(win))
         
-    }//folder_xml_new_file(String file)
+    }//folder_xml_new_file_no_empty(String file)
     
-    private static void folder_xml_file_no_folder(String input){
+    private static void folder_xml_file_no_folder_no_empty(String input){
         
-        if(!xml().learn().isEmpty()){
+        if(xml().learn().isEmpty()){
+            
+            if(Texto.text(input, exclude_document_function).isBlank()){
+                
+                Exit();
+                
+            } else {//if(Texto.text(input, exclude_document_function).isBlank...
+                
+                folder_xml_new_file_no_empty(input);
+                
+            }//if(Texto.text(input, exclude_document_function).isBlank())
+            
+        } else {//if(xml().learn().isEmpty())
             
             var t1 = "";
             
@@ -2113,7 +2125,7 @@ public class Action {
                     
                 } else {//if(t1.equals(t2) && Arq.Dir(local, false))
                     
-                    folder_xml_new_file(input);
+                    folder_xml_new_file_no_empty(input);
                     
                 }//if(t1.equals(t2) && Arq.Dir(local, false))
                 
@@ -2161,15 +2173,25 @@ public class Action {
                     
                 }while(loop && proc > 0 && proc < xml().learn().size());
                 
-                if(loop) folder_xml_new_file(input);
+                if(loop) folder_xml_new_file_no_empty(input);
                 
             }//if(xml().learn().size() == 1)
             
-        } else {//if(!xml().learn().isEmpty())
+        }//if(xml().learn().isEmpty())
+        
+    }//folder_xml_file_no_folder_no_empty(String input)
+    
+    public static void folder_xml_file_no_folder(String input){
+        
+        if(Texto.text(input, exclude_document_function).isBlank()){
             
-            folder_xml_new_file(input);
+            Exit();
             
-        }//if(!xml().learn().isEmpty())
+        } else {//if(Texto.text(input, exclude_document_function).isBlank())
+            
+            folder_xml_file_no_folder_no_empty(input);
+            
+        }//if(Texto.text(input, exclude_document_function).isBlank())
         
     }//folder_xml_file_no_folder(String input)
     
@@ -2346,7 +2368,7 @@ public class Action {
                 
             } else {//if(Texto.contains(input, d) && Texto.text(input, d).len...
                 
-                folder_xml_file_no_folder(input);
+                folder_xml_file_no_folder_no_empty(input);
                 
             }//if(Texto.contains(input, d) && Texto.text(input, d).length() > 5)
             
