@@ -1377,7 +1377,6 @@ public class Action {
     
     private static void session_open(
         xml_document doc,
-        xml_document_one one,
         Read r
     ){
         
@@ -1407,7 +1406,7 @@ public class Action {
                 
                 if(text.length() >= 3){
                     
-                    session_open(doc, one, r);
+                    session_open(doc, r);
                     next = false;
                     
                 }//if(text.length() >= 3)
