@@ -2368,7 +2368,7 @@ public class Action {
                 
             } else {//if(Texto.contains(input, d) && Texto.text(input, d).len...
                 
-                folder_xml_file_no_folder_no_empty(input);
+                folder_xml_file_no_folder(input);
                 
             }//if(Texto.contains(input, d) && Texto.text(input, d).length() > 5)
             
@@ -2404,7 +2404,7 @@ public class Action {
                         folder_xml_submit(
                             new xml_document(
                                 cod.Read(),
-                                cod.Dir(true)
+                                Arq.Dir(id.Local(), true)
                             )
                         );
                         

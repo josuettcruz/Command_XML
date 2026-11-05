@@ -373,12 +373,6 @@ public class Arq {
         
     }//Dir(String diretory)
     
-    public boolean Dir(boolean write){
-        
-        return Dir(Files(this.arq), write);
-    
-    }
-    
     private static boolean retreat(String value){
         
         if(value.isBlank()){
@@ -529,7 +523,7 @@ public class Arq {
         
         ** Abaixo está o método novo e por enquanto, confiável */
         
-        if(Texto.text(diretory).length() > 1 && new File(diretory).exists())
+        if(Texto.text(diretory).length() > 1 && Dir(diretory))
         {AbsolutePath.addAll(Arq.Folder_Files(diretory));}
         
         return AbsolutePath;
