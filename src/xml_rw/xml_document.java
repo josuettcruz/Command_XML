@@ -28,20 +28,6 @@ public class xml_document {
     private boolean write_doc;
     private boolean xml_doc;
     
-    private void InsertAdressLocal(String path){
-        
-        if(Arq.Dir(path)){
-            
-            this.local = Arq.Files(path);
-            
-        } else {//if(Arq.Dir(path))
-            
-            this.local = path;
-            
-        }//if(Arq.Dir(path)
-        
-    }//InsertAdressLocal(String path)
-    
     public xml_document(Read xhtml, boolean write_document_acept){
         
         if(Arq.Dir(xhtml.Arq())){
@@ -822,21 +808,14 @@ public class xml_document {
         
     }//Del(List<Integer> value)
     
-    public boolean Update(Data d, Hora h){
+    public void Update(Data d, Hora h){
         
-        var valid = d.CompareTo(this.create_d, true) &&
-                    h.Compare(this.create_h);
-        
-        if(valid){
-            
-            this.modify_d = d;
-            this.modify_h = h;
-            
-        }//if(valid)
-        
-        return valid;
+        this.modify_d = d;
+        this.modify_h = h;
         
     }//Update(Data d, Hora h)
+    
+    public void Update(){this.Update(new Data(), new Hora(true));}
     
     public int Add(xml_document_one demo, boolean update){
         

@@ -1899,45 +1899,45 @@ public class Action {
         
     }//ReadWrite_submit(xml_document doc, xml_document_one one, String input)
     
-    public static void ReadWrite(xml_document doc, boolean new_doc){
+    public static void ReadWrite(xml_document doc){
         
         if(xml_val()){
             
-            if(new_doc){
+            xml_config x = xml();
+            
+            var id = x.Proc(doc.getTitle());
+            
+            if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()){
                 
-                xml_config x = xml();
+                xml_config_one save = x.learn().get(id);
                 
-                var id = x.Proc(doc.getTitle());
+                save.Update();
                 
-                if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()){
-                    
-                    xml_config_one save = x.learn().get(id);
-                    
-                    save.Update();
-                    
-                    x.Del(id);
-                    
-                    x.Add(save);
-                    
-                } else {//if(x.learn().isEmpty() && id >= 0 && id < x.learn()...
-                    
-                    x.Add(new xml_config_one(doc.getTitle(), doc.Local()));
-                    
-                }//if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()
+                x.Del(id);
                 
-                Exec com = x.Save(new Arq(Action.xml_config()));
+                x.Add(save);
                 
-                if(com.Val()){
-                    
-                    controller.p1s(new ReadWrite(doc, MyFont()));
-                    
-                } else {//if(com.Val())
-                    
-                    Err(com.Type(),com.Message());
-                    
-                }//if(com.Val())
+            } else {//if(x.learn().isEmpty() && id >= 0 && id < x.learn()...
                 
-            }//if(new_doc)
+                x.Add(new xml_config_one(doc.getTitle(), doc.Local()));
+                
+            }//if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()
+            
+            Exec com = x.Save(new Arq(Action.xml_config()));
+            
+            if(com.Val()){
+                
+                xml_document edit = doc;
+                
+                if(doc.Write()) edit.Update();
+                
+                controller.p1s(new ReadWrite(edit, MyFont()));
+                
+            } else {//if(com.Val())
+                
+                Err(com.Type(),com.Message());
+                
+            }//if(com.Val())
             
         } else {//if(xml_val())
             
@@ -1951,7 +1951,7 @@ public class Action {
         
         if(doc.List().isEmpty()){
             
-            ReadWrite(doc, false);
+            ReadWrite(doc);
             
         } else {//if(doc.List().isEmpty())
             
@@ -1973,7 +1973,7 @@ public class Action {
                 
             } else {//if(temp)
                 
-                ReadWrite(doc, false);
+                ReadWrite(doc);
                 
             }//if(temp)
             
@@ -2027,7 +2027,7 @@ public class Action {
             
             if(a.Val()){
                 
-                Action.ReadWrite(new xml_document(a.Read(), true), true);
+                Action.ReadWrite(new xml_document(a.Read(), true));
                 
             } else {//if(a.Val())
                 
@@ -2052,7 +2052,7 @@ public class Action {
                     
                     if(b.Val()){
                         
-                        ReadWrite(new xml_document(b.Read(), true), true);
+                        ReadWrite(new xml_document(b.Read(), true));
                         
                     } else {//if(b.Val())
                         
@@ -2119,8 +2119,10 @@ public class Action {
                     if(a.Val()){
                         
                         Action.ReadWrite(
-                            new xml_document(a.Read(), Arq.Dir(local, true)),
-                            true
+                            new xml_document(
+                                a.Read(),
+                                Arq.Dir(local, true)
+                            )
                         );
                         
                     } else {//if(a.Val())
@@ -2162,7 +2164,7 @@ public class Action {
                                 new xml_document(
                                     b.Read(),
                                     Arq.Dir(d.Local(), true)
-                                ), true
+                                )
                             );
                             
                         } else {//if(b.Val())
@@ -2265,8 +2267,10 @@ public class Action {
                         if(a.Val()){
                             
                             ReadWrite(
-                                new xml_document(a.Read(),Arq.Dir(txt, true)),
-                                Arq.Dir(file, true)
+                                new xml_document(
+                                    a.Read(),
+                                    Arq.Dir(txt, true)
+                                )
                             );
                             
                         } else {//if(a.Val())
@@ -2298,7 +2302,7 @@ public class Action {
                                     new xml_document(
                                         b.Read(),
                                         Arq.Dir(txt, true)
-                                    ), Arq.Dir(file, true)
+                                    )
                                 );
                                 
                             } else {//if(b.Val())
@@ -2349,7 +2353,7 @@ public class Action {
                                     new xml_document(
                                         b.Read(),
                                         Arq.Dir(file_name, true)
-                                    ), true
+                                    )
                                 );
                                 
                             } else {//if(a.Val())

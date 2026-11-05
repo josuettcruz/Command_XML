@@ -145,7 +145,7 @@ public class DeleteSaveTemp implements Painel_2{
                 
                 case cancel, enter ->{
                     
-                    Action.ReadWrite(this.doc, false);
+                    Action.ReadWrite(this.doc);
                     
                 }//case cancel, enter
                 
@@ -172,7 +172,7 @@ public class DeleteSaveTemp implements Painel_2{
                     
                     if(tem.isEmpty()){
                         
-                        Action.ReadWrite(this.doc, false);
+                        Action.ReadWrite(this.doc);
                         
                     } else{//if(tem.isEmpty())
                         

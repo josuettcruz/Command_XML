@@ -138,7 +138,7 @@ public class xml_config_one {
         
     }//Update(Data d, Hora h)
     
-    public void Update(){this.Update(Data.code, Hora.code);}
+    public void Update(){this.Update(new Data(), new Hora(true));}
     
     public void newTitle(String newtitle){this.title = newtitle;}
     
