@@ -1925,13 +1925,19 @@ public class Action {
                     
                 }//if(x.learn().isEmpty() && id >= 0 && id < x.learn().size()
                 
-                Exec val = x.Save(new Arq(Action.xml_config()));
+                Exec com = x.Save(new Arq(Action.xml_config()));
                 
-                if(!val.Val()) Err(val.Type(), val.Message());
+                if(com.Val()){
+                    
+                    controller.p1s(new ReadWrite(doc, MyFont()));
+                    
+                } else {//if(com.Val())
+                    
+                    Err(com.Type(),com.Message());
+                    
+                }//if(com.Val())
                 
             }//if(new_doc)
-            
-            controller.p1s(new ReadWrite(doc, MyFont()));
             
         } else {//if(xml_val())
             
