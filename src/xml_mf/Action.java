@@ -1384,6 +1384,42 @@ public class Action {
         ** para poder colocá-lo no  **
         ** arquivo XML              */
         
+        var sub = 0;
+        
+        var x = 1;
+        
+        do{
+            
+            if(new Action_session_open(r.Read(x)).Title()) sub++;
+            
+            x++;
+            
+        }while(sub <= 2 && x > 1 && x <= r.Max());
+        
+        if(sub > 2) sub = 2;
+        
+        switch(sub){
+            
+            case 0 ->{
+                
+                //code
+                
+            }//case 0
+            
+            case 1 ->{
+                
+                //code
+                
+            }//case 1
+            
+            case 2 -> {
+                
+                //code
+                
+            }//case 2
+            
+        }//switch(sub)
+        
     }//session_open
     
     private static void session_open(

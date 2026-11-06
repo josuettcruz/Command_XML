@@ -4,6 +4,8 @@
  */
 package xml_mf;
 
+import model.Texto;
+
 /**
  *
  * @author josue
@@ -58,5 +60,15 @@ public class Action_session_open {
     public Integer Cont(){return this.cont;};
     
     public String Text(){return this.text;}
+    
+    public boolean Title(){
+        
+        return this.cont > 0 && Texto.text(
+            this.text, new char[]{
+                '"','\'','<','>','|','!','?','.',';',':','[',']','{','}'
+            }
+        ).length() > 5;
+        
+    }//Title()
     
 }//Action_session_open
