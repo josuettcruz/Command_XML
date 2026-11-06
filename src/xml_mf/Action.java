@@ -15,6 +15,7 @@ import static xml_rw.xml_config_file_cond.*;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 /**
  *
@@ -1398,17 +1399,47 @@ public class Action {
         
         if(sub > 2) sub = 2;
         
+        List<String> txt = new ArrayList();
+        
+        var t = "";
+        
         switch(sub){
             
             case 0 ->{
                 
-                //code
+                t += new Data().DataAbreviada(false);
+                t += " - ";
+                t += new Hora(true).Timer();
+                
+                txt.addAll(Arrays.asList(r.Read().split("\n")));
+                
+                Action.session(doc, new Object_xml_document_one(txt, t).Doc());
                 
             }//case 0
             
             case 1 ->{
                 
-                //code
+                x = 1;
+                
+                while(x <= r.Max()){
+                    
+                    Action_session_open o = new Action_session_open(r.Read(x));
+                    
+                    if(o.Title()){
+                        
+                        t = Texto.title(o.Text());
+                        
+                    } else {//if(o.Title())
+                        
+                        txt.add(o.Text());
+                        
+                    }//if(o.Title())
+                    
+                    x++;
+                    
+                }//while(x <= r.Max())
+                
+                Action.session(doc, new Object_xml_document_one(txt, t).Doc());
                 
             }//case 1
             
