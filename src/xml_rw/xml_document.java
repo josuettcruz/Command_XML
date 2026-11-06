@@ -831,7 +831,7 @@ public class xml_document {
             this.list.clear();
             this.list.addAll(o.Return());
             
-            if(update) this.Update(new Data(), new Hora(true));
+            if(update) this.Update();
             
         }//if(valid)
         

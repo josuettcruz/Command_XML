@@ -1238,4 +1238,102 @@ public class Texto {
         
     }//substring(String text, char separator, boolean first)
     
+    public static String substring(
+        String text,
+        char[] separator,
+        boolean first
+    )
+    {
+        
+        String val = text(text, true);
+        
+        if(val.length() > 1 && separator.length > 1){
+            
+            var txt = "";
+            
+            if(first){
+                
+                var add = 0;
+                var loop = true;
+                
+                do{
+                    
+                    var in_loop = true;
+                    var proc = 0;
+                    
+                    do{
+                        
+                        in_loop = val.charAt(add) == separator[proc];
+                        
+                        proc++;
+                        
+                    }while(in_loop && proc > 0 && proc < separator.length);
+                    
+                    if(in_loop){
+                        
+                        loop = false;
+                        
+                    } else {//if(in_loop)
+                        
+                        txt += val.charAt(add);
+                        
+                    }//if(in_loop)
+                    
+                    add++;
+                    
+                }while(loop && add > 0 && add < val.length());
+                
+            } else {//if(first)
+                
+                var clear = false;
+                
+                for(var add = 0; add < val.length(); add++){
+                    
+                    var in_loop = true;
+                    var proc = 0;
+                    
+                    do{
+                        
+                        in_loop = val.charAt(add) == separator[proc];
+                        
+                        proc++;
+                        
+                    }while(in_loop && proc > 0 && proc < separator.length);
+                    
+                    if(in_loop){
+                        
+                        clear = true;
+                        
+                    } else if(val.charAt(add) == ' '){//if(in_loop)
+                        
+                        if(!txt.isBlank()) txt += " ";
+                        
+                    } else {//if(in_loop)
+                        
+                        if(clear){
+                            
+                            txt = "";
+                            
+                            clear = false;
+                            
+                        }//if(clear)
+                        
+                        txt += val.charAt(add);
+                        
+                    }//if(in_loop)
+                    
+                }//for(var add = 0; add < val.length(); add++)
+                
+            }//if(first)
+            
+            return txt;
+            
+        } else {//if(val.length() > 1 && separator.length > 1)
+            
+            return "";
+            
+        }//if(val.length() > 1 && separator.length > 1)
+        
+    }//substring(String text, char[] separator, boolean first)
+    
 }//txt

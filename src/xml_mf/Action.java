@@ -1376,28 +1376,31 @@ public class Action {
         
     }//session_save
     
+    private static boolean session_open_text(String text){
+        
+        return Texto.text(text).length() > 2;
+        
+    }
+    
     private static void session_open(
         xml_document doc,
         Read r
     ){
         
-        /* Abrir o arquivo de texto **
-        ** para poder colocá-lo no  **
-        ** arquivo XML              */
-        
         var sub = 0;
         
         var x = 1;
         
-        do{
+        while(x <= r.Max()){
             
-            if(new Action_session_open(r.Read(x)).Title()) sub++;
+            var cond1 = new Action_session_open(r.Read(x)).Title();
+            var cond2 = session_open_text(r.Read(x));
+            
+            if(cond1 && cond2) sub++;
             
             x++;
             
-        }while(sub <= 2 && x > 1 && x <= r.Max());
-        
-        if(sub > 2) sub = 2;
+        }
         
         List<String> txt = new ArrayList();
         
@@ -1407,9 +1410,11 @@ public class Action {
             
             case 0 ->{
                 
-                t += new Data().DataAbreviada(false);
-                t += " - ";
-                t += new Hora(true).Timer();
+                var t1 = Texto.substring(r.Arq(), new char[] {'\\','/'}, false);
+                
+                var t2 = Texto.substring(t1, '.', true);
+                
+                t = Texto.title(t2);
                 
                 txt.addAll(Arrays.asList(r.Read().split("\n")));
                 
@@ -1439,15 +1444,89 @@ public class Action {
                     
                 }//while(x <= r.Max())
                 
-                Action.session(doc, new Object_xml_document_one(txt, t).Doc());
+                session(doc, new Object_xml_document_one(txt, t).Doc());
                 
             }//case 1
             
-            case 2 -> {
+            default -> {
                 
-                //code
+                var t1 = Texto.substring(r.Arq(), new char[] {'\\','/'}, false);
                 
-            }//case 2
+                var t2 = Texto.substring(t1, '.', true);
+                
+                t = Texto.title(t2);
+                
+                var dat = doc;
+                
+                x = 1;
+                
+                while(x <= r.Max()){
+                    
+                    Action_session_open o = new Action_session_open(r.Read(x));
+                    
+                    var text = Texto.text(o.Text());
+                    
+                    if(session_open_text(r.Read(x))){
+                        
+                        if(o.Title()){
+                            
+                            if(txt.isEmpty()) txt.add(text);
+                            
+                            dat.Add(
+                                new Object_xml_document_one(txt, t).Doc(),
+                                true
+                            );
+                            
+                            t = text;
+                            
+                            txt.clear();
+                            
+                        } else {//if(o.Title())
+                            
+                            txt.add(text);
+                            
+                        }//if(o.Title())
+                        
+                    }//if(session_open_text(r.Read(x)))
+                    
+                    x++;
+                    
+                }//while(x <= r.Max())
+                
+                if(txt.size() > 1){
+                    
+                    dat.Add(
+                        new Object_xml_document_one(txt, t).Doc(),
+                        true
+                    );
+                    
+                    txt.clear();
+                    
+                }//if(txt.size() > 1)
+                
+                Arq a = new Arq(doc.Local());
+                
+                if(a.Val()){
+                    
+                    Exec b = dat.Save(a);
+                    
+                    if(b.Val()){
+                        
+                        ReadWrite(dat);
+                        
+                    } else {//if(b.Val())
+                        
+                        Err(b.Type(),b.Message());
+                        
+                    }//if(b.Val())
+                    
+                } else {//if(a.Val())
+                    
+                    Err(a.Type(),a.Message());
+                    
+                }//if(a.Val())
+                
+            }//default
             
         }//switch(sub)
         
