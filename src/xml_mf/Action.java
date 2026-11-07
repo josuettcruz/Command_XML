@@ -55,15 +55,6 @@ public class Action {
         
     }//MyFont()
     
-    public static void Init(){
-        
-        controller.PrintKey();
-        controller.p1s(new config());
-        
-        // new code this
-        
-    }//Init()
-    
     private static String xml_config(){
         
         var file_name_path = "";
@@ -82,6 +73,53 @@ public class Action {
     
     private static xml_config xml()
     {return new xml_config(new Arq(xml_config()).Read());}
+    
+    public static void Init(){
+        
+        controller.PrintKey();
+        controller.p1s(new config());
+            
+        Arq a = new Arq(xml_config());
+        
+        if(a.Val()){
+            
+            xml_config x = new xml_config(a.Read());
+            
+            x.Save(a);
+            
+            var open = true;
+            
+            if(!x.learn().isEmpty()){
+                
+                var proc = 0;
+                
+                do{
+                    
+                    open = x.learn().get(proc).Cond() != xml_config_file_cond.not;
+                    
+                    proc++;
+                    
+                }while(open && proc > 0 && proc < x.learn().size());
+                
+            }//if(!x.learn().isEmpty())
+            
+            if(open){
+                
+                Action.folder_xml(x);
+                
+            } else {//if(open)
+                
+                controller.p2(new DeletDocumentNot(x, MyFont()));
+                
+            }//if(open)
+            
+        } else {//if(a.Val())
+            
+            Err(a.Type(),a.Message());
+            
+        }//if(a.Val())
+        
+    }//Init()
     
     private static List<String> Doc(){
         
@@ -2603,17 +2641,7 @@ public class Action {
         
         if(reset.Val()){
             
-            var code = xml.Save(reset);
-            
-            if(code.Val()){
-                
-                controller.p1s(new folder_xml(xml,MyFont()));
-                
-            } else {//if(code.Val())
-                
-                Err(code.Type(), code.Message());
-                
-            }//if(code.Val())
+            controller.p1s(new folder_xml(xml,MyFont()));
             
         } else {//if(reset.Val())
             
