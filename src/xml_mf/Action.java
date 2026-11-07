@@ -1376,12 +1376,6 @@ public class Action {
         
     }//session_save
     
-    private static boolean session_open_text(String text){
-        
-        return Texto.text(text).length() > 2;
-        
-    }
-    
     private static void session_open(
         xml_document doc,
         Read r
@@ -1393,10 +1387,9 @@ public class Action {
         
         while(x <= r.Max()){
             
-            var cond1 = new Action_session_open(r.Read(x)).Title();
-            var cond2 = session_open_text(r.Read(x));
+            Action_session_open o = new Action_session_open(r.Read(x));
             
-            if(cond1 && cond2) sub++;
+            if(o.Val(true)) sub++;
             
             x++;
             
@@ -1430,15 +1423,15 @@ public class Action {
                     
                     Action_session_open o = new Action_session_open(r.Read(x));
                     
-                    if(o.Title()){
+                    if(o.Val(true)){
                         
-                        t = Texto.title(o.Text());
+                        t = Texto.title(o.Text(true));
                         
-                    } else {//if(o.Title())
+                    } else {//if(o.Val(true))
                         
-                        txt.add(o.Text());
+                        txt.add(o.Text(true));
                         
-                    }//if(o.Title())
+                    }//if(o.Val(true))
                     
                     x++;
                     
@@ -1464,28 +1457,26 @@ public class Action {
                     
                     Action_session_open o = new Action_session_open(r.Read(x));
                     
-                    var text = Texto.text(o.Text());
-                    
-                    if(session_open_text(r.Read(x))){
+                    if(o.Val(false)){
                         
-                        if(o.Title()){
+                        if(o.Val(true)){
                             
-                            if(txt.isEmpty()) txt.add(text);
+                            if(txt.isEmpty()) txt.add(o.Text(true));
                             
                             dat.Add(
                                 new Object_xml_document_one(txt, t).Doc(),
                                 true
                             );
                             
-                            t = text;
+                            t = o.Text(true);
                             
                             txt.clear();
                             
-                        } else {//if(o.Title())
+                        } else {//if(o.Val(true))
                             
-                            txt.add(text);
+                            txt.add(o.Text(true));
                             
-                        }//if(o.Title())
+                        }//if(o.Val(true))
                         
                     }//if(session_open_text(r.Read(x)))
                     

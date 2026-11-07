@@ -59,15 +59,23 @@ public class Action_session_open {
     
     public Integer Cont(){return this.cont;};
     
-    public String Text(){return this.text;}
-    
-    public boolean Title(){
+    public String Text(boolean textual){
         
-        return this.cont > 0 && Texto.text(
+        return textual ? Texto.text(this.text) : this.text;
+    
+    }//Text(boolean textual)
+    
+    public boolean Val(boolean title){
+        
+        var value =  this.cont > 0 && Texto.text(
             this.text, new char[]{
                 '"','\'','<','>','|','!','?','.',';',':','[',']','{','}'
             }
         ).length() > 5;
+        
+        if(title) value = this.Text(true).length() > 2;
+        
+        return value;
         
     }//Title()
     
