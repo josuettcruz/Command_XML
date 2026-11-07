@@ -2575,7 +2575,19 @@ public class Action {
         
         if(xml_val()){
             
-            controller.p1s(new folder_xml(xml(),MyFont()));
+            xml_config x = xml();
+            
+            Exec e = x.Save(new Arq(Action.xml_config()));
+            
+            if(e.Val()){
+                
+                controller.p1s(new folder_xml(x,MyFont()));
+                
+            } else {//if(e.Val())
+                
+                Err(e.Type(),e.Message());
+                
+            }//if(e.Val())
             
         } else {//if(xml_val())
             
