@@ -61,19 +61,32 @@ public class Action_session_open {
     
     public String Text(boolean textual){
         
-        return textual ? Texto.text(this.text) : this.text;
+        if(textual && this.cont == 0){
+            
+            return Texto.text(this.text);
+            
+        } else if(textual){//if(textual && this.cont == 0)
+            
+            return Texto.title(this.text);
+            
+        } else {//if(textual && this.cont == 0)
+            
+            return this.text;
+            
+        }//if(textual && this.cont == 0)
     
     }//Text(boolean textual)
     
     public boolean Val(boolean title){
         
-        var value =  this.cont > 0 && Texto.text(
+        var value =  Texto.text(
             this.text, new char[]{
-                '"','\'','<','>','|','!','?','.',';',':','[',']','{','}'
+                '"','\'','<','>','|','!','?','.',';',':','[',']','{','}',
+                '1','2','3','4','5','6','7','8','9','0'
             }
-        ).length() > 5;
+        ).length() > 2;
         
-        if(title) value = this.Text(true).length() > 2;
+        if(value && title) value = this.cont > 0;
         
         return value;
         

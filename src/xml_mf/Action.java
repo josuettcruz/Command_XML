@@ -1385,15 +1385,13 @@ public class Action {
         
         var x = 1;
         
-        while(x <= r.Max()){
+        do{
             
-            Action_session_open o = new Action_session_open(r.Read(x));
-            
-            if(o.Val(true)) sub++;
+            if(new Action_session_open(r.Read(x)).Val(true)) sub++;
             
             x++;
             
-        }
+        }while(x > 1 && x <= r.Max());
         
         List<String> txt = new ArrayList();
         
@@ -1419,23 +1417,27 @@ public class Action {
                 
                 x = 1;
                 
-                while(x <= r.Max()){
+                do{
                     
                     Action_session_open o = new Action_session_open(r.Read(x));
                     
-                    if(o.Val(true)){
+                    if(o.Val(false)){
                         
-                        t = Texto.title(o.Text(true));
+                        if(o.Val(true)){
+                            
+                            t = o.Text(true);
+                            
+                        } else {//if(o.Val(true))
+                            
+                            txt.add(o.Text(true));
+                            
+                        }//if(o.Val(true))
                         
-                    } else {//if(o.Val(true))
-                        
-                        txt.add(o.Text(true));
-                        
-                    }//if(o.Val(true))
+                    }//if(o.Val(false))
                     
                     x++;
                     
-                }//while(x <= r.Max())
+                }while(x > 1 && x <= r.Max());
                 
                 session(doc, new Object_xml_document_one(txt, t).Doc());
                 
@@ -1453,15 +1455,15 @@ public class Action {
                 
                 x = 1;
                 
-                while(x <= r.Max()){
+                do{
                     
                     Action_session_open o = new Action_session_open(r.Read(x));
                     
                     if(o.Val(false)){
                         
-                        if(o.Val(true)){
+                        if(o.Val(true) && !txt.isEmpty()){
                             
-                            if(txt.isEmpty()) txt.add(o.Text(true));
+                            txt.add(o.Text(true));
                             
                             dat.Add(
                                 new Object_xml_document_one(txt, t).Doc(),
@@ -1472,19 +1474,19 @@ public class Action {
                             
                             txt.clear();
                             
-                        } else {//if(o.Val(true))
+                        } else {//if(o.Val(true) && !txt.isEmpty())
                             
                             txt.add(o.Text(true));
                             
-                        }//if(o.Val(true))
+                        }//if(o.Val(true) && !txt.isEmpty())
                         
-                    }//if(session_open_text(r.Read(x)))
+                    }//if(o.Val(false))
                     
                     x++;
                     
-                }//while(x <= r.Max())
+                }while(x > 1 && x <= r.Max());
                 
-                if(txt.size() > 1){
+                if(!txt.isEmpty()){
                     
                     dat.Add(
                         new Object_xml_document_one(txt, t).Doc(),
@@ -1493,7 +1495,7 @@ public class Action {
                     
                     txt.clear();
                     
-                }//if(txt.size() > 1)
+                }//if(!txt.isEmpty())
                 
                 Arq a = new Arq(doc.Local());
                 

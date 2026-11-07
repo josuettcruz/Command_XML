@@ -15,74 +15,81 @@ public class Texto {
     
     public static String text(String text, boolean remove_char){
         
-        var txt = "";
-        
-        var line = false;
-        var space = false;
-        var digit = false;
-        
-        for(int i = 0; i < text.length(); i++){
+        if(text.trim().isBlank()){
             
-            switch(text.charAt(i)){
+            return "";
+            
+        } else {//if(text.trim().isBlank())
+            
+            var txt = "";
+            var line = false;
+            var space = false;
+            var digit = false;
+            
+            for(int i = 0; i < text.length(); i++){
                 
-                case ' ' ->{
+                switch(text.charAt(i)){
                     
-                    if(digit)
-                    space = true;
-                    
-                }//case ' '
-                
-                case '\t', '\f', '￿', '' ->{
-                    
-                    if(remove_char){
+                    case ' ' ->{
                         
                         if(digit)
                         space = true;
                         
-                    } else {//if(remove_char)
-                        
-                        txt += text.charAt(i);
-                        
-                    }//if(remove_char)
+                    }//case ' '
                     
-                }//case '\t', '\f', '￿', ''
+                    case '\t', '\f', '￿', '' ->{
+                        
+                        if(remove_char){
+                            
+                            if(digit)
+                            space = true;
+                            
+                        } else {//if(remove_char)
+                            
+                            txt += text.charAt(i);
+                            
+                        }//if(remove_char)
+                        
+                    }//case '\t', '\f', '￿', ''
+                    
+                    case '\n' ->{
+                        
+                        if(digit)
+                        line = true;
+                        
+                    }//case '\n'
+                    
+                    default -> {
+                        
+                        if(line){
+                            
+                            txt += "\n";
+                            txt += text.charAt(i);
+                            
+                        } else if(space){//if(line)
+                            
+                            txt += " ";
+                            txt += text.charAt(i);
+                            
+                        } else {//if(line)
+                            
+                            txt += text.charAt(i);
+                            
+                        }//if(line)
+                        
+                        digit = true;
+                        space = false;
+                        line = false;
+                        
+                    }//default
+                    
+                }//switch(text.charAt(i))
                 
-                case '\n' ->{
-                    
-                    if(digit)
-                    line = true;
-                    
-                }//case '\n'
-                
-                default -> {
-                    
-                    if(line){
-                        
-                        txt += "\n";
-                        txt += text.charAt(i);
-                        
-                    } else if(space){//if(line)
-                        
-                        txt += " ";
-                        txt += text.charAt(i);
-                        
-                    } else {//if(line)
-                        
-                        txt += text.charAt(i);
-                        
-                    }//if(line)
-                    
-                    digit = true;
-                    space = false;
-                    line = false;
-                    
-                }//default
-                
-            }//switch(text.charAt(i))
+            }//for(int i = 0; i < text.length(); i++)
             
-        }//for(int i = 0; i < text.length(); i++)
-
-        return txt;
+            return txt;
+            
+        }//if(text.trim().isBlank())
         
     }//text(String text, boolean remove_char)
     
@@ -90,7 +97,7 @@ public class Texto {
         
         var value = "";
         
-        if(!text.isBlank() && exclude.length > 0){
+        if(exclude.length > 0){
             
             final var space = " ";
             
@@ -138,7 +145,7 @@ public class Texto {
             
             value = text(val, true);
         
-        }//if(!text.isBlank())
+        }//if(exclude.length > 0)
         
         return value;
         
@@ -158,7 +165,6 @@ public class Texto {
         
         if(text.trim().isBlank()){
             
-            tem.add("null");
             tem.add("null");
             
         } else {//if(text.trim().isBlank())
@@ -230,7 +236,7 @@ public class Texto {
         
         var value = new ArrayList();
         
-        if(!text.isBlank() && exclude.length > 0){
+        if(exclude.length > 0){
             
             final var space = " ";
             
@@ -278,7 +284,7 @@ public class Texto {
             
             value.addAll(phrase(val, true));
         
-        }//if(!text.isBlank())
+        }//if(exclude.length > 0)
         
         return value;
         
@@ -368,8 +374,6 @@ public class Texto {
     
     public static String title(String text){
         
-        if(text.trim().isBlank()) text = "Classe: \"TXT\"\nPacote: \"MODEL\"";
-        
         if(text.trim().isBlank()){
             
             return "";
@@ -410,7 +414,7 @@ public class Texto {
             
             var note = true;
             
-            for(String p : phrase(text, true)){
+            for(String p : phrase(text)){
                 
                 if(note){
                     
@@ -473,7 +477,7 @@ public class Texto {
 
         }//if(text.trim().isBlank())
         
-    }//title(String text, boolean remove_char)
+    }//title(String text)
     
     public static String arq(String text){
         
