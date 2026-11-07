@@ -29,11 +29,6 @@ public class Action {
         '"','\'','@','#','$','%','&','*','-','_',
         '|','/','\\'};
     
-    /*  private static List<String> session_ComboBox( **
-    **      Domain d,                                 **
-    **      List<String> value,                       **
-    **      int row                                   **
-    **  )                                             */
     public final static Domain[] session_option = {
         new Domain(0, "Selecione uma opção!"),
         new Domain(1, "Condicionar todo o texto."),
@@ -65,36 +60,7 @@ public class Action {
         controller.PrintKey();
         controller.p1s(new config());
         
-        /* CADEIA info_err;                                                 **
-        **                                                                  **
-        ** ESCREVAL("classe \"Action\" do pacote \"xml_mf\"");              **
-        **                                                                  **
-        ** ESCREVA("Observe o código minunciosamente e diga se ");          **
-        ** ESCREVAL("encontrou algum erro!");                               **
-        **                                                                  **
-        ** ESCREVAL("Deixe em branco se não encontrar nenhum erro!");       **
-        ** LEIA(info_err);                                                  **
-        **                                                                  **
-        ** SE(info_err == ""){                                              **
-        **                                                                  **
-        **    ESCREVA("A próxima etapa é: ");                               **
-        **    ESCREVAL("rodar o código!");                                  **
-        **                                                                  **
-        **    ESCREVA("Mas atenção, pode haver erros que não ");            **
-        **    ESCREVA("foi encontrado na visualização do código, mas ");    **
-        **    ESCREVA("pode ser que todo erro já tenha sido resolvido e "); **
-        **    ESCREVA("que o código funcione normalmente!");                **
-        **                                                                  **
-        ** } SENAO {                                                        **
-        **                                                                  **
-        **    ESCREVAL("Não mexer na função:");                             **
-        **                                                                  **
-        **    ESCREVAL("public static void Init()");                        **
-        **                                                                  **
-        **    ESCREVA("Mas ao invés disso, antes, resolver o problema ");   **
-        **    ESCREVA("encontrado e procurar novos erros.");                **
-        **                                                                  **
-        ** }                                                                */
+        // new code this
         
     }//Init()
     
