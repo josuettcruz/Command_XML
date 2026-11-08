@@ -309,8 +309,6 @@ public class Object_xml_document_one {
         
         List<String> text_area = new ArrayList();
         
-        if(!this.doc.getText().isEmpty()) text_area.addAll(this.doc.getText());
-        
         if(!this.doc.getUrl().isEmpty()){
             
             for(xml_document_link l : this.doc.getUrl()){
@@ -321,6 +319,9 @@ public class Object_xml_document_one {
             }//for(xml_document_link l : this.doc.getUrl())
             
         }//if(!this.doc.getUrl().isEmpty())
+        
+        if(!this.doc.getText().isEmpty())
+        {text_area.addAll(this.doc.getText());}
         
         return text_area;
         
