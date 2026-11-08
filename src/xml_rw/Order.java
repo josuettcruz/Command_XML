@@ -63,7 +63,7 @@ public class Order<cmd> {
         
     }//Add(cmd command, String text, boolean definition)
     
-    public List<cmd> Return(){
+    private List<cmd> Return_no_blank(){
         
         List<cmd> value = new ArrayList();
         
@@ -108,6 +108,18 @@ public class Order<cmd> {
         return value;
         
     }//Return()
+    
+    public List<cmd> Return(){
+        
+        List<cmd> c = new ArrayList();
+        
+        if(this.command.size() == 1) c.add((cmd) this.command.get(0).Code());
+        
+        if(this.command.size() > 1) c.add((cmd) Return_no_blank());
+        
+        return c;
+        
+    }
     
     public static int Proc(List<String> proc, String search){
         
