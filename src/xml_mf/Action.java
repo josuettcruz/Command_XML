@@ -2411,7 +2411,7 @@ public class Action {
                             ReadWrite(
                                 new xml_document(
                                     a.Read(),
-                                    Arq.Dir(txt, true)
+                                    Arq.Dir(file, true)
                                 )
                             );
                             
@@ -2443,7 +2443,7 @@ public class Action {
                                 ReadWrite(
                                     new xml_document(
                                         b.Read(),
-                                        Arq.Dir(txt, true)
+                                        Arq.Dir(file, true)
                                     )
                                 );
                                 

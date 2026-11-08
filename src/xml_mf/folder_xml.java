@@ -118,7 +118,11 @@ public class folder_xml implements Painel_1Single{
             
             for(var id = 0; id < this.document.learn().size(); id++){
                 
-                var t = Texto.text(this.document.learn().get(id).Title());
+                xml_config_one o = this.document.learn().get(id);
+                
+                var t = Texto.text(o.Title());
+                
+                if(t.isBlank()) t = "Documento de Título";
                 
                 demo.add(new Domain(id,Texto.title(t)));
                 
@@ -142,24 +146,31 @@ public class folder_xml implements Painel_1Single{
             
             case add, open, key, enter ->{
                 
-                var cont = 0;
-                var loop = true;
-                
-                do{
+                if(this.document.learn().size() > 1){
                     
-                    if(vol.get(cont).Select()){
-                        
-                        Action.folder_xml_submit(vol.get(cont), input);
-                        
-                        loop = false;
-                        
-                    }//if(vol.get(cont).Select())
+                    var cont = 0;
+                    var loop = true;
                     
-                    cont++;
+                    do{
+
+                        if(vol.get(cont).Select()){
+                            
+                            Action.folder_xml_submit(vol.get(cont), input);
+                            loop = false;
+
+                        }//if(vol.get(cont).Select())
+                        
+                        cont++;
+                        
+                    }while(loop && cont > 0 && cont < vol.size());
                     
-                }while(loop && cont > 0 && cont < vol.size());
-                
-                if(loop) Action.folder_xml_submit(input);
+                    if(loop) Action.folder_xml_submit(input);
+                    
+                } else {//if(this.document.learn().size() > 1)
+                    
+                    Action.folder_xml_submit(input);
+                    
+                }//if(this.document.learn().size() > 1)
                 
             }//case add, open, key, enter
             
