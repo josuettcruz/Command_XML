@@ -79,7 +79,7 @@ public class Action {
         controller.PrintKey();
         controller.p1s(new config());
             
-        Arq a = new Arq(xml_config());
+        /*Arq a = new Arq(xml_config());
         
         if(a.Val()){
             
@@ -118,6 +118,10 @@ public class Action {
             Err(a.Type(),a.Message());
             
         }//if(a.Val())
+        
+        /* As funções referentes  **
+        ** à classe "FOLDER XML'  **
+        ** precisará ser refeita. */
         
     }//Init()
     
@@ -2089,442 +2093,15 @@ public class Action {
     
     }//ReadWrite(xml_document doc)
     
-    public static void folder_xml_submit(xml_document doc){
+    private static void folder_xml_submit(xml_document doc){
         
-        if(doc.List().isEmpty()){
-            
-            ReadWrite(doc);
-            
-        } else {//if(doc.List().isEmpty())
-            
-            var temp = false;
-            
-            var x = 0;
-            
-            do{
-                
-                temp = doc.List().get(x).getTitle().charAt(0) == '~';
-                
-                x++;
-                
-            }while(!temp && x > 0 && x < doc.List().size());
-            
-            if(temp){
-                
-                controller.p2(new DeleteSaveTemp(doc, MyFont()));
-                
-            } else {//if(temp)
-                
-                ReadWrite(doc);
-                
-            }//if(temp)
-            
-        }//if(doc.List().isEmpty())
+        // code
         
     }//folder_xml_submit(xml_document doc)
     
-    private static void not_folder_xml_new_file(String input){
-        
-        List<String> txt = new ArrayList();
-        
-        txt.add("\"" + Texto.title(input) + "\"");
-        txt.add(Hora.Good() + "!");
-        txt.add("Houve um problema na hora de");
-        txt.add("criar um novo arquivo!");
-        txt.add("Talvez você esteja usando uma");
-        txt.add("unidade:");
-        txt.add("SOMENTE LEITURA");
-        
-        controller.Msg(Texto.Local(input), txt, true);
-        
-    }//not_folder_xml_new_file()
-    
-    private static void folder_xml_new_file_no_empty(String input){
-        
-        String win;
-        
-        if(xml().Windows()){
-            
-            win = "C:\\Users\\";
-            win += xml().Documents();
-            win += "\\Documents\\";
-            
-        } else if(Reg.java){//if(xml().Windows())
-            
-            win = "..\\";
-            
-        } else {//if(xml().Windows())
-            
-            win = "";
-            
-        }//if(xml().Windows())
-        
-        if(Arq.Dir(win)){
-            
-            var file = win;
-            file += Texto.arq_no_extension(input);
-            file += ".xml";
-            
-            Arq a = new Arq(file);
-            
-            if(a.Val()){
-                
-                Action.ReadWrite(new xml_document(a.Read(), true));
-                
-            } else {//if(a.Val())
-                
-                Err(a.Type(),a.Message());
-                
-            }//if(a.Val())
-            
-        } else if(Doc().size() > 1){//if(Arq.Dir(win))
-            
-            var loop = true;
-            var x = 1;
-            
-            do{
-                
-                if(Arq.Dir(Doc().get(x))){
-                    
-                    var file = Doc().get(x);
-                    file += Texto.arq_no_extension(input);
-                    file += ".xml";
-                    
-                    Arq b = new Arq(file);
-                    
-                    if(b.Val()){
-                        
-                        ReadWrite(new xml_document(b.Read(), true));
-                        
-                    } else {//if(b.Val())
-                        
-                        Err(b.Type(),b.Message());
-                        
-                    }//if(b.Val())
-                    
-                    loop = false;
-                    
-                }//if(Arq.Dir(Doc().get(x)))
-                
-                x++;
-                
-            }while(loop && x > 1 && x < Doc().size());
-            
-            if(loop) not_folder_xml_new_file(input);
-            
-        } else {//if(Arq.Dir(win))
-            
-            not_folder_xml_new_file(input);
-            
-        }//if(Arq.Dir(win))
-        
-    }//folder_xml_new_file_no_empty(String file)
-    
-    private static void folder_xml_file_no_folder_no_empty(String input){
-        
-        if(xml().learn().isEmpty()){
-            
-            if(Texto.text(input, exclude_document_function).isBlank()){
-                
-                Exit();
-                
-            } else {//if(Texto.text(input, exclude_document_function).isBlank...
-                
-                folder_xml_new_file_no_empty(input);
-                
-            }//if(Texto.text(input, exclude_document_function).isBlank())
-            
-        } else {//if(xml().learn().isEmpty())
-            
-            var t1 = "";
-            
-            for(String t : Texto.phrase(input, exclude_document_function))
-            {t1 += Texto.arq(t);}
-            
-            if(xml().learn().size() == 1){
-                
-                var t2 = "";
-                
-                for(
-                        String t : Texto.phrase(
-                        xml().learn().get(0).Title(),
-                        exclude_document_function
-                    )
-                ) {t2 += Texto.arq(t);}
-                
-                var local = xml().learn().get(0).Local();
-                
-                if(t1.equals(t2) && Arq.Dir(local, false)){
-                    
-                    Arq a = new Arq(local);
-                    
-                    if(a.Val()){
-                        
-                        Action.ReadWrite(
-                            new xml_document(
-                                a.Read(),
-                                Arq.Dir(local, true)
-                            )
-                        );
-                        
-                    } else {//if(a.Val())
-                        
-                        Err(a.Type(), a.Message());
-                        
-                    }//if(a.Val())
-                    
-                } else {//if(t1.equals(t2) && Arq.Dir(local, false))
-                    
-                    folder_xml_new_file_no_empty(input);
-                    
-                }//if(t1.equals(t2) && Arq.Dir(local, false))
-                
-            } else {//if(xml().learn().size() == 1)
-                
-                var proc = 0;
-                var loop = true;
-                
-                do{
-                    
-                    xml_config_one d = xml().learn().get(proc);
-                    
-                    var t2 = "";
-                    
-                    for(String t : Texto.phrase(
-                            d.Title(),
-                            exclude_document_function
-                        )
-                    ) {t2 += Texto.arq(t);}
-                    
-                    if(t1.equals(t2) && Arq.Dir(d.Local(), false)){
-                        
-                        Arq b = new Arq(d.Local());
-                        
-                        if(b.Val()){
-                            
-                            Action.ReadWrite(
-                                new xml_document(
-                                    b.Read(),
-                                    Arq.Dir(d.Local(), true)
-                                )
-                            );
-                            
-                        } else {//if(b.Val())
-                            
-                            Err(b.Type(), b.Message());
-                            
-                        }//if(b.Val())
-                        
-                        loop = false;
-                        
-                    }//if(t1.equals(t2) && Arq.Dir(d.Local(), false))
-                    
-                    proc++;
-                    
-                }while(loop && proc > 0 && proc < xml().learn().size());
-                
-                if(loop) folder_xml_new_file_no_empty(input);
-                
-            }//if(xml().learn().size() == 1)
-            
-        }//if(xml().learn().isEmpty())
-        
-    }//folder_xml_file_no_folder_no_empty(String input)
-    
-    public static void folder_xml_file_no_folder(String input){
-        
-        if(Texto.text(input, exclude_document_function).isBlank()){
-            
-            Exit();
-            
-        } else {//if(Texto.text(input, exclude_document_function).isBlank())
-            
-            folder_xml_file_no_folder_no_empty(input);
-            
-        }//if(Texto.text(input, exclude_document_function).isBlank())
-        
-    }//folder_xml_file_no_folder(String input)
-    
     public static void folder_xml_submit(String input){
         
-        if(newFont(Texto.text(input, true))){
-            
-            controller.p2(new newFont(xml(), Arq.Files(input), MyFont()));
-            
-        } else if(Texto.text(input, exclude_document_function).isBlank()){
-            
-            Exit();
-            
-        } else {//if(newFont(Texto.text(input, true)))
-            
-            final char[] d = {'/','\\'};
-            
-            if(Texto.contains(input, d) && Texto.text(input, d).length() > 5){
-                
-                List<String> dir = new ArrayList();
-                String txt = "";
-                
-                for(var c = 0; c < input.length(); c++){
-                    
-                    switch(input.charAt(c)){
-                        
-                        case '/', '\\' ->{
-                            
-                            if(!Texto.arq_no_extension(txt).isBlank())
-                            {dir.add(Texto.arq_no_extension(txt));}
-                            
-                            txt = "";
-                            
-                        }//case '/', '\\'
-                        
-                        default -> txt += input.charAt(c);
-                        
-                    }//switch(input.charAt(c))
-                    
-                }//for(var c = 0; c < input.length(); c++)
-                
-                if(dir.size() > 1){
-                    
-                    txt = "";
-                    
-                    for(var p = 0; p < dir.size(); p++){
-                        
-                        if(p > 0) txt += "\\";
-                        
-                        txt += dir.get(p);
-                        
-                    }//for(var p = 0; p < dir.size(); p++)
-                    
-                    boolean next;
-                    
-                    var file = txt;
-                    file += ".xml";
-                    
-                    if(Arq.Dir(file, false)){
-                        
-                        next = false;
-                        
-                        Arq a = new Arq(file);
-                        
-                        if(a.Val()){
-                            
-                            ReadWrite(
-                                new xml_document(
-                                    a.Read(),
-                                    Arq.Dir(file, true)
-                                )
-                            );
-                            
-                        } else {//if(a.Val())
-                            
-                            Err(a.Type(),a.Message());
-                            
-                        }//if(a.Val())
-                        
-                    } else {//if(Arq.Dir(txt, false))
-                        
-                        next = true;
-                        
-                    }//if(Arq.Dir(txt, false))
-                    
-                    if(next){
-                        
-                        file = txt;
-                        file += ".XML";
-                        
-                        if(Arq.Dir(file, false)){
-                            
-                            next = false;
-                            
-                            Arq b = new Arq(file);
-                            
-                            if(b.Val()){
-                                
-                                ReadWrite(
-                                    new xml_document(
-                                        b.Read(),
-                                        Arq.Dir(file, true)
-                                    )
-                                );
-                                
-                            } else {//if(b.Val())
-                                
-                                Err(b.Type(),b.Message());
-                                
-                            }//if(b.Val())
-                            
-                        }//if(Arq.Dir(file, false))
-                        
-                    }//if(next)
-                    
-                    if(next){
-                        
-                        if(dir.size() == 2){
-                            
-                            txt = dir.get(0);
-                            
-                        } else {//if(dir.size() == 2)
-                            
-                            txt = "";
-                            
-                            for(var x = 0; x < dir.size()-1; x++){
-                                
-                                if(x > 0) txt += "\\";
-                                
-                                txt += dir.get(x);
-                                
-                            }//for(var x = 0; x < dir.size()-1; x++)
-                            
-                        }//if(dir.size() == 2)
-                        
-                        if(
-                            Arq.Dir(txt) &&
-                            Texto.arq_no_extension(input).length() > 1
-                        )
-                        {
-                            
-                            var file_name = txt;
-                            file_name += Texto.arq_no_extension(input);
-                            file_name += ".xml";
-                            
-                            Arq b = new Arq(file_name);
-                            
-                            if(b.Val()){
-                                
-                                Action.ReadWrite(
-                                    new xml_document(
-                                        b.Read(),
-                                        Arq.Dir(file_name, true)
-                                    )
-                                );
-                                
-                            } else {//if(a.Val())
-                                
-                                Err(b.Type(),b.Message());
-                                
-                            }//if(a.Val())
-                            
-                        } else {//if(Arq.Dir(txt) && Texto.arq_no_extension(i...
-                            
-                            folder_xml_file_no_folder(input);
-                            
-                        }//if(Arq.Dir(txt) && Texto.arq_no_extension(input).l...
-                        
-                    }//if(next)
-                    
-                } else {//if(dir.size() > 1)
-                    
-                    folder_xml_file_no_folder(input);
-                    
-                }//if(dir.size() > 1)
-                
-            } else {//if(Texto.contains(input, d) && Texto.text(input, d).len...
-                
-                folder_xml_file_no_folder(input);
-                
-            }//if(Texto.contains(input, d) && Texto.text(input, d).length() > 5)
-            
-        }//if(newFont(Texto.text(input, true)))
+        // code
         
     }//folder_xml_submit(String input)
     
@@ -2609,32 +2186,6 @@ public class Action {
         
     }//folder_xml_submit(Domain menu, String input)
     
-    public static void folder_xml(){
-        
-        if(xml_val()){
-            
-            xml_config x = xml();
-            
-            Exec e = x.Save(new Arq(Action.xml_config()));
-            
-            if(e.Val()){
-                
-                controller.p1s(new folder_xml(x,MyFont()));
-                
-            } else {//if(e.Val())
-                
-                Err(e.Type(),e.Message());
-                
-            }//if(e.Val())
-            
-        } else {//if(xml_val())
-            
-            Exit();
-            
-        }//if(xml_val())
-    
-    }//folder_xml()
-    
     public static void folder_xml(xml_config xml){
         
         Arq reset = new Arq(xml_config());
@@ -2650,5 +2201,11 @@ public class Action {
         }//if(reset.Val())
     
     }//folder_xml(xml_config xml)
+    
+    public static void folder_xml(){
+        
+        folder_xml(xml());
+    
+    }//folder_xml()
     
 }//Action
