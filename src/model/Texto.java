@@ -165,7 +165,7 @@ public class Texto {
         
         if(text.trim().isBlank()){
             
-            tem.add("null");
+            tem.add("");
             
         } else {//if(text.trim().isBlank())
             

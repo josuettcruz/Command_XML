@@ -26,8 +26,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private final String base = "info";
     
-    private boolean print;
-    
     private List<String> text;
     private String input;
     
@@ -51,8 +49,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     public commit(String text){
         
-        this.print = false;
-        
         this.input = "";
         
         this.text = new ArrayList();
@@ -61,8 +57,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     }//commit(String text)
     
     private commit(List<String> receive, String input){
-        
-        this.print = false;
         
         this.input = input;
         this.text = receive;
@@ -526,18 +520,17 @@ public class commit implements Painel_1Single, Painel_1Multiple{
                 
             }while(document && cont > 0 && cont < notpad.length);
             
-            /* var bas = "";                                         **
-             **for(String t : Texto.phrase(ext, this.ten)) bas += t; */
+            var bas = "";
+            for(String t : Texto.phrase(ext, this.ten)) bas += t;
             
-            //var test1 = bas.equalsIgnoreCase(this.base);
-            var test1 = this.print;
+            var test1 = bas.equalsIgnoreCase(this.base);
             var test2 = Arq.Dir(this.Export(ext), true);
             var test0 = test1 && test2;
             
             var err = "";
             var coppy = document;
             
-            if(test0/* || !bas.equalsIgnoreCase(this.base)*/){
+            if(test0 || !bas.equalsIgnoreCase(this.base)){
                 
                 if(document){
                     
@@ -656,7 +649,7 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private void Click(String run){
         
-        /*var note = "";
+        var note = "";
         
         for(String t : Texto.phrase(run, this.ten)) note += t;
         
@@ -671,18 +664,6 @@ public class commit implements Painel_1Single, Painel_1Multiple{
         } else {//if(note.isBlank())
             
             controller.p1m(new commit(this.text, Texto.Local(run)));
-            
-        }//if(note.isBlank())*/
-        
-        if(Texto.text(run).isBlank()){
-            
-            this.print = true;
-            
-            this.Event(run, true);
-            
-        } else {//if(note.isBlank())
-            
-            controller.p1s(new commit(this.text, Texto.Local(run)));
             
         }//if(note.isBlank())
         
