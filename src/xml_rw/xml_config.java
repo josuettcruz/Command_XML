@@ -878,7 +878,14 @@ public class xml_config {
         
         var l = Arq.Dir(Arq.Files(local)) ? Arq.Files(local) : local;
         
-        var valid = o.Add(new xml_config_one(t, l, Data.code, Hora.code), t);
+        var valid = o.Add(
+            new xml_config_one(
+                t,
+                l,
+                new Data(),
+                new Hora(true)
+            ), t
+        );
         
         if(valid){
             

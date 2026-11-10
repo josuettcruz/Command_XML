@@ -67,11 +67,14 @@ public class xml_config_one {
             
         }//if - Arq.Dir
         
-        this.insert_d = Data.code;
-        this.insert_h = Hora.code;
+        Data new_data = new Data();
+        Hora new_hora = new Hora(true);
         
-        this.modify_d = Data.code;
-        this.modify_h = Hora.code;
+        this.insert_d = new_data;
+        this.insert_h = new_hora;
+        
+        this.modify_d = new_data;
+        this.modify_h = new_hora;
         
     }//public xml_config_one - 1 - 3
     

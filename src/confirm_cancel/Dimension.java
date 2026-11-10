@@ -47,7 +47,7 @@ public class Dimension {
         
         String txt = new Hora(false).Timer();
         txt += " ";
-        txt += Data.code.DataAbreviada(false);
+        txt += new Data().DataAbreviada(false);
         txt += " - ";
         txt += this.List(this.local);
         txt += ".ini\n";

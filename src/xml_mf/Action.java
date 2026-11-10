@@ -356,10 +356,13 @@ public class Action {
     
     public static void Exit(){
         
+        Data d = new Data();
+        Hora h = new Hora(true);
+        
         if(Reg.java){
             
-            System.out.println(Data.code.DataCompleta(true));
-            System.out.println(Hora.code.TimerGood(true));
+            System.out.println(d.DataCompleta(true));
+            System.out.println(h.TimerGood(true));
             
             if(xml_val() && xml().Windows()){
                 
@@ -423,8 +426,11 @@ public class Action {
         
         if(Reg.java){
             
-            System.out.println(Data.code.DataCompleta(true));
-            System.out.println(Hora.code.TimerGood(true));
+            Data d = new Data();
+            Hora h = new Hora(true);
+            
+            System.out.println(d.DataCompleta(true));
+            System.out.println(h.TimerGood(true));
             
             if(xml_val() && xml().Windows()){
                 
@@ -585,7 +591,7 @@ public class Action {
             
         } else {//if(cond1 && cond2)
             
-            var title = Data.code.Load();
+            var title = new Data().Load();
             title += " - ";
             title += new Hora(true).Timer();
             
@@ -682,7 +688,7 @@ public class Action {
 
         } else if(title){//if(title && !t.isBlank())
             
-            val += Data.code.DataAbreviada(equal);
+            val += new Data().DataAbreviada(equal);
             val += "! Documento sem título!";
             
         } else {//if(title && !t.isBlank())
@@ -1211,6 +1217,9 @@ public class Action {
     )
     {
         
+        Data d = new Data();
+        Hora h = new Hora(true);
+        
         if(Arq.Dir(doc.Local(), true)){
             
             Arq arq = new Arq(doc.Local());
@@ -1228,9 +1237,9 @@ public class Action {
                 if(Reg.java){
                     
                     System.out.print("Salvo: ");
-                    System.out.print(Data.code.DataAbreviada(true));
+                    System.out.print(d.DataAbreviada(true));
                     System.out.print(" - ");
-                    System.out.print(Hora.code.TimerGood(false));
+                    System.out.print(h.TimerGood(false));
                     System.out.print(" - ");
                     System.out.print(one.getTitle());
                     
@@ -1266,10 +1275,8 @@ public class Action {
             
             var t = Texto.phrase(Texto.arq_no_extension(doc.getTitle()), true);
             
-            Hora h = new Hora(true);
-            
             con += "Arq - ";
-            con += Data.code.Load();
+            con += d.Load();
             con += " - ";
             con += Reg.Numb(h.Hour());
             con += "h";
@@ -1332,7 +1339,7 @@ public class Action {
                 
                 if(Reg.java){
                     
-                    System.out.print(Hora.code.TimerGood(false));
+                    System.out.print(h.TimerGood(false));
                     System.out.print(" - Arquivo: \"");
                     System.out.print(doc.getTitle());
                     System.out.println("\" salvo!");

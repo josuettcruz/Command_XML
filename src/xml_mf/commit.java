@@ -289,15 +289,18 @@ public class commit implements Painel_1Single, Painel_1Multiple{
     
     private String Export(String ext){
         
+        Data d = new Data();
+        Hora h = new Hora(true);
+        
         var run = Texto.Local(ext);
         
         var arqv = Reg.java ? "..\\" : "";
         arqv += "jar - ";
-        arqv += Data.code.Load();
+        arqv += d.Load();
         arqv += " - ";
-        arqv += Reg.Numb(Hora.code.Hour());
+        arqv += Reg.Numb(h.Hour());
         arqv += "h";
-        arqv += Reg.Numb(Hora.code.Min());
+        arqv += Reg.Numb(h.Min());
         arqv += "m - ";
         arqv += run;
         arqv += ".txt";
@@ -306,13 +309,13 @@ public class commit implements Painel_1Single, Painel_1Multiple{
             
             var arqa = Reg.java ? "..\\" : "";
             arqa += "jar - ";
-            arqa += Data.code.Load();
+            arqa += d.Load();
             arqa += " - ";
-            arqa += Reg.Numb(Hora.code.Hour());
+            arqa += Reg.Numb(h.Hour());
             arqa += "h";
-            arqa += Reg.Numb(Hora.code.Min());
+            arqa += Reg.Numb(h.Min());
             arqa += "m";
-            arqa += Reg.Numb(Hora.code.Sec());
+            arqa += Reg.Numb(new Hora(true).Sec());
             arqa += "s - ";
             arqa += run;
             arqa += ".txt";
