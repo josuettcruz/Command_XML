@@ -2123,7 +2123,13 @@ public class Action {
             
         } else {//if(direct)
             
-            Action.ReadWrite(doc);
+            var input = new Data().DataAbreviada(true);
+            input += " ";
+            input += new Hora(true).TimerGood(true);
+            input += " - ";
+            input += Texto.Local(doc.getTitle());
+            
+            controller.p1s(new ReadWrite(doc, MyFont(), input));
             
         }//if(direct)
         
