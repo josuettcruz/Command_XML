@@ -2093,17 +2093,41 @@ public class Action {
     
     }//ReadWrite(xml_document doc)
     
-    private static void folder_xml_submit(xml_document doc){
-        
-        // code
-        
-    }//folder_xml_submit(xml_document doc)
-    
     public static void folder_xml_submit(String input){
         
         // code
         
     }//folder_xml_submit(String input)
+    
+    private static void folder_xml_submit(xml_document doc){
+        
+        var direct = true;
+        
+        if(!doc.List().isEmpty()){
+            
+            var x = 0;
+            
+            do{
+                
+                direct = doc.List().get(x).getTitle().charAt(0) != '~';
+                
+                x++;
+                
+            }while(direct && x > 0 && x < doc.List().size());
+            
+        }//if(!doc.List().isEmpty())
+        
+        if(direct){
+            
+            controller.p2(new DeleteSaveTemp(doc, MyFont()));
+            
+        } else {//if(direct)
+            
+            Action.ReadWrite(doc);
+            
+        }//if(direct)
+        
+    }//folder_xml_submit(xml_document doc)
     
     public static void folder_xml_submit(Domain menu, String input){
         
