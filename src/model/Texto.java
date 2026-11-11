@@ -15,13 +15,10 @@ public class Texto {
     
     public static String text(String text, boolean remove_char){
         
-        if(text.trim().isBlank()){
+        var txt = "";
+        
+        if(text.length() > 1){
             
-            return "";
-            
-        } else {//if(text.trim().isBlank())
-            
-            var txt = "";
             var line = false;
             var space = false;
             var digit = false;
@@ -87,9 +84,9 @@ public class Texto {
                 
             }//for(int i = 0; i < text.length(); i++)
             
-            return txt;
-            
-        }//if(text.trim().isBlank())
+        }//if(text.length() > 1)
+        
+        return txt;
         
     }//text(String text, boolean remove_char)
     
@@ -97,7 +94,7 @@ public class Texto {
         
         var value = "";
         
-        if(exclude.length > 0){
+        if(text.length() > 1 && exclude.length > 1){
             
             final var space = " ";
             
@@ -145,7 +142,7 @@ public class Texto {
             
             value = text(val, true);
         
-        }//if(exclude.length > 0)
+        }//if(text.length() > 1 && exclude.length > 1)
         
         return value;
         
@@ -163,11 +160,7 @@ public class Texto {
         
         List<String> tem = new ArrayList();
         
-        if(text.trim().isBlank()){
-            
-            tem.add("");
-            
-        } else {//if(text.trim().isBlank())
+        if(text.length() > 1){
             
             var txt = "";
             var space = false;
@@ -226,7 +219,9 @@ public class Texto {
             
             if(space) tem.add(txt);
             
-        }//if(text.trim().isBlank())
+        }//if(text.length() > 1)
+        
+        //if(tem.isEmpty()) tem.add("");
         
         return tem;
         
@@ -236,7 +231,7 @@ public class Texto {
         
         var value = new ArrayList();
         
-        if(exclude.length > 0){
+        if(text.length() > 1 && exclude.length > 1){
             
             final var space = " ";
             
@@ -284,7 +279,7 @@ public class Texto {
             
             value.addAll(phrase(val, true));
         
-        }//if(exclude.length > 0)
+        }//if(text.length() > 1 && exclude.length > 1)
         
         return value;
         
@@ -300,16 +295,9 @@ public class Texto {
     
     public static String capitalize(String phrase){
         
-        if(phrase.trim().isBlank())
-        {phrase = "Classe: \"TXT\"\nPacote: \"MODEL\"";}
+        var txt = "";
         
-        if(phrase.trim().isBlank()){
-            
-            return "";
-            
-        } else {//if(phrase.trim().isBlank())
-            
-            var txt = "";
+        if(phrase.length() > 1){
             
             var cap = true;
             
@@ -366,51 +354,47 @@ public class Texto {
                 
             }//for(int p = 0; p < phrase.length(); p++)
             
-            return phrase.isBlank() ? "" : txt;
-            
-        }//if(phrase.trim().isBlank())
+        }//if(phrase.length() > 1)
+        
+        return txt;
         
     }//capitalize(String phrase)
     
     public static String title(String text){
         
-        if(text.trim().isBlank()){
-            
-            return "";
-            
-        } else {//if(text.trim().isBlank())
-            
-            String[] articles = {
-                "no",
-                "na",
-                "nos",
-                "nas",
-                "um",
-                "uma",
-                "uns",
-                "umas",
-                "dois",
-                "duas",
-                "de",
-                "do",
-                "da",
-                "dos",
-                "das",
-                "pôs",
-                "pos",
-                "após",
-                "apos",
-                "os",
-                "as",
-                "às",
-                "em",
-                "ue",
-                "ué",
-                "uè",
-                "uê"
-            };
-            
-            var txt = "";
+        var txt = "";
+        
+        String[] articles = {
+            "no",
+            "na",
+            "nos",
+            "nas",
+            "um",
+            "uma",
+            "uns",
+            "umas",
+            "dois",
+            "duas",
+            "de",
+            "do",
+            "da",
+            "dos",
+            "das",
+            "pôs",
+            "pos",
+            "após",
+            "apos",
+            "os",
+            "as",
+            "às",
+            "em",
+            "ue",
+            "ué",
+            "uè",
+            "uê"
+        };
+        
+        if(phrase(text).size() > 1){
             
             var note = true;
             
@@ -472,181 +456,182 @@ public class Texto {
                 }//if(note)
 
             }//for(String p : phease(true))
-
-            return txt;
-
-        }//if(text.trim().isBlank())
+            
+        }//if(phrase(text).size() > 1)
+        
+        return txt;
         
     }//title(String text)
     
     public static String arq(String text){
-        
-        if(text.trim().isBlank())
-        {text = "Classe: \"TXT\"\nPacote: \"MODEL\"";}
         
         var txt = "";
         
         var space = false;
         var demo = true;
         
-        for(String p : phrase(text, true)){
+        if(!phrase(text).isEmpty()){
             
-            if(space){
+            for(String p : phrase(text)){
                 
-                if(demo) txt += "_";
-                
-            } else {//if(line)
-                
-                space = true;
-                
-            }//if(line)
-            
-            for(int i = 0; i < p.length(); i++){
-                
-                switch(p.toLowerCase().charAt(i)){
+                if(space){
                     
-                    case 'a',
-                         'à',
-                         'á',
-                         'ã',
-                         'â',
-                         'ä',
-                         'ª' -> {
-                        
-                        txt += "a";
-                        demo = true;
-                        
-                    }
-                         
-                    case 'c',
-                         'ç' -> {
-                        
-                        txt += "c";
-                        demo = true;
-                        
-                    }
-                            
-                    case 'e',
-                         'é',
-                         'è',
-                         'ê',
-                         'ë' -> {
-                        
-                        txt += "e";
-                        demo = true;
-                        
-                    }
-                            
-                    case 'i',
-                         'í',
-                         'ì',
-                         'î',
-                         'ï' -> {
-                        
-                        txt += "i";
-                        demo = true;
-                        
-                    }
-                            
-                    case 'o',
-                         'ó',
-                         'ò',
-                         'õ',
-                         'ô',
-                         'ö',
-                         'º' -> {
-                        
-                        txt += "o";
-                        demo = true;
-                        
-                    }
-                            
-                    case 'u',
-                         'ú',
-                         'ù',
-                         'û',
-                         'ü' -> {
-                        
-                        txt += "u";
-                        demo = true;
-                        
-                    }
-                            
-                    case 'y',
-                         'ý' -> {
-                        
-                        txt += "y";
-                        demo = true;
-                        
-                    }
-                        
-                    case '_',
-                        '\n',
-                        '\t',
-                        '\f',
-                        '\\',
-                        '\'',
-                         '"',
-                         '-',
-                         '/',
-                         '|',
-                         ':',
-                         ';',
-                         '?',
-                         '!',
-                         '@',
-                         '#',
-                         '*',
-                         '&',
-                         '$',
-                         '§',
-                         '₢',
-                         '%',
-                         '¨',
-                         '+',
-                         '=',
-                         '`',
-                         '´',
-                         '^',
-                         '~',
-                         '<',
-                         '>',
-                         '.',
-                         ',',
-                         '¹',
-                         '²',
-                         '³',
-                         '£',
-                         '¢',
-                         '¬',
-                         '[',
-                         ']',
-                         '{',
-                         '}',
-                         '(',
-                         ')',
-                         '￿',
-                         '' -> {
-                        
-                        if(i > 0 && i < p.length()-1 && demo) txt += "-";
-                        demo = false;
-                        
-                    }//case
+                    if(demo) txt += "_";
                     
-                    default -> {
-                        
-                        txt += p.toLowerCase().charAt(i);
-                        demo = true;
-                        
-                    }//default
+                } else {//if(line)
                     
-                }//switch(p.charAt(i))
+                    space = true;
+                    
+                }//if(line)
                 
-            }//for(int i = 0; i < p.length(); i++)
-            
-        }//for(String p : phrase(true))
+                for(int i = 0; i < p.length(); i++){
+                    
+                    switch(p.toLowerCase().charAt(i)){
+                        
+                        case 'a',
+                             'à',
+                             'á',
+                             'ã',
+                             'â',
+                             'ä',
+                             'ª' -> {
+                            
+                            txt += "a";
+                            demo = true;
+                            
+                        }
+                        
+                        case 'c',
+                             'ç' -> {
+                            
+                            txt += "c";
+                            demo = true;
+                            
+                        }
+                        
+                        case 'e',
+                             'é',
+                             'è',
+                             'ê',
+                             'ë' -> {
+                            
+                            txt += "e";
+                            demo = true;
+                            
+                        }
+                        
+                        case 'i',
+                             'í',
+                             'ì',
+                             'î',
+                             'ï' -> {
+                            
+                            txt += "i";
+                            demo = true;
+                            
+                        }
+                        
+                        case 'o',
+                             'ó',
+                             'ò',
+                             'õ',
+                             'ô',
+                             'ö',
+                             'º' -> {
+                            
+                            txt += "o";
+                            demo = true;
+                            
+                        }
+                        
+                        case 'u',
+                             'ú',
+                             'ù',
+                             'û',
+                             'ü' -> {
+                            
+                            txt += "u";
+                            demo = true;
+                            
+                        }
+                        
+                        case 'y',
+                             'ý' -> {
+                            
+                            txt += "y";
+                            demo = true;
+                            
+                        }
+                        
+                        case '_',
+                            '\n',
+                            '\t',
+                            '\f',
+                            '\\',
+                            '\'',
+                             '"',
+                             '-',
+                             '/',
+                             '|',
+                             ':',
+                             ';',
+                             '?',
+                             '!',
+                             '@',
+                             '#',
+                             '*',
+                             '&',
+                             '$',
+                             '§',
+                             '₢',
+                             '%',
+                             '¨',
+                             '+',
+                             '=',
+                             '`',
+                             '´',
+                             '^',
+                             '~',
+                             '<',
+                             '>',
+                             '.',
+                             ',',
+                             '¹',
+                             '²',
+                             '³',
+                             '£',
+                             '¢',
+                             '¬',
+                             '[',
+                             ']',
+                             '{',
+                             '}',
+                             '(',
+                             ')',
+                             '￿',
+                             '' -> {
+                            
+                            if(i > 0 && i < p.length()-1 && demo) txt += "-";
+                            demo = false;
+                            
+                        }//case
 
-        return text.isBlank() ? "" : txt;
+                        default -> {
+
+                            txt += p.toLowerCase().charAt(i);
+                            demo = true;
+
+                        }//default
+
+                    }//switch(p.charAt(i))
+
+                }//for(int i = 0; i < p.length(); i++)
+
+            }//for(String p : phrase(true))
+
+        }//if(!phrase(text).isEmpty())
+
+        return txt;
         
     }//arq(String text)
     
@@ -924,7 +909,7 @@ public class Texto {
     
     public static String arq_no_extension(String file_name){
         
-        var tema = text(file_name, true);
+        var tema = text(file_name);
         
         var t = "";
         
@@ -1147,9 +1132,9 @@ public class Texto {
         
         return value;
         
-    }//indexOf(String text, char proc, boolean first)
+    }//ContChar(String text, char proc)
     
-    public static String replace(String txt, char remove){
+    public static String remove(String txt, char remove){
         
         if(txt.length() > 1){
             
@@ -1169,11 +1154,11 @@ public class Texto {
             
         }//if(txt.length() > 1)
         
-    }//replace(String txt, char remove)
+    }//remove(String txt, char remove)
     
     public static String substring(String text, char separator, boolean first){
         
-        String val = text(text, true);
+        String val = text(text);
         
         if(val.length() > 1){
             

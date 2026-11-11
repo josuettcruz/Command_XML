@@ -102,39 +102,42 @@ public class GitCommit implements Painel_2{
     
     private boolean dat(String t){
         
-        final char[] d = {'-'};
-        
-        List<String> dem = Texto.phrase(t, d);
+        List<String> dem = Texto.phrase(t);
         
         var val = true;
-        var add = 0;
         
-        do{
-            
-            var p = dem.get(add);
-            
-            var n = new Num(p);
-            
-            if(n.Val() && n.Num() > 0){
-                
-                switch(add){
-                    
-                    case 0  -> val = n.Num() >= 2026;
-                    case 1  -> val = n.Num() <= 12;
-                    case 2  -> val = n.Num() <= 31;
-                    default -> val = false;
-                    
-                }//switch(add)
-                
-            } else {//if(n.Val() && n.Num() > 0)
-                
-                val = false;
-                
-            }//if(n.Val() && n.Num() > 0)
-            
-            add++;
-            
-        }while(val && add > 0 && add < dem.size());
+        if(!dem.isEmpty()){
+
+            var add = 0;
+
+            do{
+
+                var p = dem.get(add);
+
+                var n = new Num(p);
+
+                if(n.Val() && n.Num() > 0){
+
+                    switch(add){
+
+                        case 0  -> val = n.Num() >= 2026;
+                        case 1  -> val = n.Num() <= 12;
+                        case 2  -> val = n.Num() <= 31;
+                        default -> val = false;
+
+                    }//switch(add)
+
+                } else {//if(n.Val() && n.Num() > 0)
+
+                    val = false;
+
+                }//if(n.Val() && n.Num() > 0)
+
+                add++;
+
+            }while(val && add > 0 && add < dem.size());
+
+        }//if(!dem.isEmpty())
         
         return val;
         

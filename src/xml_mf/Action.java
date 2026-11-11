@@ -869,7 +869,7 @@ public class Action {
                             }//switch(aspas) - 1 - 2
                             
                             
-                            doc += Texto.replace(t, '"');
+                            doc += Texto.remove(t, '"');
                             
                             switch(aspas){//2 - 2
                                 
