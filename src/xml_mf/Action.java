@@ -1886,7 +1886,7 @@ public class Action {
                             
                             var t = Texto.phrase(x, exclude_document_function);
                             
-                            if(t.isEmpty()){
+                            if(!t.isEmpty()){
                                 
                                 if(t.size() == 1){
                                     
@@ -1898,7 +1898,7 @@ public class Action {
                                     
                                 }//if(t.size() == 1)
                                 
-                            }//if(t.isEmpty())
+                            }//if(!t.isEmpty())
                             
                         }//if(!x.isEmpty())
                         
