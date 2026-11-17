@@ -78,25 +78,14 @@ public class Action {
         
         if(xml().Windows() && !Doc().isEmpty() && Arq.Dir(xml_config(), false)){
             
-            var diretory = Doc().get(0);
-            
             List<String> msg = new ArrayList();
             
             msg.add(xml().UserWindows().toUpperCase());
             
-            msg.add(
-                Texto.text(
-                    Texto.substring(Arq.Files(xml_config()), '.', true),
-                    new char[]{'-','_'}
-                ).toUpperCase()
-            );
+            msg.add(Doc().get(0) + Texto.substring(xml_config(), '\\', false));
             
-            if(Arq.Dir(diretory + "\\"))msg.add(diretory + " com: \"\\\"");
-            
-            if(Arq.Dir(diretory)) msg.add(diretory + " sem: \"\\\"");
-            
-            if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\documents"))
-            {msg.add("C:\\Users\\[USUÁRIO]\\documents");}
+            if(Arq.Dir("C:\\users\\" + xml().UserWindows() + "\\documents", true))
+            {msg.add("A pasta documentos aceita converter em ninúscolo");}
             
             if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\Videos"))
             {msg.add("A pasta de vídeos existe!");}
