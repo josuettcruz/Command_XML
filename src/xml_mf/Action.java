@@ -76,8 +76,98 @@ public class Action {
     
     public static void Init(){
         
-        controller.PrintKey();
-        controller.p1s(new config());
+        if(xml().Windows() && !Doc().isEmpty() && Arq.Dir(xml_config(), false)){
+            
+            var diretory = Doc().get(0);
+            
+            List<String> msg = new ArrayList();
+            
+            msg.add(xml().UserWindows().toUpperCase());
+            
+            msg.add(
+                Texto.text(
+                    Texto.substring(Arq.Files(xml_config()), '.', true),
+                    new char[]{'-','_'}
+                ).toUpperCase()
+            );
+            
+            if(Arq.Dir(diretory + "\\"))msg.add(diretory + " com: \"\\\"");
+            
+            if(Arq.Dir(diretory)) msg.add(diretory + " sem: \"\\\"");
+            
+            if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\documents"))
+            {msg.add("C:\\Users\\[USUÁRIO]\\documents");}
+            
+            if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\Videos"))
+            {msg.add("A pasta de vídeos existe!");}
+            
+            if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\Music"))
+            {msg.add("A pasta de músicas existe!");}
+            
+            if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\Imagens"))
+            {msg.add("A pasta de imagens existe!");}
+            
+            if(controller.Msg(msg.get(0), msg, true)){
+                
+                for(String text : msg) System.out.println(text);
+                
+                System.out.println();
+                
+                var tab = 0;
+                
+                for(String t : Arq.Folder(xml_config()))
+                {if(t.length() > tab) {tab = t.length();}}
+                
+                tab++;
+                tab++;
+                
+                for(String t : Arq.Folder(xml_config()))
+                {Reg.Print("\"" + t.toUpperCase(), "\"", tab);}
+                
+                Read r = new Arq(xml_config()).Read();
+                
+                System.out.println();
+                
+                tab = 0;
+                
+                for(var id = 1; id <= r.Max(); id++){
+                    
+                    if(Texto.text(r.Read(id)).length() > tab)
+                    {tab = Texto.text(r.Read(id)).length();}
+                
+                }//for(var id = 1; id <= r.Max(); id++)
+                
+                tab++;
+                tab++;
+                
+                for(var id = 1; id <= r.Max(); id++)
+                {Reg.Print("\"" + Texto.text(r.Read(id)), "\"", tab);}
+                
+            } else {//if(controller.Msg(msg.get(0), msg, true))
+                
+                for(String err : msg) System.err.println(err);
+                
+                for(var x = 0; x < msg.size(); x++){
+                    
+                    System.err.println(
+                        "Item: "
+                        + Reg.Numb(x+1, msg.size(), " de ")
+                        + " --> "
+                        + msg.get(x)
+                    );
+                    
+                }//for(var x = 0; x < msg.size(); x++)
+                
+                System.exit(0);
+                
+            }//if(controller.Msg(msg.get(0), msg, true))
+            
+        } else {//if(xml().Windows() && !Doc().isEmpty() && Arq.Dir(xml_confi...
+            
+            controller.PrintKey();
+            controller.p1s(new config());
+            
+        }//if(xml().Windows() && !Doc().isEmpty() && Arq.Dir(xml_config(), false))
             
         /*Arq a = new Arq(xml_config());
         
