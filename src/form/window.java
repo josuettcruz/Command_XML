@@ -29,6 +29,8 @@ public class window extends javax.swing.JFrame {
     private boolean key_code_char;
     private int key_code_count;
     
+    private List<String> page0_text;
+    
     private final float AlignmentX = 0f;
     private final float AlignmentY = 0f;
     
@@ -80,6 +82,8 @@ public class window extends javax.swing.JFrame {
         this.text_area = user;
         
         this.position_cur = 0;
+        
+        this.page0_text = new ArrayList();
         
         setVisible(true);
         setResizable(true);
@@ -223,6 +227,10 @@ public class window extends javax.swing.JFrame {
             s++;
 
         }while(s > 0 && s < text.size() && s < tem_0.length);
+        
+        if(!this.page0_text.isEmpty()) this.page0_text.clear();
+        
+        this.page0_text.addAll(text);
             
         ide.setFont(new java.awt.Font("Segoe UI Black", 0, 36));
         ide.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1557,7 +1565,63 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_initialKeyTyped
 
     private void initialMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_initialMouseReleased
-        if(this.page1Exit) System.exit(0);
+        
+        if(this.page1Exit){
+            
+            if(this.page0_text.size() > 1){
+                
+                System.out.println();
+                
+                var println = new Hora(true).TimerGood(false);
+                println += " - ";
+                println += new Data().DataAbreviada(true);
+                println += " - ";
+                println += Hora.Good();
+                
+                
+                var tab = 0;
+                
+                for(String text_length : this.page0_text)
+                {if(text_length.length() > tab) tab = text_length.length();}
+                
+                tab = tab+4;
+                
+                Reg.Print(println, "  ", tab);
+                
+                System.out.println(" ".repeat(tab+2));
+                System.out.println("_".repeat(tab+2));
+                
+                for(var t = 0; t < this.page0_text.size(); t++){
+                    
+                    if(t == 0){
+                        
+                        Reg.Print("/* " + this.page0_text.get(0), "**", tab);
+                        
+                    } else if(t == this.page0_text.size()-1){//if(t == 0)
+                        
+                        Reg.Print(
+                            "** " + this.page0_text.get(
+                                this.page0_text.size()-1
+                            ), "*/",
+                            tab
+                        );
+                        
+                    } else {//if(t == 0)
+                        
+                        Reg.Print("** " + this.page0_text.get(t), "**", tab);
+                        
+                    }//if(t == 0)
+                    
+                }//for(var t = 0; t < this.page0_text.size(); t++)
+                
+                System.out.println("-".repeat(tab+2));
+                
+            }//if(this.page0_text.size() > 1)
+            
+            System.exit(0);
+            
+        }//if(this.page1Exit)
+        
     }//GEN-LAST:event_initialMouseReleased
 
     private void home_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_home_exitActionPerformed

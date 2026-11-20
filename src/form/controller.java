@@ -94,11 +94,11 @@ public class controller {
             
         }//for(String myText : value)
         
-        if(text.isEmpty() || text.size() > 10){
+        if(text.isEmpty()){
             
             valid = false;
             
-        } else {//if(text.isEmpty() || text.size() > 10)
+        } else {//if(text.isEmpty())
             
             try{
 
@@ -129,7 +129,7 @@ public class controller {
                 
             }//throw
             
-        }//if(text.isEmpty() || text.size() > 10)
+        }//if(text.isEmpty())
         
         return valid;
         
