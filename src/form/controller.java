@@ -86,13 +86,12 @@ public class controller {
         
         List<String> text = new ArrayList();
         
-        for(String myText : value){
+        for(String MyText : value){
             
-            var com = Texto.text(myText, true);
-            
-            if(!com.isBlank()) text.add(com);
-            
-        }//for(String myText : value)
+            if(!Texto.text(MyText).isBlank())
+            {text.add(Texto.text(MyText));}
+        
+        }//for(String MyText : value)
         
         if(text.isEmpty()){
             
@@ -102,7 +101,21 @@ public class controller {
             
             try{
 
-                var title = Texto.text(setTtitle);
+                String title;
+                
+                if(Texto.phrase(setTtitle).size() > 1){
+                    
+                    title = Texto.title(setTtitle);
+                    
+                } else if(Texto.phrase(setTtitle).size() == 1){//if(Texto.phr...
+                    
+                    title = Texto.arq(setTtitle).toUpperCase();
+                    
+                } else {//if(Texto.phrase(setTtitle).size() > 1)
+                    
+                    title = Hora.Good();
+                    
+                }//if(Texto.phrase(setTtitle).size() > 1)
 
                 if(title.isBlank()) title = new Link(Reg.http).dat(exit);
 

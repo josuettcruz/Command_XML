@@ -80,12 +80,29 @@ public class Action {
             
             List<String> msg = new ArrayList();
             
-            msg.add(xml().UserWindows().toUpperCase());
-            
-            msg.add(Doc().get(0) + Texto.substring(xml_config(), '\\', false));
-            
-            if(Arq.Dir("C:\\users\\" + xml().UserWindows() + "\\documents", true))
-            {msg.add("A pasta documentos aceita converter em ninúscolo");}
+            for(String t : Arq.Folder(xml_config())){
+                
+                var demo = Texto.text(t, new char[]{'-','_',':'});
+                
+                if(demo.length() > 1 && !demo.equalsIgnoreCase("USERS")){
+                    
+                    if(Texto.ContChar(demo, '.') > 0){
+                        
+                        msg.add(Texto.substring(demo, '.', true).toUpperCase());
+                        
+                    } else if(Texto.arq(demo).length() > 1){//if(Texto.ContCh...
+                        
+                        msg.add(Texto.arq(demo).toUpperCase());
+                        
+                    } else {//if(Texto.ContChar(demo, '.') > 0)
+                        
+                        msg.add(demo.toUpperCase());
+                        
+                    }//if(Texto.ContChar(demo, '.') > 0)
+                    
+                }//if(demo.length() > 1 && !demo.equalsIgnoreCase("USERS"))
+                
+            }//for(String t : Arq.Folder(xml_config()))
             
             if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\Videos"))
             {msg.add("A pasta de vídeos existe!");}
@@ -96,7 +113,7 @@ public class Action {
             if(Arq.Dir("C:\\Users\\" + xml().UserWindows() + "\\Imagens"))
             {msg.add("A pasta de imagens existe!");}
             
-            if(controller.Msg(msg.get(0), msg, true)){
+            if(controller.Msg(Hora.Good(), msg, true)){
                 
                 for(String text : msg) System.out.println(text);
                 

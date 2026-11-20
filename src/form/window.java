@@ -217,16 +217,19 @@ public class window extends javax.swing.JFrame {
         
         String[] tem_0 = new String[10];
         
-        for(int s = 0; s < tem_0.length; s++) tem_0[s] = "";
+        for(int s = 0; s < tem_0.length; s++){
             
-        var s = 0;
-
-        do{
-
-            tem_0[s] = text.get(s);
-            s++;
-
-        }while(s > 0 && s < text.size() && s < tem_0.length);
+            if(!text.isEmpty() && s < text.size()){
+                
+                tem_0[s] = text.get(s);
+                
+            } else {//if(!text.isEmpty() && s < text.size())
+                
+                tem_0[s] = "";
+                
+            }//if(!text.isEmpty() && s < text.size())
+            
+        }//for(int s = 0; s < tem_0.length; s++)
         
         if(!this.page0_text.isEmpty()) this.page0_text.clear();
         
