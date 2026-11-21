@@ -1910,11 +1910,147 @@ public class Action {
     )
     {
         
-        var no_save_temp = true;
+        var no_save_temp = false;
         
-        // code
+        if(doc.List().isEmpty()){
+            
+            no_save_temp = true;
+            
+        } else {//if(doc.List().isEmpty())
+            
+            List<String> val = new ArrayList();
+            
+            for(xml_document_one d : doc.List()) val.add(d.getTitle());
+            
+            var id = Order.Proc(val, one.getTitle());
+            
+            if(id >= 0){
+                
+                var doc_new = doc.List().get(id);
+                
+                List<String> phrease = new ArrayList();
+                
+                if(one.getUrl().size() == 1){
+                    
+                    var l = one.getUrl().get(0);
+                    
+                    phrease.add(l.name());
+                    
+                    if(l.lnk().Link(false).size() > 1){
+                        
+                        for(String lnk : l.lnk().Link(false))
+                        {phrease.add(lnk);}
+                        
+                    }//if(l.lnk().Link(false).size() > 1)
+                
+                }//if(one.getUrl().size() == 1)
+                
+                if(one.getUrl().size() > 1){
+                    
+                    for(xml_document_link l : one.getUrl()){
+                        
+                        phrease.add(l.name());
+                        
+                        if(l.lnk().Link(false).size() > 1){
+                            
+                            for(String lnk : l.lnk().Link(false))
+                            {phrease.add(lnk);}
+                            
+                        }//if(l.lnk().Link(false).size() > 1)
+                    
+                    }//for(xml_document_link l : one.getUrl())
+                
+                }//if(one.getUrl().size() > 1)
+                
+                if(one.getText().size() == 1)
+                {phrease.addAll(Texto.phrase(one.getText().get(0)));}
+                
+                if(one.getText().size() > 1){
+                    
+                    for(String t : one.getText()){
+                        
+                        phrease.addAll(Texto.phrase(t));
+                    
+                    }//for(String t : one.getText())
+                
+                }//if(one.getText().size() > 1)
+                
+                var text_new = "";
+                
+                if(phrease.size() > 1){
+                    
+                    for(String p : phrease)
+                    {text_new += Texto.arq(p);}
+                    
+                    phrease.clear();
+                
+                }//if(phrease.size() > 1)
+                
+                if(doc_new.getUrl().size() == 1){
+                    
+                    var l = doc_new.getUrl().get(0);
+                    
+                    one.getText().add(l.name());
+                    
+                    if(l.lnk().Link(false).size() > 1){
+                        
+                        for(String lnk : l.lnk().Link(false))
+                        {phrease.add(lnk);}
+                        
+                    }//if(l.lnk().Link(false).size() > 1)
+                    
+                }//if(doc_new.getUrl().size() == 1)
+                
+                if(doc_new.getUrl().size() > 1){
+                    
+                    for(xml_document_link l : doc_new.getUrl()){
+                        
+                        one.getText().add(l.name());
+                        
+                        if(l.lnk().Link(false).size() > 1){
+                            
+                            for(String lnk : l.lnk().Link(false))
+                            {phrease.add(lnk);}
+                            
+                        }//if(l.lnk().Link(false).size() > 1)
+                    
+                    }//for(xml_document_link l : doc_new.getUrl())
+                
+                }//if(doc_new.getUrl().size() > 1)
+                
+                if(doc_new.getText().size() == 1){
+                    
+                    phrease.addAll(Texto.phrase(doc_new.getText().get(0)));
+                
+                }//if(doc_new.getText().size() == 1)
+                
+                if(doc_new.getText().size() > 1){
+                    
+                    for(String t : doc_new.getText()){
+                        
+                        phrease.addAll(Texto.phrase(t));
+                    
+                    }//for(String t : doc_new.getText())
+                
+                }//if(doc_new.getText().size() > 1)
+                
+                var text_old = "";
+                
+                if(phrease.size() > 1){
+                    
+                    for(String p : phrease)
+                    {text_old += Texto.arq(p);}
+                
+                }//if(phrease.size() > 1)
+                
+                no_save_temp = text_new.equals(text_old);
+                
+            }//if(id >= 0)
+            
+        }//if(doc.List().isEmpty())
         
-        // Dispensar salvamento temporário
+        // Não salvar arquivo temporário!
+        // Marcar item com ``~´´ no início.
         if(no_save_temp){
             
             controller.p1s(
