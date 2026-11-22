@@ -1903,6 +1903,122 @@ public class Action {
         
     }//session_save_temp
     
+    private static String SessionCancelText(xml_document_one val){
+        
+        final char code[] = {'_','-',':',';'};
+        
+        List<String> demo = new ArrayList();
+        
+        if(val.getText().size() == 1){
+            
+            var txt = val.getText().get(0);
+            
+            if(Texto.phrase(val.getText().get(0), code).size() == 1){
+                
+                demo.add(Texto.phrase(txt, code).get(0));
+                
+            }//if(Texto.phrase(val.getText().get(0), code).size() == 1)
+            
+            if(Texto.phrase(txt, code).size() > 1){
+                
+                for(String t : Texto.phrase(txt, code)) demo.add(t);
+                
+            }//if(Texto.phrase(txt, code).size() > 1)
+            
+        }//if(val.getText().size() == 1)
+        
+        if(val.getText().size() > 1){
+            
+            for(String txt : val.getText()){
+                
+                if(Texto.phrase(val.getText().get(0), code).size() == 1){
+                    
+                    demo.add(Texto.phrase(txt, code).get(0));
+                    
+                }//if(Texto.phrase(val.getText().get(0), code).size() == 1)
+                
+                if(Texto.phrase(txt, code).size() > 1){
+                    
+                    for(String t : Texto.phrase(txt, code)) demo.add(t);
+                    
+                }//if(Texto.phrase(txt, code).size() > 1)
+                
+            }//for(String txt : val.getText())
+            
+        }//if(val.getText().size() > 1)
+        
+        if(val.getUrl().size() == 1){
+            
+            xml_document_link cod = val.getUrl().get(0);
+            
+            if(cod.lnk().Link(true).size() > 1){
+                
+                for(String txt : cod.lnk().Link(true))
+                {demo.add(Texto.arq(txt));}
+                
+            }//if(cod.lnk().Link(true).size() > 1)
+            
+            if(Texto.phrase(cod.name(), code).size() == 1)
+            {demo.add(Texto.phrase(cod.name(), code).get(0));}
+            
+            if(Texto.phrase(cod.name(), code).size() > 1){
+                
+                for(String txt : Texto.phrase(cod.name(), code))
+                {demo.add(Texto.arq(txt));}
+                
+            }//if(Texto.phrase(cod.name(), code).size() > 1)
+            
+        }//if(val.getUrl().size() == 1)
+        
+        if(val.getUrl().size() > 1){
+            
+            for(xml_document_link cod : val.getUrl()){
+                
+                if(cod.lnk().Link(true).size() > 1){
+                    
+                    for(String txt : cod.lnk().Link(true))
+                    {demo.add(Texto.arq(txt));}
+                    
+                }//if(cod.lnk().Link(true).size() > 1)
+                
+                if(Texto.phrase(cod.name(), code).size() == 1)
+                {demo.add(Texto.phrase(cod.name(), code).get(0));}
+                
+                if(Texto.phrase(cod.name(), code).size() > 1){
+                    
+                    for(String txt : Texto.phrase(cod.name(), code))
+                    {demo.add(Texto.arq(txt));}
+                    
+                }//if(Texto.phrase(cod.name(), code).size() > 1)
+                
+            }//for(xml_document_link cod : val.getUrl())
+            
+        }//if(val.getUrl().size() > 1)
+        
+        if(demo.isEmpty()){
+            
+            return "";
+            
+        } else {//if(demo.isEmpty())
+            
+            var value = "";
+            
+            if(demo.size() == 1){
+                
+                value += Texto.arq(demo.get(0));
+            
+            } else {//if(demo.size() == 1)
+                
+                for(String txt : demo) value += Texto.arq(txt);
+                
+            }//if(demo.size() == 1)
+            
+            return value;
+            
+        }//if(demo.isEmpty())
+        
+    }//SessionCancelText(xml_document_one val)
+    
     public static void session_cancel(
         xml_document doc,
         xml_document_one one,
