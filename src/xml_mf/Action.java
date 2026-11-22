@@ -1954,7 +1954,7 @@ public class Action {
             if(cod.lnk().Link(true).size() > 1){
                 
                 for(String txt : cod.lnk().Link(true))
-                {demo.add(Texto.arq(txt));}
+                {demo.add(txt);}
                 
             }//if(cod.lnk().Link(true).size() > 1)
             
@@ -1964,7 +1964,7 @@ public class Action {
             if(Texto.phrase(cod.name(), code).size() > 1){
                 
                 for(String txt : Texto.phrase(cod.name(), code))
-                {demo.add(Texto.arq(txt));}
+                {demo.add(txt);}
                 
             }//if(Texto.phrase(cod.name(), code).size() > 1)
             
@@ -1977,7 +1977,7 @@ public class Action {
                 if(cod.lnk().Link(true).size() > 1){
                     
                     for(String txt : cod.lnk().Link(true))
-                    {demo.add(Texto.arq(txt));}
+                    {demo.add(txt);}
                     
                 }//if(cod.lnk().Link(true).size() > 1)
                 
@@ -1987,7 +1987,7 @@ public class Action {
                 if(Texto.phrase(cod.name(), code).size() > 1){
                     
                     for(String txt : Texto.phrase(cod.name(), code))
-                    {demo.add(Texto.arq(txt));}
+                    {demo.add(txt);}
                     
                 }//if(Texto.phrase(cod.name(), code).size() > 1)
                 
