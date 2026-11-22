@@ -1903,7 +1903,7 @@ public class Action {
         
     }//session_save_temp
     
-    private static String SessionCancelText(xml_document_one val){
+    private static String TextNew(xml_document_one val){
         
         final char code[] = {'_','-',':',';'};
         
@@ -2017,7 +2017,7 @@ public class Action {
             
         }//if(demo.isEmpty())
         
-    }//SessionCancelText(xml_document_one val)
+    }//TextNew(xml_document_one val)
     
     public static void session_cancel(
         xml_document doc,
@@ -2025,148 +2025,41 @@ public class Action {
         String title
     )
     {
+            
+        List<String> demo = new ArrayList();
         
-        var no_save_temp = false;
+        int id;
         
         if(doc.List().isEmpty()){
             
-            no_save_temp = true;
+            id = -1;
+            
+        }else if(doc.List().size() == 1){//if(doc.List().isEmpty())
+            
+            id = 0;
             
         } else {//if(doc.List().isEmpty())
             
-            List<String> val = new ArrayList();
-            
-            for(xml_document_one d : doc.List()) val.add(d.getTitle());
-            
-            var id = Order.Proc(val, one.getTitle());
-            
-            if(id >= 0){
-                
-                var doc_new = doc.List().get(id);
-                
-                List<String> phrease = new ArrayList();
-                
-                if(one.getUrl().size() == 1){
-                    
-                    var l = one.getUrl().get(0);
-                    
-                    phrease.add(l.name());
-                    
-                    if(l.lnk().Link(false).size() > 1){
-                        
-                        for(String lnk : l.lnk().Link(false))
-                        {phrease.add(lnk);}
-                        
-                    }//if(l.lnk().Link(false).size() > 1)
-                
-                }//if(one.getUrl().size() == 1)
-                
-                if(one.getUrl().size() > 1){
-                    
-                    for(xml_document_link l : one.getUrl()){
-                        
-                        phrease.add(l.name());
-                        
-                        if(l.lnk().Link(false).size() > 1){
-                            
-                            for(String lnk : l.lnk().Link(false))
-                            {phrease.add(lnk);}
-                            
-                        }//if(l.lnk().Link(false).size() > 1)
-                    
-                    }//for(xml_document_link l : one.getUrl())
-                
-                }//if(one.getUrl().size() > 1)
-                
-                if(one.getText().size() == 1)
-                {phrease.addAll(Texto.phrase(one.getText().get(0)));}
-                
-                if(one.getText().size() > 1){
-                    
-                    for(String t : one.getText()){
-                        
-                        phrease.addAll(Texto.phrase(t));
-                    
-                    }//for(String t : one.getText())
-                
-                }//if(one.getText().size() > 1)
-                
-                var text_new = "";
-                
-                if(phrease.size() > 1){
-                    
-                    for(String p : phrease)
-                    {text_new += Texto.arq(p);}
-                    
-                    phrease.clear();
-                
-                }//if(phrease.size() > 1)
-                
-                if(doc_new.getUrl().size() == 1){
-                    
-                    var l = doc_new.getUrl().get(0);
-                    
-                    one.getText().add(l.name());
-                    
-                    if(l.lnk().Link(false).size() > 1){
-                        
-                        for(String lnk : l.lnk().Link(false))
-                        {phrease.add(lnk);}
-                        
-                    }//if(l.lnk().Link(false).size() > 1)
-                    
-                }//if(doc_new.getUrl().size() == 1)
-                
-                if(doc_new.getUrl().size() > 1){
-                    
-                    for(xml_document_link l : doc_new.getUrl()){
-                        
-                        one.getText().add(l.name());
-                        
-                        if(l.lnk().Link(false).size() > 1){
-                            
-                            for(String lnk : l.lnk().Link(false))
-                            {phrease.add(lnk);}
-                            
-                        }//if(l.lnk().Link(false).size() > 1)
-                    
-                    }//for(xml_document_link l : doc_new.getUrl())
-                
-                }//if(doc_new.getUrl().size() > 1)
-                
-                if(doc_new.getText().size() == 1){
-                    
-                    phrease.addAll(Texto.phrase(doc_new.getText().get(0)));
-                
-                }//if(doc_new.getText().size() == 1)
-                
-                if(doc_new.getText().size() > 1){
-                    
-                    for(String t : doc_new.getText()){
-                        
-                        phrease.addAll(Texto.phrase(t));
-                    
-                    }//for(String t : doc_new.getText())
-                
-                }//if(doc_new.getText().size() > 1)
-                
-                var text_old = "";
-                
-                if(phrease.size() > 1){
-                    
-                    for(String p : phrease)
-                    {text_old += Texto.arq(p);}
-                
-                }//if(phrease.size() > 1)
-                
-                no_save_temp = text_new.equals(text_old);
-                
-            }//if(id >= 0)
-            
+            for(xml_document_one x : doc.List())
+            {demo.add(x.getTitle());}
+
+            id = Order.Proc(demo, title);
+
         }//if(doc.List().isEmpty())
         
-        // Não salvar arquivo temporário!
-        // Marcar item com ``~´´ no início.
+        boolean no_save_temp;
+        
+        if(id >= 0 && id < doc.List().size() && !doc.List().isEmpty()){
+            
+            no_save_temp = TextNew(doc.List().get(id)).equals(TextNew(one));
+            
+        } else {//if(id >= 0 && id < doc.List().size() && !doc.List().isEmpty())
+            
+            no_save_temp = false;
+            
+        }//if(id >= 0 && id < doc.List().size() && !doc.List().isEmpty())
+        
+        // Não criar item temporário?
         if(no_save_temp){
             
             controller.p1s(
